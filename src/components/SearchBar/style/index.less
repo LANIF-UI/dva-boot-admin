@@ -1,0 +1,99 @@
+@import "~antd/lib/style/themes/default.less";
+
+@searchbar-prefix-cls: antui-searchbar;
+
+// SearchBar styles
+// -----------------------------
+.@{searchbar-prefix-cls} {
+  .form-inline{
+    position: relative;
+    display: table;
+    border-collapse: separate;
+    border-spacing: 0;
+    line-height: 1;
+    .row-item{
+      display: table-cell;
+      position: relative;
+      .col-item{
+        float: left;
+        margin-bottom: 0;
+        position: relative;
+        &:hover{
+          z-index: 2;
+        }
+        .ant-input, 
+        .ant-select-selection {
+          &:focus, &:active{
+            z-index: 2;
+          }
+        } 
+        .ant-input-number-focused {
+          z-index: 2;
+        }
+        .ant-select-open .ant-select-selection{
+          z-index: 2;
+        }
+        .ant-input-number {
+          margin: 0;
+        }
+      }
+      .col-item:first-child .ant-input,
+      .col-item:first-child .ant-select .ant-select-selection,
+      .col-item:first-child .ant-calendar-picker .ant-input,
+      .col-item:first-child .ant-input-number{
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
+      }
+      
+      .col-item:not(:first-child) .ant-input,
+      .col-item:not(:first-child) .ant-select .ant-select-selection,
+      .col-item:not(:first-child) .ant-calendar-picker .ant-input,
+      .col-item:not(:first-child) .ant-input-number {
+        border-radius: 0;
+      }
+
+      .col-item:not(:first-child) {
+        margin-left: -1px;
+      }
+    }
+    .search-btns{
+      float: left;
+      margin-bottom: 0;
+      position: relative;
+      display: table-cell;
+      margin-left: -1px;
+      button{
+        padding-left: 8px;
+        padding-right: 8px;
+        font-size: 14px;
+        > span {
+          display: none;
+        }
+      }
+      button:first-child{
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+      }
+    }
+  }
+  .form-grid{
+    .row-item{
+      .col-item{
+        .ant-calendar-picker {
+          width: 100%;
+        }
+        .ant-input-number {
+          width: 100%;
+        }
+        .col-item-content{
+          margin-bottom: 12px;
+        }
+      }
+    }
+    .search-btns{
+      button{
+        margin-right: 5px;
+      }
+    }
+  }
+}

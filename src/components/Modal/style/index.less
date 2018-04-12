@@ -1,0 +1,37 @@
+.antui-modalform.ant-modal {
+  & {
+    .ant-modal-body {
+
+    }
+  }
+  &.full-modal {
+    position: absolute;
+    top: 20px;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    padding: 0;
+    width: auto !important;
+    .ant-modal-content {
+      height: 100%;
+      position: relative;
+      .ant-modal-body {
+        padding: 0;
+        position: absolute;
+        top: 55px;
+        bottom: 53px;
+        left: 0;
+        right: 0;
+        overflow-x: hidden;
+        overflow-y: auto;
+      }
+      .ant-modal-footer {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        text-align: center;
+      }
+    }
+  }
+}

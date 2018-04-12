@@ -1,0 +1,69 @@
+@import "~antd/lib/style/themes/default.less";
+
+@datatable-prefix-cls: antui-datatable;
+
+// DataTable styles
+// -----------------------------
+.@{datatable-prefix-cls} {
+    &.table-row-alternate-color{
+      table {
+        background: #FFF;
+        width: 100%;
+        tr:nth-child(odd) {background: #FFF}
+        tr:nth-child(even) {background: #f6f6f6}
+        tr:hover{
+            background: rgba(45, 183, 245, 0.2);
+        }       
+      }
+    }
+    .ant-table-small {
+      border: none;
+      border-radius: 0px;
+    }
+    .ant-table-small .ant-table-tbody > tr > td {
+      padding: 3px 8px;
+      height: 35px;
+    }
+    .ant-table-footer{
+      padding: 8px;
+    }
+
+    .table-row-button{
+      button{
+        border: none;
+        background-color: transparent;
+        font-size: 20px;
+        height: 20px;
+        color: @primary-color;
+        padding:0px 5px ;
+        outline:none;
+        vertical-align: middle;
+        overflow: hidden;
+        > i {
+          vertical-align: top;
+        }
+        &:hover,
+        &:focus {
+          background-color: transparent;
+          color: tint(@primary-color, 40%);
+        }
+        &:active,
+        &.active {
+          background-color: transparent;
+        }
+
+        &.disabled,
+        &[disabled],
+        fieldset[disabled] & {
+          &,
+          &:hover,
+          &:focus,
+          &:active,
+          &.active {
+              background-color: transparent;
+              color: #ccc;
+          }
+        }
+      }
+    }
+}
