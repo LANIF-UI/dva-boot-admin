@@ -1,0 +1,197 @@
+// navbar
+.navbar {
+  z-index: 1030;
+  margin-bottom: 0;
+  height: 60px;
+  color: #666;
+  background-color: #fff;
+  border-radius: 0;
+  border: 0;
+  border-bottom: 0;
+  box-shadow: 0 1px 0 0 #e0e0e0;
+  padding-left: 0;
+  list-style: none;
+  i {
+    position: relative;
+    top: -1px;
+    vertical-align: middle;
+  }
+  // Logo
+  .navbar-branding {
+    position: relative;
+    overflow: hidden;
+    float: left;
+    width: 250px;
+    height: 60px;
+    margin-right: 10px;
+    background-color: transparent;
+    .navbar-brand {
+      color: #666;
+      height: 60px;
+      line-height: 58px;
+      padding: 0;
+      padding-left: 20px;
+      font-size: 17px;
+      font-weight: 400;
+      letter-spacing: 0.6px;
+      b {
+        font-weight: bold;
+        padding-right: 1px;
+      }
+    }
+    // 左侧导航收缩按钮
+    .toggle_sidemenu_l {
+      color: #666;
+      float: right;
+      cursor: pointer;
+      font-size: 16px;
+      line-height: 58px;
+      max-height: 60px;
+      width: 60px;
+      text-align: center;
+      -webkit-touch-callout: none;
+      user-select: none;
+    }
+  }
+
+  .navbar-nav{
+    &.navbar-left {
+      float: left;
+      position: relative;
+      max-height: 60px;
+      a {
+        font-size: 18px;
+        padding-right: 12px;
+        padding-left: 12px;
+      }
+    }
+    &.navbar-right {
+      float: right;
+      margin: 0 15px 0 0;
+      li {
+        float: left;
+        position: relative;
+        display: block;
+        .navbar-btn {
+          padding: 0 5px;
+          margin-top: 15px;
+          margin-bottom: 15px;
+          position: relative;
+          display: inline-block;
+          vertical-align: middle;
+          .btn {
+            display: inline-block;
+            margin-bottom: 0;
+            font-weight: normal;
+            text-align: center;
+            vertical-align: middle;
+            cursor: pointer;
+            background-image: none;
+            border: 1px solid transparent;
+            border-color: rgba(0, 0, 0, 0.07) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.18);
+            white-space: nowrap;
+            padding: 9px 12px;
+            font-size: 13px;
+            line-height: 1.49;
+            border-radius: 2px;
+            user-select: none;
+            padding: 5px 10px;
+            font-size: 12px;
+            line-height: 1.5;
+            border-radius: 2px;
+            i {
+              font-size: 14px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .nav > a {
+    color: #666;
+    font-size: 13px;
+    font-weight: 600;
+    height: 59px;
+    line-height: 59px;
+    position: relative;
+    display: block;
+    &:focus,
+    &:hover {
+      color: #222;
+      background-color: #f7f7f7;
+    }
+  }
+
+  // 搜索框
+  .navbar-form {
+    width: auto;
+    border: 0;
+    margin: 15px 0;
+    padding-bottom: 0;
+    box-shadow: none;
+    padding: 0px 11px;
+    float: left;
+    &.navbar-search input {
+      height: 30px;
+      padding: 0 12px;
+      transition: all 0.2s ease;
+      box-shadow: none;
+      border-radius: 3px;
+      border-color: #eee;
+    }
+    &.navbar-search input:focus {
+      background-color: #fafafa;
+      border-color: #f0f0f0;
+    }
+    .form-group {
+      display: inline-block;
+      margin-bottom: 0;
+      vertical-align: middle;
+    }
+  }
+
+  &.navbar-shadow {
+    box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.08),
+      0px 2px 0px 0px rgba(0, 0, 0, 0.02);
+  }
+
+  // 深色皮肤
+  &.bg-dark {
+    background-color: #3b3f4f;
+  }
+  &.bg-dark .nav > li.open > a,
+  &.bg-dark .nav > li:hover > a,
+  &.bg-dark .nav > li:focus > a,
+  &.bg-dark .nav > li.active > a,
+  &.bg-dark .nav > li > a:hover,
+  &.bg-dark .nav > li > a:focus {
+    color: #fff;
+    background-color: #2e313d;
+  }
+  &.bg-dark .nav > li.dropdown.open .dropdown-menu,
+  &.bg-dark .nav > li.dropdown .open .dropdown-menu {
+    border-top-color: #3b3f4f;
+  }
+  &.bg-dark .nav > li.dropdown.open .dropdown-menu:after,
+  &.bg-dark .nav > li.dropdown .open .dropdown-menu:after {
+    border-bottom-color: #3b3f4f;
+  }
+  &.bg-dark .nav > li.dropdown.open .dropdown-menu:after,
+  &.bg-dark .nav > li.dropdown .open .dropdown-menu:after {
+    border-bottom-color: #3b3f4f;
+  }
+  &.bg-dark .nav > li .dropdown-toggle + .dropdown-menu > .active > a,
+  &.bg-dark .nav > li .dropdown-toggle + .dropdown-menu > .active > a:hover,
+  &.bg-dark
+    .nav
+    > li
+    .dropdown-toggle
+    + .dropdown-menu
+    > .active
+    > a:focus {
+    color: #fff;
+    background-color: #3b3f4f;
+  }
+}
+

@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'dva';
-import { Layout, Icon } from 'antd';
+import { Layout } from 'antd';
 import { Switch } from 'dva/router';
 import { Notification } from 'components';
+import NavBar from 'components/NavBar';
 import './styles/basic.less';
 const { Content, Header, Sider } = Layout;
 
@@ -24,17 +25,7 @@ export default class BasicLayout extends React.PureComponent {
     return (
       <Layout className="full-layout basic-layout">
         <Header>
-          <header className="navbar">
-            <div className="navbar-branding">
-              <a className="navbar-brand"><b>Absolute</b>Admin</a>
-              <span>
-                <Icon type="menu-fold" />
-              </span>
-            </div>
-            <ul className="nav navbar-nav navbar-left"></ul>
-            <form className="navbar-form navbar-search"></form>
-            <ul className="nav navbar-nav navbar-right"></ul>
-          </header>
+          <NavBar />
         </Header>
         <Layout>
           <Sider>Sider</Sider>

@@ -1,7 +1,7 @@
 {
   "name": "dva-boot-admin",
   "version": "1.0.0",
-  "description": "现场作业安全管控pc端",
+  "description": "dva-boot-admin",
   "main": "index.js",
   "repository": "https://github.com/LANIF-UI/dva-boot-admin.git",
   "license": "MIT",

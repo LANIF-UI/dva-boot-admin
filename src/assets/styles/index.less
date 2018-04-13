@@ -16,6 +16,12 @@ body {
   background-color: #f9f9f9;
 }
 
+ul, ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
 a, 
 a:link {
   text-decoration: none;
@@ -28,6 +34,46 @@ a:hover {
   text-decoration: none;
 }
 
+// 字体图标
+@font-face {
+  font-family: "AdminDesigns";
+  src: url("../fonts/admindesigns/admindesigns.eot");
+  src: url("../fonts/admindesigns/admindesigns.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/admindesigns/admindesigns.woff") format("woff"),
+    url("../fonts/admindesigns/admindesigns.ttf") format("truetype"),
+    url("../fonts/admindesigns/admindesigns.svg#admindesigns") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+.ad {
+  position: relative;
+  display: inline-block;
+  font: normal normal normal 16px/1 AdminDesigns;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transform: translate(0, 0);
+}
+.ad-lines:before {
+  content: "\e600";
+}
+.ad-wand {
+  top: 1px;
+}
+.ad-wand:before {
+  content: "\e010";
+}
+.ad-radio-tower:before {
+  content: "\f030";
+}
+.ad-ruby:before {
+  content: "\f047";
+}
+.ad-screen-full:before {
+  content: "\f066";
+}
+
 // 全屏布局
 .full-layout {
   &.ant-layout {
@@ -37,22 +83,23 @@ a:hover {
     left: 0px;
     right: 0px;
    
+    .ant-layout-header {
+      height: auto;
+      line-height: normal;
+      padding: 0;
+      background: #fff;
+      z-index: 1;
+    }
+
     .ant-layout-content {
       position: relative;
       overflow: auto;
     }
- 
-    .ant-layout-header {
-      height: auto;
-      padding: 0;
-      background: #fff;
-      border-bottom: 1px solid @border-color-base;
-    }
+
     .ant-layout-footer {
       text-align: center;
       width: 100%;
       background-color: #fff;
-      border-top: 1px solid @border-color-base;
       padding: 10px;
 
       ul{
@@ -62,6 +109,7 @@ a:hover {
   }
 }
 
+// 通用定义
 .nobr {
   display: block;
   text-overflow: ellipsis;
@@ -81,5 +129,25 @@ a:hover {
     visibility: hidden;
     font-size: 0;
     height: 0;
+  }
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  height: 39px;
+  padding: 9px 12px;
+  font-size: 13px;
+  line-height: 1.49;
+  color: #555555;
+  background-color: #ffffff;
+  background-image: none;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  -webkit-transition: border-color ease-in-out 0.15s;
+  -o-transition: border-color ease-in-out 0.15s;
+  transition: border-color ease-in-out 0.15s;
+  &:focus {
+    outline: 0;
   }
 }

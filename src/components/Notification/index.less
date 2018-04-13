@@ -27,31 +27,33 @@
   &.active .content.success {background-color:#8bc34a;}
   &.active .content.dark {background-color:#414141;}
   &.active .content {opacity:1;visibility:visible;}
-  .close {
-    position: absolute;
-    right: 8px;
-    top: 10px;
-    display: inline-block;
-    width: 14px;
-    height: 14px;
-    overflow: hidden;
-    cursor: pointer;
-
-    &::before, &::after {
-      content: '';
+  &.active {
+    .close {
       position: absolute;
-      height: 1px;
-      width: 100%;
-      top: 50%;
-      left: 0;
-      margin-top: -1px;
-      background: #fff;
-    }
-    &::before {
-      transform: rotate(45deg);
-    }
-    &::after {
-      transform: rotate(-45deg);
-    }
+      right: 8px;
+      top: 10px;
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      overflow: hidden;
+      cursor: pointer;
+  
+      &::before, &::after {
+        content: '';
+        position: absolute;
+        height: 1px;
+        width: 100%;
+        top: 50%;
+        left: 0;
+        margin-top: -1px;
+        background: #fff;
+      }
+      &::before {
+        transform: rotate(45deg);
+      }
+      &::after {
+        transform: rotate(-45deg);
+      }
+    }   
   }
 }

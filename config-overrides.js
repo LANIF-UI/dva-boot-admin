@@ -43,14 +43,10 @@ module.exports = function override(config, env) {
     })
   );
 
-  const iconUrl = env === 'development' ? '' : '/site_operations_pc';
-
   return rewireLess.withLoaderOptions(
     `${env === 'production' ? 'app' : '[local]'}-[hash:base64:8]`,
     {
-      modifyVars: {
-        '@icon-url': JSON.stringify(iconUrl + '/fonts/iconfont'),
-      }
+      modifyVars: {}
     }
   )(config, env);
 };

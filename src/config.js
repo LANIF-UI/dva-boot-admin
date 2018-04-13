@@ -8,7 +8,7 @@ const notice = Notification.notice;
 export default {
   // 异步请求配置
   request: {
-    prefix: process.env.NODE_ENV === 'development' ? '/api' : '',
+    prefix: '/api',
 
     /**
      * 因为modelEnhance需要知道服务器反回的数据，
