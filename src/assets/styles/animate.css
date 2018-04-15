@@ -1,0 +1,26 @@
+/*  Animate.css Helpers */
+ .animated-delay,
+ .animated-waypoint {
+ }
+ .sparkline-delay {
+   position: absolute;
+   bottom: 0;
+   width: 40px;
+   height: 35px;
+   line-height: 24px;
+ }
+ .animated.animated-delay {
+  animation-delay: .6s !important;
+ }
+ .animated.animated-short {
+   animation-duration: 0.6s !important;
+ }
+ .animated.animated-shorter {
+   animation-duration: 0.3s !important;
+ }
+ .animated.animated-long {
+   animation-duration: 1.4s !important;
+ }
+ .animated.animated-longer {
+   animation-duration: 2s !important;
+ }

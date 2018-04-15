@@ -1,3 +1,4 @@
+@import "~antd/lib/style/themes/default.less";
 // navbar
 .navbar {
   z-index: 1030;
@@ -59,11 +60,6 @@
       float: left;
       position: relative;
       max-height: 60px;
-      a {
-        font-size: 18px;
-        padding-right: 12px;
-        padding-left: 12px;
-      }
     }
     &.navbar-right {
       float: right;
@@ -106,16 +102,21 @@
         }
       }
     }
+    &.nav > li {
+      float: left;
+    }
   }
 
-  .nav > a {
+  .nav > li > a {
     color: #666;
-    font-size: 13px;
     font-weight: 600;
     height: 59px;
     line-height: 59px;
     position: relative;
     display: block;
+    font-size: 18px;
+    padding-right: 12px;
+    padding-left: 12px;
     &:focus,
     &:hover {
       color: #222;
@@ -137,7 +138,7 @@
       padding: 0 12px;
       transition: all 0.2s ease;
       box-shadow: none;
-      border-radius: 3px;
+      border-radius: 20px;
       border-color: #eee;
     }
     &.navbar-search input:focus {
@@ -195,3 +196,21 @@
   }
 }
 
+// 弹出样式重写
+.navbar-popup {
+  padding-top: 5px !important;
+  .ant-popover-inner{
+    border-top: 3px solid @primary-6;
+    .ant-popover-title{
+      padding: 8px;
+      background: #fafafa;
+    }
+  }
+  .ant-popover-arrow {
+    top: 0px !important;
+    background: @primary-6;
+    width: 10px;
+    height: 10px;
+    z-index: -1;
+  }
+}
