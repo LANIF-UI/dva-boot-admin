@@ -4,15 +4,39 @@ import { Layout } from 'antd';
 import { Switch } from 'dva/router';
 import { Notification } from 'components';
 import NavBar from 'components/NavBar';
+import LeftSideBar from 'components/LeftSideBar';
+import TopBar from 'components/TopBar';
 import './styles/basic.less';
-const { Content, Header, Sider } = Layout;
+const { Content, Header } = Layout;
 
 @connect()
 export default class BasicLayout extends React.PureComponent {
-  componentDidMount() {
-  }
+  state = {
+    collapsedLeftSide: false,
+    leftCollapsedWidth: 60
+  };
+
+  componentDidMount() {}
+
+  onCollapseLeftSide = _ => {
+    this.setState({
+      collapsedLeftSide:
+        this.state.leftCollapsedWidth === 0
+          ? true
+          : !this.state.collapsedLeftSide,
+      leftCollapsedWidth: 60
+    });
+  };
+
+  onCollapseLeftSideAll = _ => {
+    this.setState({
+      collapsedLeftSide: true,
+      leftCollapsedWidth: 0
+    });
+  };
 
   render() {
+    const { collapsedLeftSide, leftCollapsedWidth } = this.state;
     const { routerData } = this.props;
     const { childRoutes } = routerData;
     let allpath = this.props.location.pathname + this.props.location.search;
@@ -25,14 +49,26 @@ export default class BasicLayout extends React.PureComponent {
     return (
       <Layout className="full-layout basic-layout">
         <Header>
-          <NavBar />
+          <NavBar
+            collapsed={collapsedLeftSide}
+            onCollapseLeftSide={this.onCollapseLeftSide}
+          />
         </Header>
         <Layout>
-          <Sider>Sider</Sider>
+          <LeftSideBar
+            collapsed={collapsedLeftSide}
+            leftCollapsedWidth={leftCollapsedWidth}
+            onCollapsed={this.onCollapseLeftSideAll}
+          />
           <Content>
-            <Switch>
-              {childRoutes}
-            </Switch>
+            <Layout className="full-layout">
+              <Header>
+                <TopBar />
+              </Header>
+              <Content>
+                <Switch>{childRoutes}</Switch>
+              </Content>
+            </Layout>
           </Content>
         </Layout>
         <Notification />

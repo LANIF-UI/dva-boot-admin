@@ -1,0 +1,32 @@
+@import "~antd/lib/style/themes/default.less";
+// 左侧边栏
+.sidebar-left {
+  transition: all 0.2s ease;
+  &.sidebar-left-sm {
+    .ant-menu {
+      &.ant-menu-inline-collapsed {
+        width: 60px;
+        > .ant-menu-submenu .ant-menu-submenu-title {
+          padding: 0 20px !important;
+          .anticon {
+            font-size: 18px;
+          }
+        }
+      }
+    }
+  }
+  .sidebar-toggle-mini {
+    text-align: center;
+  }
+}
+
+.ant-menu-submenu-popup.ant-menu-dark,
+.ant-menu.ant-menu-dark {
+  .ant-menu-item {
+    border-left: 4px solid transparent;
+  }
+  .ant-menu-item-selected {
+    background-color: #001529;
+    border-left: 4px solid @primary-color;
+  }
+}

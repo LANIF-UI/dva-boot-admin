@@ -11,13 +11,14 @@ class NavBar extends Component {
   }
 
   render() {
-    const {fixed, theme} = this.props;
+    const {fixed, theme, onCollapseLeftSide, collapsed} = this.props;
 
     const classnames = cx(
       'navbar', 
       'navbar-shadow', 
       {
         'navbar-fixed-top': !!fixed,
+        'navbar-sm': collapsed,
         [theme]: !!theme,
       }
     );
@@ -26,7 +27,7 @@ class NavBar extends Component {
       <header className={classnames}>
         <div className="navbar-branding">
           <a className="navbar-brand"><b>LANIF</b>Admin</a>
-          <span className="toggle_sidemenu_l">
+          <span className="toggle_sidemenu_l" onClick={onCollapseLeftSide}>
             <Icon type="lines" />
           </span>
         </div>
