@@ -2,5 +2,6 @@
 {
   "editor.tabSize": 2,
   "editor.renderIndentGuides": true,
-  "eslint.enable": true
+  "eslint.enable": true,
+  "prettier.singleQuote": true,
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Icon from '../Icon';
-import { Popover } from 'antd';
+import { Popover, Badge, Avatar } from 'antd';
 import cx from 'classnames';
 import './style/index.less';
 
@@ -25,7 +25,7 @@ class NavBar extends Component {
     return (
       <header className={classnames}>
         <div className="navbar-branding">
-          <a className="navbar-brand"><b>Absolute</b>Design</a>
+          <a className="navbar-brand"><b>LANIF</b>Admin</a>
           <span className="toggle_sidemenu_l">
             <Icon type="lines" />
           </span>
@@ -56,8 +56,16 @@ class NavBar extends Component {
           <li className="dropdown">
             <Popover placement="bottomRight" title={'通知'} 
               overlayClassName="navbar-popup" content={''} trigger="click">
-              <a className="dropdown-toggle" href="pages_blank.html#">
+              <a className="dropdown-toggle">
                 <Icon type="radio-tower" />
+              </a>
+            </Popover>
+          </li>
+          <li className="dropdown">
+            <Popover placement="bottomRight" title={'WELCOME 魏小雨'} 
+              overlayClassName="navbar-popup" content={<UserDropDown />} trigger="click">
+              <a className="dropdown-toggle">
+                <Badge dot><Avatar src={require('assets/images/avatar.jpg')}>小雨</Avatar></Badge>
               </a>
             </Popover>
           </li>
@@ -66,5 +74,30 @@ class NavBar extends Component {
     );
   }
 }
+
+const UserDropDown = (props) => (
+  <ul class="dropdown-menu list-group dropdown-persist">
+    <li class="list-group-item">
+      <a href="pages_blank.html#" class="animated animated-short fadeInUp">
+        <span class="fa fa-envelope"></span> 信息
+        <span class="label label-warning">2</span>
+      </a>
+    </li>
+    <li class="list-group-item">
+      <a href="pages_blank.html#" class="animated animated-short fadeInUp">
+        <span class="fa fa-user"></span> 好友
+        <span class="label label-warning">6</span>
+      </a>
+    </li>
+    <li class="list-group-item">
+      <a href="pages_blank.html#" class="animated animated-short fadeInUp">
+        <span class="fa fa-gear"></span> 帐户设置 </a>
+    </li>
+    <li class="list-group-item">
+      <a href="pages_blank.html#" class="animated animated-short fadeInUp">
+        <span class="fa fa-power-off"></span> 退出 </a>
+    </li>
+  </ul>
+)
 
 export default NavBar;

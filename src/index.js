@@ -17,15 +17,13 @@ const app = dva({ history: createHistory() });
 
 // -> 插件
 app.use(createLoading());
-app.use({onError: config.exception.global});
+app.use({ onError: config.exception.global });
 
 // -> 请求
-request
-  .config(config.request)
-  .headers(_ => ({
-    userId: store.getStore('userId')
-  }));
-  
+request.config(config.request).headers(_ => ({
+  userId: store.getStore('userId')
+}));
+
 // -> loading
 dynamic.setDefaultLoadingComponent(() => config.router.loading);
 
@@ -33,13 +31,11 @@ dynamic.setDefaultLoadingComponent(() => config.router.loading);
 // app.model(require('./models/global').default);
 
 // -> 初始化路由
-app.router(
-  ({ history, app }) => (
-    <LocaleProvider locale={zh_CN}>
-      <Router history={history}>{createRoutes(app)}</Router>
-    </LocaleProvider>
-  )
-);
+app.router(({ history, app }) => (
+  <LocaleProvider locale={zh_CN}>
+    <Router history={history}>{createRoutes(app)}</Router>
+  </LocaleProvider>
+));
 
 // -> Start
 app.start('#root');
