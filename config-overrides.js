@@ -1,5 +1,5 @@
 const path = require('path');
-const { injectBabelPlugin, compose } = require('react-app-rewired');
+const { injectBabelPlugin } = require('react-app-rewired');
 const rewireLess = require('react-app-rewire-less-modules');
 const AutoDllPlugin = require('autodll-webpack-plugin');
 
