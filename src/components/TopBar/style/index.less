@@ -1,0 +1,60 @@
+@import "~antd/lib/style/themes/default.less";
+// topbar
+.topbar {
+  z-index: 2;
+  position: relative;
+  border-bottom: 1px solid #e0e0e0;
+  .topbar-dropmenu {
+    z-index: 9999;
+    overflow: hidden;
+    display: none;
+    position: relative;
+    padding: 17px 20px 10px;
+    height: auto;
+    width: 100%;
+    background: url(../../../assets/images/topbar-bg.jpg) repeat -60px top;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.4) inset;
+    .ant-row {
+      > div > a{
+        display: block;
+        color: #FFF;
+        height: 95px;
+        position: relative;
+        padding: 15px 5px 0;
+        margin-bottom: 8px;
+        border-radius: 4px;
+        text-align: center;
+        background: rgba(255, 255, 255, 0.25);
+        transition: background 0.2s ease;
+      }
+    }
+  }
+  .topbar-content {
+    position: relative;
+    min-height: 51px;
+    padding: 10px 21px;
+    background: #fafafa;
+    .ant-breadcrumb {
+      display: inline-block;
+      font-size: 13px;
+      .first {
+        color: #555;
+        font-size: 18px;
+      }
+      a {
+        color: @primary-6;
+        &:hover {
+          color: tint(@primary-6);
+        }
+      }
+    }
+    .topbar-right {
+      float: right;
+      font-size: 22px;
+      color: @primary-6;
+      &:hover {
+        color: tint(@primary-6);
+      }
+    }
+  }
+}

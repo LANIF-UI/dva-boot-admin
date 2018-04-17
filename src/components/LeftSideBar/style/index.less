@@ -4,6 +4,8 @@
   transition: all 0.2s ease;
   &.sidebar-left-sm {
     .ant-menu {
+      transition: transform 0.3s ease;
+      transform: translate3d(0, 0 ,0);
       &.ant-menu-inline-collapsed {
         width: 60px;
         > .ant-menu-submenu .ant-menu-submenu-title {
@@ -14,7 +16,13 @@
         }
       }
     }
+    &.sidebar-left-close {
+      .ant-menu {
+        transform: translate3d(-2000px, 0 ,0);
+      }
+    }
   }
+  
   .sidebar-toggle-mini {
     text-align: center;
   }

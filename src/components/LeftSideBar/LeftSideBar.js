@@ -21,6 +21,7 @@ class LeftSideBar extends Component {
       {
         'affix': !!fixed,
         'sidebar-left-sm': collapsed,
+        'sidebar-left-close': leftCollapsedWidth === 0,
         [theme]: !!theme,
       }
     );
@@ -29,7 +30,7 @@ class LeftSideBar extends Component {
       <Sider
         className={classnames}
         width={230}
-        collapsedWidth={leftCollapsedWidth}
+        collapsedWidth={leftCollapsedWidth + .1}
         collapsible
         collapsed={collapsed}
         trigger={null}
