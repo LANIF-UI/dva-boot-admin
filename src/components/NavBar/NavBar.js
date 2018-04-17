@@ -11,7 +11,7 @@ class NavBar extends Component {
   }
 
   render() {
-    const {fixed, theme, onCollapseLeftSide, collapsed} = this.props;
+    const {fixed, theme, onCollapseLeftSide, collapsed, onExpandTopBar} = this.props;
 
     const classnames = cx(
       'navbar', 
@@ -33,17 +33,17 @@ class NavBar extends Component {
         </div>
         <ul className="nav navbar-nav navbar-left clearfix">
           <li>
-            <a className="sidebar-menu-toggle" href="dashboard.html#">
+            <a className="sidebar-menu-toggle">
               <Icon type="ruby" />
             </a>
           </li>
           <li>
-            <a className="topbar-menu-toggle" href="dashboard.html#">
+            <a className="topbar-menu-toggle" onClick={onExpandTopBar}>
               <Icon type="wand" />
             </a>
           </li>
           <li className="hidden-xs">
-            <a className="request-fullscreen toggle-active" href="dashboard.html#">
+            <a className="request-fullscreen toggle-active">
               <Icon type="screen-full" />
             </a>
           </li>

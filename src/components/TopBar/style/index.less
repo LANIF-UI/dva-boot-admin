@@ -1,20 +1,28 @@
 @import "~antd/lib/style/themes/default.less";
 // topbar
 .topbar {
-  z-index: 2;
   position: relative;
   border-bottom: 1px solid #e0e0e0;
   .topbar-dropmenu {
     z-index: 9999;
     overflow: hidden;
-    display: none;
     position: relative;
-    padding: 17px 20px 10px;
-    height: auto;
+    max-height: 0;
     width: 100%;
     background: url(../../../assets/images/topbar-bg.jpg) repeat -60px top;
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.4) inset;
+    transition: .2s max-height ease;
+    &:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      background: rgba(0, 0, 0, 0.4);
+    }
     .ant-row {
+      padding: 17px 20px 10px;
       > div > a{
         display: block;
         color: #FFF;
@@ -28,6 +36,9 @@
         transition: background 0.2s ease;
       }
     }
+  }
+  &.topbar-expand .topbar-dropmenu{
+    max-height: 1000px;
   }
   .topbar-content {
     position: relative;

@@ -13,7 +13,8 @@ const { Content, Header } = Layout;
 export default class BasicLayout extends React.PureComponent {
   state = {
     collapsedLeftSide: false,
-    leftCollapsedWidth: 60
+    leftCollapsedWidth: 60,
+    expandTopBar: false,
   };
 
   componentDidMount() {}
@@ -35,8 +36,20 @@ export default class BasicLayout extends React.PureComponent {
     });
   };
 
+  onExpandTopBar = _ => {
+    this.setState({
+      expandTopBar: true
+    })
+  }
+
+  onCollapseTopBar = _ => {
+    this.setState({
+      expandTopBar: false
+    })
+  }
+
   render() {
-    const { collapsedLeftSide, leftCollapsedWidth } = this.state;
+    const { collapsedLeftSide, leftCollapsedWidth, expandTopBar } = this.state;
     const { routerData } = this.props;
     const { childRoutes } = routerData;
     let allpath = this.props.location.pathname + this.props.location.search;
@@ -52,6 +65,7 @@ export default class BasicLayout extends React.PureComponent {
           <NavBar
             collapsed={collapsedLeftSide}
             onCollapseLeftSide={this.onCollapseLeftSide}
+            onExpandTopBar={this.onExpandTopBar}
           />
         </Header>
         <Layout>
@@ -63,7 +77,7 @@ export default class BasicLayout extends React.PureComponent {
           <Content>
             <Layout className="full-layout">
               <Header>
-                <TopBar />
+                <TopBar expand={expandTopBar}/>
               </Header>
               <Content>
                 <Switch>{childRoutes}</Switch>
@@ -72,6 +86,7 @@ export default class BasicLayout extends React.PureComponent {
           </Content>
         </Layout>
         <Notification />
+        {expandTopBar ? <div className="basic-mask animated fadeIn" onClick={this.onCollapseTopBar} /> : null}
       </Layout>
     );
   }
