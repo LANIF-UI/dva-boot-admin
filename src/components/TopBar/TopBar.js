@@ -17,46 +17,44 @@ class TopBar extends Component {
     return (
       <div className={classnames}>
         <div className="topbar-dropmenu">
-          {!expand ? null : (
-            <Row gutter={22}>
-              <Col span={4}>
-                <a class="metro-tile animated animated-short fadeInDown">
-                  <span class="metro-icon glyphicon glyphicon-inbox"></span>
-                  <p class="metro-title">Messages</p>
-                </a>
-              </Col>
-              <Col span={4}>
-                <a class="metro-tile animated animated-short fadeInDown">
-                  <span class="metro-icon glyphicon glyphicon-inbox"></span>
-                  <p class="metro-title">Messages</p>
-                </a>
-              </Col>
-              <Col span={4}>
-                <a class="metro-tile animated animated-short fadeInDown">
-                  <span class="metro-icon glyphicon glyphicon-inbox"></span>
-                  <p class="metro-title">Messages</p>
-                </a>  
-              </Col>
-              <Col span={4}>
-                <a class="metro-tile animated animated-short fadeInDown">
-                  <span class="metro-icon glyphicon glyphicon-inbox"></span>
-                  <p class="metro-title">Messages</p>
-                </a>
-              </Col>
-              <Col span={4}>
-                <a class="metro-tile animated animated-short fadeInDown">
-                  <span class="metro-icon glyphicon glyphicon-inbox"></span>
-                  <p class="metro-title">Messages</p>
-                </a>  
-              </Col>
-              <Col span={4}>
-                <a class="metro-tile animated animated-short fadeInDown">
-                  <span class="metro-icon glyphicon glyphicon-inbox"></span>
-                  <p class="metro-title">Messages</p>
-                </a>
-              </Col>
-            </Row>
-          )}
+          <Row gutter={22}>
+            <Col span={4}>
+              <a className="metro-tile animated animated-long fadeInDown">
+                <span className="metro-icon glyphicon glyphicon-inbox"></span>
+                <p className="metro-title">Messages</p>
+              </a>
+            </Col>
+            <Col span={4}>
+              <a className="metro-tile animated animated-long fadeInDown">
+                <span className="metro-icon glyphicon glyphicon-inbox"></span>
+                <p className="metro-title">Messages</p>
+              </a>
+            </Col>
+            <Col span={4}>
+              <a className="metro-tile animated animated-long fadeInDown">
+                <span className="metro-icon glyphicon glyphicon-inbox"></span>
+                <p className="metro-title">Messages</p>
+              </a>  
+            </Col>
+            <Col span={4}>
+              <a className="metro-tile animated animated-long fadeInDown">
+                <span className="metro-icon glyphicon glyphicon-inbox"></span>
+                <p className="metro-title">Messages</p>
+              </a>
+            </Col>
+            <Col span={4}>
+              <a className="metro-tile animated animated-long fadeInDown">
+                <span className="metro-icon glyphicon glyphicon-inbox"></span>
+                <p className="metro-title">Messages</p>
+              </a>  
+            </Col>
+            <Col span={4}>
+              <a className="metro-tile animated animated-long fadeInDown">
+                <span className="metro-icon glyphicon glyphicon-inbox"></span>
+                <p className="metro-title">Messages</p>
+              </a>
+            </Col>
+          </Row>
         </div>
         <header className="topbar-content">
           <Breadcrumb>

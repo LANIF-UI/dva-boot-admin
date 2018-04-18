@@ -1,5 +1,5 @@
 {
-  "name": "dva-boot-admin", 
+  "name": "dva-boot-admin",
   "version": "1.0.0",
   "description": "dva-boot-admin",
   "main": "index.js",
@@ -24,6 +24,7 @@
     "antd": "^3.3.0",
     "classnames": "^2.2.5",
     "cmn-utils": "^0.1.8",
+    "css-animation": "^1.4.1",
     "dva": "^2.1.0",
     "dva-loading": "^1.0.4",
     "react": "^16.2.0",

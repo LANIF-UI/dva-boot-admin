@@ -6,6 +6,7 @@ import { Notification } from 'components';
 import NavBar from 'components/NavBar';
 import LeftSideBar from 'components/LeftSideBar';
 import TopBar from 'components/TopBar';
+import Mask from 'components/Mask';
 import './styles/basic.less';
 const { Content, Header } = Layout;
 
@@ -86,7 +87,7 @@ export default class BasicLayout extends React.PureComponent {
           </Content>
         </Layout>
         <Notification />
-        {expandTopBar ? <div className="basic-mask animated fadeIn" onClick={this.onCollapseTopBar} /> : null}
+        <Mask visible={expandTopBar} onClick={this.onCollapseTopBar} />
       </Layout>
     );
   }
