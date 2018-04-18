@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Breadcrumb, Row, Col } from 'antd';
 import Icon from '../Icon';
 import cx from 'classnames';
+import CSSAnimate from '../CSSAnimate';
 import './style/index.less';
 
 class TopBar extends Component {
@@ -18,41 +19,53 @@ class TopBar extends Component {
       <div className={classnames}>
         <div className="topbar-dropmenu">
           <Row gutter={22}>
-            <Col span={4}>
-              <a className="metro-tile animated animated-long fadeInDown">
-                <span className="metro-icon glyphicon glyphicon-inbox"></span>
-                <p className="metro-title">Messages</p>
-              </a>
+            <Col xs={8} md={4}>
+              <CSSAnimate className="animated-short" animationName={expand ? "fadeInDown" : "fadeOutUp"}>
+                <a className="metro-tile">
+                  <span className="metro-icon glyphicon glyphicon-inbox"></span>
+                  <p className="metro-title">Messages</p>
+                </a>
+              </CSSAnimate>
             </Col>
-            <Col span={4}>
-              <a className="metro-tile animated animated-long fadeInDown">
-                <span className="metro-icon glyphicon glyphicon-inbox"></span>
-                <p className="metro-title">Messages</p>
-              </a>
+            <Col xs={8} md={4}>
+              <CSSAnimate className="animated-short" animationName={expand ? "fadeInDown" : "fadeOutUp"}>
+                <a className="metro-tile">
+                  <span className="metro-icon glyphicon glyphicon-inbox"></span>
+                  <p className="metro-title">Messages</p>
+                </a>
+              </CSSAnimate>
             </Col>
-            <Col span={4}>
-              <a className="metro-tile animated animated-long fadeInDown">
-                <span className="metro-icon glyphicon glyphicon-inbox"></span>
-                <p className="metro-title">Messages</p>
-              </a>  
+            <Col xs={8} md={4}>
+              <CSSAnimate className="animated-short" animationName={expand ? "fadeInDown" : "fadeOutUp"}>
+                <a className="metro-tile">
+                  <span className="metro-icon glyphicon glyphicon-inbox"></span>
+                  <p className="metro-title">Messages</p>
+                </a>
+              </CSSAnimate>
             </Col>
-            <Col span={4}>
-              <a className="metro-tile animated animated-long fadeInDown">
-                <span className="metro-icon glyphicon glyphicon-inbox"></span>
-                <p className="metro-title">Messages</p>
-              </a>
+            <Col xs={8} md={4}>
+              <CSSAnimate className="animated-short" animationName={expand ? "fadeInDown" : "fadeOutUp"}>
+                <a className="metro-tile">
+                  <span className="metro-icon glyphicon glyphicon-inbox"></span>
+                  <p className="metro-title">Messages</p>
+                </a>
+              </CSSAnimate>
             </Col>
-            <Col span={4}>
-              <a className="metro-tile animated animated-long fadeInDown">
-                <span className="metro-icon glyphicon glyphicon-inbox"></span>
-                <p className="metro-title">Messages</p>
-              </a>  
+            <Col xs={8} md={4}>
+              <CSSAnimate className="animated-short" animationName={expand ? "fadeInDown" : "fadeOutUp"}>
+                <a className="metro-tile">
+                  <span className="metro-icon glyphicon glyphicon-inbox"></span>
+                  <p className="metro-title">Messages</p>
+                </a>
+              </CSSAnimate>
             </Col>
-            <Col span={4}>
-              <a className="metro-tile animated animated-long fadeInDown">
-                <span className="metro-icon glyphicon glyphicon-inbox"></span>
-                <p className="metro-title">Messages</p>
-              </a>
+            <Col xs={8} md={4}>
+              <CSSAnimate className="animated-short" animationName={expand ? "fadeInDown" : "fadeOutUp"}>
+                <a className="metro-tile">
+                  <span className="metro-icon glyphicon glyphicon-inbox"></span>
+                  <p className="metro-title">Messages</p>
+                </a>
+              </CSSAnimate>
             </Col>
           </Row>
         </div>
@@ -71,5 +84,5 @@ class TopBar extends Component {
     );
   }
 }
- 
+
 export default TopBar;

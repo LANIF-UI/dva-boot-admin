@@ -27,6 +27,7 @@
     "css-animation": "^1.4.1",
     "dva": "^2.1.0",
     "dva-loading": "^1.0.4",
+    "object.omit": "^3.0.0",
     "react": "^16.2.0",
     "react-document-title": "^2.0.3",
     "react-dom": "^16.2.0",
