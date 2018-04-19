@@ -14,8 +14,6 @@ module.exports = function override(config, env) {
   
   if (env === "development") {
     config = injectBabelPlugin(["dva-hmr"], config);
-  } else {
-    config.output.publicPath = './';
   }
 
   config = injectBabelPlugin('transform-decorators-legacy', config);
