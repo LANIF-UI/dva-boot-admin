@@ -7,20 +7,22 @@ module.exports = function override(config, env) {
   config.resolve = {
     alias: {
       '@': path.resolve(__dirname, 'src'),
-      'components': path.resolve(__dirname, 'src/components'),
-      'assets': path.resolve(__dirname, 'src/assets')
+      components: path.resolve(__dirname, 'src/components'),
+      assets: path.resolve(__dirname, 'src/assets')
     }
   };
-  
-  if (env === "development") {
-    config = injectBabelPlugin(["dva-hmr"], config);
+
+  if (env === 'development') {
+    config = injectBabelPlugin(['dva-hmr'], config);
   }
 
   config = injectBabelPlugin('transform-decorators-legacy', config);
-  config = injectBabelPlugin(['import', { libraryName: 'antd', style: true }], config);
+  config = injectBabelPlugin(
+    ['import', { libraryName: 'antd', style: true }],
+    config
+  );
 
-  config.externals = {
-  }
+  config.externals = {};
 
   config.plugins.push(
     new AutoDllPlugin({
@@ -35,7 +37,7 @@ module.exports = function override(config, env) {
           'react-document-title',
           'dva',
           'dva-loading',
-          'classnames',
+          'classnames'
         ]
       }
     })
