@@ -26,26 +26,6 @@ module.exports = function override(config, env) {
 
   config.externals = {};
 
-  config.plugins.push(
-    new AutoDllPlugin({
-      inject: true,
-      debug: true,
-      filename: '[name]_[hash].js',
-      path: './dll',
-      entry: {
-        vendor: [
-          'antd',
-          'react',
-          'react-dom',
-          'react-document-title',
-          'dva',
-          'dva-loading',
-          'classnames',
-        ]
-      }
-    })
-  );
-
   return rewireLess.withLoaderOptions(
     `${env === 'production' ? 'app' : '[local]'}-[hash:base64:8]`,
     {
