@@ -34,6 +34,7 @@ module.exports = function override(config, env) {
       path: './dll',
       entry: {
         vendor: [
+          'antd',
           'react',
           'react-dom',
           'react-document-title',
