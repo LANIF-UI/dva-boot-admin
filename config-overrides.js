@@ -40,7 +40,7 @@ module.exports = function override(config, env) {
           'react-document-title',
           'dva',
           'dva-loading',
-          'classnames'
+          'classnames',
         ]
       }
     })
