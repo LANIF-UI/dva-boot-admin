@@ -16,6 +16,7 @@ export default class BasicLayout extends React.PureComponent {
     collapsedLeftSide: false,
     leftCollapsedWidth: 60,
     expandTopBar: false,
+    showSidebarHeader: false,
   };
 
   componentDidMount() {}
@@ -49,8 +50,14 @@ export default class BasicLayout extends React.PureComponent {
     })
   }
 
+  toggleSidebarHeader = _ => {
+    this.setState({
+      showSidebarHeader: !this.state.showSidebarHeader
+    })
+  }
+
   render() {
-    const { collapsedLeftSide, leftCollapsedWidth, expandTopBar } = this.state;
+    const { collapsedLeftSide, leftCollapsedWidth, expandTopBar, showSidebarHeader } = this.state;
     const { routerData } = this.props;
     const { childRoutes } = routerData;
     let allpath = this.props.location.pathname + this.props.location.search;
@@ -67,12 +74,14 @@ export default class BasicLayout extends React.PureComponent {
             collapsed={collapsedLeftSide}
             onCollapseLeftSide={this.onCollapseLeftSide}
             onExpandTopBar={this.onExpandTopBar}
+            toggleSidebarHeader={this.toggleSidebarHeader}
           />
         </Header>
         <Layout>
           <LeftSideBar
             collapsed={collapsedLeftSide}
             leftCollapsedWidth={leftCollapsedWidth}
+            showHeader={showSidebarHeader}
             onCollapsed={this.onCollapseLeftSideAll}
           />
           <Content>

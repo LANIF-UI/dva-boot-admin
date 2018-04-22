@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import cx from 'classnames';
-import { Menu, Icon, Layout, Switch } from 'antd';
+import { Menu, Layout, Switch, Select } from 'antd';
+import Icon from '../Icon';
 import './style/index.less';
+const Option = Select.Option;
 const { Sider } = Layout;
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
@@ -13,7 +15,7 @@ class LeftSideBar extends Component {
   }
 
   render() {
-    const {fixed, theme, collapsed, onCollapsed, leftCollapsedWidth} = this.props;
+    const {fixed, theme, collapsed, onCollapsed, leftCollapsedWidth, showHeader} = this.props;
 
     const classnames = cx(
       'sidebar-left',
@@ -21,6 +23,7 @@ class LeftSideBar extends Component {
       {
         'affix': !!fixed,
         'sidebar-left-sm': collapsed,
+        'show-header': collapsed ? false : showHeader,
         'sidebar-left-close': leftCollapsedWidth === 0,
         [theme]: !!theme,
       }
@@ -37,7 +40,24 @@ class LeftSideBar extends Component {
       >
         <div className="sidebar-left-content">
           <header className="sidebar-header">
-
+            <div className="userlogged clearfix">
+              <Icon type="woman" />
+              <div className="user-details">
+                <span>Mike Mayers</span>
+                <div className="dropdown">
+                  <Select 
+                    size="small" 
+                    defaultValue="online"
+                    dropdownClassName="sidebar-header-dropdown"
+                  >
+                    <Option value="online"><span className="user online"></span>在线</Option>
+                    <Option value="busy"><span className="user busy"></span>忙碌</Option>
+                    <Option value="invisible"><span className="user invisible"></span>隐身</Option>
+                    <Option value="offline"><span className="user offline"></span>离线</Option>
+                  </Select>
+                </div>
+              </div>
+            </div>
           </header>
           <Menu
             onClick={this.handleClick}
@@ -47,7 +67,7 @@ class LeftSideBar extends Component {
             mode="inline"
             theme="dark"
           >
-            <SubMenu key="sub1" title={<span><Icon type="mail" /><span>Navigation One</span></span>}>
+            <SubMenu key="sub1" title={<span><Icon antd type="mail" /><span>Navigation One</span></span>}>
               <MenuItemGroup key="g1" title="Item 1">
                 <Menu.Item key="1">Option 1</Menu.Item>
                 <Menu.Item key="2">Option 2</Menu.Item>
@@ -57,7 +77,7 @@ class LeftSideBar extends Component {
                 <Menu.Item key="4">Option 4</Menu.Item>
               </MenuItemGroup>
             </SubMenu>
-            <SubMenu key="sub2" title={<span><Icon type="appstore" /><span>Navigation Two</span></span>}>
+            <SubMenu key="sub2" title={<span><Icon antd type="appstore" /><span>Navigation Two</span></span>}>
               <Menu.Item key="5">Option 5</Menu.Item>
               <Menu.Item key="6">Option 6</Menu.Item>
               <SubMenu key="sub3" title="Submenu">
@@ -65,7 +85,7 @@ class LeftSideBar extends Component {
                 <Menu.Item key="8">Option 8</Menu.Item>
               </SubMenu>
             </SubMenu>
-            <SubMenu key="sub4" title={<span><Icon type="setting" /><span>Navigation Three</span></span>}>
+            <SubMenu key="sub4" title={<span><Icon antd type="setting" /><span>Navigation Three</span></span>}>
               <Menu.Item key="9">Option 9</Menu.Item>
               <Menu.Item key="10">Option 10</Menu.Item>
               <Menu.Item key="11">Option 11</Menu.Item>

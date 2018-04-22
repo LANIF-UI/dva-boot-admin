@@ -22,48 +22,48 @@ class TopBar extends Component {
             <Col xs={8} md={4}>
               <CSSAnimate className="animated-short" animationName={expand ? "fadeInDown" : "fadeOutUp"}>
                 <a className="metro-tile">
-                  <span className="metro-icon glyphicon glyphicon-inbox"></span>
-                  <p className="metro-title">Messages</p>
+                  <Icon type="message" />
+                  <span className="metro-title">信息</span>
                 </a>
               </CSSAnimate>
             </Col>
             <Col xs={8} md={4}>
               <CSSAnimate className="animated-short" animationName={expand ? "fadeInDown" : "fadeOutUp"}>
                 <a className="metro-tile">
-                  <span className="metro-icon glyphicon glyphicon-inbox"></span>
-                  <p className="metro-title">Messages</p>
+                  <Icon type="user" />
+                  <span className="metro-title">用户</span>
                 </a>
               </CSSAnimate>
             </Col>
             <Col xs={8} md={4}>
               <CSSAnimate className="animated-short" animationName={expand ? "fadeInDown" : "fadeOutUp"}>
                 <a className="metro-tile">
-                  <span className="metro-icon glyphicon glyphicon-inbox"></span>
-                  <p className="metro-title">Messages</p>
+                <Icon type="headphones" />
+                  <span className="metro-title">支持</span>
                 </a>
               </CSSAnimate>
             </Col>
             <Col xs={8} md={4}>
               <CSSAnimate className="animated-short" animationName={expand ? "fadeInDown" : "fadeOutUp"}>
                 <a className="metro-tile">
-                  <span className="metro-icon glyphicon glyphicon-inbox"></span>
-                  <p className="metro-title">Messages</p>
+                  <Icon type="equalizer" />
+                  <span className="metro-title">设置</span>
                 </a>
               </CSSAnimate>
             </Col>
             <Col xs={8} md={4}>
               <CSSAnimate className="animated-short" animationName={expand ? "fadeInDown" : "fadeOutUp"}>
                 <a className="metro-tile">
-                  <span className="metro-icon glyphicon glyphicon-inbox"></span>
-                  <p className="metro-title">Messages</p>
+                  <Icon type="play" />
+                  <span className="metro-title">视频</span>
                 </a>
               </CSSAnimate>
             </Col>
             <Col xs={8} md={4}>
               <CSSAnimate className="animated-short" animationName={expand ? "fadeInDown" : "fadeOutUp"}>
                 <a className="metro-tile">
-                  <span className="metro-icon glyphicon glyphicon-inbox"></span>
-                  <p className="metro-title">Messages</p>
+                  <Icon type="image" />
+                  <span className="metro-title">图片</span>
                 </a>
               </CSSAnimate>
             </Col>

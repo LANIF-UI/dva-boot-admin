@@ -36,7 +36,7 @@ class NavBar extends Component {
   }
 
   render() {
-    const {fixed, theme, onCollapseLeftSide, collapsed, onExpandTopBar} = this.props;
+    const {fixed, theme, onCollapseLeftSide, collapsed, onExpandTopBar, toggleSidebarHeader} = this.props;
 
     const classnames = cx(
       'navbar', 
@@ -57,11 +57,13 @@ class NavBar extends Component {
           </span>
         </div>
         <ul className="nav navbar-nav navbar-left clearfix">
-          <li>
-            <a className="sidebar-menu-toggle">
-              <Icon type="ruby" />
-            </a>
-          </li>
+          {collapsed ? null : (
+            <li>
+              <a className="sidebar-menu-toggle" onClick={toggleSidebarHeader}>
+                <Icon type="ruby" />
+              </a>
+            </li>
+          )}
           <li>
             <a className="topbar-menu-toggle" onClick={onExpandTopBar}>
               <Icon type="wand" />

@@ -1,7 +1,6 @@
 const path = require('path');
 const { injectBabelPlugin } = require('react-app-rewired');
 const rewireLess = require('react-app-rewire-less-modules');
-const AutoDllPlugin = require('autodll-webpack-plugin');
 
 module.exports = function override(config, env) {
   config.resolve = {
