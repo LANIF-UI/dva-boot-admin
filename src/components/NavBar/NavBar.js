@@ -104,26 +104,33 @@ class NavBar extends Component {
 }
 
 const UserDropDown = (props) => (
-  <ul class="dropdown-menu list-group dropdown-persist">
-    <li class="list-group-item">
-      <a href="pages_blank.html#" class="animated animated-short fadeInUp">
-        <span class="fa fa-envelope"></span> 信息
-        <span class="label label-warning">2</span>
+  <ul className="dropdown-menu list-group dropdown-persist">
+    <li className="list-group-item">
+      <a className="animated animated-short fadeInUp">
+        <Icon type="mail" /> 信息
+        <span className="label label-warning">2</span>
       </a>
     </li>
-    <li class="list-group-item">
-      <a href="pages_blank.html#" class="animated animated-short fadeInUp">
-        <span class="fa fa-user"></span> 好友
-        <span class="label label-warning">6</span>
+    <li className="list-group-item">
+      <a className="animated animated-short fadeInUp">
+        <Icon type="users" /> 好友
+        <span className="label label-warning">6</span>
       </a>
     </li>
-    <li class="list-group-item">
-      <a href="pages_blank.html#" class="animated animated-short fadeInUp">
-        <span class="fa fa-gear"></span> 帐户设置 </a>
+    <li className="list-group-item">
+      <a className="animated animated-short fadeInUp">
+        <Icon type="gear" /> 帐户设置 
+      </a>
     </li>
-    <li class="list-group-item">
-      <a href="pages_blank.html#" class="animated animated-short fadeInUp">
-        <span class="fa fa-power-off"></span> 退出 </a>
+    <li className="list-group-item">
+      <a className="animated animated-short fadeInUp">
+        <Icon type="ring" /> 通知 
+      </a>
+    </li>
+    <li className="dropdown-footer">
+      <a href="dashboard.html#" className="">
+        <Icon type="poweroff" /> 退出 
+      </a>
     </li>
   </ul>
 )

@@ -7,7 +7,7 @@ import './style/index.less';
 
 class TopBar extends Component {
   render() {
-    const { expand } = this.props;
+    const { expand, toggleRightSide, collapsedRightSide } = this.props;
     const classnames = cx(
       'topbar',
       {
@@ -76,8 +76,8 @@ class TopBar extends Component {
             <Breadcrumb.Item><a href="">主页</a></Breadcrumb.Item>
             <Breadcrumb.Item>用户中心</Breadcrumb.Item>
           </Breadcrumb>
-          <a className="topbar-right">
-            <Icon type="right-square-o" antd />
+          <a className="topbar-right" onClick={toggleRightSide}>
+            <Icon type={`${collapsedRightSide ? 'de' : 'in'}crease`} />
           </a>
         </header>
       </div>
