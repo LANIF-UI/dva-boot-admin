@@ -40,7 +40,8 @@ class NavBar extends Component {
   }
 
   render() {
-    const {fixed, theme, onCollapseLeftSide, collapsed, onExpandTopBar, toggleSidebarHeader} = this.props;
+    const {fixed, theme, onCollapseLeftSide, collapsed,
+      onExpandTopBar, toggleSidebarHeader} = this.props;
 
     const classnames = cx(
       'navbar', 
@@ -48,7 +49,7 @@ class NavBar extends Component {
       {
         'navbar-fixed-top': !!fixed,
         'navbar-sm': collapsed,
-        [theme]: !!theme,
+        ['bg-' + theme]: !!theme,
       }
     );
 
@@ -89,7 +90,7 @@ class NavBar extends Component {
         <ul className="nav navbar-nav navbar-right clearfix">
           <li className="dropdown">
             <Popover placement="bottomRight" title={'通知'} 
-              overlayClassName="navbar-popup" content={''} trigger="click">
+              overlayClassName={cx("navbar-popup", {[theme]: !!theme})} content={''} trigger="click">
               <a className="dropdown-toggle">
                 <Icon type="radio-tower" />
               </a>
@@ -97,7 +98,7 @@ class NavBar extends Component {
           </li>
           <li className="dropdown">
             <Popover placement="bottomRight" title={'WELCOME 魏小雨'} 
-              overlayClassName="navbar-popup" content={<UserDropDown />} trigger="click">
+              overlayClassName={cx("navbar-popup", {[theme]: !!theme})} content={<UserDropDown />} trigger="click">
               <a className="dropdown-toggle">
                 <Badge dot><Avatar src={require('assets/images/avatar.jpg')}>小雨</Avatar></Badge>
               </a>

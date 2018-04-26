@@ -2,10 +2,11 @@ import './style/index.less';
 import React, { Component } from 'react';
 import cx from 'classnames';
 import Icon from '../Icon';
-import { Tabs, Radio, Tag } from 'antd';
+import { Tabs } from 'antd';
 import $$ from 'cmn-utils';
+import SideBarBox from './SideBarBox';
+import NavBarBox from './NavBarBox';
 const TabPane = Tabs.TabPane;
-const RadioGroup = Radio.Group;
 
 /**
  * 设置皮肤的右侧滑动的面板
@@ -15,6 +16,13 @@ class SkinToolbox extends Component {
     this.props.onChangeTheme({
       ...this.props.theme,
       leftSide: e.target.value
+    });
+  };
+
+  onChangeNavBarColor = e => {
+    this.props.onChangeTheme({
+      ...this.props.theme,
+      navbar: e.target.value
     });
   };
 
@@ -41,26 +49,12 @@ class SkinToolbox extends Component {
           <div className="panel-body">
             <Tabs defaultActiveKey="1" size="small">
               <TabPane tab="导航条" key="navbar">
-                Content of Tab Pane 1
+                <h4>导航条样式</h4>
+                <NavBarBox theme={theme} onChange={this.onChangeNavBarColor} />
               </TabPane>
-              <TabPane tab="边栏" key="sidebar" className="tab-sidebar">
+              <TabPane tab="边栏" key="sidebar">
                 <h4>边栏样式</h4>
-                <RadioGroup
-                  onChange={this.onChangeSideColor}
-                  value={theme.leftSide}
-                >
-                  <Radio className="dark" value="dark">
-                    <Tag color="#001529">深色</Tag>
-                  </Radio>
-                  <Radio className="grey" value="grey">
-                    <Tag color="#aaa">浅灰</Tag>
-                  </Radio>
-                  <Radio className="light" value="light">
-                    <Tag color="#efefef" style={{ color: '#666' }}>
-                      亮白
-                    </Tag>
-                  </Radio>
-                </RadioGroup>
+                <SideBarBox theme={theme} onChange={this.onChangeSideColor} />
               </TabPane>
               <TabPane tab="布局" key="misc">
                 Content of Tab Pane 3

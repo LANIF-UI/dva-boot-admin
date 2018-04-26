@@ -145,6 +145,7 @@ export default class BasicLayout extends React.PureComponent {
             onCollapseLeftSide={this.onCollapseLeftSide}
             onExpandTopBar={this.onExpandTopBar}
             toggleSidebarHeader={this.toggleSidebarHeader}
+            theme={theme.navbar}
           />
         </Header>
         <Layout>
