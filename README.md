@@ -10,6 +10,3 @@
 - 许多精心设计的页面及交互场景
 - 后台接口数据模拟
 - [dva-boot](https://github.com/LANIF-UI/dva-boot)脚手架封装的功能
-
-- 脚手架 dva-boot(基于dva2)
-- UI Ant Design(自定义样式)
