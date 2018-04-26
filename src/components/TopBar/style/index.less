@@ -57,15 +57,21 @@
   }
   .topbar-content {
     position: relative;
-    min-height: 51px;
+    min-height: 48px;
     padding: 10px 21px;
     background: #fafafa;
     .ant-breadcrumb {
       display: inline-block;
-      font-size: 13px;
+      font-size: 12px;
       .first {
         color: #555;
         font-size: 18px;
+      }
+      .icon {
+        position: relative;
+        font-size: 15px;
+        color: #777;
+        top: -1px;
       }
       a {
         color: @primary-6;
@@ -80,6 +86,13 @@
       color: @primary-6;
       &:hover {
         color: @primary-5;
+      }
+      i {
+        transform: scale(-1, 1);
+        transition: .3s transform ease .1s;
+      }
+      &.collapse i{
+        transform: scale(1, 1);
       }
     }
   }

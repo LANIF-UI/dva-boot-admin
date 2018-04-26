@@ -65,7 +65,7 @@ class LeftSideBar extends Component {
             defaultSelectedKeys={['1']}
             defaultOpenKeys={['sub1']}
             mode="inline"
-            theme="dark"
+            theme={theme}
           >
             <SubMenu key="sub1" title={<span><Icon antd type="mail" /><span>Navigation One</span></span>}>
               <MenuItemGroup key="g1" title="Item 1">

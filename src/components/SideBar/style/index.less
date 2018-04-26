@@ -1,7 +1,8 @@
 @import "~antd/lib/style/themes/default.less";
 // 左侧边栏
 .sidebar-left {
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
+  background-color: #001529;
   &.sidebar-left-sm {
     .ant-menu {
       transition: transform 0.3s ease;
@@ -69,6 +70,32 @@
             color: #616574;
           }
         }
+      }
+    }
+  }
+  &.dark {
+  }
+
+  &.light {
+    border-right: 1px solid #e8e8e8;
+    background-color: #fff;
+    .ant-menu {
+      border-right: 0;
+      background: #fff;
+      &.ant-menu-sub {
+        background-color: #fafafa;
+      }
+    }
+  }
+  
+  &.grey {
+    border-right: 1px solid #e8e8e8;
+    background-color: #fafafa;
+    .ant-menu {
+      border-right: 0;
+      background: #fafafa;
+      &.ant-menu-sub {
+        background-color: #f4f4f4;
       }
     }
   }

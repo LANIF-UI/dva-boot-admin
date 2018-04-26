@@ -1,0 +1,84 @@
+@import "~antd/lib/style/themes/default.less";
+// 右侧皮肤设置面板
+.skin-toolbox {
+  z-index: 999;
+  position: fixed;
+  top: 120px;
+  right: 0px;
+  width: 230px;
+  user-select: none;
+  transition: right 0.1s ease-in-out;
+  &.skin-toolbox-close {
+    right: -230px;
+  }
+  .panel {
+    position: relative;
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    border-radius: 2px;
+    border: 1px solid #ddd;
+    border-top: 0;
+    .panel-head {
+      position: relative;
+      cursor: pointer;
+      margin-right: 30px;
+      border: 1px solid #ddd;
+      background: #fafafa;
+      padding: 0 8px;
+      width: 274px;
+      height: 47px;
+      line-height: 42px;
+      right: 44px;
+      font-size: 14px;
+      .panel-icon {
+        font-size: 22px;
+        padding-right: 20px;
+        padding-left: 6px;
+        color: @primary-color;
+      }
+      .panel-title {
+        padding-left: 56px;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 42px;
+        color: #666;
+      }
+    }
+    .panel-body {
+      font-size: 13px;
+      .ant-tabs-small .ant-tabs-tab {
+        margin: 0;
+      }
+      .ant-tabs-tabpane {
+        h4 {
+          font-size: 15px;
+          margin-bottom: 10px;
+          color: #333;
+        }
+        &.tab-sidebar {
+          padding: 0 20px 20px 20px;
+          .ant-radio-wrapper {
+            display: block;
+            height: 30px;
+            line-height: 30px;
+          }
+        }
+      }
+    }
+    .panel-footer {
+      padding: 15px;
+      border-top: 1px solid #eee;
+      a {
+        display: block;
+        color: #fff;
+        background-color: @primary-color;
+        padding: 9px 12px;
+        font-size: 13px;
+        text-align: center;
+        &:hover {
+          background-color: @primary-5;
+        }
+      }
+    }
+  }
+}

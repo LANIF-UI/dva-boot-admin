@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import cx from 'classnames';
-import { Menu, Layout } from 'antd';
+import { Layout } from 'antd';
 import './style/index.less';
 const { Sider } = Layout;
 
@@ -11,7 +11,7 @@ class RightSideBar extends Component {
   }
 
   render() {
-    const {fixed, theme, collapsed, onCollapsed, leftCollapsedWidth} = this.props;
+    const {fixed, theme, collapsed} = this.props;
 
     const classnames = cx(
       'sidebar-right',

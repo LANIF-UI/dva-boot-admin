@@ -72,12 +72,12 @@ class TopBar extends Component {
         <header className="topbar-content">
           <Breadcrumb>
             <Breadcrumb.Item className="first">用户中心</Breadcrumb.Item>
-            <Breadcrumb.Item><Icon type="home" /></Breadcrumb.Item>
+            <Breadcrumb.Item className="icon"><Icon type="home" /></Breadcrumb.Item>
             <Breadcrumb.Item><a href="">主页</a></Breadcrumb.Item>
             <Breadcrumb.Item>用户中心</Breadcrumb.Item>
           </Breadcrumb>
-          <a className="topbar-right" onClick={toggleRightSide}>
-            <Icon type={`${collapsedRightSide ? 'de' : 'in'}crease`} />
+          <a className={cx("topbar-right", {"collapse": collapsedRightSide})} onClick={toggleRightSide}>
+            <Icon type="into" />
           </a>
         </header>
       </div>

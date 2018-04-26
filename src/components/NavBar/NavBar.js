@@ -3,7 +3,11 @@ import Icon from '../Icon';
 import { Popover, Badge, Avatar } from 'antd';
 import cx from 'classnames';
 import './style/index.less';
+import logoImg from 'assets/images/logo.png';
 
+/**
+ * 其本本局头部区域
+ */
 class NavBar extends Component {
   static defaultProps = {
     fixed: true,
@@ -51,7 +55,9 @@ class NavBar extends Component {
     return (
       <header className={classnames}>
         <div className="navbar-branding">
-          <a className="navbar-brand"><b>LANIF</b>Admin</a>
+          <a className="navbar-brand">
+            <img src={logoImg} alt="logo" /><b>LANIF</b>Admin
+          </a>
           <span className="toggle_sidemenu_l" onClick={onCollapseLeftSide}>
             <Icon type="lines" />
           </span>
@@ -127,8 +133,8 @@ const UserDropDown = (props) => (
         <Icon type="ring" /> 通知 
       </a>
     </li>
-    <li className="dropdown-footer">
-      <a href="dashboard.html#" className="">
+    <li className="list-group-item dropdown-footer">
+      <a className="">
         <Icon type="poweroff" /> 退出 
       </a>
     </li>

@@ -7,22 +7,39 @@ import NavBar from 'components/NavBar';
 import { LeftSideBar, RightSideBar } from 'components/SideBar';
 import TopBar from 'components/TopBar';
 import Mask from 'components/Mask';
+import SkinToolbox from 'components/SkinToolbox';
 import './styles/basic.less';
+import $$ from 'cmn-utils';
 const { Content, Header } = Layout;
 
 /**
  * 基本部局
+ * 可设置多种皮肤 theme: [light, grey, primary, info, warning, danger, alert, system, success, dark]
+ * 可设置多种布局 fixed: [header(固定头), sidebar(固定边栏), breadcrumb(固定面包蟹)]
  * @author weiq
  */
 @connect()
 export default class BasicLayout extends React.PureComponent {
-  state = {
-    collapsedLeftSide: false, // 左边栏开关控制
-    leftCollapsedWidth: 60, // 左边栏宽度
-    expandTopBar: false,  // 头部多功能区开合
-    showSidebarHeader: false,  // 左边栏头部开关 
-    collapsedRightSide: true,  // 右边栏开关
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      collapsedLeftSide: false, // 左边栏开关控制
+      leftCollapsedWidth: 60, // 左边栏宽度
+      expandTopBar: false, // 头部多功能区开合
+      showSidebarHeader: false, // 左边栏头部开关
+      collapsedRightSide: true, // 右边栏开关
+      collapsedSkinToolbox: true, // 设置皮肤面板
+      /* 皮肤设置 */
+      theme: $$.getStore('theme') || {
+        leftSide: 'dark', // 左边
+        navbar: 'light' // 顶部
+      },
+      /* 布局设置 */
+      fixed: {
+        navbar: true
+      }
+    };
+  }
 
   componentDidMount() {}
 
@@ -30,15 +47,17 @@ export default class BasicLayout extends React.PureComponent {
    * 顶部左侧菜单图标收缩控制
    */
   onCollapseLeftSide = _ => {
-    const collapsedLeftSide = this.state.leftCollapsedWidth === 0
+    const collapsedLeftSide =
+      this.state.leftCollapsedWidth === 0
         ? true
         : !this.state.collapsedLeftSide;
-    const collapsedRightSide = this.state.collapsedRightSide || !collapsedLeftSide
+    const collapsedRightSide =
+      this.state.collapsedRightSide || !collapsedLeftSide;
 
     this.setState({
       collapsedLeftSide,
       collapsedRightSide,
-      leftCollapsedWidth: 60,
+      leftCollapsedWidth: 60
     });
   };
 
@@ -89,13 +108,31 @@ export default class BasicLayout extends React.PureComponent {
     });
   };
 
+  /**
+   * 切换皮肤设置面板
+   */
+  toggleSkinToolbox = _ => {
+    this.setState({
+      collapsedSkinToolbox: !this.state.collapsedSkinToolbox
+    });
+  };
+
+  onChangeTheme = theme => {
+    $$.setStore('theme', theme);
+    this.setState({
+      theme
+    });
+  };
+
   render() {
     const {
       collapsedLeftSide,
       leftCollapsedWidth,
       expandTopBar,
       showSidebarHeader,
-      collapsedRightSide
+      collapsedRightSide,
+      collapsedSkinToolbox,
+      theme
     } = this.state;
     const { routerData } = this.props;
     const { childRoutes } = routerData;
@@ -116,6 +153,7 @@ export default class BasicLayout extends React.PureComponent {
             leftCollapsedWidth={leftCollapsedWidth}
             showHeader={showSidebarHeader}
             onCollapsed={this.onCollapseLeftSideAll}
+            theme={theme.leftSide}
           />
           <Content>
             <Layout className="full-layout">
@@ -133,6 +171,12 @@ export default class BasicLayout extends React.PureComponent {
           </Content>
           <RightSideBar collapsed={collapsedRightSide} />
         </Layout>
+        <SkinToolbox
+          collapsed={collapsedSkinToolbox}
+          toggleSkinToolbox={this.toggleSkinToolbox}
+          onChangeTheme={this.onChangeTheme}
+          theme={theme}
+        />
         <Notification />
         <Mask visible={expandTopBar} onClick={this.onCollapseTopBar} />
       </Layout>

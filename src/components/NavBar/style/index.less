@@ -44,12 +44,17 @@
       font-size: 17px;
       font-weight: 400;
       letter-spacing: 0.6px;
-      padding-left: 20px;
+      padding-left: 15px;
       display: inline-block;
       overflow: hidden;
+      width: 170px;
       b {
         font-weight: bold;
         padding-right: 1px;
+      }
+      img {
+        width: 35px;
+        margin-right: 10px;
       }
     }
     // 左侧导航收缩按钮
@@ -226,7 +231,7 @@
         overflow: hidden;
         & > a {
           display: block;
-          padding: 12px;
+          padding: 10px 12px;
           color: #666666;
           line-height: 1.5;
           &:hover {
@@ -251,12 +256,16 @@
             padding-right: 5px;
           }
         }
-      }
-      .dropdown-footer {
-        text-align: center;
-        padding: 8px 10px 9px;
-        background-color: #fafafa;
-        transition: background-color 0.4s ease;
+        &.dropdown-footer {
+          text-align: center;
+          background-color: #fafafa;
+          &:hover {
+            background: #eee;
+            a {
+              color: @primary-color;
+            }
+          }
+        }
       }
     }
   }
