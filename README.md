@@ -10,3 +10,12 @@
 - 许多精心设计的页面及交互场景
 - 后台接口数据模拟
 - [dva-boot](https://github.com/LANIF-UI/dva-boot)脚手架封装的功能
+
+## 启动
+
+``` javascript
+$ git clone https://github.com/LANIF-UI/dva-boot-admin.git
+$ cd dva-boot-admin
+$ npm install
+$ npm start
+```
