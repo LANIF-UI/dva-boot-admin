@@ -3,7 +3,8 @@ import BaseLayout from '@/layouts/BasicLayout';
 import UserLayout from '@/layouts/UserLayout';
 import NotFound from './Pages/404';
 import Login from './Login';
-import Work from './Work';
+import Dashboard from './Dashboard';
+import Blank from './Blank';
 
 const routesConfig = (app) => ([
   {
@@ -19,9 +20,10 @@ const routesConfig = (app) => ([
     path: '/',
     title: '系统中心',
     component: BaseLayout,
-    indexRoute: '/work',
+    indexRoute: '/dashboard',
     childRoutes: [
-      Work(app),
+      Dashboard(app),
+      Blank(app),
       NotFound()
     ]
   }

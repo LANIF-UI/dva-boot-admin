@@ -3,7 +3,6 @@ import { connect } from 'dva';
 import { Layout } from 'antd';
 import BaseComponent from 'components/BaseComponent';
 import './index.less';
-import Icon from 'components/Icon';
 
 @connect(({ work, loading }) => ({
   work,
@@ -24,7 +23,6 @@ export default class Work extends BaseComponent {
   render() {
     return (
       <Layout className="full-layout work-page">
-        <Icon type="lines" />
       </Layout>
     )
   }
