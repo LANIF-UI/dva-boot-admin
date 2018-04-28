@@ -32,32 +32,36 @@ class Panel extends Component {
     }
   }
 
-  toggleExpandOrCollapse = open => e => {
-    const { onChange } = this.props;
-    this.setState({
-      expand: !!open,
-      collapse: !open
-    });
-    if (onChange) {
-      onChange({
-        expand: !!open,
-        collapse: !open
-      });
-    }
-  };
-
   onExpand = expand => e => {
+    const { onChange } = this.props;
+
     this.setState({
       expand,
       collapse: false,
     });
+
+    if (onChange) {
+      onChange({
+        expand,
+        collapse: false,
+      });
+    }
   }
 
   onCollapse = collapse => e => {
+    const { onChange } = this.props;
+
     this.setState({
       collapse,
       expand: false,
     });
+
+    if (onChange) {
+      onChange({
+        collapse,
+        expand: false,
+      });
+    }
   }
 
   render() {
@@ -71,13 +75,16 @@ class Panel extends Component {
       style,
       children,
       onRefresh,
-      onClose
+      onClose,
+      header,
+      cover,
     } = this.props;
 
     const classnames = cx(prefix, className, {
       theme: !!theme,
       'panel-fullscreen': !!expand,
-      'panel-collapsed': !!collapse
+      'panel-collapsed': !!collapse,
+      'cover': !!cover,
     });
 
     const styles = {
@@ -85,31 +92,35 @@ class Panel extends Component {
       width
     };
 
+    const Header = typeof header === 'undefined' ? (
+      <div className={`${prefix}-header`}>
+        <span className={`${prefix}-header-title`}>{title}</span>
+        <span className={`${prefix}-header-controls`}>
+          <a className="panel-control-loader" onClick={onRefresh}>
+            <Icon type="refresh" />
+          </a>
+          <a
+            className="panel-control-fullscreen"
+            onClick={this.onExpand(expand ? false: true)}
+          >
+            <Icon type={`${expand ? 'shrink' : 'enlarge'}`} />
+          </a>
+          <a
+            className="panel-control-collapsed"
+            onClick={this.onCollapse(collapse ? false : true)}
+          >
+            <Icon type={`${collapse ? 'plus' : 'minus'}`} />
+          </a>
+          <a className="panel-control-remove" onClick={onClose}>
+            <Icon type="close" />
+          </a>
+        </span>
+      </div>
+    ) : header
+
     return (
       <div className={classnames} style={styles}>
-        <div className={`${prefix}-header`}>
-          <span className={`${prefix}-header-title`}>{title}</span>
-          <span className={`${prefix}-header-controls`}>
-            <a className="panel-control-loader" onClick={onRefresh}>
-              <Icon type="refresh" />
-            </a>
-            <a
-              className="panel-control-fullscreen"
-              onClick={this.onExpand(expand ? true: false)}
-            >
-              <Icon type={`${expand ? 'enlarge' : 'shrink'}`} />
-            </a>
-            <a
-              className="panel-control-collapsed"
-              onClick={this.onCollapse(collapse ? true : false)}
-            >
-              <Icon type={`${collapse ? 'plus' : 'minus'}`} />
-            </a>
-            <a className="panel-control-remove" onClick={onClose}>
-              <Icon type="close" />
-            </a>
-          </span>
-        </div>
+        {Header}
         <div className={`${prefix}-body`}>
           <div className="panel-content">
             {children}

@@ -9,7 +9,11 @@
   margin-bottom: 20px;
   background-color: #ffffff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  border-radius: 2px;
   &-header {
+    flex: none;
     position: relative;
     height: 40px;
     line-height: 36px;
@@ -19,6 +23,7 @@
     font-weight: 600;
     padding: 0 8px;
     border: 1px solid #e5e5e5;
+    border-bottom: 0;
     &-title {
       padding-left: 6px;
     }
@@ -43,16 +48,19 @@
     }
   }
   &-body {
+    flex: auto;
+    display: flex;
     position: relative;
     border: 1px solid #e5e5e5;
-    border-top: 0;
-    transition: .2s ease;
+    transition: .2s ease-out;
+    max-height: 800px;
+    overflow: hidden;
     .panel-content {
       padding: 15px;
+      flex: auto;
     }
   }
   &.panel-fullscreen {
-    display: block !important;
     z-index: 9999 !important;
     position: fixed !important;
     width: 100% !important;
@@ -64,7 +72,12 @@
   }
   &.panel-collapsed {
     .antui-panel-body {
-      max-height: 0;
+      max-height: 10px;
+    }
+  }
+  &.cover {
+    .panel-content {
+      padding: 0;
     }
   }
 }
