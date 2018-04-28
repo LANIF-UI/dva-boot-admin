@@ -1,4 +1,5 @@
 @import "~antd/lib/style/themes/default.less";
+@import "./darkgrey.less";
 // 左侧边栏
 .sidebar-left {
   background-color: #001529;
@@ -73,7 +74,16 @@
       }
     }
   }
-  &.dark {
+  &.darkgrey {
+    border-right: 1px solid #282d33;
+    background-color: #30363e;
+    .ant-menu {
+      border-right: 0;
+      background: #30363e;
+      &.ant-menu-sub {
+        background-color: #282d33;
+      }
+    }
   }
 
   &.light {
@@ -98,17 +108,6 @@
         background-color: #f4f4f4;
       }
     }
-  }
-}
-
-.ant-menu-submenu-popup.ant-menu-dark,
-.ant-menu.ant-menu-dark {
-  .ant-menu-item {
-    border-left: 4px solid transparent;
-  }
-  .ant-menu-item-selected {
-    background-color: #001529;
-    border-left: 4px solid @primary-color;
   }
 }
 
@@ -147,5 +146,16 @@
   &.ant-layout-sider {
     background: #f8f8f8;
     border-left: 1px solid #ddd;
+  }
+}
+
+.ant-menu-submenu-popup.ant-menu-darkgrey,
+.ant-menu.ant-menu-darkgrey {
+  .ant-menu-item {
+    border-left: 4px solid transparent;
+  }
+  .ant-menu-item-selected {
+    background-color: #30363e;
+    border-left: 4px solid @primary-color;
   }
 }

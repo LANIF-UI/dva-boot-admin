@@ -249,6 +249,15 @@
     .nav > li > a { color: #fff; }
     .nav > li > a:hover { background-color: darken(#85d27a, 5%); }
   }
+  &.bg-grey { 
+    color: #fff;
+    background-color: #30363e; 
+    border-color: transparent;
+    .navbar-branding { background-color: darken(#30363e, 5%); }
+    .navbar-brand { color: #fff; }
+    .nav > li > a { color: #fff; }
+    .nav > li > a:hover { background-color: darken(#30363e, 5%); }
+  }
 }
 
 // 弹出样式重写
@@ -330,4 +339,6 @@
   &.system .ant-popover-arrow{ background: #48c9a9 }
   &.success .ant-popover-inner{ border-top-color: #85d27a }
   &.success .ant-popover-arrow{ background: #85d27a }
+  &.dark .ant-popover-inner{ border-top-color: #30363e }
+  &.grey .ant-popover-arrow{ background: #30363e }
 }

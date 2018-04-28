@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Icon from '../Icon';
 import cx from 'classnames';
-import CSSAnimate from '../CSSAnimate';
 import './style/index.less';
 
 /**

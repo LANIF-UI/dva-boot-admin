@@ -31,7 +31,7 @@ export default class BasicLayout extends React.PureComponent {
       collapsedSkinToolbox: true, // 设置皮肤面板
       /* 皮肤设置 */
       theme: $$.getStore('theme') || {
-        leftSide: 'dark', // 左边
+        leftSide: 'darkgrey', // 左边
         navbar: 'light' // 顶部
       },
       /* 布局设置 */

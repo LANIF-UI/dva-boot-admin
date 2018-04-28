@@ -7,15 +7,18 @@ export default ({ theme, onChange }) => (
     onChange={onChange}
     value={theme.leftSide}
   >
-    <Radio className="dark" value="dark">
-      <Tag color="#001529">深色</Tag>
+    <Radio className="darkgrey" value="darkgrey">
+      <Tag color="#30363e">深灰</Tag>
     </Radio>
     <Radio className="grey" value="grey">
       <Tag color="#aaa">浅灰</Tag>
     </Radio>
+    <Radio className="dark" value="dark">
+      <Tag color="#001529">Antd深蓝</Tag>
+    </Radio>
     <Radio className="light" value="light">
       <Tag color="#efefef" style={{ color: '#666' }}>
-        亮白
+        Antd亮白
       </Tag>
     </Radio>
   </RadioGroup>

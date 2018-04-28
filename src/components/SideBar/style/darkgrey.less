@@ -1,0 +1,137 @@
+@menu-darkgrey-color: #ddd;
+@menu-darkgrey-bg: #30363e;
+@menu-darkgrey-arrow-color: #fff;
+@menu-darkgrey-submenu-bg: #282d33;
+@menu-darkgrey-highlight-color: #fff;
+@menu-darkgrey-item-active-bg: #30363e;
+@menu-darkgrey-item-selected-bg: #30363e;
+@disabled-color-darkgrey: fade(#fff, 35%);
+
+.ant-menu {
+  // darkgrey theme
+  &-darkgrey,
+  &-darkgrey &-sub {
+    color: @menu-darkgrey-color;
+    background: @menu-darkgrey-bg;
+    .ant-menu-submenu-title .ant-menu-submenu-arrow {
+      opacity: .45;
+      transition: all .3s;
+      &:after,
+      &:before {
+        background: @menu-darkgrey-arrow-color;
+      }
+    }
+  }
+
+  &-darkgrey&-submenu-popup {
+    background: transparent;
+  }
+
+  &-darkgrey &-inline&-sub {
+    background: @menu-darkgrey-submenu-bg;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .45) inset;
+  }
+
+  &-darkgrey&-horizontal {
+    border-bottom-color: @menu-darkgrey-bg;
+  }
+
+  &-darkgrey&-horizontal > &-item,
+  &-darkgrey&-horizontal > &-submenu {
+    border-color: @menu-darkgrey-bg;
+    border-bottom: 0;
+  }
+
+  &-darkgrey&-horizontal > &-item > a:before {
+    bottom: 0;
+  }
+
+  &-darkgrey &-item,
+  &-darkgrey &-item-group-title,
+  &-darkgrey &-item > a {
+    color: @menu-darkgrey-color;
+  }
+
+  &-darkgrey&-inline,
+  &-darkgrey&-vertical,
+  &-darkgrey&-vertical-left,
+  &-darkgrey&-vertical-right {
+    border-right: 0;
+  }
+
+  &-darkgrey&-inline &-item,
+  &-darkgrey&-vertical &-item,
+  &-darkgrey&-vertical-left &-item,
+  &-darkgrey&-vertical-right &-item {
+    border-right: 0;
+    margin-left: 0;
+    left: 0;
+    &:after {
+      border-right: 0;
+    }
+  }
+
+  &-darkgrey&-inline &-item,
+  &-darkgrey&-inline &-submenu-title {
+    width: 100%;
+  }
+
+  &-darkgrey &-item:hover,
+  &-darkgrey &-item-active,
+  &-darkgrey &-submenu-active,
+  &-darkgrey &-submenu-open,
+  &-darkgrey &-submenu-selected,
+  &-darkgrey &-submenu-title:hover {
+    background-color: transparent;
+    color: @menu-darkgrey-highlight-color;
+    > a {
+      color: @menu-darkgrey-highlight-color;
+    }
+    > .ant-menu-submenu-title,
+    > .ant-menu-submenu-title:hover {
+      > .ant-menu-submenu-arrow {
+        opacity: 1;
+        &:after,
+        &:before {
+          background: @menu-darkgrey-highlight-color;
+        }
+      }
+    }
+  }
+
+  &-darkgrey &-item-selected {
+    border-right: 0;
+    color: @menu-darkgrey-highlight-color;
+    &:after {
+      border-right: 0;
+    }
+    > a,
+    > a:hover {
+      color: @menu-darkgrey-highlight-color;
+    }
+  }
+
+  &&-darkgrey &-item-selected,
+  &-submenu-popup&-darkgrey &-item-selected {
+    background-color: @menu-darkgrey-item-selected-bg;
+  }
+
+  // Disabled state sets text to darkgrey gray and nukes hover/tab effects
+  &-darkgrey &-item-disabled,
+  &-darkgrey &-submenu-disabled {
+    &,
+    > a {
+      opacity: 0.8;
+      color: @disabled-color-darkgrey !important;
+    }
+    > .ant-menu-submenu-title {
+      color: @disabled-color-darkgrey !important;
+      > .ant-menu-submenu-arrow {
+        &:before,
+        &:after {
+          background: @disabled-color-darkgrey !important;
+        }
+      }
+    }
+  }
+}
