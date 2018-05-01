@@ -10,8 +10,9 @@
       transform: translate3d(0, 0 ,0);
       &.ant-menu-inline-collapsed {
         width: 60px;
-        > .ant-menu-submenu .ant-menu-submenu-title {
+        > .ant-menu-submenu .ant-menu-submenu-title,.ant-menu-item {
           padding: 0 20px !important;
+          margin: 0;
           .anticon {
             font-size: 18px;
           }
@@ -152,7 +153,6 @@
 .ant-menu-submenu-popup.ant-menu-darkgrey,
 .ant-menu.ant-menu-darkgrey {
   .ant-menu-item {
-    border-left: 4px solid transparent;
   }
   .ant-menu-item-selected {
     background-color: #30363e;

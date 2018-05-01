@@ -15,7 +15,7 @@ class LeftSideBar extends Component {
   }
 
   render() {
-    const {fixed, theme, collapsed, onCollapsed, leftCollapsedWidth, showHeader} = this.props;
+    const {fixed, theme, collapsed, onCollapse, leftCollapsedWidth, showHeader} = this.props;
 
     const classnames = cx(
       'sidebar-left',
@@ -67,6 +67,10 @@ class LeftSideBar extends Component {
             mode="inline"
             theme={theme}
           >
+            <Menu.Item key="dashboard">
+              <Icon type="dashboard" antd />
+              <span>仪表盘</span>
+            </Menu.Item>
             <SubMenu key="sub1" title={<span><Icon antd type="mail" /><span>Navigation One</span></span>}>
               <MenuItemGroup key="g1" title="Item 1">
                 <Menu.Item key="1">Option 1</Menu.Item>
@@ -93,7 +97,7 @@ class LeftSideBar extends Component {
             </SubMenu>
           </Menu>
           <div className="sidebar-toggle-mini">
-            {collapsed && leftCollapsedWidth !== 0 ? <Switch checked={collapsed} onChange={onCollapsed} size="small" /> : null}
+            {collapsed && leftCollapsedWidth !== 0 ? <Switch checked={collapsed} onChange={onCollapse} size="small" /> : null}
           </div>
         </div>
       </Sider>

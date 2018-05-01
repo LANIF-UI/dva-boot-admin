@@ -4,11 +4,16 @@ import { Popover, Badge, Avatar } from 'antd';
 import cx from 'classnames';
 import './style/index.less';
 import logoImg from 'assets/images/logo.png';
+import SearchBox from './SearchBox';
 
 /**
  * 其本本局头部区域
  */
 class NavBar extends Component {
+  state = {
+    openSearchBox: false,
+  }
+
   static defaultProps = {
     fixed: true,
     theme: '', //'bg-dark',
@@ -39,9 +44,22 @@ class NavBar extends Component {
     }
   }
 
+  onCloseSearchBox = () => {
+    this.setState({
+      openSearchBox: false,
+    });
+  }
+
+  onOpenSearchBox = () => {
+    this.setState({
+      openSearchBox: true,
+    })
+  }
+
   render() {
-    const {fixed, theme, onCollapseLeftSide, collapsed,
-      onExpandTopBar, toggleSidebarHeader} = this.props;
+    const { openSearchBox } = this.state;
+    const { fixed, theme, onCollapseLeftSide, collapsed,
+      onExpandTopBar, toggleSidebarHeader } = this.props;
 
     const classnames = cx(
       'navbar', 
@@ -84,7 +102,7 @@ class NavBar extends Component {
         </ul>
         <form className="navbar-form navbar-search clearfix">
           <div className="form-group">
-            <input type="text" className="form-control" placeholder="全文检索" />
+            <input type="text" className="form-control" placeholder="全文检索" onClick={this.onOpenSearchBox} />
           </div>
         </form>
         <ul className="nav navbar-nav navbar-right clearfix">
@@ -105,6 +123,7 @@ class NavBar extends Component {
             </Popover>
           </li>
         </ul>
+        <SearchBox visible={openSearchBox} onClose={this.onCloseSearchBox} />
       </header>
     );
   }

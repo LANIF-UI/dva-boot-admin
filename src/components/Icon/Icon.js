@@ -31,7 +31,7 @@ class Icon extends React.Component {
       className
     );
     return antd ? (
-      <AntdIcon type={type} {...props}>
+      <AntdIcon type={type} className={className} {...props}>
         {children}
       </AntdIcon>
     ) : (

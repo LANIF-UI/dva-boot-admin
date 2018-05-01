@@ -2,7 +2,6 @@
 // mask
 .basic-mask {
   z-index: 9998;
-  cursor: pointer;
   display: none;
   position: fixed;
   left: 0;
@@ -10,4 +9,19 @@
   top: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.6);
+  .basic-mask-close {
+    cursor: pointer;
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    font-size: 3rem;
+    color: #333;
+    transition: color .3s;
+    &:hover {
+      color: #444;
+    }
+    &:active {
+      color: #333;
+    }
+  }
 }

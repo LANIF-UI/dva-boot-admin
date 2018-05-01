@@ -1,4 +1,5 @@
 @import "~antd/lib/style/themes/default.less";
+@import "./searchbox.less";
 // navbar
 .navbar {
   z-index: 1030;
@@ -151,12 +152,20 @@
     padding: 0px 11px;
     float: left;
     &.navbar-search input {
+      width: 100%;
+      font-size: 13px;
       height: 30px;
+      line-height: 1.49;
+      color: #555555;
+      background-color: #fff;
       padding: 0 12px;
       transition: all 0.2s ease;
       box-shadow: none;
       border-radius: 20px;
-      border-color: #eee;
+      border: 1px solid #eee;
+      &:focus {
+        outline: 0;
+      }
     }
     &.navbar-search input:focus {
       background-color: #fafafa;

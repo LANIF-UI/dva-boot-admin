@@ -20,7 +20,7 @@ export default class Dashboard extends BaseComponent {
                 <h2>
                   <b>523</b>
                 </h2>
-                <h5 class="text-muted">QQ</h5>
+                <h5 className="text-muted">QQ</h5>
               </Panel>
             </Col>
             <Col span={6}>
@@ -29,7 +29,7 @@ export default class Dashboard extends BaseComponent {
                 <h2>
                   <b>99+</b>
                 </h2>
-                <h5 class="text-muted">微信</h5>
+                <h5 className="text-muted">微信</h5>
               </Panel>
             </Col>
             <Col span={6}>
@@ -38,7 +38,7 @@ export default class Dashboard extends BaseComponent {
                 <h2>
                   <b>2</b>
                 </h2>
-                <h5 class="text-muted">skype</h5>
+                <h5 className="text-muted">skype</h5>
               </Panel>
             </Col>
             <Col span={6}>
@@ -47,7 +47,7 @@ export default class Dashboard extends BaseComponent {
                 <h2>
                   <b>999</b>
                 </h2>
-                <h5 class="text-muted">github</h5>
+                <h5 className="text-muted">github</h5>
               </Panel>
             </Col>
           </Row>

@@ -6,7 +6,6 @@ import { Notification } from 'components';
 import NavBar from 'components/NavBar';
 import { LeftSideBar, RightSideBar } from 'components/SideBar';
 import TopBar from 'components/TopBar';
-import Mask from 'components/Mask';
 import SkinToolbox from 'components/SkinToolbox';
 import './styles/basic.less';
 import $$ from 'cmn-utils';
@@ -153,7 +152,7 @@ export default class BasicLayout extends React.PureComponent {
             collapsed={collapsedLeftSide}
             leftCollapsedWidth={leftCollapsedWidth}
             showHeader={showSidebarHeader}
-            onCollapsed={this.onCollapseLeftSideAll}
+            onCollapse={this.onCollapseLeftSideAll}
             theme={theme.leftSide}
           />
           <Content>
@@ -163,6 +162,7 @@ export default class BasicLayout extends React.PureComponent {
                   expand={expandTopBar}
                   toggleRightSide={this.toggleRightSide}
                   collapsedRightSide={collapsedRightSide}
+                  onCollapse={this.onCollapseTopBar}
                 />
               </Header>
               <Content>
@@ -179,7 +179,6 @@ export default class BasicLayout extends React.PureComponent {
           theme={theme}
         />
         <Notification />
-        <Mask visible={expandTopBar} onClick={this.onCollapseTopBar} />
       </Layout>
     );
   }

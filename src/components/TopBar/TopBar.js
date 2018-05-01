@@ -3,11 +3,12 @@ import { Breadcrumb, Row, Col } from 'antd';
 import Icon from '../Icon';
 import cx from 'classnames';
 import CSSAnimate from '../CSSAnimate';
+import Mask from '../Mask';
 import './style/index.less';
 
 class TopBar extends Component {
   render() {
-    const { expand, toggleRightSide, collapsedRightSide } = this.props;
+    const { expand, toggleRightSide, collapsedRightSide, onCollapse } = this.props;
     const classnames = cx(
       'topbar',
       {
@@ -80,6 +81,7 @@ class TopBar extends Component {
             <Icon type="into" />
           </a>
         </header>
+        <Mask visible={expand} onClose={onCollapse} />
       </div>
     );
   }
