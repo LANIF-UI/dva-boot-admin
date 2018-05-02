@@ -1,7 +1,9 @@
+import './styles/user.less';
 import React from 'react';
 import { connect } from 'dva';
+import { Layout } from 'antd';
 import { Switch, NavLink } from 'dva/router';
-import './styles/user.less';
+const { Content, Header } = Layout;
 
 @connect()
 export default class UserLayout extends React.PureComponent {
@@ -10,11 +12,11 @@ export default class UserLayout extends React.PureComponent {
     const {childRoutes} = routerData;
 
     return (
-      <div className="user-layout">
-        <Switch>
-          {childRoutes}
-        </Switch>
-      </div>
+      <Layout className="full-layout user-layout">
+        <Content>
+          <Switch>{childRoutes}</Switch> 
+        </Content>
+      </Layout>
     );
   }
 }

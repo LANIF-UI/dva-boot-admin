@@ -1,0 +1,67 @@
+@import "~antd/lib/style/themes/default.less";
+
+/*
+    patternLock.js v 1.1.1
+    Author: Sudhanshu Yadav, Nimiq Foundation
+    Copyright (c) 2015,2016 Sudhanshu Yadav - ignitersworld.com , released under the MIT license.
+    Copyright (c) 2018 Nimiq Foundation - nimiq.com , released under the MIT license.
+*/
+@success-color: #009900;
+@error-color: #BA1B26;
+@main-button-background: #FFF;
+
+.patt-holder{
+	-ms-touch-action: none;
+}
+.patt-wrap{
+	position: relative;
+	cursor: pointer;
+}
+.patt-wrap ul, .patt-wrap li {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.patt-circ {
+	position: relative;
+	float: left;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+ }
+.patt-circ.hovered {
+	border: 3px solid @success-color;
+}
+
+.patt-error .patt-circ.hovered {
+	border: 3px solid @error-color;
+}
+
+.patt-hidden .patt-circ.hovered {
+	border: 0;
+}
+
+.patt-dots {
+	background: @main-button-background;
+	width: 10px;
+	height: 10px;
+	border-radius: 5px;
+	position:absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -5px;
+	margin-left: -5px;
+}
+.patt-lines {
+	border-radius: 5px;
+	height: 10px;
+	background: @main-button-background;
+	opacity: 0.3;
+	position: absolute;
+	transform-origin: 5px 5px;
+	-ms-transform-origin: 5px 5px; /* IE 9 */
+	-webkit-transform-origin: 5px 5px;
+}
+
+.patt-hidden .patt-lines {
+	display:none;
+}

@@ -1,8 +1,8 @@
 import { dynamicWrapper, createRoute } from '@/utils/core';
 
 const routesConfig = (app) => ({
-  path: '/user/login',
-  title: '用户登录',
+  path: '/sign/login',
+  title: 'DBAdmin - Login',
   component: dynamicWrapper(app, [import('./model')], import('./components')),
 });
 

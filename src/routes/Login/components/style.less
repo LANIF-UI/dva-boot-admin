@@ -1,3 +1,39 @@
+@import "~antd/lib/style/themes/default.less";
+
 .login-page {
-  text-align: center;
+  background: url('../../../assets/images/bg.jpg');
+  .login-form {
+    width: 368px;
+    margin: 0 auto;
+    .user-img {
+      margin: 110px 0 26px 0;
+      font-size: 28px;
+      text-align: center;
+      img {
+        width: 50px;
+        margin-right: 18px;
+      }
+      > * {
+        vertical-align: middle;
+      }
+    }
+    .login-form-forgot {
+      float: right;
+    }
+    .login-form-button {
+      width: 100%;
+    }
+    .new-user {
+      float: right;
+    }
+    a {
+      color: @primary-color;
+      &:hover {
+        color: tint(@primary-color);
+      }
+      &:active {
+        color: @primary-color;
+      }
+    }
+  }
 }

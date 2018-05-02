@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import cx from 'classnames';
 import { Menu, Layout, Switch, Select } from 'antd';
+import { Link } from 'dva/router';
 import Icon from '../Icon';
 import './style/index.less';
 const Option = Select.Option;
@@ -68,8 +69,10 @@ class LeftSideBar extends Component {
             theme={theme}
           >
             <Menu.Item key="dashboard">
-              <Icon type="dashboard" antd />
-              <span>仪表盘</span>
+              <Link to="/dashboard">
+                <Icon type="dashboard" antd />
+                <span>仪表盘</span>
+              </Link>
             </Menu.Item>
             <SubMenu key="sub1" title={<span><Icon antd type="mail" /><span>Navigation One</span></span>}>
               <MenuItemGroup key="g1" title="Item 1">
