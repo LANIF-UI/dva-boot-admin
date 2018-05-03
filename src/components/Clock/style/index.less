@@ -1,0 +1,33 @@
+@import "~antd/lib/style/themes/default.less";
+
+.antui-clock {
+  > .date {
+    font-size: 20px;
+    letter-spacing: 0.3px;
+    text-align: right;
+  }
+  > ul {
+    text-align: right;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    > li {
+      display: inline;
+      font-family: Roboto;
+      font-size: 60px;
+      font-weight: 900;
+      &.point {
+        padding: 0 4px;
+        animation: 1s ease 0s normal none infinite flash;
+        position: relative;
+        top: -5px;
+      }
+    }
+  }
+}
+
+@keyframes flash{
+  0% {opacity:1.0;}
+  50% {opacity:0; }
+  100% {opacity:1.0;}	
+}

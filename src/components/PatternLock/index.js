@@ -3,35 +3,37 @@ import PatternLock from './PatternLock';
 import './style/index.less';
 
 class Lock extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      lock: props.lock
-    };
-  }
-
   componentDidMount() {
     this.lock = new PatternLock(this.refs.patternLock, {
-      onDraw: pattern => {
-        console.log(pattern);
-      }
+      enableSetPattern: true
     });
 
-    this.lock.checkForPattern(this.props.lock, () => {
-        alert("You unlocked your app");
-    },function(){
-        alert("Pattern is not correct");
-    });
+    this.onCheckPattern();
   }
 
   componentDidUpdate(prevProps, prevState) {
-    
+    if (prevProps.lock !== this.props.lock) {
+      this.lock.setPattern(this.props.lock);
+    }
   }
 
-  render() {
-    return (
-      <div ref="patternLock" />
+  onCheckPattern = () => {
+    const { lock, onChange } = this.props;
+    this.lock.checkForPattern(
+      lock,
+      () => {
+        onChange(true);
+        console.log('You unlocked your app');
+      },
+      () => {
+        onChange(false);
+        console.log('Pattern is not correct');
+      }
     );
+  };
+
+  render() {
+    return <div ref="patternLock" />;
   }
 }
 

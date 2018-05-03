@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import cssAnimate, { isCssAnimationSupported } from 'css-animation';
 import cx from 'classnames';
 import omit from 'object.omit';
 
-class CSSAnimate extends Component {
+class CSSAnimate extends PureComponent {
   componentDidMount() {
     const { animationName, callback } = this.props;
     this.animate(animationName, callback);
@@ -18,9 +18,9 @@ class CSSAnimate extends Component {
   animate = (animationName, callback) => {
     const node = ReactDOM.findDOMNode(this);
 
-    if (isCssAnimationSupported) {
+    if (isCssAnimationSupported && animationName) {
       cssAnimate(node, animationName, callback);
-    } else {
+    } else if (!isCssAnimationSupported){
       console.warn('不支持css动画');
     }
   }
