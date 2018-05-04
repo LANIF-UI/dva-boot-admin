@@ -20,12 +20,12 @@ export default {
      * 成功失败标识来进行区分
      */
     afterResponse: (response) => {
-      const {status, data, message} = response;
+      const {status, message} = response;
       if (status) {
-        return data;
+        return response;
       } else {
         notice(message, 'error');
-        return false;
+        return response;
       }
     },
     errorHandle: (err) => {

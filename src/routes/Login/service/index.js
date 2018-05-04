@@ -1,5 +1,9 @@
 import $$ from 'cmn-utils';
-// 模拟
-export async function login(params) {
-  return $$.post('/auth/login');
+
+export async function login(payload) {
+  return $$.post('/user/login', payload);
+}
+
+export async function getMenu(payload) {
+  return $$.post('/user/menu', payload);
 }

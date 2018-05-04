@@ -3,6 +3,7 @@ import React from 'react';
 import { connect } from 'dva';
 import { Layout } from 'antd';
 import { Switch, NavLink } from 'dva/router';
+import Notification from 'components/Notification';
 const { Content, Header } = Layout;
 
 @connect()
@@ -16,6 +17,7 @@ export default class UserLayout extends React.PureComponent {
         <Content>
           <Switch>{childRoutes}</Switch> 
         </Content>
+        <Notification />
       </Layout>
     );
   }

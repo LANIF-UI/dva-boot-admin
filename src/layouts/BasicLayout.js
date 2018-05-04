@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'dva';
 import { Layout } from 'antd';
-import { Switch } from 'dva/router';
+import { Switch, routerRedux } from 'dva/router';
 import { Notification } from 'components';
 import NavBar from 'components/NavBar';
 import { LeftSideBar, RightSideBar } from 'components/SideBar';
@@ -39,9 +39,15 @@ export default class BasicLayout extends React.PureComponent {
       }
     };
   }
-
-  componentDidMount() {}
-
+  
+  componentWillMount() {
+    // 检查有户是否登录
+    const user = $$.getStore('user');
+    if (!user) {
+      this.props.dispatch(routerRedux.replace('/sign/login'));
+    }
+  }
+  
   /**
    * 顶部左侧菜单图标收缩控制
    */
