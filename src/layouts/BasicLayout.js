@@ -36,7 +36,9 @@ export default class BasicLayout extends React.PureComponent {
       /* 布局设置 */
       fixed: {
         navbar: true
-      }
+      },
+      user: $$.getStore('user'),
+      menu: $$.getStore('menu'),
     };
   }
   
@@ -45,6 +47,8 @@ export default class BasicLayout extends React.PureComponent {
     const user = $$.getStore('user');
     if (!user) {
       this.props.dispatch(routerRedux.replace('/sign/login'));
+    } else {
+
     }
   }
   
@@ -137,9 +141,11 @@ export default class BasicLayout extends React.PureComponent {
       showSidebarHeader,
       collapsedRightSide,
       collapsedSkinToolbox,
-      theme
+      theme,
+      user,
+      menu,
     } = this.state;
-    const { routerData } = this.props;
+    const { routerData, location } = this.props;
     const { childRoutes } = routerData;
 
     return (
@@ -151,6 +157,7 @@ export default class BasicLayout extends React.PureComponent {
             onExpandTopBar={this.onExpandTopBar}
             toggleSidebarHeader={this.toggleSidebarHeader}
             theme={theme.navbar}
+            user={user}
           />
         </Header>
         <Layout>
@@ -159,7 +166,9 @@ export default class BasicLayout extends React.PureComponent {
             leftCollapsedWidth={leftCollapsedWidth}
             showHeader={showSidebarHeader}
             onCollapse={this.onCollapseLeftSideAll}
+            location={location}
             theme={theme.leftSide}
+            menu={menu}
           />
           <Content>
             <Layout className="full-layout">

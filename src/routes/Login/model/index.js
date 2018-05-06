@@ -8,31 +8,15 @@ export default {
   state: {
     loggedIn: false,
     message: '',
-    user: {}
+    user: {},
+    menu: [],
   },
 
   subscriptions: {
     setup({ history, dispatch }) {
       return history.listen(({ pathname }) => {
-        if (pathname.indexOf('/user/login') !== -1) {
+        if (pathname.indexOf('/sign/login') !== -1) {
           $$.removeStore('user');
-          const userId = $$.getQueryValue('userId');
-          if (userId) {
-            $$.setStore('userId', userId);
-            $$.setStore('planType', $$.getQueryValue('plan_type'));
-            dispatch({
-              type: 'login',
-              payload: {
-                user_id: $$.getQueryValue('userId'),
-                token: $$.getQueryValue('token'),
-                app_key: $$.getQueryValue('app_key'),
-                org_id: $$.getQueryValue('org_id'),
-                time: $$.getQueryValue('time'),
-                client_secret: $$.getQueryValue('client_secret')
-              }
-            });
-          } else {
-          }
         }
       });
     }
@@ -58,9 +42,22 @@ export default {
     *getMenu({ payload }, { call, put }) {
       const { status, data } = yield call(getMenu, payload);
       if (status) {
+        const loopMenu = (menu, path) => {
+          menu.forEach(item => {
+            if (path) {
+              item.parentPath = path;
+            }
+            if (item.children && item.children.length) {
+              loopMenu(item.children, item.path);
+            }
+          });
+        }
+        loopMenu(data);
+        
+        $$.setStore('menu', data);
         yield put({
           type: 'getMenuSuccess',
-          payload: data
+          payload: data,
         });
       }
     },

@@ -59,7 +59,7 @@ class NavBar extends Component {
   render() {
     const { openSearchBox } = this.state;
     const { fixed, theme, onCollapseLeftSide, collapsed,
-      onExpandTopBar, toggleSidebarHeader } = this.props;
+      onExpandTopBar, toggleSidebarHeader, user } = this.props;
 
     const classnames = cx(
       'navbar', 
@@ -115,10 +115,10 @@ class NavBar extends Component {
             </Popover>
           </li>
           <li className="dropdown">
-            <Popover placement="bottomRight" title={'WELCOME 魏小雨'} 
+            <Popover placement="bottomRight" title={`WELCOME ${user.name}`} 
               overlayClassName={cx("navbar-popup", {[theme]: !!theme})} content={<UserDropDown />} trigger="click">
               <a className="dropdown-toggle">
-                <Badge dot><Avatar src={require('assets/images/avatar.jpg')}>小雨</Avatar></Badge>
+                <Badge dot><Avatar src={require('assets/images/avatar.jpg')}>{user.name}</Avatar></Badge>
               </a>
             </Popover>
           </li>

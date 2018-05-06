@@ -1,13 +1,37 @@
+/**
+ * 来源
+ * https://github.com/ant-design/ant-design-pro/blob/master/src/components/SiderMenu/SiderMenu.js
+ */
 import React, { Component } from 'react';
 import cx from 'classnames';
 import { Menu, Layout, Switch, Select } from 'antd';
 import { Link } from 'dva/router';
+import pathToRegexp from 'path-to-regexp';
 import Icon from '../Icon';
 import './style/index.less';
 const Option = Select.Option;
 const { Sider } = Layout;
 const SubMenu = Menu.SubMenu;
-const MenuItemGroup = Menu.ItemGroup;
+
+// Allow menu.js config icon as string or ReactNode
+//   icon: 'setting',
+//   icon: 'http://demo.com/icon.png',
+//   icon: <Icon type="setting" />,
+const getIcon = icon => {
+  if (typeof icon === 'string' && icon.indexOf('http') === 0) {
+    return <img src={icon} alt="icon" className={`sider-menu-item-img`} />;
+  }
+  if (typeof icon === 'string') {
+    return <Icon type={icon} antd />;
+  }
+  return icon;
+};
+
+export const getMeunMatchKeys = (flatMenu, path) => {
+  return flatMenu.filter(item => {
+    return pathToRegexp(item.path).test(path);
+  });
+};
 
 class LeftSideBar extends Component {
   static defaultProps = {
@@ -15,8 +39,151 @@ class LeftSideBar extends Component {
     theme: '',
   }
 
+  constructor(props) {
+    super(props);
+    this.flatMenu = this.getFlatMenu(props.menu);
+    this.state = {
+      openKeys: this.getDefaultCollapsedSubMenus(props),
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.location.pathname !== this.props.location.pathname) {
+      this.setState({
+        openKeys: this.getDefaultCollapsedSubMenus(nextProps),
+      });
+    }
+  }
+
+  getFlatMenu(menus) {
+    let menu = [];
+    menus.forEach(item => {
+      if (item.children) {
+        menu = menu.concat(this.getFlatMenu(item.children));
+      }
+      menu.push(item);
+    });
+    return menu;
+  }
+
+  /**
+   * Convert pathname to openKeys
+   * /list/search/articles = > ['list','/list/search']
+   * @param  props
+   */
+  getDefaultCollapsedSubMenus(props) {
+    const { location: { pathname } } = props || this.props;
+    const menu = getMeunMatchKeys(this.flatMenu, pathname)[0];
+    return [menu && menu.parentPath];
+  }
+
+  /**
+   * 判断是否是http链接.返回 Link 或 a
+   * Judge whether it is http link.return a or Link
+   * @memberof SiderMenu
+   */
+  getMenuItemPath = item => {
+    const itemPath = this.conversionPath(item.path);
+    const icon = getIcon(item.icon);
+    const { target, name } = item;
+    // Is it a http link
+    if (/^https?:\/\//.test(itemPath)) {
+      return (
+        <a href={itemPath} target={target}>
+          {icon}
+          <span>{name}</span>
+        </a>
+      );
+    }
+    return (
+      <Link
+        to={itemPath}
+        target={target}
+        replace={itemPath === this.props.location.pathname}
+      >
+        {icon}
+        <span>{name}</span>
+      </Link>
+    );
+  };
+
+  /**
+   * get SubMenu or Item
+   */
+  getSubMenuOrItem = item => {
+    if (item.children && item.children.some(child => child.name)) {
+      const childrenItems = this.getNavMenuItems(item.children);
+      if (childrenItems && childrenItems.length > 0) {
+        return (
+          <SubMenu
+            title={
+              item.icon ? (
+                <span>
+                  {getIcon(item.icon)}
+                  <span>{item.name}</span>
+                </span>
+              ) : (
+                  item.name
+                )
+            }
+            key={item.path}
+          >
+            {childrenItems}
+          </SubMenu>
+        );
+      }
+      return null;
+    } else {
+      return <Menu.Item key={item.path}>{this.getMenuItemPath(item)}</Menu.Item>;
+    }
+  };
+  /**
+   * 获得菜单子节点
+   */
+  getNavMenuItems = menusData => {
+    if (!menusData) {
+      return [];
+    }
+    return menusData
+      .filter(item => item.name && !item.hideInMenu)
+      .map(item => {
+        const ItemDom = this.getSubMenuOrItem(item);
+        return ItemDom;
+      })
+      .filter(item => item);
+  };
+
+  // conversion Path
+  // 转化路径
+  conversionPath = path => {
+    if (path && path.indexOf('http') === 0) {
+      return path;
+    } else {
+      return `/${path || ''}`.replace(/\/+/g, '/');
+    }
+  };
+
+  // Get the currently selected menu
+  getSelectedMenuKeys = () => {
+    const pathname = this.props.location.pathname;
+    const selectMenu = getMeunMatchKeys(this.flatMenu, pathname)[0];
+    return selectMenu ? [selectMenu.path] : [];
+  };
+
+  isMainMenu = key => {
+    return this.props.menu.some(item => key && (item.key === key || item.path === key));
+  };
+
+  handleOpenChange = openKeys => {
+    const lastOpenKey = openKeys[openKeys.length - 1];
+    const moreThanOne = openKeys.filter(openKey => this.isMainMenu(openKey)).length > 1;
+    this.setState({
+      openKeys: moreThanOne ? [lastOpenKey] : [...openKeys],
+    });
+  };
+
   render() {
-    const {fixed, theme, collapsed, onCollapse, leftCollapsedWidth, showHeader} = this.props;
+    const { fixed, theme, collapsed, onCollapse, leftCollapsedWidth, showHeader, menu } = this.props;
 
     const classnames = cx(
       'sidebar-left',
@@ -29,6 +196,22 @@ class LeftSideBar extends Component {
         [theme]: !!theme,
       }
     );
+
+    const { openKeys } = this.state;
+    // if pathname can't match, use the nearest parent's key
+    let selectedKeys = this.getSelectedMenuKeys();
+    if (!selectedKeys.length) {
+      selectedKeys = [openKeys[openKeys.length - 1]];
+    }
+    // Don't show popup menu when it is been collapsed
+    const menuProps = collapsed
+      ? {
+        selectedKeys
+      }
+      : {
+        openKeys,
+        selectedKeys
+      };
 
     return (
       <Sider
@@ -46,8 +229,8 @@ class LeftSideBar extends Component {
               <div className="user-details">
                 <span>Mike Mayers</span>
                 <div className="dropdown">
-                  <Select 
-                    size="small" 
+                  <Select
+                    size="small"
                     defaultValue="online"
                     dropdownClassName="sidebar-header-dropdown"
                   >
@@ -63,41 +246,12 @@ class LeftSideBar extends Component {
           <Menu
             onClick={this.handleClick}
             inlineCollapsed={collapsed}
-            defaultSelectedKeys={['1']}
-            defaultOpenKeys={['sub1']}
+            onOpenChange={this.handleOpenChange}
             mode="inline"
             theme={theme}
+            {...menuProps}
           >
-            <Menu.Item key="dashboard">
-              <Link to="/dashboard">
-                <Icon type="dashboard" antd />
-                <span>仪表盘</span>
-              </Link>
-            </Menu.Item>
-            <SubMenu key="sub1" title={<span><Icon antd type="mail" /><span>Navigation One</span></span>}>
-              <MenuItemGroup key="g1" title="Item 1">
-                <Menu.Item key="1">Option 1</Menu.Item>
-                <Menu.Item key="2">Option 2</Menu.Item>
-              </MenuItemGroup>
-              <MenuItemGroup key="g2" title="Item 2">
-                <Menu.Item key="3">Option 3</Menu.Item>
-                <Menu.Item key="4">Option 4</Menu.Item>
-              </MenuItemGroup>
-            </SubMenu>
-            <SubMenu key="sub2" title={<span><Icon antd type="appstore" /><span>Navigation Two</span></span>}>
-              <Menu.Item key="5">Option 5</Menu.Item>
-              <Menu.Item key="6">Option 6</Menu.Item>
-              <SubMenu key="sub3" title="Submenu">
-                <Menu.Item key="7">Option 7</Menu.Item>
-                <Menu.Item key="8">Option 8</Menu.Item>
-              </SubMenu>
-            </SubMenu>
-            <SubMenu key="sub4" title={<span><Icon antd type="setting" /><span>Navigation Three</span></span>}>
-              <Menu.Item key="9">Option 9</Menu.Item>
-              <Menu.Item key="10">Option 10</Menu.Item>
-              <Menu.Item key="11">Option 11</Menu.Item>
-              <Menu.Item key="12">Option 12</Menu.Item>
-            </SubMenu>
+            {this.getNavMenuItems(menu)}
           </Menu>
           <div className="sidebar-toggle-mini">
             {collapsed && leftCollapsedWidth !== 0 ? <Switch checked={collapsed} onChange={onCollapse} size="small" /> : null}

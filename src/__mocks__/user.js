@@ -40,134 +40,134 @@ export default ({fetchMock, delay, mock, toSuccess, toError}) => {
     '/api/user/menu': options => toSuccess([
       {
         name: '仪表盘',
-        icon: 'dashboard',
-        path: 'dashboard',
+        icon: 'home',
+        path: '/dashboard',
       },
       {
         name: '组件',
-        icon: 'component',
-        path: 'component',
+        icon: 'desktop',
+        path: '/component',
         children: [
           {
             name: '工具条',
-            path: 'toolbar',
+            path: '/toolbar',
           },
           {
             name: 'BaseComponent',
-            path: 'baseComponent',
+            path: '/baseComponent',
           },
           {
             name: 'Columns',
-            path: 'column',
+            path: '/column',
           },
           {
             name: '搜索条',
-            path: 'searchBar',
+            path: '/searchBar',
           },
           {
             name: '数据表格',
-            path: 'datatable',
+            path: '/datatable',
           },
           {
             name: '表单',
-            path: 'form',
+            path: '/form',
           },
           {
             name: '穿梭树',
-            path: 'transferTree',
+            path: '/transferTree',
           },
           {
             name: '图表',
-            path: 'charts',
+            path: '/charts',
           },
         ],
       },
       {
         name: 'UI元素',
-        icon: 'ui',
-        path: 'ui',
+        icon: 'share-alt',
+        path: '/ui',
         children: [
           {
             name: '按钮',
-            path: 'buttons',
+            path: '/buttons',
           },
           {
             name: '消息',
-            path: 'alerts',
+            path: '/alerts',
           },
           {
             name: '动画',
-            path: 'animations',
+            path: '/animations',
           },
           {
             name: '图标',
-            path: 'icons',
+            path: '/icons',
           },
           {
             name: '富文本',
-            path: 'editor',
+            path: '/editor',
           },
           {
             name: '模态窗',
-            path: 'modal',
+            path: '/modal',
           },
           {
             name: '遮罩',
-            path: 'mask',
+            path: '/mask',
           },
         ],
       },
       {
         name: '页面',
-        icon: 'page',
-        path: 'page',
+        icon: 'book',
+        path: '/page',
         children: [
           {
             name: '登录页',
-            path: 'login',
+            path: '/login',
           },
           {
             name: '注册页',
-            path: 'register',
+            path: '/register',
           },
           {
             name: '锁屏',
-            path: 'screenLock',
+            path: '/screenLock',
           },
           {
             name: '画廊',
-            path: 'gallary',
+            path: '/gallary',
           },
           {
             name: 'Coming Soon',
-            path: 'coming',
+            path: '/coming',
           },
           {
             name: '403',
-            path: '403',
+            path: '/403',
           },
           {
             name: '404',
-            path: '404',
+            path: '/404',
           },
           {
             name: '500',
-            path: '500',
+            path: '/500',
           },
           {
             name: '空白页',
-            path: 'blank',
+            path: '/blank',
           },
         ],
       },
       {
         name: '通用场景',
-        icon: 'business',
-        path: 'business',
+        icon: 'bulb',
+        path: '/business',
         children: [
           {
             name: 'CRUD',
-            path: 'crud',
+            path: '/crud',
           }
         ],
       },
