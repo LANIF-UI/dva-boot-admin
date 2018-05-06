@@ -139,7 +139,7 @@ export default ({fetchMock, delay, mock, toSuccess, toError}) => {
             path: '/gallary',
           },
           {
-            name: 'Coming Soon',
+            name: '即將到来',
             path: '/coming',
           },
           {
