@@ -40,7 +40,9 @@ app.router(({ history, app }) => (
 // -> Start
 app.start('#root');
 
+// 使用mock数据
+require('./__mocks__');
 // -> Developer mock data
-if (process.env.NODE_ENV === 'development') {
-  require('./__mocks__');
-}
+// if (process.env.NODE_ENV === 'development') {
+//   require('./__mocks__');
+// }

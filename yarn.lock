@@ -1566,9 +1566,9 @@ clone@^2.1.1:
   version "2.1.1"
   resolved "http://registry.npm.taobao.org/clone/download/clone-2.1.1.tgz#d217d1e961118e3ac9a4b8bba3285553bf647cdb"
 
-cmn-utils@^0.1.8:
-  version "0.1.8"
-  resolved "https://registry.yarnpkg.com/cmn-utils/-/cmn-utils-0.1.8.tgz#f74283feced2d83680b2583b77fb92c5671510c5"
+cmn-utils@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/cmn-utils/-/cmn-utils-1.0.2.tgz#15f4024151850835490e374eb2119630ddba2b18"
   dependencies:
     store2 "^2.5.9"
     whatwg-fetch "^2.0.3"

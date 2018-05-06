@@ -31,7 +31,6 @@ export default {
           type: 'getMenu',
           payload
         });
-        yield put(routerRedux.replace('/'));
       } else {
         yield put({
           type: 'loginError',
@@ -59,6 +58,7 @@ export default {
           type: 'getMenuSuccess',
           payload: data,
         });
+        yield put(routerRedux.replace('/'));
       }
     },
     *logout(_, { put }) {}

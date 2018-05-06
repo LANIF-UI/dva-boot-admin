@@ -29,16 +29,16 @@ export default class BasicLayout extends React.PureComponent {
       collapsedRightSide: true, // 右边栏开关
       collapsedSkinToolbox: true, // 设置皮肤面板
       /* 皮肤设置 */
-      theme: $$.getStore('theme') || {
+      theme: $$.getStore('theme', {
         leftSide: 'darkgrey', // 左边
         navbar: 'light' // 顶部
-      },
+      }),
       /* 布局设置 */
       fixed: {
         navbar: true
       },
-      user: $$.getStore('user'),
-      menu: $$.getStore('menu'),
+      user: $$.getStore('user', {}),
+      menu: $$.getStore('menu', []),
     };
   }
   

@@ -29,7 +29,7 @@
     "antd": "^3.3.0",
     "bizcharts": "^3.1.5",
     "classnames": "^2.2.5",
-    "cmn-utils": "^0.1.8",
+    "cmn-utils": "^1.0.2",
     "css-animation": "^1.4.1",
     "dva": "^2.2.3",
     "dva-loading": "^1.0.4",
