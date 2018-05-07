@@ -169,6 +169,7 @@ export default class BasicLayout extends React.PureComponent {
             location={location}
             theme={theme.leftSide}
             menu={menu}
+            user={user}
           />
           <Content>
             <Layout className="full-layout">

@@ -124,22 +124,26 @@ export default ({fetchMock, delay, mock, toSuccess, toError}) => {
         children: [
           {
             name: '登录页',
-            path: '/login',
+            path: '/sign/login',
           },
           {
             name: '注册页',
-            path: '/register',
+            path: '/sign/register',
           },
           {
             name: '锁屏',
-            path: '/screenLock',
+            path: '/lock',
           },
           {
             name: '画廊',
             path: '/gallary',
           },
           {
-            name: '即將到来',
+            name: '空白页',
+            path: '/blank',
+          },
+          {
+            name: 'Coming Soon',
             path: '/coming',
           },
           {
@@ -153,10 +157,6 @@ export default ({fetchMock, delay, mock, toSuccess, toError}) => {
           {
             name: '500',
             path: '/500',
-          },
-          {
-            name: '空白页',
-            path: '/blank',
           },
         ],
       },

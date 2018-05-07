@@ -6,7 +6,6 @@ import Clock from '../Clock';
 import Mask from '../Mask';
 import logoImg from 'assets/images/logo-r.png';
 import pattern from 'assets/images/pattern.png';
-import './style/index.less';
 import CSSAnimate from '../CSSAnimate';
 const { Content } = Layout;
 

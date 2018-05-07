@@ -183,7 +183,7 @@ class LeftSideBar extends Component {
   };
 
   render() {
-    const { fixed, theme, collapsed, onCollapse, leftCollapsedWidth, showHeader, menu } = this.props;
+    const { fixed, theme, collapsed, onCollapse, leftCollapsedWidth, showHeader, menu, user } = this.props;
 
     const classnames = cx(
       'sidebar-left',
@@ -227,7 +227,7 @@ class LeftSideBar extends Component {
             <div className="userlogged clearfix">
               <Icon type="woman" />
               <div className="user-details">
-                <span>Mike Mayers</span>
+                <span>{user.name}</span>
                 <div className="dropdown">
                   <Select
                     size="small"

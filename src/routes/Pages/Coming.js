@@ -1,10 +1,10 @@
 import { createRoute } from '@/utils/core';
-import { ScreenLock } from 'components/Pages';
+import { Coming } from 'components/Pages';
 
 const routesConfig = app => ({
-  path: '/lock',
-  title: 'DBAdmin - Lock',
-  component: ScreenLock
+  path: '/coming',
+  title: 'DBAdmin - Coming Soon',
+  component: Coming
 });
 
 export default app => createRoute(app, routesConfig);

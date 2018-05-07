@@ -1,0 +1,121 @@
+.coming-soon-page {
+  background-color: #f0f0f0;
+  .title {
+    font-size: 20px;
+    font-weight: 300;
+    text-align: center;
+    color: #000000;
+    line-height: 28px;
+    margin: 25px 10px 55px 10px;
+  }
+  .place_balk_workers {
+    width: 437px;
+    height: 213px;
+    position: relative;
+    margin: 90px auto -10px;
+    .balk_workers {
+      width: 437px;
+      height: 213px;
+      position: relative;
+      background-image: url('./images/workers.png');
+      background-repeat: no-repeat;
+      background-position: center bottom;
+      background-color: transparent;
+      background-size: 100%;
+      z-index: 3;
+    }
+    .balk {
+      width: 60px;
+      height: 23px;
+      background-image: url('./images/balk.png');
+      background-repeat: no-repeat;
+      background-position: center bottom;
+      background-color: transparent;
+      background-size: 100%;
+      position: absolute;
+      top: 90px;
+      left: 178px;
+    }
+    .saw {
+      width: 325px;
+      height: 63px;
+      background-image: url('./images/saw.png');
+      background-repeat: no-repeat;
+      background-position: center bottom;
+      background-color: transparent;
+      background-size: 100%;
+      position: absolute;
+      left: 53px;
+      top: 68px;
+      z-index: 2;
+      animation: 1s ease 0s normal none infinite saw;
+      animation: saw 1s infinite ease-in-out;
+      transform-origin: 85% 65%;
+    }
+  }
+  #watch {
+    color: #f6f7f9;
+    text-align: center;
+  }
+
+  #watch .dash {
+    display: inline-block;
+    padding: 20px 30px;
+    line-height: 72px;
+    text-align: center;
+    margin: 0 -3px;
+  }
+
+  #watch .dash:first-child {
+    border-radius: 8px 0px 0px 8px;
+    background-color: #0089e9;
+  }
+  #watch .dash:last-child {
+    border-radius: 0px 8px 8px 0px;
+    background-color: #00b6f9;
+    padding-left: 28px;
+    padding-right: 28px;
+  }
+
+  #watch .dash:nth-child(2) {
+    background-color: #0097f6;
+  }
+  #watch .dash:nth-child(3) {
+    background-color: #00a7f8;
+  }
+
+  #watch .dash .digit {
+    display: block;
+    width: 48px;
+    font-size: 44px;
+    line-height: 44px;
+    height: 38px;
+    float: left;
+  }
+
+  #watch .dash .digit .top,
+  #watch .dash .digit .bottom {
+    font-weight: 300;
+  }
+
+  #watch .dash span.dash_title {
+    font-size: 14px;
+    line-height: 16px;
+    padding-top: 6px;
+    font-weight: 300;
+    display: block;
+    text-align: center;
+    clear: both;
+  }
+  @keyframes saw {
+    0% {
+      left: 53px;
+    }
+    50% {
+      left: 72px;
+    }
+    100% {
+      left: 53px;
+    }
+  }
+}

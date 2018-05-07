@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Icon from '../Icon';
 import { Popover, Badge, Avatar } from 'antd';
+import { Link } from 'dva/router';
 import cx from 'classnames';
 import './style/index.less';
 import logoImg from 'assets/images/logo.png';
@@ -115,10 +116,10 @@ class NavBar extends Component {
             </Popover>
           </li>
           <li className="dropdown">
-            <Popover placement="bottomRight" title={`WELCOME ${user.name}`} 
+            <Popover placement="bottomRight" title={`WELCOME ${user.userName}`} 
               overlayClassName={cx("navbar-popup", {[theme]: !!theme})} content={<UserDropDown />} trigger="click">
               <a className="dropdown-toggle">
-                <Badge dot><Avatar src={require('assets/images/avatar.jpg')}>{user.name}</Avatar></Badge>
+                <Badge dot><Avatar src={require('assets/images/avatar.jpg')}>{user.userName}</Avatar></Badge>
               </a>
             </Popover>
           </li>
@@ -154,9 +155,9 @@ const UserDropDown = (props) => (
       </a>
     </li>
     <li className="list-group-item dropdown-footer">
-      <a className="">
+      <Link to="/sign/login">
         <Icon type="poweroff" /> 退出 
-      </a>
+      </Link>
     </li>
   </ul>
 )
