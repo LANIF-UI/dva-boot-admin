@@ -4,6 +4,7 @@ import { Layout, Col, Row } from 'antd';
 import Icon from 'components/Icon';
 import BaseComponent from 'components/BaseComponent';
 import Panel from 'components/Panel';
+import Charts from 'components/Charts';
 import './index.less';
 const { Content } = Layout;
 
@@ -54,12 +55,12 @@ export default class Dashboard extends BaseComponent {
           <Row>
             <Col>
               <Panel title="数据面板组件">
-                abc
+                <Charts />
               </Panel>
             </Col>
           </Row>
         </Content>
       </Layout>
-    )
+    );
   }
 }
