@@ -11,6 +11,14 @@
 - 后台接口数据模拟
 - [dva-boot](https://github.com/LANIF-UI/dva-boot)脚手架封装的功能
 
+## 最近更新
+- 页面增加登录页
+- 页面增加锁屏页
+- 页面增加Coming Soon页
+- 组件增加Clock组件
+- 组件增加密码解锁组件
+- 组件增加Coming Soon组件
+
 ## 目录结构
 ```
 .
