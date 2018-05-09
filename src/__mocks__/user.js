@@ -31,7 +31,7 @@ export default ({fetchMock, delay, mock, toSuccess, toError}) => {
             'token': '@guid'                    // token
           }), 400);
         } else {
-          return toError('用户名或密码错误');
+          return toError('用户名或密码错误 admin/admin');
         }
       } else {
         return toError('请输入用户名和密码');

@@ -41,40 +41,18 @@ class LeftSideBar extends Component {
 
   constructor(props) {
     super(props);
-    this.flatMenu = this.getFlatMenu(props.menu);
+    this.flatMenu = props.flatMenu;
     this.state = {
-      openKeys: this.getDefaultCollapsedSubMenus(props),
+      openKeys: props.currentMenu ? [props.currentMenu.parentPath] : [],
     };
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.location.pathname !== this.props.location.pathname) {
       this.setState({
-        openKeys: this.getDefaultCollapsedSubMenus(nextProps),
+        openKeys: [nextProps.currentMenu.parentPath],
       });
     }
-  }
-
-  getFlatMenu(menus) {
-    let menu = [];
-    menus.forEach(item => {
-      if (item.children) {
-        menu = menu.concat(this.getFlatMenu(item.children));
-      }
-      menu.push(item);
-    });
-    return menu;
-  }
-
-  /**
-   * Convert pathname to openKeys
-   * /list/search/articles = > ['list','/list/search']
-   * @param  props
-   */
-  getDefaultCollapsedSubMenus(props) {
-    const { location: { pathname } } = props || this.props;
-    const menu = getMeunMatchKeys(this.flatMenu, pathname)[0];
-    return [menu && menu.parentPath];
   }
 
   /**

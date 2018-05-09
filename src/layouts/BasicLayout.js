@@ -7,6 +7,7 @@ import NavBar from 'components/NavBar';
 import { LeftSideBar, RightSideBar } from 'components/SideBar';
 import TopBar from 'components/TopBar';
 import SkinToolbox from 'components/SkinToolbox';
+import pathToRegexp from 'path-to-regexp';
 import './styles/basic.less';
 import $$ from 'cmn-utils';
 const { Content, Header } = Layout;
@@ -21,6 +22,9 @@ const { Content, Header } = Layout;
 export default class BasicLayout extends React.PureComponent {
   constructor(props) {
     super(props);
+    const menu = $$.getStore('menu', []);
+    const user = $$.getStore('user', []);
+    const flatMenu = this.flatMenu = this.getFlatMenu(menu);
     this.state = {
       collapsedLeftSide: false, // 左边栏开关控制
       leftCollapsedWidth: 60, // 左边栏宽度
@@ -37,8 +41,10 @@ export default class BasicLayout extends React.PureComponent {
       fixed: {
         navbar: true
       },
-      user: $$.getStore('user', {}),
-      menu: $$.getStore('menu', []),
+      user,
+      menu,
+      flatMenu, 
+      currentMenu: this.getCurrentMenu(props),
     };
   }
   
@@ -51,6 +57,37 @@ export default class BasicLayout extends React.PureComponent {
 
     }
   }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.location.pathname !== this.props.location.pathname) {
+      this.setState({
+        currentMenu: this.getCurrentMenu(nextProps),
+      });
+    }
+  }
+
+  getCurrentMenu(props) {
+    const { location: { pathname } } = props || this.props;
+    const menu = this.getMeunMatchKeys(this.flatMenu, pathname)[0];
+    return menu;
+  }
+
+  getFlatMenu(menus) {
+    let menu = [];
+    menus.forEach(item => {
+      if (item.children) {
+        menu = menu.concat(this.getFlatMenu(item.children));
+      }
+      menu.push(item);
+    });
+    return menu;
+  }
+
+  getMeunMatchKeys = (flatMenu, path) => {
+    return flatMenu.filter(item => {
+      return pathToRegexp(item.path).test(path);
+    });
+  };
   
   /**
    * 顶部左侧菜单图标收缩控制
@@ -144,6 +181,8 @@ export default class BasicLayout extends React.PureComponent {
       theme,
       user,
       menu,
+      flatMenu,
+      currentMenu,
     } = this.state;
     const { routerData, location } = this.props;
     const { childRoutes } = routerData;
@@ -168,6 +207,8 @@ export default class BasicLayout extends React.PureComponent {
             onCollapse={this.onCollapseLeftSideAll}
             location={location}
             theme={theme.leftSide}
+            flatMenu={flatMenu}
+            currentMenu={currentMenu}
             menu={menu}
             user={user}
           />
@@ -179,6 +220,7 @@ export default class BasicLayout extends React.PureComponent {
                   toggleRightSide={this.toggleRightSide}
                   collapsedRightSide={collapsedRightSide}
                   onCollapse={this.onCollapseTopBar}
+                  currentMenu={currentMenu}
                 />
               </Header>
               <Content>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Breadcrumb, Row, Col } from 'antd';
+import { Link } from 'dva/router';
 import Icon from '../Icon';
 import cx from 'classnames';
 import CSSAnimate from '../CSSAnimate';
@@ -8,7 +9,7 @@ import './style/index.less';
 
 class TopBar extends Component {
   render() {
-    const { expand, toggleRightSide, collapsedRightSide, onCollapse } = this.props;
+    const { expand, toggleRightSide, collapsedRightSide, onCollapse, currentMenu } = this.props;
     const classnames = cx(
       'topbar',
       {
@@ -72,10 +73,10 @@ class TopBar extends Component {
         </div>
         <header className="topbar-content">
           <Breadcrumb>
-            <Breadcrumb.Item className="first">用户中心</Breadcrumb.Item>
+            <Breadcrumb.Item className="first">{currentMenu.name}</Breadcrumb.Item>
             <Breadcrumb.Item className="icon"><Icon type="home" /></Breadcrumb.Item>
-            <Breadcrumb.Item><a href="">主页</a></Breadcrumb.Item>
-            <Breadcrumb.Item>用户中心</Breadcrumb.Item>
+            <Breadcrumb.Item><Link to="/">主页</Link></Breadcrumb.Item>
+            <Breadcrumb.Item>{currentMenu.name}</Breadcrumb.Item>
           </Breadcrumb>
           <a className={cx("topbar-right", {"collapse": collapsedRightSide})} onClick={toggleRightSide}>
             <Icon type="into" />
