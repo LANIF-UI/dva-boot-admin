@@ -4,10 +4,17 @@ import { Layout, Col, Row } from 'antd';
 import Icon from 'components/Icon';
 import BaseComponent from 'components/BaseComponent';
 import Panel from 'components/Panel';
-import Charts, { Bar } from 'components/Charts';
-import { Axis, Geom, Tooltip } from 'bizcharts';
+import { Bar } from 'components/Charts';
 import './index.less';
 const { Content } = Layout;
+
+const rankingListData = [];
+for (let i = 0; i < 7; i += 1) {
+  rankingListData.push({
+    title: `工专路 ${i} 号店`,
+    total: 323234,
+  });
+}
 
 @connect()
 export default class Dashboard extends BaseComponent {
@@ -70,7 +77,26 @@ export default class Dashboard extends BaseComponent {
           <Row>
             <Col>
               <Panel title="数据面板组件" height={300}>
-                <Bar data={salesData} scale={salesCols} />
+                <div className="flex">
+                  <div className="flex-auto-hidden flex flex-column">
+                    <h4 className="flex-none">销售额分布</h4>
+                    <div className="flex-auto-hidden">
+                      <Bar data={salesData} scale={salesCols} />  
+                    </div>
+                  </div>
+                  <div className="flex-none sales-order">
+                    <h4>门店销售额排名</h4>
+                    <ul>
+                      {rankingListData.map((item, i) => (
+                        <li key={item.title}>
+                          <span>{i + 1}</span>
+                          <span>{item.title}</span>
+                          <span>{item.total}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
               </Panel>
             </Col>
           </Row>

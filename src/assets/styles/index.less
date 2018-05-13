@@ -101,3 +101,41 @@ a:hover {
     height: 0;
   }
 }
+
+.flex {
+  display: flex;
+  height: 100%;
+  position: relative;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-auto {
+  flex: auto;
+  position: relative;
+  height: 100%;
+}
+
+.flex-auto-hidden {
+  .flex-auto;
+  overflow: hidden;
+}
+
+.flex-none {
+  flex: none;
+  position: relative;
+}
+
+.abs {
+  position: absolute;
+}
+
+.abs-full {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}

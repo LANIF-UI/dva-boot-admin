@@ -75,7 +75,7 @@ class NavBar extends Component {
     return (
       <header className={classnames}>
         <div className="navbar-branding">
-          <a className="navbar-brand">
+          <a className="navbar-brand" href="https://github.com/LANIF-UI/dva-boot-admin">
             <img src={logoImg} alt="logo" /><b>LANIF</b>Admin
           </a>
           <span className="toggle_sidemenu_l" onClick={onCollapseLeftSide}>
