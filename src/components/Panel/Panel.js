@@ -71,6 +71,7 @@ class Panel extends Component {
       className,
       title,
       width,
+      height,
       style,
       children,
       onRefresh,
@@ -88,8 +89,12 @@ class Panel extends Component {
 
     const styles = {
       ...style,
-      width
+      width,
     };
+    const bodyStyles = {};
+    if (!expand) {
+      bodyStyles.height = height;
+    }
 
     const Header = typeof header === 'undefined' ? (
       <div className={`${prefix}-header`}>
@@ -120,7 +125,7 @@ class Panel extends Component {
     return (
       <div className={classnames} style={styles}>
         {Header}
-        <div className={`${prefix}-body`}>
+        <div className={`${prefix}-body`} style={bodyStyles}>
           <div className="panel-content">
             {children}
           </div>

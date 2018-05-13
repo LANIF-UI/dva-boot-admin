@@ -63,7 +63,6 @@
         text-align: left;
         > span {
           font-size: 18px;
-          color: #e2e2e2;
           margin-bottom: 3px;
           overflow: hidden;
           text-align: left;
@@ -72,14 +71,22 @@
           width: 130px;
           display: block;
         }
-        .ant-select-selection {
-          background-color: rgba(0, 0, 0, 0.2);
-          border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+    }
+  }
+  &.darkgrey,
+  &.dark {
+    .sidebar-header {
+      .userlogged .user-details > span {
+        color: #e2e2e2;
+      }
+      .ant-select-selection {
+        background-color: rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: #616574;
+        font-size: 12px;
+        .ant-select-arrow {
           color: #616574;
-          font-size: 12px;
-          .ant-select-arrow {
-            color: #616574;
-          }
         }
       }
     }

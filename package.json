@@ -31,6 +31,7 @@
     "classnames": "^2.2.5",
     "cmn-utils": "^1.0.2",
     "css-animation": "^1.4.1",
+    "css-element-queries": "^1.0.2",
     "dva": "^2.2.3",
     "dva-loading": "^1.0.4",
     "object.omit": "^3.0.0",

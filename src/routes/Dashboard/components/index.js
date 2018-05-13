@@ -4,13 +4,28 @@ import { Layout, Col, Row } from 'antd';
 import Icon from 'components/Icon';
 import BaseComponent from 'components/BaseComponent';
 import Panel from 'components/Panel';
-import Charts from 'components/Charts';
+import Charts, { Bar } from 'components/Charts';
+import { Axis, Geom, Tooltip } from 'bizcharts';
 import './index.less';
 const { Content } = Layout;
 
 @connect()
 export default class Dashboard extends BaseComponent {
   render() {
+    const salesData = [
+      { x: '1951 年', y: 38 },
+      { x: '1952 年', y: 52 },
+      { x: '1956 年', y: 61 },
+      { x: '1957 年', y: 145 },
+      { x: '1958 年', y: 48 },
+      { x: '1959 年', y: 38 },
+      { x: '1960 年', y: 38 },
+      { x: '1962 年', y: 38 },
+    ];
+    const salesCols = {
+      'y': { tickInterval: 20 },
+    };
+
     return (
       <Layout className="full-layout page dashboard-page">
         <Content>
@@ -54,8 +69,8 @@ export default class Dashboard extends BaseComponent {
           </Row>
           <Row>
             <Col>
-              <Panel title="数据面板组件">
-                <Charts />
+              <Panel title="数据面板组件" height={300}>
+                <Bar data={salesData} scale={salesCols} />
               </Panel>
             </Col>
           </Row>
