@@ -40,7 +40,7 @@ export default ({fetchMock, delay, mock, toSuccess, toError}) => {
     '/api/user/menu': options => toSuccess([
       {
         name: '仪表盘',
-        icon: 'home',
+        icon: 'dashboard',
         path: '/dashboard',
       },
       {

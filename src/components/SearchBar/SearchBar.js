@@ -148,11 +148,9 @@ class SearchBar extends React.Component {
                       type: field.searchItem.type,
                       style: type === "inline" ? {width: width || this.width[field.searchItem.type]} : {},
                       format: field.searchItem.format,
-                      ...otherField
+                      placeholder: placeholder || undefined,
+                      ...otherField,
                     };
-                    if (field.searchItem.placeholder) {
-                      dateProps.placeholder = field.searchItem.placeholder;
-                    }
                     return (
                       <ComponentCol key={`col-${i}`} className="col-item" {...colopts}>
                         <ComponentItem {...formItemLayout} label={field.title} className="col-item-content">

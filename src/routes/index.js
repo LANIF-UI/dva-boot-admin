@@ -7,6 +7,7 @@ import Coming from './Pages/Coming';
 import Login from './Login';
 import Dashboard from './Dashboard';
 import Blank from './Blank';
+import Toolbar from './Widgets/Toolbar';
 
 const routesConfig = (app) => ([
   {
@@ -26,6 +27,7 @@ const routesConfig = (app) => ([
     childRoutes: [
       Dashboard(app),
       Blank(app),
+      Toolbar(app),
       Coming(),
       ScreenLock(),
       NotFound(),
