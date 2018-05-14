@@ -107,6 +107,11 @@ class NavBar extends Component {
           </div>
         </form>
         <ul className="nav navbar-nav navbar-right clearfix">
+          <li>
+            <a href="https://github.com/LANIF-UI/dva-boot-admin">
+              <Icon type="github" antd />
+            </a>
+          </li>
           <li className="dropdown">
             <Popover placement="bottomRight" title={'通知'} 
               overlayClassName={cx("navbar-popup", {[theme]: !!theme})} content={''} trigger="click">
