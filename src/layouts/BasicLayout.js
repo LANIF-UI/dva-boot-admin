@@ -44,7 +44,7 @@ export default class BasicLayout extends React.PureComponent {
       user,
       menu,
       flatMenu, 
-      currentMenu: this.getCurrentMenu(props),
+      currentMenu: this.getCurrentMenu(props) || {},
     };
   }
   
