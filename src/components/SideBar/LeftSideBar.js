@@ -161,7 +161,7 @@ class LeftSideBar extends Component {
   };
 
   render() {
-    const { fixed, theme, collapsed, onCollapse, leftCollapsedWidth, showHeader, menu, user } = this.props;
+    const { fixed, theme, collapsed, onCollapse, onCollapseAll, leftCollapsedWidth, showHeader, menu, user } = this.props;
 
     const classnames = cx(
       'sidebar-left',
@@ -198,6 +198,8 @@ class LeftSideBar extends Component {
         collapsedWidth={leftCollapsedWidth + .1}
         collapsible
         collapsed={collapsed}
+        onCollapse={onCollapse}
+        breakpoint="lg"
         trigger={null}
       >
         <div className="sidebar-left-content">
@@ -232,7 +234,7 @@ class LeftSideBar extends Component {
             {this.getNavMenuItems(menu)}
           </Menu>
           <div className="sidebar-toggle-mini">
-            {collapsed && leftCollapsedWidth !== 0 ? <Switch checked={collapsed} onChange={onCollapse} size="small" /> : null}
+            {collapsed && leftCollapsedWidth !== 0 ? <Switch checked={collapsed} onChange={onCollapseAll} size="small" /> : null}
           </div>
         </div>
       </Sider>

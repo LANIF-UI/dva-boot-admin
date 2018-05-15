@@ -93,9 +93,6 @@
   }
   &.darkgrey {
     background-color: #30363e;
-    .ant-menu-root.ant-menu {
-      border-right: 1px solid #282d33;
-    }
     .ant-menu {
       border-right: 0;
       background: #30363e;
@@ -107,9 +104,6 @@
 
   &.light {
     background-color: #fff;
-    .ant-menu-root.ant-menu {
-      border-right: 1px solid #e8e8e8;
-    }
     .ant-menu {
       border-right: 0;
       background: #fff;
@@ -121,15 +115,26 @@
   
   &.grey {
     background-color: #fafafa;
-    .ant-menu-root.ant-menu {
-      border-right: 1px solid #e8e8e8;
-    }
     .ant-menu {
       border-right: 0;
       background: #fafafa;
       &.ant-menu-sub {
         background-color: #f4f4f4;
       }
+    }
+  }
+}
+
+&.grey,
+&.light {
+  border-right: 1px solid #e8e8e8;
+  .ant-menu-root.ant-menu {
+    border-right: 1px solid #e8e8e8;
+    position: relative;
+  }
+  &:not(.sidebar-left-sm) {
+    .ant-menu-root.ant-menu {
+      right: -1px;
     }
   }
 }

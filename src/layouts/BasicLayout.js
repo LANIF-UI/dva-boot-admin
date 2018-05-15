@@ -204,7 +204,8 @@ export default class BasicLayout extends React.PureComponent {
             collapsed={collapsedLeftSide}
             leftCollapsedWidth={leftCollapsedWidth}
             showHeader={showSidebarHeader}
-            onCollapse={this.onCollapseLeftSideAll}
+            onCollapse={this.onCollapseLeftSide}
+            onCollapseAll={this.onCollapseLeftSideAll}
             location={location}
             theme={theme.leftSide}
             flatMenu={flatMenu}

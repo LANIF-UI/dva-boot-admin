@@ -8,6 +8,7 @@ import Login from './Login';
 import Dashboard from './Dashboard';
 import Blank from './Blank';
 import Toolbar from './Widgets/Toolbar';
+import BaseComponent from './Widgets/BaseComponent';
 
 const routesConfig = (app) => ([
   {
@@ -28,6 +29,7 @@ const routesConfig = (app) => ([
       Dashboard(app),
       Blank(app),
       Toolbar(app),
+      BaseComponent(),
       Coming(),
       ScreenLock(),
       NotFound(),
