@@ -9,7 +9,7 @@ const { Content } = Layout;
 export default class Blank extends BaseComponent {
   render() {
     return (
-      <Layout className="full-layout blank-page">
+      <Layout className="full-layout page blank-page">
         <Content className={style.className}>空白页</Content>
       </Layout>
     );
