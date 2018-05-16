@@ -54,6 +54,7 @@ $ npm start
 ```
 
 ## 最近更新
+- 增加CRUD页面
 - 增加全局响应式标示（ElementQueries）
 - 增加BaseComponent页面
 - 增加Toolbar页面
