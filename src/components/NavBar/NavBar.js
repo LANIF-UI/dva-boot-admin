@@ -91,13 +91,18 @@ class NavBar extends Component {
             </li>
           )}
           <li>
-            <a className="topbar-menu-toggle" onClick={onExpandTopBar}>
+            <a onClick={onExpandTopBar}>
               <Icon type="wand" />
             </a>
           </li>
-          <li className="hidden-xs" onClick={this.toggleFullScreen}>
-            <a className="request-fullscreen toggle-active">
+          <li onClick={this.toggleFullScreen}>
+            <a className="request-fullscreen">
               <Icon type="screen-full" />
+            </a>
+          </li>
+          <li className="mini-search" onClick={this.onOpenSearchBox}>
+            <a>
+              <Icon type="search" antd />
             </a>
           </li>
         </ul>

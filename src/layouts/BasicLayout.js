@@ -8,6 +8,7 @@ import { LeftSideBar, RightSideBar } from 'components/SideBar';
 import TopBar from 'components/TopBar';
 import SkinToolbox from 'components/SkinToolbox';
 import pathToRegexp from 'path-to-regexp';
+import ElementQueries from 'css-element-queries/src/ElementQueries';
 import './styles/basic.less';
 import $$ from 'cmn-utils';
 const { Content, Header } = Layout;
@@ -46,6 +47,10 @@ export default class BasicLayout extends React.PureComponent {
       flatMenu, 
       currentMenu: this.getCurrentMenu(props) || {},
     };
+  }
+
+  componentDidMount() {
+    ElementQueries.listen();  
   }
   
   componentWillMount() {

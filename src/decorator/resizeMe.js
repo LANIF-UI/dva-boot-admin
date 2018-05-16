@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { ResizeSensor } from 'css-element-queries';
+import ResizeSensor from 'css-element-queries/src/ResizeSensor';
 import $$ from 'cmn-utils';
 const {debounce, throttle} = $$;
 
