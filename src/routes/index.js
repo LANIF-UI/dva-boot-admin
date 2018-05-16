@@ -10,6 +10,7 @@ import Blank from './Blank';
 import Toolbar from './Widgets/Toolbar';
 import BaseComponent from './Widgets/BaseComponent';
 import Column from './Widgets/Column';
+import CRUD from './Business/CRUD';
 
 const routesConfig = (app) => ([
   {
@@ -32,6 +33,7 @@ const routesConfig = (app) => ([
       Toolbar(app),
       Column(),
       BaseComponent(),
+      CRUD(app),
       Coming(),
       ScreenLock(),
       NotFound(),

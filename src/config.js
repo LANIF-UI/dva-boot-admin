@@ -65,7 +65,7 @@ export default {
 
     // 格式化从后端反回的数据
     responseFormat: (resp) => {
-      const { currentPage, showCount, totalResult, dataList, totalPage } = resp;
+      const { currentPage, showCount, totalResult, dataList, totalPage } = resp.data;
       return {
         pageNum: currentPage,
         pageSize: showCount,

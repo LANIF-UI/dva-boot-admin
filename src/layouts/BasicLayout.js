@@ -50,7 +50,7 @@ export default class BasicLayout extends React.PureComponent {
   }
 
   componentDidMount() {
-    ElementQueries.listen();  
+    ElementQueries.init();  
   }
   
   componentWillMount() {
