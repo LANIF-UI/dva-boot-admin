@@ -54,6 +54,7 @@ $ npm start
 ```
 
 ## Change log
+- 更新内置ICON图标
 - 增加CRUD页面
 - 增加全局响应式标示（ElementQueries）
 - 增加BaseComponent页面
