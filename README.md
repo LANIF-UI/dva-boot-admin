@@ -1,9 +1,9 @@
 # :beginner: DVA-BOOT-ADMIN
 
-我们使用React生态系统的最成熟的技术体系，搭建的一套开箱即用的后台管理系统，框架里包含了DBA中独有的定制组件，以及许多经过大量实践口碑良好的第三方组件，它不仅仅是一个简单的仪表盘展示界面，更是保证您下一个web项目所必需的所有工具，我们希望使用它的人可以快速、稳定的开发出健壮、美观、易用的web程序。
+We use the React of the ecosystem is the most mature technology system, set up a set of out-of-the-box, admin dashboard system framework includes a unique custom components in the DBA, and many public praise good third-party components after much practice, it is not just a simple dashboard display interface, but also necessary to ensure that your next web project all the tools, we want to use it can be fast, stable develop robust, beautiful, easy to use web applications.
 
-## 包含的功能
-- Ant Design 组件库
+## Feature
+- Ant Design UI
 - DVA2
 - 数十个精心制作的小组件
 - 多种页面布局
@@ -11,7 +11,7 @@
 - 后台接口数据模拟
 - [dva-boot](https://github.com/LANIF-UI/dva-boot)脚手架封装的功能
 
-## 目录结构
+## Structure
 ```
 .
 ├── public                   # 不参与编译的资源文件
@@ -44,7 +44,7 @@
 │           └── styles       # 全局样式
 ```
 
-## 启动
+## Usage
 
 ``` javascript
 $ git clone https://github.com/LANIF-UI/dva-boot-admin.git
@@ -53,7 +53,7 @@ $ npm install
 $ npm start
 ```
 
-## 最近更新
+## Change log
 - 增加CRUD页面
 - 增加全局响应式标示（ElementQueries）
 - 增加BaseComponent页面
