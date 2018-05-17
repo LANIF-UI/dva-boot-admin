@@ -3,7 +3,7 @@
 .skin-toolbox {
   z-index: 999;
   position: fixed;
-  top: 120px;
+  top: 157px;
   right: 0px;
   width: 230px;
   user-select: none;
@@ -24,10 +24,10 @@
       margin-right: 30px;
       border: 1px solid #ddd;
       background: #fafafa;
-      padding: 0 8px;
+      padding: 0 5px;
       width: 274px;
-      height: 47px;
-      line-height: 42px;
+      height: 39px;
+      line-height: 35px;
       right: 44px;
       font-size: 14px;
       .panel-icon {
@@ -35,6 +35,13 @@
         padding-right: 20px;
         padding-left: 6px;
         color: @primary-color;
+        i {
+          transition: all .8s;
+          transform: rotate(0deg);
+        }
+      }
+      &:hover .panel-icon i {
+        transform: rotate(-360deg);
       }
       .panel-title {
         padding-left: 56px;

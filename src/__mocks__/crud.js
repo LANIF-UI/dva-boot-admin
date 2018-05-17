@@ -20,7 +20,7 @@ export default ({fetchMock, delay, mock, toSuccess, toError}) => {
           'id|+1': idbase,
           'deptName': deptName ? deptName : '@cword(3, 5)',      
           'distributionNetwork': '@cword(2)',
-          'address': '@county(true)',
+          'address': '@county()',
           'type': '@cword(3)',  
           'planBeginTime': '@date',
           'planEndTime': '@date',

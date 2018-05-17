@@ -1,6 +1,7 @@
 import React from 'react';
 import DataTable from 'components/DataTable';
-import { Button, Icon } from 'antd';
+import Icon from 'components/Icon';
+import { Button } from 'antd';
 
 export default (self, employees) => [
   {
@@ -62,7 +63,6 @@ export default (self, employees) => [
   {
     title: '作业内容',
     name: 'content',
-    tableItem: {},
     formItem: {
       type: 'editor'
     }
@@ -76,8 +76,8 @@ export default (self, employees) => [
           <Button tooltip="修改" onClick={self.onUpdate(record)}>
             <Icon type="edit" />
           </Button>
-          <Button tooltip="删除" onClick={self.onDelete(record)}>
-            <Icon type="delete" />
+        <Button tooltip="删除" onClick={self.onDelete(record)}>
+            <Icon type="trash" />
           </Button>
         </DataTable.Oper>
       )

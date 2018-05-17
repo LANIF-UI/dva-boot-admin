@@ -132,30 +132,28 @@ export default class CRUD extends BaseComponent {
 
     return (
       <Layout className="full-layout crud-page">
+        <Header>
+          <Toolbar 
+            appendLeft={
+              <Button.Group>
+                <Button type="primary" icon="plus">新增</Button>
+                <Button disabled={!rows.length} onClick={this.onDelete(rows)} icon="delete">删除</Button>
+              </Button.Group>
+            }
+            pullDown={
+              <SearchBar type="grid" {...searchBarProps} />
+            }
+          >
+            <SearchBar {...searchBarProps} />
+          </Toolbar>
+        </Header>
         <Content>
-          <Header>
-            <Toolbar 
-              appendLeft={
-                <Button.Group>
-                  <Button type="primary"><Icon type="plus" />新增</Button>
-                  <Button disabled={!rows.length} onClick={this.onDelete(rows)}><Icon type="delete" />删除</Button>
-                </Button.Group>
-              }
-              pullDown={
-                <SearchBar type="grid" {...searchBarProps} />
-              }
-            >
-              <SearchBar {...searchBarProps} />
-            </Toolbar>
-          </Header>
-          <Content>
-            <DataTable {...dataTableProps} />
-          </Content>
-          <Footer>
-            <Pagination {...dataTableProps} />
-          </Footer>
-          <ModalForm {...modalFormProps} />
+          <DataTable {...dataTableProps} />
         </Content>
+        <Footer>
+          <Pagination {...dataTableProps} />
+        </Footer>
+        <ModalForm {...modalFormProps} />
       </Layout>
     )
   }
