@@ -102,6 +102,9 @@ export default class CRUD extends BaseComponent {
       record,
       visible,
       columns,
+      modalOpts: {
+        width: 700,
+      },
       onCancel: () => {
         this.setState({
           record: null,
