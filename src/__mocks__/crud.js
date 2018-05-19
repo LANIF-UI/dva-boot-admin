@@ -19,7 +19,7 @@ export default ({fetchMock, delay, mock, toSuccess, toError}) => {
         [`dataList|${body.showCount}`]: [{
           'id|+1': idbase,
           'deptName': deptName ? deptName : '@cword(3, 5)',      
-          'distributionNetwork': '@cword(2)',
+          'distributionNetwork|1': ['0', '1'],
           'address': '@county()',
           'type': '@cword(3)',  
           'planBeginTime': '@date',

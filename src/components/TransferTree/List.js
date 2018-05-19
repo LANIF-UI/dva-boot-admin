@@ -74,7 +74,7 @@ export default class List extends React.Component {
   }
 
   render() {
-    const { prefixCls, classNameContainer, notFoundContent, style } = this.props;
+    const { prefixCls, notFoundContent, style } = this.props;
 
     const listCls = classNames({
       [prefixCls]: true

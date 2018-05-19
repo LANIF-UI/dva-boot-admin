@@ -2,48 +2,44 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import List from './List';
 import ListTree from './ListTree';
-import {Icon} from 'antd';
+import { Icon } from 'antd';
 import classNames from 'classnames';
 import './style/index.less';
 
-function noop() {
-}
+function noop() {}
 
 export default class TransferTree extends React.Component {
   static defaultProps = {
     prefixCls: 'antui-transfer-tree',
     dataSource: [],
-    targetKeys: [],
+    targetNodes: [],
     onChange: noop,
     titleText: '源列表',
-    treeKey: 'id',
+    treeKey: 'key',
     treeTitleKey: 'title',
     showSearch: false,
     footer: noop,
+    loading: false,
   };
 
   static propTypes = {
     prefixCls: PropTypes.string,
     dataSource: PropTypes.array,
-    targetKeys: PropTypes.array,
+    targetNodes: PropTypes.array,
     onChange: PropTypes.func,
-    height: PropTypes.number,
     listStyle: PropTypes.object,
     listRender: PropTypes.func,
     treeKey: PropTypes.string,
     treeTitleKey: PropTypes.string,
     className: PropTypes.string,
     titleText: PropTypes.string,
-    operations: PropTypes.array,
     showSearch: PropTypes.bool,
-    filterOption: PropTypes.func,
     searchPlaceholder: PropTypes.string,
     notFoundContent: PropTypes.node,
     footer: PropTypes.func,
-    rowKey: PropTypes.func,
     treeRender: PropTypes.func,
     loadData: PropTypes.func,
-    onSelected: PropTypes.func,
+    loading: PropTypes.bool
   };
 
   constructor(props) {
@@ -52,84 +48,103 @@ export default class TransferTree extends React.Component {
       leftFilter: '',
       rightFilter: '',
       targetNodes: props.targetNodes || [],
-      selectedKeys: [],
+      selectedKeys: props.targetNodes
+        ? props.targetNodes.map(node => node[props.treeKey])
+        : []
     };
   }
 
   componentWillReceiveProps(nextProps) {
-
     const { targetNodes } = nextProps;
     if ('targetNodes' in nextProps) {
       this.setState({
         targetNodes: targetNodes,
+        selectedKeys: targetNodes.map(node => node[nextProps.treeKey])
       });
     }
   }
 
   handleFilter = (direction, v) => {
     this.setState({
-      [`${direction}Filter`]: v,
+      [`${direction}Filter`]: v
     });
-  }
+  };
 
-  handleLeftFilter = (v) => this.handleFilter('left', v)
-  handleRightFilter = (v) => this.handleFilter('right', v)
+  handleLeftFilter = v => this.handleFilter('left', v);
+  handleRightFilter = v => this.handleFilter('right', v);
 
-  handleClear = (direction) => {
+  handleClear = direction => {
     this.setState({
-      [`${direction}Filter`]: '',
+      [`${direction}Filter`]: ''
     });
-  }
+  };
 
   handleRightClear = () => this.handleClear('right');
-  handleDeleteItem = (nodes) => {
-    const targetNodes = this.state.targetNodes.filter(node => !nodes.some(item => item.key === node.key));
-    const targetKeys = targetNodes.map(node => node.key);
+  handleDeleteItem = nodes => {
+    const { treeKey } = this.props;
+    const targetNodes = this.state.targetNodes.filter(
+      node => !nodes.some(item => item[treeKey] === node[treeKey])
+    );
+    const targetKeys = targetNodes.map(node => node[treeKey]);
 
     this.setState({
       selectedKeys: targetKeys,
       targetNodes: targetNodes
-    })
+    });
 
     this.props.onChange && this.props.onChange(targetKeys, targetNodes);
-  }
+  };
 
-  onTreeSelected = (selectedNodes) => {
+  onTreeSelected = selectedNodes => {
+    const { treeKey } = this.props;
     let targetNodes = selectedNodes.map(node => ({
-      key: node.key,
-      ...node.props,
+      [treeKey]: node[treeKey],
+      ...node.props
     }));
 
     if (this.props.filter) {
       targetNodes = targetNodes.filter(node => this.props.filter(node));
     }
 
-    const targetKeys = targetNodes.map(node => node.key);
-    
+    const targetKeys = targetNodes.map(node => node[treeKey]);
+
     this.setState({
       selectedKeys: targetKeys,
       targetNodes: targetNodes
-    })
+    });
 
     this.props.onChange && this.props.onChange(targetKeys, targetNodes);
-  }
+  };
 
   render() {
     const {
-      prefixCls, titleText, showSearch, notFoundContent, treeKey, treeTitleKey, dataSource,
-      searchPlaceholder, footer, listStyle, className,
-      listRender, treeRender, loadData
+      prefixCls,
+      titleText,
+      showSearch,
+      notFoundContent,
+      treeKey,
+      treeTitleKey,
+      dataSource,
+      searchPlaceholder,
+      footer,
+      listStyle,
+      className,
+      listRender,
+      treeRender,
+      loadData,
+      loading
     } = this.props;
-    const { leftFilter, selectedKeys, targetNodes } = this.state;
+    const { selectedKeys, targetNodes } = this.state;
 
     const cls = classNames({
       [className]: !!className,
-      [prefixCls]: true,
+      [prefixCls]: true
     });
 
     return (
       <div className={cls}>
-        <ListTree titleText={titleText}
+        <ListTree
+          titleText={titleText}
           loadData={loadData}
           treeData={dataSource}
           selectedKeys={selectedKeys}
@@ -144,6 +159,7 @@ export default class TransferTree extends React.Component {
           notFoundContent={notFoundContent}
           footer={footer}
           prefixCls={`${prefixCls}-list`}
+          loading={loading}
         />
         <div className={`${prefixCls}-operation`}>
           <Icon type="right" />

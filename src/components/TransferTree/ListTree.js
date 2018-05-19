@@ -1,22 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Search from './Search';
-import { Tree } from 'antd';
+import { Tree, Spin } from 'antd';
 
-function noop() {
-}
+function noop() {}
 
 export default class ListTree extends React.Component {
   static defaultProps = {
     dataSource: [],
     titleText: '',
-    treeKey: 'id',
+    treeKey: 'key',
     treeTitleKey: 'title',
     showSearch: false,
     handleClear: noop,
     handleFilter: noop,
     handleSelect: noop,
-    handleSelectAll: noop,
+    handleSelectAll: noop
   };
 
   static propTypes = {
@@ -34,41 +33,57 @@ export default class ListTree extends React.Component {
     filter: PropTypes.string,
     handleFilter: PropTypes.func,
     treeRender: PropTypes.func,
+    loading: PropTypes.bool,
   };
 
-  handleFilter = (e) => {
-    this.props.handleFilter(e.target.value); 
-  }
+  handleFilter = e => {
+    this.props.handleFilter(e.target.value);
+  };
 
   handleClear = () => {
-    this.props.handleFilter(""); 
-  }
+    this.props.handleFilter('');
+  };
 
-  renderTreeNodes = (data) => {
-    return data.map((item) => {
+  renderTreeNodes = data => {
+    const { treeKey, treeTitleKey } = this.props;
+    return data.map(item => {
       if (item.children) {
         return (
-          <Tree.TreeNode key={item.key} selectable={false} title={item.title} dataRef={item}>
+          <Tree.TreeNode
+            key={item[treeKey]}
+            selectable={false}
+            title={item[treeTitleKey]}
+            dataRef={item}
+          >
             {this.renderTreeNodes(item.children)}
           </Tree.TreeNode>
         );
       }
       return <Tree.TreeNode {...item} dataRef={item} />;
     });
-  }
+  };
 
   onSelect = (selectedKeys, info) => {
-    this.props.onTreeSelected(info.selectedNodes)
-  }
+    this.props.onTreeSelected(info.selectedNodes);
+  };
 
   render() {
-    const { prefixCls, treeData, titleText, loadData, filter, treeKey, treeTitleKey, treeRender,
-            showSearch, style, selectedKeys } = this.props;
+    const {
+      prefixCls,
+      loading,
+      treeData,
+      titleText,
+      loadData,
+      filter,
+      showSearch,
+      style,
+      selectedKeys
+    } = this.props;
 
     let { searchPlaceholder, notFoundContent } = this.props;
 
     const showTree = (
-      <Tree 
+      <Tree
         loadData={loadData}
         onSelect={this.onSelect}
         selectedKeys={selectedKeys}
@@ -80,21 +95,38 @@ export default class ListTree extends React.Component {
 
     return (
       <div className={prefixCls} style={style}>
-        <div className={`${prefixCls}-header tree-title`} style={{textAlign: 'center'}}>
+        <div
+          className={`${prefixCls}-header tree-title`}
+          style={{ textAlign: 'center' }}
+        >
           {titleText}
         </div>
-        <div className={showSearch ? `${prefixCls}-body ${prefixCls}-body-with-search` : `${prefixCls}-body`}>
-          {showSearch ? <div className={`${prefixCls}-body-search-wrapper`}>
-            <Search prefixCls={`${prefixCls}-search`}
-              onChange={this.handleFilter}
-              handleClear={this.handleClear}
-              placeholder={searchPlaceholder || '请输入搜索内容'}
-              value={filter}
-            />
-          </div> : null}
+        <div
+          className={
+            showSearch
+              ? `${prefixCls}-body ${prefixCls}-body-with-search`
+              : `${prefixCls}-body`
+          }
+        >
+          {showSearch ? (
+            <div className={`${prefixCls}-body-search-wrapper`}>
+              <Search
+                prefixCls={`${prefixCls}-search`}
+                onChange={this.handleFilter}
+                handleClear={this.handleClear}
+                placeholder={searchPlaceholder || '请输入搜索内容'}
+                value={filter}
+              />
+            </div>
+          ) : null}
           <div className={`${prefixCls}-body-content tree-content`}>
-            {treeData.length ? showTree
-              : <div className={`${prefixCls}-body-content-not-found`}>{notFoundContent || '列表为空'}</div>}
+            {treeData.length ? (
+              showTree
+            ) : (
+              <div className={`${prefixCls}-body-content-not-found`}>
+                {loading ? <Spin spinning={loading} /> : notFoundContent || '列表为空'}
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -17,7 +17,7 @@ export default ({fetchMock, delay, mock, toSuccess, toError}) => {
   // fetchMock.mock(/httpbin.org\/post/, {/* response */}, {/* options */});
 
   return {
-    '/api/user/login': (options) => { 
+    '/api/user/login': (options) => {
       if (options.body) {
         const user = JSON.parse(options.body);
         if (user.userName === 'admin' && user.password === 'admin') {

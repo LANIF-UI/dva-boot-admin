@@ -14,6 +14,10 @@ export default (self, employees) => [
   {
     title: '配电网络',
     name: 'distributionNetwork',
+    dict: [
+      {code: '0', codeName: '城市'},
+      {code: '1', codeName: '乡村'},
+    ],
     tableItem: {},
     formItem: {
       type: 'select',

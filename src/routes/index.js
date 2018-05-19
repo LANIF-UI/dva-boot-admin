@@ -10,6 +10,7 @@ import Blank from './Blank';
 import Toolbar from './Widgets/Toolbar';
 import BaseComponent from './Widgets/BaseComponent';
 import Column from './Widgets/Column';
+import TransferTree from './Widgets/TransferTree';
 import CRUD from './Business/CRUD';
 
 const routesConfig = (app) => ([
@@ -32,6 +33,7 @@ const routesConfig = (app) => ([
       Blank(app),
       Toolbar(app),
       Column(),
+      TransferTree(app),
       BaseComponent(),
       CRUD(app),
       Coming(),

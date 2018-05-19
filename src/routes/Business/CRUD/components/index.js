@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
-import { Layout, Button, Icon } from 'antd';
+import { Layout, Button } from 'antd';
 import BaseComponent from 'components/BaseComponent';
 import Toolbar from 'components/Toolbar';
 import SearchBar from 'components/SearchBar';
@@ -139,7 +139,7 @@ export default class CRUD extends BaseComponent {
           <Toolbar 
             appendLeft={
               <Button.Group>
-                <Button type="primary" icon="plus">新增</Button>
+                <Button type="primary" icon="plus" onClick={this.onAdd}>新增</Button>
                 <Button disabled={!rows.length} onClick={this.onDelete(rows)} icon="delete">删除</Button>
               </Button.Group>
             }

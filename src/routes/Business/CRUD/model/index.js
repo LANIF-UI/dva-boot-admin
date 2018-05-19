@@ -15,6 +15,7 @@ export default modelEnhance({
         if (pathname === '/crud') {
           dispatch({
             type: '@request',
+            afterResponse: resp => resp.data,
             payload: {
               valueField: 'employees',
               url: '/crud/getWorkEmployee',
