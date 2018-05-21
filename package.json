@@ -14,7 +14,7 @@
     "build": "react-app-rewired build",
     "test": "react-app-rewired test --env=jsdom",
     "eject": "react-scripts eject",
-    "gh-pages": "gh-pages -d build"
+    "gh-pages": "react-app-rewired build && gh-pages -d build"
   },
   "proxy": {
     "/api": {
