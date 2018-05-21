@@ -12,7 +12,6 @@ export default class TransferTree extends React.Component {
   static defaultProps = {
     prefixCls: 'antui-transfer-tree',
     dataSource: [],
-    targetNodes: [],
     onChange: noop,
     titleText: '源列表',
     treeKey: 'key',
@@ -47,10 +46,10 @@ export default class TransferTree extends React.Component {
     this.state = {
       leftFilter: '',
       rightFilter: '',
-      targetNodes: props.targetNodes || [],
+      targetNodes: props.targetNodes,
       selectedKeys: props.targetNodes
         ? props.targetNodes.map(node => node[props.treeKey])
-        : []
+        : null,
     };
   }
 

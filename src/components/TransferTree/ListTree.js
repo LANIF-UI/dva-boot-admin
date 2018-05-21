@@ -33,7 +33,12 @@ export default class ListTree extends React.Component {
     filter: PropTypes.string,
     handleFilter: PropTypes.func,
     treeRender: PropTypes.func,
-    loading: PropTypes.bool,
+    loading: PropTypes.bool
+  };
+
+  state = {
+    expandedKeys: [],
+    autoExpandParent: true
   };
 
   handleFilter = e => {
@@ -46,25 +51,60 @@ export default class ListTree extends React.Component {
 
   renderTreeNodes = data => {
     const { treeKey, treeTitleKey } = this.props;
+
     return data.map(item => {
+      const treeProps = {
+        ...item,
+        key: item[treeKey],
+        title: item[treeTitleKey],
+        dataRef: item
+      };
+
       if (item.children) {
         return (
-          <Tree.TreeNode
-            key={item[treeKey]}
-            selectable={false}
-            title={item[treeTitleKey]}
-            dataRef={item}
-          >
+          <Tree.TreeNode {...treeProps}>
             {this.renderTreeNodes(item.children)}
           </Tree.TreeNode>
         );
       }
-      return <Tree.TreeNode {...item} dataRef={item} />;
+      return <Tree.TreeNode {...treeProps} />;
     });
   };
 
   onSelect = (selectedKeys, info) => {
+    if (info.selected && info.node.props.dataRef) {
+      if (info.node.props.loadData && !info.node.props.dataRef.isLeaf) {
+        return;
+      } else if (info.node.props.dataRef.children) {
+        this.onExpand([info.node.props.eventKey], info);
+        return;
+      }
+    }
     this.props.onTreeSelected(info.selectedNodes);
+  };
+
+  onExpand = (expandedKeys, info) => {
+    if (
+      info.event &&
+      info.node.props.children
+    ) {
+      let concatKeys = [expandedKeys, this.state.expandedKeys].reduce(
+        (prev, next) =>
+          prev.filter(item => next.indexOf(item) === -1).concat(next)
+      );
+
+      if (
+        this.state.expandedKeys.some(item => item === info.node.props.eventKey)
+      ) {
+        concatKeys = concatKeys.filter(
+          item => item !== info.node.props.eventKey
+        );
+      }
+
+      this.setState({ expandedKeys: concatKeys, autoExpandParent: false });
+    } else {
+      this.setState({ expandedKeys, autoExpandParent: false });
+    }
   };
 
   render() {
@@ -80,13 +120,18 @@ export default class ListTree extends React.Component {
       selectedKeys
     } = this.props;
 
+    const { expandedKeys } = this.state;
+
     let { searchPlaceholder, notFoundContent } = this.props;
 
     const showTree = (
       <Tree
         loadData={loadData}
         onSelect={this.onSelect}
+        onExpand={this.onExpand}
         selectedKeys={selectedKeys}
+        expandedKeys={expandedKeys}
+        autoExpandParent={this.state.autoExpandParent}
         multiple
       >
         {this.renderTreeNodes(treeData)}
@@ -95,12 +140,7 @@ export default class ListTree extends React.Component {
 
     return (
       <div className={prefixCls} style={style}>
-        <div
-          className={`${prefixCls}-header tree-title`}
-          style={{ textAlign: 'center' }}
-        >
-          {titleText}
-        </div>
+        <div className={`${prefixCls}-header tree-title`}>{titleText}</div>
         <div
           className={
             showSearch
@@ -124,7 +164,11 @@ export default class ListTree extends React.Component {
               showTree
             ) : (
               <div className={`${prefixCls}-body-content-not-found`}>
-                {loading ? <Spin spinning={loading} /> : notFoundContent || '列表为空'}
+                {loading ? (
+                  <Spin spinning={loading} />
+                ) : (
+                  notFoundContent || '列表为空'
+                )}
               </div>
             )}
           </div>

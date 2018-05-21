@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'dva';
 import { Layout } from 'antd';
 import { Switch, routerRedux } from 'dva/router';
-import { Notification } from 'components';
+import Notification from 'components/Notification';
 import NavBar from 'components/NavBar';
 import { LeftSideBar, RightSideBar } from 'components/SideBar';
 import TopBar from 'components/TopBar';
