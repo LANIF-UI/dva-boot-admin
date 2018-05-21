@@ -106,10 +106,10 @@ class SearchBar extends React.Component {
   }
 
   render () {
-    const {className, prefixCls, type, rows, cols, columns, group, children, form, ...otherProps} = this.props;
+    const {className, prefixCls, type, rows = this.rows, cols = this.cols, columns, group, children, form, ...otherProps} = this.props;
 
-    const colopts = type === "grid" ? objectAssign(this.cols, cols) : {};
-    const rowopts = type === "grid" ? objectAssign(this.rows, rows) : {};
+    const colopts = type === "grid" ? cols : {};
+    const rowopts = type === "grid" ? rows : {};
 
     let ComponentRow = type === "inline" ? PlainComp : Row;
     let ComponentCol = type === "inline" ? PlainComp : Col;

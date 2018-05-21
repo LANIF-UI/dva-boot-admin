@@ -29,7 +29,7 @@ a:link {
   text-decoration: none;
   color:#333;
 }
-a.active {
+a:active {
   color:#2196f3;
 }
 a:hover {
@@ -75,6 +75,20 @@ a:hover {
   &.ant-layout {
     > .ant-layout-content {
       padding: 24px 24px 0px;
+    }
+  }
+  p {
+    a, 
+    a:link {
+      text-decoration: none;
+      color:@primary-color;
+    }
+    a:active {
+      color:@primary-7;
+    }
+    a:hover {
+      color:@primary-5;
+      text-decoration: underline;
     }
   }
 }
