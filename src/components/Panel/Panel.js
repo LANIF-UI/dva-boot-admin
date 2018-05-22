@@ -19,7 +19,8 @@ class Panel extends Component {
     this.state = {
       collapse: props.collapse || false,
       expand: props.expand || false,
-      refresh: 0
+      refresh: 0,
+      animationName: '',
     };
   }
 
@@ -69,7 +70,8 @@ class Panel extends Component {
 
   onRefresh = () => {
     this.setState({
-      refresh: this.state.refresh + 1
+      refresh: this.state.refresh + 1,
+      animationName: 'fadeIn',
     });
     this.props.onRefresh && this.props.onRefresh();
   };
@@ -85,7 +87,7 @@ class Panel extends Component {
   };
 
   render() {
-    const { expand, collapse, refresh } = this.state;
+    const { expand, collapse, refresh, animationName } = this.state;
     const {
       theme,
       prefix,
@@ -150,7 +152,8 @@ class Panel extends Component {
         <div className={`${prefix}-body`} style={bodyStyles}>
           <CSSAnimate
             className="panel-content"
-            animationName={'fadeIn'}
+            animationName={animationName}
+            callback={_ => this.setState({animationName: ''})}
             key={refresh}
           >
             {children}

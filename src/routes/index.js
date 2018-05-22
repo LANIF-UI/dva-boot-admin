@@ -14,6 +14,8 @@ import TransferTree from './Widgets/TransferTree';
 import SearchBar from './Widgets/SearchBar';
 import Icon from './UI/Icon';
 import Mask from './UI/Mask';
+import Editor from './UI/Editor';
+import CSSAnimate from './UI/CSSAnimate';
 import CRUD from './Business/CRUD';
 
 const routesConfig = (app) => ([
@@ -39,6 +41,8 @@ const routesConfig = (app) => ([
       SearchBar(),
       Icon(),
       Mask(),
+      Editor(),
+      CSSAnimate(),
       TransferTree(app),
       BaseComponent(),
       CRUD(app),

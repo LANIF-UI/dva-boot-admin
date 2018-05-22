@@ -46,7 +46,7 @@ export default class extends BaseComponent {
                 点外部关闭不了
               </Button>
               <Button onClick={_ => this.toggleMask({ className: 'search-box' })}>
-                其它样式
+                CodePen样式
               </Button>
             </Button.Group>
           </Panel>
