@@ -9,6 +9,7 @@
   font-weight: normal;
   font-style: normal;
 }
+
 .ad {
   position: relative;
   display: inline-block;
@@ -19,6 +20,7 @@
   -moz-osx-font-smoothing: grayscale;
   transform: translate(0, 0);
 }
+
 .ad-lines:before {
   content: '\e600'; // 三道杠
 }
@@ -121,9 +123,22 @@
 .ad-buret:before {
   content: '\e091'; // 滴管
 }
-.ad-buret:before {
-  content: '\e091'; // 滴管
-}
 .ad-finder:before {
   content: '\eabf'; // os x finder
+}
+
+.antui-icon.spin:before {
+  display: inline-block;
+  animation: loadingCircle 1s infinite linear;
+}
+
+@keyframes loadingCircle {
+  0% {
+    transform-origin: 50% 50%;
+    transform: rotate(0deg);
+  }
+  100% {
+    transform-origin: 50% 50%;
+    transform: rotate(360deg);
+  }
 }

@@ -1,37 +1,50 @@
-import React from "react";
-import PropTypes from "prop-types";
-import classnames from "classnames";
-import AntdIcon from "antd/lib/icon";
+import React from 'react';
+import PropTypes from 'prop-types';
+import classnames from 'classnames';
+import AntdIcon from 'antd/lib/icon';
 
 /**
  * 字体图标，兼容antd的图标
  */
 class Icon extends React.Component {
-
   static propTypes = {
+    prefixCls: PropTypes.string,
     type: PropTypes.string.isRequired,
     className: PropTypes.string,
     children: PropTypes.node,
     font: PropTypes.string,
-    antd: PropTypes.bool
+    antd: PropTypes.bool,
+    spin: PropTypes.bool,
   };
 
   static defaultProps = {
-    className: "",
-    font: "ad"
+    prefixCls: 'antui-icon',
+    className: '',
+    font: 'ad'
   };
 
   render() {
-    const { type, className, children, font, antd, ...props } = this.props;
+    const {
+      prefixCls,
+      type,
+      className,
+      children,
+      font,
+      antd,
+      spin,
+      ...props
+    } = this.props;
     const cn = classnames(
+      prefixCls,
       {
         [font]: !!font,
-        [font + "-" + type]: !!font
+        [font + '-' + type]: !!font,
+        spin,
       },
       className
     );
     return antd ? (
-      <AntdIcon type={type} className={className} {...props}>
+      <AntdIcon type={type} className={className} spin={spin} {...props}>
         {children}
       </AntdIcon>
     ) : (

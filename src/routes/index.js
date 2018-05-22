@@ -12,6 +12,7 @@ import BaseComponent from './Widgets/BaseComponent';
 import Column from './Widgets/Column';
 import TransferTree from './Widgets/TransferTree';
 import SearchBar from './Widgets/SearchBar';
+import Icon from './Widgets/Icon';
 import CRUD from './Business/CRUD';
 
 const routesConfig = (app) => ([
@@ -35,6 +36,7 @@ const routesConfig = (app) => ([
       Toolbar(app),
       Column(),
       SearchBar(),
+      Icon(),
       TransferTree(app),
       BaseComponent(),
       CRUD(app),

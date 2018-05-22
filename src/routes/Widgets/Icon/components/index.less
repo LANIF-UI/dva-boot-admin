@@ -1,0 +1,93 @@
+.icon-page{
+  &-list{
+    color: #666;
+    > li {
+      margin: 9px 8px;
+      float: left;
+      text-align: center;
+      position: relative;
+      overflow: visible;
+      border-radius: 5px;
+      padding: 8px 5px 0 5px;
+      width: 90px;
+      min-height: 90px;
+      transition: .3s all;
+      cursor: pointer;
+      > i {
+        font-size: 3em;
+        display: block;
+        margin-bottom: 10px;
+      }
+      > span {
+        white-space: nowrap;
+        word-wrap: break-word;
+        font-size: 12px;
+      }
+      &:hover{
+        background: #607D8B;
+        color: #fff;
+      }
+    }
+  }
+}
+
+// 使用其它图标库
+@font-face {
+  font-family: 'iconfont';  /* project id 299911 */
+  src: url('//at.alicdn.com/t/font_etsf5fllm3uzbyb9.eot');
+  src: url('//at.alicdn.com/t/font_etsf5fllm3uzbyb9.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_etsf5fllm3uzbyb9.woff') format('woff'),
+  url('//at.alicdn.com/t/font_etsf5fllm3uzbyb9.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_etsf5fllm3uzbyb9.svg#iconfont') format('svg');
+}
+
+.iconfont{
+  position: relative;
+  display: inline-block;
+  font: normal normal normal 16px/1 'iconfont';
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transform: translate(0, 0);
+}
+
+.iconfont-loading:before { content: "\eee3"; }              // 加载中
+.iconfont-rmb:before { content: "\e6b0"; }                  // 人民币
+.iconfont-card:before { content: "\e613"; }                 // 卡片展示
+.iconfont-list:before { content: "\e612"; }                 // 列表展示
+.iconfont-search:before { content: "\e6ac"; }               // 查询|放大镜
+.iconfont-location:before { content: "\e734"; }             // 地址|地图汽泡
+.iconfont-pulldown:before { content: "\e608"; }             // 下拉
+.iconfont-mine-o:before { content: "\e60e"; }               // 我的
+.iconfont-mine:before { content: "\e60d"; }                 // 我的-选中
+.iconfont-password:before { content: "\e603"; }             // 密码
+.iconfont-caret-right:before { content: "\e607"; }          // 三角右
+.iconfont-caret-left:before { content: "\e606"; }           // 三角左
+.iconfont-caret-down:before { content: "\e605"; }           // 三角下
+.iconfont-caret-top:before { content: "\e604"; }            // 三角上
+.iconfont-check:before { content: "\e616"; }                // 选择|对号
+.iconfont-cross:before { content: "\e615"; }                // 关闭|叉号
+.iconfont-right:before { content: "\e618"; }                // 右箭头
+.iconfont-left:before { content: "\e617"; }                 // 左箭头
+.iconfont-top:before { content: "\e619"; }                  // 上箭头
+.iconfont-bottom:before { content: "\e61a"; }               // 下箭头
+.iconfont-arrow-top:before { content: "\e795"; }            // 上箭头粗
+.iconfont-arrow-bottom:before { content: "\e796"; }         // 下箭头粗
+.iconfont-add:before { content: "\e727"; }                  // 加号
+.iconfont-minus:before { content: "\e729"; }                // 减号
+.iconfont-info-circle-o:before { content: "\e6e5"; }        // info|信息 圆 空心
+.iconfont-info-circle:before { content: "\e6e4"; }          // info|信息 
+.iconfont-warning-o:before { content: "\e663"; }            // 警告|三角叹号 空心
+.iconfont-warning:before { content: "\e662"; }              // 警告|三角叹号
+.iconfont-cross-circle-o:before { content: "\e659"; }       // 关闭|叉号 圆 空心
+.iconfont-cross-circle:before { content: "\e658"; }         // 关闭|叉号 圆
+.iconfont-check-circle-o:before { content: "\e657"; }       // 对号|成功 圆 空心
+.iconfont-check-circle:before { content: "\e656"; }         // 对号|成功 圆
+.iconfont-delete:before { content: "\e61b"; }               // 删除|垃圾箱 
+.iconfont-back:before { content: "\e63d"; }                 // 返回 
+.iconfont-upload:before { content: "\e65a"; }               // 上传 
+.iconfont-download:before { content: "\e61e"; }             // 下载 
+.iconfont-up-circle:before { content: "\e6a0"; }            // 向上 圆 
+.iconfont-down-circle:before { content: "\e69f"; }          // 向下 圆 
+
