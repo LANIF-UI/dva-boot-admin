@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import Icon from '../Icon';
 import cx from 'classnames';
+import CSSAnimate from '../CSSAnimate';
+import { Modal } from 'antd';
 import './style/index.less';
+const confirm = Modal.confirm;
 
 /**
  * 面板组件
@@ -15,7 +18,8 @@ class Panel extends Component {
     super(props);
     this.state = {
       collapse: props.collapse || false,
-      expand: props.expand || false
+      expand: props.expand || false,
+      refresh: 0
     };
   }
 
@@ -36,35 +40,52 @@ class Panel extends Component {
 
     this.setState({
       expand,
-      collapse: false,
+      collapse: false
     });
 
     if (onChange) {
       onChange({
         expand,
-        collapse: false,
+        collapse: false
       });
     }
-  }
+  };
 
   onCollapse = collapse => e => {
     const { onChange } = this.props;
 
     this.setState({
       collapse,
-      expand: false,
+      expand: false
     });
 
     if (onChange) {
       onChange({
         collapse,
-        expand: false,
+        expand: false
       });
     }
-  }
+  };
+
+  onRefresh = () => {
+    this.setState({
+      refresh: this.state.refresh + 1
+    });
+    this.props.onRefresh && this.props.onRefresh();
+  };
+
+  onClose = () => {
+    confirm({
+      title: '提示',
+      content: '您确认要关闭这个面板？',
+      onOk: () => {
+        this.props.onClose && this.props.onClose();
+      }
+    });
+  };
 
   render() {
-    const { expand, collapse } = this.state;
+    const { expand, collapse, refresh } = this.state;
     const {
       theme,
       prefix,
@@ -74,61 +95,66 @@ class Panel extends Component {
       height,
       style,
       children,
-      onRefresh,
-      onClose,
       header,
-      cover,
+      cover
     } = this.props;
 
     const classnames = cx(prefix, className, {
       theme: !!theme,
       'panel-fullscreen': !!expand,
       'panel-collapsed': !!collapse,
-      'cover': !!cover,
+      cover: !!cover
     });
 
     const styles = {
       ...style,
-      width,
+      width
     };
     const bodyStyles = {};
     if (!expand) {
       bodyStyles.height = height;
     }
 
-    const Header = typeof header === 'undefined' ? (
-      <div className={`${prefix}-header`}>
-        <span className={`${prefix}-header-title`}>{title}</span>
-        <span className={`${prefix}-header-controls`}>
-          <a className="panel-control-loader" onClick={onRefresh}>
-            <Icon type="refresh" />
-          </a>
-          <a
-            className="panel-control-fullscreen"
-            onClick={this.onExpand(expand ? false: true)}
-          >
-            <Icon type={`${expand ? 'shrink' : 'enlarge'}`} />
-          </a>
-          <a
-            className="panel-control-collapsed"
-            onClick={this.onCollapse(collapse ? false : true)}
-          >
-            <Icon type={`${collapse ? 'plus' : 'minus'}`} />
-          </a>
-          <a className="panel-control-remove" onClick={onClose}>
-            <Icon type="close" />
-          </a>
-        </span>
-      </div>
-    ) : header
+    const Header =
+      typeof header === 'undefined' ? (
+        <div className={`${prefix}-header`}>
+          <span className={`${prefix}-header-title`}>{title}</span>
+          <span className={`${prefix}-header-controls`}>
+            <a className="panel-control-loader" onClick={this.onRefresh}>
+              <Icon type="refresh" />
+            </a>
+            <a
+              className="panel-control-fullscreen"
+              onClick={this.onExpand(expand ? false : true)}
+            >
+              <Icon type={`${expand ? 'shrink' : 'enlarge'}`} />
+            </a>
+            <a
+              className="panel-control-collapsed"
+              onClick={this.onCollapse(collapse ? false : true)}
+            >
+              <Icon type={`${collapse ? 'plus' : 'minus'}`} />
+            </a>
+            <a className="panel-control-remove" onClick={this.onClose}>
+              <Icon type="close" />
+            </a>
+          </span>
+        </div>
+      ) : (
+        header
+      );
 
     return (
       <div className={classnames} style={styles}>
         {Header}
         <div className={`${prefix}-body`} style={bodyStyles}>
-          <div className="panel-content">
+          <CSSAnimate
+            className="panel-content"
+            animationName={'fadeIn'}
+            key={refresh}
+          >
             {children}
-          </div>
+          </CSSAnimate>
         </div>
       </div>
     );

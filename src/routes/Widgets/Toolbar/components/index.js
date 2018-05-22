@@ -13,7 +13,7 @@ const { Content } = Layout;
  * 工具条
  */
 @connect()
-export default class ToolbarPage extends BaseComponent {
+export default class extends BaseComponent {
   render() {
     const columns = createColumns(this);
 

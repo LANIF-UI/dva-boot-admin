@@ -6,7 +6,7 @@ import Panel from 'components/Panel';
 const { Content } = Layout;
 
 @connect()
-export default class ColumnPage extends BaseComponent {
+export default class extends BaseComponent {
   render() {
     return (
       <Layout className="full-layout page column-page">
