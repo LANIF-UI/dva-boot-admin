@@ -54,6 +54,7 @@ $ npm start
 ```
 
 ## Change log
+- 增增Icon UI页面
 - 新增SearchBar页面
 - 新增TransferTree页面（扩展自antd的Transfer组件，可支持左侧为树的穿缩框，并支持异步加载）
 - 更新内置ICON图标
