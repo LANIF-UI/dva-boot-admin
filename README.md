@@ -54,6 +54,7 @@ $ npm start
 ```
 
 ## Change log
+- 新增Editor（富文本）页面
 - 更新Panel组件增加刷新，关闭功能
 - 新增Mask UI页面
 - 增增Icon UI页面
