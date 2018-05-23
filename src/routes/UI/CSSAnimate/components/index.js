@@ -158,7 +158,21 @@ export default class extends BaseComponent {
               </div>
             </TabPane>
             <TabPane tab="用法" key="4">
-              用法
+              <div className="pane">
+                <p>动画组件CSSAnimate可以使用Animate.css的动画名称，也可以用自已的动画</p>
+                <pre>
+                  <code>
+                  {`<CSSAnimate
+  type="动画名称"
+  duration="持续时间"
+  delay="延时执行"
+  callback="结束后回调"
+>
+  Animate Me!
+</CSSAnimate>`}
+                  </code>
+                </pre>
+              </div>
             </TabPane>
           </Tabs>
         </Sider>
