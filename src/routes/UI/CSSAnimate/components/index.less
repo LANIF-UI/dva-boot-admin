@@ -1,10 +1,51 @@
 .css-animate-page {
-  .ant-tabs.ant-tabs-card > .ant-tabs-bar .ant-tabs-tab-active {
-    background: #2196F3;
-    color: #ffffff;
-    padding-bottom: 0px;
+  .ant-tabs.ant-tabs-card > .ant-tabs-bar {
+    border-bottom: 3px solid #42a5f5;
+    .ant-tabs-tab-active {
+      background: #42a5f5;
+      color: #ffffff;
+      padding-bottom: 0px;
+    }
   }
-  .ant-tabs-bar {
-    border-bottom: 1px solid #2196F3;
+  &-sider {
+    .header {
+      padding: 20px 20px 10px;
+      .icon-list {
+        margin-top: 20px;
+        font-size: 14px;
+        padding-left: 5px;
+        li:first-child {
+          margin-bottom: 10px;
+        }
+        i {
+          color: #f6bb42;
+          margin-right: 10px;
+        }
+      }
+      hr {
+        border: 0;
+        border-top: 1px solid #DDD;
+      }
+    }
+    .pane {
+      padding: 0 20px;
+      h6 {
+        color: #999;
+      }
+      .content {
+        line-height: 2.2;
+        margin-bottom: 20px;
+      }
+    }
+  }
+  #animateMe {
+    font-size: 4em;
+    text-align: center;
+    top: ~'calc(50% - 84px)';
+    position: relative;
+    color: #009688;
+  }
+  .ant-layout-content {
+    overflow: hidden !important;
   }
 }

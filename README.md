@@ -54,6 +54,8 @@ $ npm start
 ```
 
 ## Change log
+- 新增CSSAnimate UI页面
+- 更新CSSAnimate 原有属性animationName更名为type (之前名子太长不易记)
 - 新增Editor（富文本）页面
 - 更新Panel组件增加刷新，关闭功能
 - 新增Mask UI页面

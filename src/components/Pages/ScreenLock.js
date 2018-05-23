@@ -55,7 +55,7 @@ class ScreenLock extends PureComponent {
               <p>使用图案进行解锁</p>
               <CSSAnimate
                 className="animated-short"
-                animationName={patternError ? 'shake' : ''}
+                type={patternError ? 'shake' : ''}
                 callback={_ => this.setState({ patternError: false })}
               >
                 <PatternLock lock="14753" onChange={this.onChange} />
@@ -76,7 +76,7 @@ class ScreenLock extends PureComponent {
         <Mask visible={showPattern} onClose={this.togglePattern}>
           <CSSAnimate
             className="animated-short pattern-tip-modal"
-            animationName={showPattern ? 'flipInY' : 'fadeOutUp'}
+            type={showPattern ? 'flipInY' : 'fadeOutUp'}
           >
             <img src={pattern} alt="14753" />
           </CSSAnimate>

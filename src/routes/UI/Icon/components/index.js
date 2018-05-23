@@ -17,9 +17,9 @@ export default class extends BaseComponent {
             <p>
               Icon继承Antd的Icon组件，可以使用Andt的图标，而且可以自已扩展第三方的iconfont图标。
             </p>
-            <p>默认图标：&lt;Icon type=&quot;图标名&quot; /&gt;</p>
-            <p>Antd图标：&lt;Icon type=&quot;antd图标名&quot; antd /&gt;</p>
-            <p>其它图标：&lt;Icon type=&quot;图标名&quot; font=&quot;iconfont&quot; /&gt;</p>
+            <p>默认图标：<code>&lt;Icon type=&quot;图标名&quot; /&gt;</code></p>
+            <p>Antd图标：<code>&lt;Icon type=&quot;antd图标名&quot; antd /&gt;</code></p>
+            <p>其它图标：<code>&lt;Icon type=&quot;图标名&quot; font=&quot;iconfont&quot; /&gt;</code></p>
           </Panel>
           <Panel title="默认图标">
             <ul className="icon-page-list clearfix">

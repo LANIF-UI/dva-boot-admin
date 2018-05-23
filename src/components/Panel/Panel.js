@@ -152,7 +152,7 @@ class Panel extends Component {
         <div className={`${prefix}-body`} style={bodyStyles}>
           <CSSAnimate
             className="panel-content"
-            animationName={animationName}
+            type={animationName}
             callback={_ => this.setState({animationName: ''})}
             key={refresh}
           >

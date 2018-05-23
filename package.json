@@ -40,7 +40,7 @@
     "react-document-title": "^2.0.3",
     "react-dom": "^16.2.0",
     "react-scripts": "1.0.17",
-    "wangeditor": "^3.1.0"
+    "wangeditor": "^3.1.1"
   },
   "devDependencies": {
     "autodll-webpack-plugin": "^0.3.8",

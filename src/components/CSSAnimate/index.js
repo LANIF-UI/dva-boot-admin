@@ -6,20 +6,20 @@ import omit from 'object.omit';
 
 class CSSAnimate extends PureComponent {
   componentDidMount() {
-    const { animationName, callback } = this.props;
-    this.animate(animationName, callback);
+    const { type, callback } = this.props;
+    this.animate(type, callback);
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { animationName, callback } = this.props;
-    this.animate(animationName, callback);
+    const { type, callback } = this.props;
+    this.animate(type, callback);
   }
 
-  animate = (animationName, callback) => {
+  animate = (type, callback) => {
     const node = ReactDOM.findDOMNode(this);
 
-    if (isCssAnimationSupported && animationName) {
-      cssAnimate(node, animationName, callback);
+    if (isCssAnimationSupported && type) {
+      cssAnimate(node, type, callback);
     } else if (!isCssAnimationSupported){
       console.warn('不支持css动画');
     }
@@ -31,7 +31,7 @@ class CSSAnimate extends PureComponent {
       'animated',
       className
     );
-    const divProps = omit(otherProps, ['animationName', 'callback']);
+    const divProps = omit(otherProps, ['type', 'callback']);
 
     return (
       <div className={classnames} {...divProps}>

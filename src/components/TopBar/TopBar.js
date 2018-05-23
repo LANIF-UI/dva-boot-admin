@@ -22,7 +22,7 @@ class TopBar extends Component {
         <div className="topbar-dropmenu">
           <Row gutter={22}>
             <Col xs={8} md={4}>
-              <CSSAnimate className="animated-short" animationName={expand ? "fadeInDown" : "fadeOutUp"}>
+              <CSSAnimate className="animated-short" type={expand ? "fadeInDown" : "fadeOutUp"}>
                 <a className="metro-tile">
                   <Icon type="message" />
                   <span className="metro-title">信息</span>
@@ -30,7 +30,7 @@ class TopBar extends Component {
               </CSSAnimate>
             </Col>
             <Col xs={8} md={4}>
-              <CSSAnimate className="animated-short" animationName={expand ? "fadeInDown" : "fadeOutUp"}>
+              <CSSAnimate className="animated-short" type={expand ? "fadeInDown" : "fadeOutUp"}>
                 <a className="metro-tile">
                   <Icon type="user" />
                   <span className="metro-title">用户</span>
@@ -38,7 +38,7 @@ class TopBar extends Component {
               </CSSAnimate>
             </Col>
             <Col xs={8} md={4}>
-              <CSSAnimate className="animated-short" animationName={expand ? "fadeInDown" : "fadeOutUp"}>
+              <CSSAnimate className="animated-short" type={expand ? "fadeInDown" : "fadeOutUp"}>
                 <a className="metro-tile">
                 <Icon type="headphones" />
                   <span className="metro-title">支持</span>
@@ -46,7 +46,7 @@ class TopBar extends Component {
               </CSSAnimate>
             </Col>
             <Col xs={8} md={4}>
-              <CSSAnimate className="animated-short" animationName={expand ? "fadeInDown" : "fadeOutUp"}>
+              <CSSAnimate className="animated-short" type={expand ? "fadeInDown" : "fadeOutUp"}>
                 <a className="metro-tile">
                   <Icon type="equalizer" />
                   <span className="metro-title">设置</span>
@@ -54,7 +54,7 @@ class TopBar extends Component {
               </CSSAnimate>
             </Col>
             <Col xs={8} md={4}>
-              <CSSAnimate className="animated-short" animationName={expand ? "fadeInDown" : "fadeOutUp"}>
+              <CSSAnimate className="animated-short" type={expand ? "fadeInDown" : "fadeOutUp"}>
                 <a className="metro-tile">
                   <Icon type="play" />
                   <span className="metro-title">视频</span>
@@ -62,7 +62,7 @@ class TopBar extends Component {
               </CSSAnimate>
             </Col>
             <Col xs={8} md={4}>
-              <CSSAnimate className="animated-short" animationName={expand ? "fadeInDown" : "fadeOutUp"}>
+              <CSSAnimate className="animated-short" type={expand ? "fadeInDown" : "fadeOutUp"}>
                 <a className="metro-tile">
                   <Icon type="image" />
                   <span className="metro-title">图片</span>
