@@ -13,7 +13,7 @@ import $$ from 'cmn-utils';
 export const dynamicWrapper = (app, models, component) => dynamic({
   app,
   models: () => models,
-  component: () => component,
+  component,
 });
 
 /**
