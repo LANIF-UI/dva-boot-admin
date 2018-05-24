@@ -3,9 +3,11 @@ import packMock from '@/utils/packMock';
 import user from './user';
 import crud from './crud';
 import tree from './tree';
+import datatable from './datatable';
 
 packMock(
   user,
   crud,
   tree,
+  datatable,
 );

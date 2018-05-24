@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import Icon from '../Icon';
 import cx from 'classnames';
 import CSSAnimate from '../CSSAnimate';
-import { Modal } from 'antd';
+import { Popconfirm, Modal } from 'antd';
 import './style/index.less';
 const confirm = Modal.confirm;
-
+const noop = _ => {};
 /**
  * 面板组件
  */
@@ -20,7 +20,7 @@ class Panel extends Component {
       collapse: props.collapse || false,
       expand: props.expand || false,
       refresh: 0,
-      animationName: '',
+      animationName: ''
     };
   }
 
@@ -71,19 +71,24 @@ class Panel extends Component {
   onRefresh = () => {
     this.setState({
       refresh: this.state.refresh + 1,
-      animationName: 'fadeIn',
+      animationName: 'fadeIn'
     });
     this.props.onRefresh && this.props.onRefresh();
   };
 
   onClose = () => {
-    confirm({
-      title: '提示',
-      content: '您确认要关闭这个面板？',
-      onOk: () => {
-        this.props.onClose && this.props.onClose();
-      }
-    });
+    const { expand } = this.state;
+    if (expand) {
+      confirm({
+        title: '提示',
+        content: '您确认要关闭这个面板？',
+        onOk: () => {
+          this.props.onClose && this.props.onClose();
+        }
+      });
+    } else {
+      this.props.onClose && this.props.onClose();
+    }
   };
 
   render() {
@@ -137,9 +142,18 @@ class Panel extends Component {
             >
               <Icon type={`${collapse ? 'plus' : 'minus'}`} />
             </a>
-            <a className="panel-control-remove" onClick={this.onClose}>
-              <Icon type="close" />
-            </a>
+            <Popconfirm
+              title="您确认要关闭这个面板？"
+              onConfirm={this.onClose}
+              placement="topRight"
+            >
+              <a
+                className="panel-control-remove"
+                onClick={expand ? this.onClose : noop}
+              >
+                <Icon type="close" />
+              </a>
+            </Popconfirm>
           </span>
         </div>
       ) : (
@@ -153,7 +167,7 @@ class Panel extends Component {
           <CSSAnimate
             className="panel-content"
             type={animationName}
-            callback={_ => this.setState({animationName: ''})}
+            callback={_ => this.setState({ animationName: '' })}
             key={refresh}
           >
             {children}

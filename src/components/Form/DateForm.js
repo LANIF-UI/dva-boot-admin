@@ -1,6 +1,5 @@
 import React from 'react';
 import {DatePicker, TimePicker} from 'antd';
-import objectAssign from 'object-assign';
 import moment from 'moment';
 const { MonthPicker, RangePicker } = DatePicker;
 /**
@@ -27,9 +26,17 @@ export default ({name, form, type, record, initialValue, rules, formFieldOptions
 
   let Component = DatePicker;
 
+  let props = {
+    ...otherProps
+  }
+
   switch (type) {
     case 'date':
+      break;
     case 'datetime':
+      if (!props.showTime) {
+        props.showTime = true;
+      }
       break;
     case 'date~':
       Component = RangePicker;
@@ -44,14 +51,12 @@ export default ({name, form, type, record, initialValue, rules, formFieldOptions
       break;
   }
 
-  let _format = "";
-
-  if (format) _format = format;
-  else if (type === 'datetime' || type === 'date~') _format = "YYYY-MM-DD HH:mm:ss";
-  else if (type === 'time') _format = "HH:mm:ss";
-  else _format = "YYYY-MM-DD";
+  if (format) props.format = format;
+  else if (type === 'datetime' || type === 'date~') props.format = "YYYY-MM-DD HH:mm:ss";
+  else if (type === 'time') props.format = "HH:mm:ss";
+  else props.format = "YYYY-MM-DD";
 
   return getFieldDecorator(name, formFieldOptions)(
-    <Component {...objectAssign({format: _format}, otherProps)} />
+    <Component {...props} />
   );
 };

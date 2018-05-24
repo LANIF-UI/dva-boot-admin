@@ -179,7 +179,12 @@ class DataTable extends Component {
         width: 50,
         dataIndex: '_num',
         render (text, record, index) {
-          return (dataItems.pageNum - 1) * dataItems.pageSize + index + 1;  
+          const {pageNum, pageSize} = dataItems;
+          if (pageNum && pageSize) {
+            return (pageNum - 1) * pageSize + index + 1;  
+          } else { // 没有分页
+            return index + 1;
+          }
         } 
       });
     }
