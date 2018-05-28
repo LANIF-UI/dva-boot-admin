@@ -54,6 +54,7 @@ $ npm start
 ```
 
 ## Change log
+- 新增Form 组件展示页面
 - 新增DataTable 组件展示页面
 - 新增CSSAnimate UI页面
 - 更新CSSAnimate 原有属性animationName更名为type (之前名子太长不易记)
