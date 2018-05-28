@@ -13,6 +13,7 @@ import Column from './Widgets/Column';
 import TransferTree from './Widgets/TransferTree';
 import SearchBar from './Widgets/SearchBar';
 import DataTable from './Widgets/DataTable';
+import Form from './Widgets/Form';
 import Icon from './UI/Icon';
 import Mask from './UI/Mask';
 import Editor from './UI/Editor';
@@ -45,6 +46,7 @@ const routesConfig = (app) => ([
       Editor(),
       CSSAnimate(),
       DataTable(app),
+      Form(app),
       TransferTree(app),
       BaseComponent(),
       CRUD(app),

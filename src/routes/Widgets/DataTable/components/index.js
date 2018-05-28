@@ -5,7 +5,8 @@ import { Layout, Row, Col } from 'antd';
 import BaseComponent from 'components/BaseComponent';
 import Panel from 'components/Panel';
 import DataTable from 'components/DataTable';
-import { columns1, columns2 } from './columns';
+import { columns1, columns2, columns3 } from './columns';
+import './index.less';
 const { Content } = Layout;
 const Pagination = DataTable.Pagination;
 
@@ -57,8 +58,17 @@ export default class extends BaseComponent {
       isScroll: true,
     };
 
+    const dataTableProps4 = {
+      loading,
+      columns: columns3,
+      rowKey: 'id',
+      selectType: 'radio',
+      dataItems: pageData,
+      showNum: true,
+    };
+
     return (
-      <Layout className="full-layout page">
+      <Layout className="full-layout page datatable-page">
         <Content>
           <Panel title="说明">
             <h3>DataTable 用法</h3>
@@ -80,7 +90,9 @@ export default class extends BaseComponent {
           </Row>
           <Panel title="外部分页">
             <DataTable {...dataTableProps1} />
-            <Pagination {...dataTableProps1} />
+            <div className="footer">
+              <Pagination {...dataTableProps1} />
+            </div>
           </Panel>
           <Row gutter={20}>
             <Col span={12}>
@@ -94,10 +106,13 @@ export default class extends BaseComponent {
               </Panel>
             </Col>
           </Row>
-          
-          <Panel title="数据字典">
-            <DataTable {...dataTableProps1} />
-          </Panel>
+          <Row gutter={20}>
+            <Col span={12}>
+              <Panel title="数据字典&单选">
+                <DataTable {...dataTableProps4} />
+              </Panel>
+            </Col>
+          </Row>
         </Content>
       </Layout>
     );

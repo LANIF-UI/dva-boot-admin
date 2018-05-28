@@ -58,3 +58,16 @@ export const columns2 = [
     },
   }
 ];
+
+export const columns3 = [
+  {
+    title: '角色',
+    name: 'role',
+    dict: [
+      {code: '1', codeName: '管理员'},
+      {code: '2', codeName: '游客'},
+      {code: '3', codeName: '作者'},
+    ],
+    tableItem: {},
+  },
+]

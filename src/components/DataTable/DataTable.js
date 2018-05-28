@@ -230,7 +230,7 @@ class DataTable extends Component {
 }
 
 /**
- * 操作区
+ * 操作区 阻止向上冒泡
  */
 export const Oper = (prop) => (
   <div className="table-row-button" onClick={e => e.stopPropagation()}>

@@ -19,6 +19,7 @@ export default ({fetchMock, delay, mock, toSuccess, toError}) => {
           'name': '@cname',
           'address': '@county()',
           'age|1-100': 1,  
+          'role|1': ['1', '2', '3'],
         }],
       }), 400)
     },
