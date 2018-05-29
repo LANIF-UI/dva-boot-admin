@@ -3,13 +3,16 @@
 We use the React of the ecosystem is the most mature technology system, set up a set of out-of-the-box, admin dashboard system framework includes a unique custom components in the DBA, and many public praise good third-party components after much practice, it is not just a simple dashboard display interface, but also necessary to ensure that your next web project all the tools, we want to use it can be fast, stable develop robust, beautiful, easy to use web applications.
 ![](https://ucarecdn.com/6921a91d-ceb4-4bd0-bcc3-75b60af0eecd/TIM20180519221917.png)
 ## Feature
-- Ant Design UI
-- DVA2
-- 数十个精心制作的小组件
-- 多种页面布局
+- 封装了dva框架的数据流转，简单的请求可以不用在model和service中定义
+- 封装了数据模模拟，可以独立于后台开发前台功能
+- 封装了分页请求，简化并规范了分页逻辑
+- 封装了fetch请求，适应与后台多种交互请求, body参数 parameter参数 path参数，动态请求头，请求前后拦截
+- 扩展了antd写了许多实用的UI，通过一个配置生成即可生成，后台CRUD三件套
+- 按业务模块划分的目录结构，尽量做到最小耦合
+- 一些常用的小部件用法
 - 许多精心设计的页面及交互场景
-- 后台接口数据模拟
 - [dva-boot](https://github.com/LANIF-UI/dva-boot)脚手架封装的功能
+- 全局异常处理，全局请求拦截，公共配置提取
 
 ## Structure
 ```
@@ -49,6 +52,10 @@ We use the React of the ecosystem is the most mature technology system, set up a
 ``` javascript
 $ git clone https://github.com/LANIF-UI/dva-boot-admin.git
 $ cd dva-boot-admin
+// 使用yarn
+$ yarn
+$ yarn start
+// 使用npm
 $ npm install
 $ npm start
 ```
