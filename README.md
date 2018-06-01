@@ -61,6 +61,8 @@ $ npm start
 ```
 
 ## Change log
+- 修改Dashboard增加几个图表展示
+- 修改原有Charts为G2，对其进行轻量化封装，本身已经很好用了(为了增加其它图表支持，进行区分)
 - 新增Form 组件展示页面
 - 新增DataTable 组件展示页面
 - 新增CSSAnimate UI页面

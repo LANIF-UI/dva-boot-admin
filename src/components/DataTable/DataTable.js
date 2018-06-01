@@ -239,8 +239,8 @@ export const Oper = (prop) => (
 );
 
 export const Tip = (prop) => (
-  <Tooltip title={prop.children}>
-    <div className="nobr">{prop.children}</div>
+  <Tooltip placement="topLeft" title={prop.children}>
+    <div className="nobr" style={prop.style}>{prop.children}</div>
   </Tooltip>
 )
 

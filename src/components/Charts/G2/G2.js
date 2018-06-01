@@ -1,7 +1,9 @@
 import React, { PureComponent } from 'react';
-import { Chart } from 'bizcharts';
+import * as BizCharts from 'bizcharts';
 import resizeMe from '@/decorator/resizeMe';
+const { Chart } = BizCharts;
 
+// 重写BizCharts的Chart
 @resizeMe({ refreshRate: 50 })
 class Charts extends PureComponent {
   onGetG2Instance = chart => {
@@ -28,4 +30,5 @@ class Charts extends PureComponent {
   }
 }
 
-export default Charts;
+BizCharts.Chart = Charts;
+export default BizCharts;
