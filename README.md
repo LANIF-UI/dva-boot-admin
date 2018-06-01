@@ -1,7 +1,7 @@
 # :beginner: DVA-BOOT-ADMIN
 
 We use the React of the ecosystem is the most mature technology system, set up a set of out-of-the-box, admin dashboard system framework includes a unique custom components in the DBA, and many public praise good third-party components after much practice, it is not just a simple dashboard display interface, but also necessary to ensure that your next web project all the tools, we want to use it can be fast, stable develop robust, beautiful, easy to use web applications.
-![](https://ucarecdn.com/6921a91d-ceb4-4bd0-bcc3-75b60af0eecd/TIM20180519221917.png)
+![](https://ucarecdn.com/8b5bbe87-d34a-4fc7-849e-fe17214e71f3/TIM20180601171049.png)
 ## Feature
 - 封装了dva框架的数据流转，简单的请求可以不用在model和service中定义
 - 封装了数据模模拟，可以独立于后台开发前台功能
