@@ -63,8 +63,7 @@ class NavBar extends Component {
       onExpandTopBar, toggleSidebarHeader, user } = this.props;
 
     const classnames = cx(
-      'navbar', 
-      'navbar-shadow', 
+      'navbar',
       {
         'navbar-fixed-top': !!fixed,
         'navbar-sm': collapsed,

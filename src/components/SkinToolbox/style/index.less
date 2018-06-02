@@ -7,7 +7,7 @@
   right: 0px;
   width: 230px;
   user-select: none;
-  transition: right 0.1s ease-in-out;
+  transition: right 0.3s;
   &.skin-toolbox-close {
     right: -230px;
   }
@@ -58,10 +58,14 @@
       }
       .ant-tabs-tabpane {
         padding: 0 20px 20px 20px;
+        .ant-checkbox-wrapper,
         .ant-radio-wrapper {
           display: block;
           height: 30px;
           line-height: 30px;
+        }
+        .ant-checkbox-wrapper {
+          margin-left: 0;
         }
         h4 {
           font-size: 15px;

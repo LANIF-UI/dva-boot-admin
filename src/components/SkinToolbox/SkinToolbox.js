@@ -6,6 +6,7 @@ import { Tabs } from 'antd';
 import $$ from 'cmn-utils';
 import SideBarBox from './SideBarBox';
 import NavBarBox from './NavBarBox';
+import LayoutBox from "./LayoutBox";
 const TabPane = Tabs.TabPane;
 
 /**
@@ -25,6 +26,13 @@ class SkinToolbox extends Component {
       navbar: e.target.value
     });
   };
+
+  onChangeLayout = value => {
+    this.props.onChangeTheme({
+      ...this.props.theme,
+      layout: value
+    });
+  }
 
   clearThemeStore = _ => {
     $$.removeStore('theme');
@@ -57,7 +65,8 @@ class SkinToolbox extends Component {
                 <SideBarBox theme={theme} onChange={this.onChangeSideColor} />
               </TabPane>
               <TabPane tab="布局" key="misc">
-                Content of Tab Pane 3
+                <h4>布局样式</h4>
+                <LayoutBox theme={theme} onChange={this.onChangeLayout} />
               </TabPane>
             </Tabs>
           </div>

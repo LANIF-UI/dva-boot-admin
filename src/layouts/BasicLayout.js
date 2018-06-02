@@ -11,12 +11,13 @@ import pathToRegexp from 'path-to-regexp';
 import ElementQueries from 'css-element-queries/src/ElementQueries';
 import './styles/basic.less';
 import $$ from 'cmn-utils';
+import cx from 'classnames';
 const { Content, Header } = Layout;
 
 /**
  * 基本部局
  * 可设置多种皮肤 theme: [light, grey, primary, info, warning, danger, alert, system, success, dark]
- * 可设置多种布局 fixed: [header(固定头), sidebar(固定边栏), breadcrumb(固定面包蟹)]
+ * 可设置多种布局 [header(固定头), sidebar(固定边栏), breadcrumb(固定面包蟹)]
  * @author weiq
  */
 @connect()
@@ -25,7 +26,19 @@ export default class BasicLayout extends React.PureComponent {
     super(props);
     const menu = $$.getStore('menu', []);
     const user = $$.getStore('user', []);
-    const flatMenu = this.flatMenu = this.getFlatMenu(menu);
+    const flatMenu = (this.flatMenu = this.getFlatMenu(menu));
+    const theme = $$.getStore('theme', {
+      leftSide: 'darkgrey', // 左边
+      navbar: 'light', // 顶部
+    });
+    if (!theme.layout) {
+      theme.layout = [
+        'fixedHeader',
+        'fixedSidebar',
+        'fixedBreadcrumbs'
+        // 'hidedBreadcrumbs',
+      ]
+    }
     this.state = {
       collapsedLeftSide: false, // 左边栏开关控制
       leftCollapsedWidth: 60, // 左边栏宽度
@@ -33,46 +46,40 @@ export default class BasicLayout extends React.PureComponent {
       showSidebarHeader: false, // 左边栏头部开关
       collapsedRightSide: true, // 右边栏开关
       collapsedSkinToolbox: true, // 设置皮肤面板
-      /* 皮肤设置 */
-      theme: $$.getStore('theme', {
-        leftSide: 'darkgrey', // 左边
-        navbar: 'light' // 顶部
-      }),
-      /* 布局设置 */
-      fixed: {
-        navbar: true
-      },
+      theme, // 皮肤设置
       user,
       menu,
-      flatMenu, 
-      currentMenu: this.getCurrentMenu(props) || {},
+      flatMenu,
+      currentMenu: this.getCurrentMenu(props) || {}
     };
   }
 
   componentDidMount() {
-    ElementQueries.init();  
+    ElementQueries.init();
   }
-  
+
   componentWillMount() {
     // 检查有户是否登录
     const user = $$.getStore('user');
     if (!user) {
       this.props.dispatch(routerRedux.replace('/sign/login'));
     } else {
-
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.location.pathname !== this.props.location.pathname) {
       this.setState({
-        currentMenu: this.getCurrentMenu(nextProps),
+        currentMenu: this.getCurrentMenu(nextProps)
       });
     }
   }
 
   getCurrentMenu(props) {
-    const { location: { pathname } } = props || this.props;
+    const {
+      location: { pathname }
+    } =
+      props || this.props;
     const menu = this.getMeunMatchKeys(this.flatMenu, pathname)[0];
     return menu;
   }
@@ -93,7 +100,7 @@ export default class BasicLayout extends React.PureComponent {
       return pathToRegexp(item.path).test(path);
     });
   };
-  
+
   /**
    * 顶部左侧菜单图标收缩控制
    */
@@ -187,13 +194,18 @@ export default class BasicLayout extends React.PureComponent {
       user,
       menu,
       flatMenu,
-      currentMenu,
+      currentMenu
     } = this.state;
     const { routerData, location } = this.props;
     const { childRoutes } = routerData;
+    const classnames = cx('basic-layout', 'full-layout', {
+      'fixed': theme.layout && theme.layout.indexOf('fixedHeader') !== -1,
+      'fixed-header': theme.layout && theme.layout.indexOf('fixedHeader') !== -1,
+      'fixed-breadcrumbs': theme.layout && theme.layout.indexOf('fixedBreadcrumbs') !== -1
+    });
 
     return (
-      <Layout className="full-layout basic-layout">
+      <Layout className={classnames}>
         <Header>
           <NavBar
             collapsed={collapsedLeftSide}
@@ -227,6 +239,7 @@ export default class BasicLayout extends React.PureComponent {
                   collapsedRightSide={collapsedRightSide}
                   onCollapse={this.onCollapseTopBar}
                   currentMenu={currentMenu}
+                  theme={theme}
                 />
               </Header>
               <Content>

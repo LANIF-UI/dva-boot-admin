@@ -17,6 +17,7 @@ export default {
       return history.listen(({ pathname }) => {
         if (pathname.indexOf('/sign/login') !== -1) {
           $$.removeStore('user');
+          $$.removeStore('menu');
         }
       });
     }

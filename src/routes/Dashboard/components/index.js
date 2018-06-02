@@ -29,7 +29,7 @@ export default class Dashboard extends BaseComponent {
       <Layout className="full-layout page dashboard-page">
         <Content>
           <Row gutter={20}>
-            <Col span={6}>
+            <Col md={6}>
               <Panel className="qq" header={false} cover>
                 <Icon type="qq" antd />
                 <h2>
@@ -38,7 +38,7 @@ export default class Dashboard extends BaseComponent {
                 <h5 className="text-muted">QQ</h5>
               </Panel>
             </Col>
-            <Col span={6}>
+            <Col md={6}>
               <Panel className="wechat" header={false} cover>
                 <Icon type="wechat" antd />
                 <h2>
@@ -47,7 +47,7 @@ export default class Dashboard extends BaseComponent {
                 <h5 className="text-muted">微信</h5>
               </Panel>
             </Col>
-            <Col span={6}>
+            <Col md={6}>
               <Panel className="skype" header={false} cover>
                 <Icon type="skype" antd />
                 <h2>
@@ -56,7 +56,7 @@ export default class Dashboard extends BaseComponent {
                 <h5 className="text-muted">skype</h5>
               </Panel>
             </Col>
-            <Col span={6}>
+            <Col md={6}>
               <Panel className="github" header={false} cover>
                 <Icon type="github" antd />
                 <h2>
@@ -93,17 +93,17 @@ export default class Dashboard extends BaseComponent {
             </Col>
           </Row>
           <Row gutter={20}>
-            <Col span={8}>
+            <Col md={8}>
               <Panel title="折线图" height={260}>
                 <Line1 />
               </Panel>
             </Col>
-            <Col span={8}>
+            <Col md={8}>
               <Panel title="饼图" height={260}>
                 <Pie1 />
               </Panel>
             </Col>
-            <Col span={8}>
+            <Col md={8}>
               <Panel title="柱状图" height={260}>
                 <Bar1 data={bar1} />
               </Panel>
