@@ -5,6 +5,9 @@
       box-shadow: 0 3px 3px rgba(0, 0, 0, 0.05);
     }
   }
+  > .ant-layout.ant-layout-has-sider {
+    min-height: ~'calc(100vh - 60px)'; // 排除顶部
+  }
   &[max-width~="768px"] {
     .navbar {
       .mini-search {

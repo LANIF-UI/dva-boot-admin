@@ -13,7 +13,7 @@ export default class UserLayout extends React.PureComponent {
     const {childRoutes} = routerData;
 
     return (
-      <Layout className="full-layout user-layout">
+      <Layout className="full-layout user-layout fixed">
         <Content>
           <Switch>{childRoutes}</Switch> 
         </Content>

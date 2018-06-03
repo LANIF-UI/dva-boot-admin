@@ -29,7 +29,7 @@ export default class BasicLayout extends React.PureComponent {
     const flatMenu = (this.flatMenu = this.getFlatMenu(menu));
     const theme = $$.getStore('theme', {
       leftSide: 'darkgrey', // 左边
-      navbar: 'light', // 顶部
+      navbar: 'light' // 顶部
     });
     if (!theme.layout) {
       theme.layout = [
@@ -37,7 +37,7 @@ export default class BasicLayout extends React.PureComponent {
         'fixedSidebar',
         'fixedBreadcrumbs'
         // 'hidedBreadcrumbs',
-      ]
+      ];
     }
     this.state = {
       collapsedLeftSide: false, // 左边栏开关控制
@@ -70,7 +70,7 @@ export default class BasicLayout extends React.PureComponent {
   componentWillReceiveProps(nextProps) {
     if (nextProps.location.pathname !== this.props.location.pathname) {
       this.setState({
-        currentMenu: this.getCurrentMenu(nextProps)
+        currentMenu: this.getCurrentMenu(nextProps) || {}
       });
     }
   }
@@ -199,9 +199,13 @@ export default class BasicLayout extends React.PureComponent {
     const { routerData, location } = this.props;
     const { childRoutes } = routerData;
     const classnames = cx('basic-layout', 'full-layout', {
-      'fixed': theme.layout && theme.layout.indexOf('fixedHeader') !== -1,
-      'fixed-header': theme.layout && theme.layout.indexOf('fixedHeader') !== -1,
-      'fixed-breadcrumbs': theme.layout && theme.layout.indexOf('fixedBreadcrumbs') !== -1
+      'fixed': theme.layout && theme.layout.indexOf('fixedSidebar') !== -1,
+      'fixed-header':
+        theme.layout && theme.layout.indexOf('fixedHeader') !== -1,
+      'fixed-breadcrumbs':
+        theme.layout && theme.layout.indexOf('fixedBreadcrumbs') !== -1,
+      'hided-breadcrumbs':
+        theme.layout && theme.layout.indexOf('hidedBreadcrumbs') !== -1
     });
 
     return (
@@ -242,7 +246,7 @@ export default class BasicLayout extends React.PureComponent {
                   theme={theme}
                 />
               </Header>
-              <Content>
+              <Content className="router-page">
                 <Switch>{childRoutes}</Switch>
               </Content>
             </Layout>

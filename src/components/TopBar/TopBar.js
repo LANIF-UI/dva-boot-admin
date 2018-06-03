@@ -9,10 +9,9 @@ import './style/index.less';
 
 class TopBar extends Component {
   render() {
-    const { expand, toggleRightSide, collapsedRightSide, onCollapse, currentMenu, theme } = this.props;
+    const { expand, toggleRightSide, collapsedRightSide, onCollapse, currentMenu } = this.props;
     const classnames = cx('topbar', {
       'topbar-expand': expand,
-      'hide-breadcrumbs': theme.layout && theme.layout.indexOf('hideBreadcrumbs') !== -1
     });
 
     return (
