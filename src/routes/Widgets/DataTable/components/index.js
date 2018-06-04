@@ -1,14 +1,16 @@
 import React from 'react';
 import { connect } from 'dva';
 import { Link } from 'dva/router';
-import { Layout, Row, Col } from 'antd';
+import { Layout, Row, Col, Tree } from 'antd';
 import BaseComponent from 'components/BaseComponent';
 import Panel from 'components/Panel';
+import SideLayout from 'components/SideLayout';
 import DataTable from 'components/DataTable';
 import { columns1, columns2, columns3 } from './columns';
 import './index.less';
 const { Content } = Layout;
 const Pagination = DataTable.Pagination;
+const TreeNode = Tree.TreeNode;
 
 @connect(({ datatable, loading }) => ({
   datatable,
@@ -27,17 +29,55 @@ export default class extends BaseComponent {
         pageInfo: pageData.startPage(1, 10)
       }
     });
+
+    dispatch({
+      type: 'datatable/@request',
+      afterResponse: resp => resp.data,
+      payload : {
+        valueField: 'deptTreeData',
+        url: '/tree/getDept',
+      }
+    })
+  }
+
+  renderTreeNodes = (data) => {
+    return data.map((item) => {
+      if (item.children) {
+        return (
+          <TreeNode title={item.title} key={item.key} dataRef={item}>
+            {this.renderTreeNodes(item.children)}
+          </TreeNode>
+        );
+      }
+      return <TreeNode {...item} />;
+    });
+  }
+
+  onSelectTreeNode = (selectedKeys, info) => {
+    console.log('onSelect', selectedKeys);
+
+    // 模拟请求
+    const { dispatch, datatable } = this.props;
+    const { pageData } = datatable;
+    dispatch({
+      type: 'datatable/@request',
+      payload: {
+        valueField: 'pageData',
+        url: '/datatable/getList',
+        pageInfo: pageData.startPage(1, 10)
+      }
+    });
   }
 
   render() {
     const { datatable, loading } = this.props;
-    const { pageData } = datatable;
+    const { pageData, deptTreeData } = datatable;
     const dataTableProps1 = {
       loading,
       columns: columns1,
       rowKey: 'id',
       dataItems: pageData,
-      onChange: ({pageNum, pageSize}) => {},
+      onChange: ({ pageNum, pageSize }) => {}
     };
 
     const dataTableProps2 = {
@@ -55,7 +95,7 @@ export default class extends BaseComponent {
       columns: columns2,
       rowKey: 'id',
       dataItems: pageData,
-      isScroll: true,
+      isScroll: true
     };
 
     const dataTableProps4 = {
@@ -64,7 +104,7 @@ export default class extends BaseComponent {
       rowKey: 'id',
       selectType: 'radio',
       dataItems: pageData,
-      showNum: true,
+      showNum: true
     };
 
     return (
@@ -107,9 +147,25 @@ export default class extends BaseComponent {
             </Col>
           </Row>
           <Row gutter={20}>
-            <Col span={12}>
+            <Col span={6}>
               <Panel title="数据字典&单选">
                 <DataTable {...dataTableProps4} />
+              </Panel>
+            </Col>
+            <Col span={18}>
+              <Panel title="左侧树联动">
+                <SideLayout
+                  title="组织机构"
+                  sideContent={
+                    <Tree
+                      onSelect={this.onSelectTreeNode}
+                    >
+                      {this.renderTreeNodes(deptTreeData)}
+                    </Tree>
+                  }
+                >
+                  <DataTable {...dataTableProps1} />
+                </SideLayout>
               </Panel>
             </Col>
           </Row>

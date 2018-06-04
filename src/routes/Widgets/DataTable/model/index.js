@@ -5,6 +5,7 @@ export default modelEnhance({
   namespace: 'datatable',
 
   state: {
-    pageData: PageHelper.create()
+    pageData: PageHelper.create(),
+    deptTreeData: [],
   }
 });

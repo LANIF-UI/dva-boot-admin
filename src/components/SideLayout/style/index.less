@@ -1,0 +1,68 @@
+@import '~antd/lib/style/themes/default.less';
+// 可滑动的布局组件
+.antui-side-layout {
+  > .ant-layout-sider {
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    .side-handle {
+      position: absolute;
+      text-align: center;
+      cursor: pointer;
+      right: 0;
+      top: 0;
+      width: 13px;
+      line-height: 38px;
+      height: 38px;
+      border-left: 1px solid #e8e8e8;
+      background: #eee;
+      z-index: 2;
+      transition: right .3s;
+      i {
+        transform: scale(0.8);
+      }
+    }
+    &.ant-layout-sider-zero-width {
+      border: 0;
+      .side-handle {
+        right: -12px;
+        background: transparent;
+      }
+    }
+
+    .side-body {
+      overflow: hidden;
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      right: 0px;
+      bottom: 0px;
+      .side-panel {
+        background-color: #fff;
+        border-radius: 0;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+        height: 100%;
+        position: relative;
+        .panel-header {
+          height: 38px;
+          line-height: 38px;
+          padding-left: 10px;
+          border-bottom: 1px solid #e8e8e8;
+        }
+        .panel-body {
+          position: absolute;
+          top: 39px;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          overflow: auto;
+        }
+      }
+    }
+  }
+  > .ant-layout-content {
+    border: 1px solid #e8e8e8;
+    margin-left: -1px;
+    position: relative;
+    overflow: auto;
+  }
+}

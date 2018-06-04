@@ -129,12 +129,12 @@ code {
   }
   &.hided-breadcrumbs {
     .router-page,
-    .router-page .ant-layout {
+    .router-page > .ant-layout {
       min-height: ~'calc(100vh - 62px)'; // 排除顶部
     }
   }
   .router-page,
-  .router-page .ant-layout {
+  .router-page > .ant-layout {
     min-height: ~'calc(100vh - 110px)'; // 排除顶部和面包屑
   }
 }

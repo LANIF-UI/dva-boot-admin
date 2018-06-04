@@ -1,5 +1,43 @@
 export default ({fetchMock, delay, mock, toSuccess, toError}) => {
   return {
+    // 组织机构
+    '/api/tree/getDept': (options) => {
+      return toSuccess([{
+        title: '经理',
+        key: '0-0',
+        children: [{
+          title: '技术总监',
+          key: '0-0-0',
+          children: [
+            { title: '生产部', key: '0-0-0-0' },
+            { title: '研发部', key: '0-0-0-1' },
+            { title: '测试部', key: '0-0-0-2' },
+          ],
+        }, {
+          title: '销售总监',
+          key: '0-0-1',
+          children: [
+            { title: '订单管理部', key: '0-0-1-0' },
+            { title: '吹水培训中心', key: '0-0-1-1' },
+            { title: '分公司', key: '0-0-1-2' },
+          ],
+        }, {
+          title: '财务总监',
+          key: '0-0-2',
+        }],
+      }, {
+        title: '经理媳妇',
+        key: '0-1',
+        children: [
+          { title: '司机小刘', key: '0-1-0-0' },
+          { title: '司机小陈', key: '0-1-0-1' },
+          { title: '司机小马', key: '0-1-0-2' },
+        ],
+      }, {
+        title: '隔壁老王',
+        key: '0-2',
+      }], 400)
+    },
     // 异步树
     '/api/tree/getAsyncData': (options) => {
       let key = '0';
