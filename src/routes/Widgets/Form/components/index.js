@@ -128,6 +128,11 @@ export default class extends BaseComponent {
                 <Form columns={columns9} onSubmit={this.onSubmit} />
               </Panel>
             </Col>
+            <Col span={12}>
+              <Panel title="下拉框绑定到容器中，滚动时不会串位">
+                <Form appendTo columns={columns1} onSubmit={this.onSubmit} />
+              </Panel>
+            </Col>
           </Row>
         </Content>
       </Layout>

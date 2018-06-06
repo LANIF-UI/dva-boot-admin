@@ -40,10 +40,11 @@ export default class extends BaseComponent {
           <Panel title="级联, 下拉树">
             <SearchBar columns={columns5} onSearch={this.onSearch} />
           </Panel>
-          <Panel title="栅格样式">
+          <Panel title="栅格样式&下拉框附加到表单上">
             <Row gutter={20}>
               <Col span={12}>
                 <SearchBar
+                  appendTo
                   columns={columns2}
                   type="grid"
                   onSearch={this.onSearch}
