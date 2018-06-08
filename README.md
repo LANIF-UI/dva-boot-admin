@@ -61,6 +61,7 @@ $ npm start
 ```
 
 ## Change log
+- 增加Form与SearchBar的TreeSelect增加异步数据支持
 - 修改SearchBar组件，Form组件，可增加appendTo属性，解决滚动时弹出的下拉框不随容器移动问题appendTo可为true|function
 - 增加SideLayout组件，可开关左侧面板，用法见数据表格最后‘左侧树联动’的例子
 - 增加对布局样式的调整（在换肤栏里），可以对头部，侧边栏，面包屑进行设置，并修改了几处样式问题
