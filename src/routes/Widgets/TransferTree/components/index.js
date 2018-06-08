@@ -52,6 +52,7 @@ export default class extends BaseComponent {
                   dataSource={asyncDataSource}
                   loadData={this.onLoadData}
                   loading={loading}
+                  showSearch
                 />
               </Panel>
             </Col>

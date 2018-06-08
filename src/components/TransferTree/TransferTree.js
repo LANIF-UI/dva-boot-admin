@@ -133,7 +133,7 @@ export default class TransferTree extends React.Component {
       loadData,
       loading
     } = this.props;
-    const { selectedKeys, targetNodes } = this.state;
+    const { leftFilter, rightFilter, selectedKeys, targetNodes } = this.state;
 
     const cls = classNames({
       [className]: !!className,
@@ -151,6 +151,7 @@ export default class TransferTree extends React.Component {
           treeTitleKey={treeTitleKey}
           treeRender={treeRender}
           style={listStyle}
+          filter={leftFilter}
           handleFilter={this.handleLeftFilter}
           onTreeSelected={this.onTreeSelected}
           showSearch={showSearch}
@@ -164,6 +165,7 @@ export default class TransferTree extends React.Component {
           <Icon type="right" />
         </div>
         <List
+          filter={rightFilter}
           dataSource={targetNodes}
           style={listStyle}
           onDeleteItem={this.handleDeleteItem}

@@ -1,1 +1,50 @@
-// 使树扁平化后查询出一个列表
+import React from 'react';
+import { Input, Icon } from 'antd';
+
+export default class Search extends React.Component {
+  static defaultProps = {
+    placeholder: ''
+  };
+
+  handleChange = e => {
+    const onChange = this.props.onChange;
+    if (onChange) {
+      onChange(e);
+    }
+  };
+
+  handleClear = e => {
+    e.preventDefault();
+
+    const handleClear = this.props.handleClear;
+    if (handleClear) {
+      handleClear(e);
+    }
+  };
+
+  render() {
+    const { placeholder, value, prefixCls } = this.props;
+    const icon =
+      value && value.length > 0 ? (
+        <a className={`${prefixCls}-action`} onClick={this.handleClear}>
+          <Icon type="cross-circle" />
+        </a>
+      ) : (
+        <span className={`${prefixCls}-action`}>
+          <Icon type="search" />
+        </span>
+      );
+    return (
+      <div>
+        <Input
+          placeholder={placeholder}
+          className={prefixCls}
+          value={value}
+          ref="input"
+          onChange={this.handleChange}
+        />
+        {icon}
+      </div>
+    );
+  }
+}

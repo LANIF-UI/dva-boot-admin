@@ -129,7 +129,7 @@ export default class ListTree extends React.Component {
         loadData={loadData}
         onSelect={this.onSelect}
         onExpand={this.onExpand}
-        selectedKeys={selectedKeys}
+        selectedKeys={selectedKeys || []}
         expandedKeys={expandedKeys}
         autoExpandParent={this.state.autoExpandParent}
         multiple
