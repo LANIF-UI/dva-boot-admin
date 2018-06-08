@@ -14,23 +14,56 @@ import {
   columns6,
   columns7,
   columns8,
-  columns9
+  columns9,
+  createColumns10
 } from './columns';
 const { Content } = Layout;
 
-@connect()
+@connect(({ form }) => ({
+  form
+}))
 export default class extends BaseComponent {
   onSubmit(values) {
     console.log(values);
   }
 
+  onLoadData = treeNode => {
+    const treeData = [...this.props.form.treeData];
+    return new Promise(resolve => {
+      this.props.dispatch({
+        type: 'form/@request',
+        afterResponse: resp => {
+          const loop = data => {
+            data.forEach(item => {
+              if (item.children) {
+                loop(item.children);
+              } else if (treeNode.props.eventKey === item.key) {
+                item.children = resp.data;
+              }
+            });
+          };
+          loop(treeData);
+          resolve();
+          return treeData;
+        },
+        payload: {
+          valueField: 'treeData',
+          url: '/tree/getAsyncTreeSelect',
+          data: treeNode.props.eventKey
+        }
+      });
+    });
+  };
+
   render() {
+    const { treeData } = this.props.form;
+
     const record1 = {
       id: 123,
       roleType: '2', // 类型不能错，不能是数字的2
       roleName: '管理员'
     };
-
+    const columns10 = createColumns10(this, treeData);
     return (
       <Layout className="full-layout page">
         <Content>
@@ -124,13 +157,21 @@ export default class extends BaseComponent {
           </Row>
           <Row gutter={20}>
             <Col span={12}>
-              <Panel title="自定义类型">
-                <Form columns={columns9} onSubmit={this.onSubmit} />
+              <Panel title="级联&下拉树">
+                <Form columns={columns10} onSubmit={this.onSubmit} />
               </Panel>
             </Col>
+
             <Col span={12}>
               <Panel title="下拉框绑定到容器中，滚动时不会串位">
                 <Form appendTo columns={columns1} onSubmit={this.onSubmit} />
+              </Panel>
+            </Col>
+          </Row>
+          <Row gutter={20}>
+            <Col span={12}>
+              <Panel title="自定义类型">
+                <Form columns={columns9} onSubmit={this.onSubmit} />
               </Panel>
             </Col>
           </Row>

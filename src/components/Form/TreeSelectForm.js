@@ -1,10 +1,19 @@
 import React from 'react';
-import {TreeSelect} from 'antd';
+import { TreeSelect } from 'antd';
 /**
  * 下拉树菜单元件
  */
-export const TreeSelectForm = ({form, name, formFieldOptions = {}, 
-  children, record, initialValue, rules, onChange, ...otherProps}) => {
+export const TreeSelectForm = ({
+  form,
+  name,
+  formFieldOptions = {},
+  children,
+  record,
+  initialValue,
+  rules,
+  onChange,
+  ...otherProps
+}) => {
   // --
   const { getFieldDecorator } = form;
 
@@ -13,9 +22,9 @@ export const TreeSelectForm = ({form, name, formFieldOptions = {},
   if (record) {
     initval = record[name];
   }
-  
+
   // 如果存在初始值
-  if (initval !== null && typeof (initval) !== "undefined") {
+  if (initval !== null && typeof initval !== 'undefined') {
     formFieldOptions.initialValue = initval;
   }
 
@@ -25,14 +34,12 @@ export const TreeSelectForm = ({form, name, formFieldOptions = {},
   }
 
   // 如果需要onChange
-  if (typeof otherProps.onChange === "function") {
-    formFieldOptions.onChange = value => otherProps.onChange(form, value); // form, value
+  if (typeof onChange === 'function') {
+    formFieldOptions.onChange = value => onChange(form, value); // form, value
   }
 
   return getFieldDecorator(name, formFieldOptions)(
-    <TreeSelect treeDefaultExpandAll {...otherProps}>
-      {children}
-    </TreeSelect>
+    <TreeSelect {...otherProps} />
   );
 };
 

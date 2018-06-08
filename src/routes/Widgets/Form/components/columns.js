@@ -308,3 +308,73 @@ export const columns9 = [
     }
   }
 ];
+
+export const createColumns10 = (self, treeData) => [
+  {
+    title: 'address',
+    name: 'key1',
+    formItem: {
+      type: 'cascade',
+      options: [
+        {
+          value: 'zhejiang',
+          label: 'Zhejiang',
+          children: [
+            {
+              value: 'hangzhou',
+              label: 'Hangzhou'
+            }
+          ]
+        },
+        {
+          value: 'jiangsu',
+          label: 'Jiangsu',
+          children: [
+            {
+              value: 'nanjing',
+              label: 'Nanjing'
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    title: 'address1',
+    name: 'key2',
+    formItem: {
+      type: 'treeSelect',
+      treeData: [
+        {
+          value: 'zhejiang',
+          label: 'Zhejiang',
+          children: [
+            {
+              value: 'hangzhou',
+              label: 'Hangzhou'
+            }
+          ]
+        },
+        {
+          value: 'jiangsu',
+          label: 'Jiangsu',
+          children: [
+            {
+              value: 'nanjing',
+              label: 'Nanjing'
+            }
+          ]
+        }
+      ]
+    }
+  }, 
+  {
+    title: 'asyncTreeSelect',
+    name: 'key3',
+    formItem: {
+      type: 'treeSelect',
+      treeData,
+      loadData: self.onLoadData
+    }
+  }
+];
