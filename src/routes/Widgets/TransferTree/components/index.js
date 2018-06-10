@@ -67,6 +67,7 @@ export default class extends BaseComponent {
                     { key: '110101', title: '东城区' },
                     { key: '110102', title: '西城区' }
                   ]}
+                  showSearch
                 />
               </Panel>
             </Col>

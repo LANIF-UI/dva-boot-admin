@@ -18,7 +18,7 @@ export default class TransferTree extends React.Component {
     treeTitleKey: 'title',
     showSearch: false,
     footer: noop,
-    loading: false,
+    loading: false
   };
 
   static propTypes = {
@@ -46,20 +46,48 @@ export default class TransferTree extends React.Component {
     this.state = {
       leftFilter: '',
       rightFilter: '',
+      dataSource: props.dataSource,
       targetNodes: props.targetNodes,
       selectedKeys: props.targetNodes
         ? props.targetNodes.map(node => node[props.treeKey])
-        : null,
+        : null
     };
+    if (props.showSearch) {
+      this.flatTreeData = this.getFlatTreeData(props.dataSource);
+    }
+  }
+
+  getFlatTreeData(treeData) {
+    let data = [];
+    treeData.forEach(item => {
+      if (item.children) {
+        data = data.concat(this.getFlatTreeData(item.children));
+      }
+      data.push(item);
+    });
+    return data;
   }
 
   componentWillReceiveProps(nextProps) {
-    const { targetNodes } = nextProps;
-    if ('targetNodes' in nextProps) {
-      this.setState({
-        targetNodes: targetNodes,
-        selectedKeys: targetNodes.map(node => node[nextProps.treeKey])
-      });
+    const { targetNodes, dataSource } = nextProps;
+    if (
+      nextProps.targetNodes !== this.props.targetNodes ||
+      nextProps.dataSource !== this.props.dataSource
+    ) {
+      if (targetNodes) {
+        this.setState({
+          targetNodes: targetNodes,
+          selectedKeys: targetNodes.map(node => node[nextProps.treeKey])
+        })
+      }
+      if (dataSource) {
+        this.setState({
+          dataSource: dataSource
+        });
+      }
+      if (nextProps.showSearch) {
+        this.flatTreeData = this.getFlatTreeData(dataSource);
+      }
     }
   }
 
@@ -123,7 +151,6 @@ export default class TransferTree extends React.Component {
       notFoundContent,
       treeKey,
       treeTitleKey,
-      dataSource,
       searchPlaceholder,
       footer,
       listStyle,
@@ -133,7 +160,7 @@ export default class TransferTree extends React.Component {
       loadData,
       loading
     } = this.props;
-    const { leftFilter, rightFilter, selectedKeys, targetNodes } = this.state;
+    const { leftFilter, rightFilter, selectedKeys, targetNodes, dataSource } = this.state;
 
     const cls = classNames({
       [className]: !!className,
@@ -146,6 +173,7 @@ export default class TransferTree extends React.Component {
           titleText={titleText}
           loadData={loadData}
           treeData={dataSource}
+          flatTreeData={this.flatTreeData}
           selectedKeys={selectedKeys}
           treeKey={treeKey}
           treeTitleKey={treeTitleKey}

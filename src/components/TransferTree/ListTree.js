@@ -71,9 +71,13 @@ export default class ListTree extends React.Component {
     });
   };
 
+  renderFilterResult = filter => {
+    return null;
+  }
+
   onSelect = (selectedKeys, info) => {
     if (info.selected && info.node.props.dataRef) {
-      if (info.node.props.loadData && !info.node.props.dataRef.isLeaf) {
+      if (this.props.loadData && !info.node.props.dataRef.isLeaf) {
         return;
       } else if (info.node.props.dataRef.children) {
         this.onExpand([info.node.props.eventKey], info);
@@ -84,10 +88,7 @@ export default class ListTree extends React.Component {
   };
 
   onExpand = (expandedKeys, info) => {
-    if (
-      info.event &&
-      info.node.props.children
-    ) {
+    if (info.event && info.node.props.children) {
       let concatKeys = [expandedKeys, this.state.expandedKeys].reduce(
         (prev, next) =>
           prev.filter(item => next.indexOf(item) === -1).concat(next)
@@ -138,6 +139,8 @@ export default class ListTree extends React.Component {
       </Tree>
     );
 
+    const filterResult = filter ? this.renderFilterResult(filter) : null;
+
     return (
       <div className={prefixCls} style={style}>
         <div className={`${prefixCls}-header tree-title`}>{titleText}</div>
@@ -160,6 +163,7 @@ export default class ListTree extends React.Component {
             </div>
           ) : null}
           <div className={`${prefixCls}-body-content tree-content`}>
+            {filter ? filterResult : null}
             {treeData.length ? (
               showTree
             ) : (
