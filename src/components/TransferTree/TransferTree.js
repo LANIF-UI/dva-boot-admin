@@ -38,7 +38,8 @@ export default class TransferTree extends React.Component {
     footer: PropTypes.func,
     treeRender: PropTypes.func,
     loadData: PropTypes.func,
-    loading: PropTypes.bool
+    loading: PropTypes.bool,
+    asyncSearch: PropTypes.func,
   };
 
   constructor(props) {
@@ -62,8 +63,9 @@ export default class TransferTree extends React.Component {
     treeData.forEach(item => {
       if (item.children) {
         data = data.concat(this.getFlatTreeData(item.children));
+      } else {
+        data.push(item);
       }
-      data.push(item);
     });
     return data;
   }
@@ -123,15 +125,12 @@ export default class TransferTree extends React.Component {
   };
 
   onTreeSelected = selectedNodes => {
-    const { treeKey } = this.props;
+    const { treeKey, treeTitleKey } = this.props;
     let targetNodes = selectedNodes.map(node => ({
       [treeKey]: node[treeKey],
+      [treeTitleKey]: node[treeTitleKey],
       ...node.props
     }));
-
-    if (this.props.filter) {
-      targetNodes = targetNodes.filter(node => this.props.filter(node));
-    }
 
     const targetKeys = targetNodes.map(node => node[treeKey]);
 
@@ -158,7 +157,8 @@ export default class TransferTree extends React.Component {
       listRender,
       treeRender,
       loadData,
-      loading
+      loading,
+      asyncSearch
     } = this.props;
     const { leftFilter, rightFilter, selectedKeys, targetNodes, dataSource } = this.state;
 
@@ -172,9 +172,11 @@ export default class TransferTree extends React.Component {
         <ListTree
           titleText={titleText}
           loadData={loadData}
+          asyncSearch={asyncSearch}
           treeData={dataSource}
           flatTreeData={this.flatTreeData}
           selectedKeys={selectedKeys}
+          selectedNodes={targetNodes}
           treeKey={treeKey}
           treeTitleKey={treeTitleKey}
           treeRender={treeRender}

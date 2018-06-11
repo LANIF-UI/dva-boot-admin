@@ -56,14 +56,14 @@ export default class List extends React.Component {
   }
 
   renderItem = (i, key) => {
-    const {render, titleKey} = this.props;
+    const {render, titleKey, rowKey} = this.props;
 
     let item = this.state.dataSource[i];
     
     return (
-      <li className="list-comp-item" data-key={item[this.props.rowKey]}
+      <li className="list-comp-item" data-key={item[rowKey]}
         title={item[titleKey]}
-        key={item[this.props.rowKey]}
+        key={item[rowKey]}
       >
         <span className="list-comp-item-body">{render ? render(item) : item.title}</span>
         <a className={`list-comp-clear-item`} onClick={(e) => this.handleDeleteItem(e, [item])}>

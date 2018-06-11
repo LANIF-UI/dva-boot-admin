@@ -60,6 +60,19 @@ export default ({fetchMock, delay, mock, toSuccess, toError}) => {
         }
       ], 400)
     },
+    '/api/tree/getAsyncSearchData': (options) => {
+      let title = '0';
+      if (options.body) {
+        const data = JSON.parse(options.body);
+        title = data.search;
+      }
+      return toSuccess([
+        {
+          title: `子节点2${title}`,
+          key: `2${title}`,
+        }
+      ], 400)
+    },
     // 异步select tree
     '/api/tree/getAsyncTreeSelect': (options) => {
       let key = '0';

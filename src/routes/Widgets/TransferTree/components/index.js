@@ -4,6 +4,7 @@ import { Layout, Row, Col } from 'antd';
 import BaseComponent from 'components/BaseComponent';
 import Panel from 'components/Panel';
 import TransferTree from 'components/TransferTree';
+import $$ from 'cmn-utils';
 const { Content } = Layout;
 
 @connect(({ transferTree, loading }) => ({
@@ -34,6 +35,10 @@ export default class extends BaseComponent {
     });
   };
 
+  onAsyncSearch = searchText => {
+    return $$.post('/tree/getAsyncSearchData', {search: searchText}).then(({data}) => data);
+  }
+
   render() {
     const { dataSource, asyncDataSource } = this.props.transferTree;
     const { loading } = this.props;
@@ -51,6 +56,7 @@ export default class extends BaseComponent {
                 <TransferTree
                   dataSource={asyncDataSource}
                   loadData={this.onLoadData}
+                  asyncSearch={this.onAsyncSearch}
                   loading={loading}
                   showSearch
                 />

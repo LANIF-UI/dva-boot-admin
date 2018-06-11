@@ -33,19 +33,23 @@ export default class ListTree extends React.Component {
     filter: PropTypes.string,
     handleFilter: PropTypes.func,
     treeRender: PropTypes.func,
-    loading: PropTypes.bool
+    loading: PropTypes.bool,
+    flatTreeData: PropTypes.array
   };
 
   state = {
     expandedKeys: [],
-    autoExpandParent: true
+    autoExpandParent: true,
+    searchList: []
   };
 
   handleFilter = e => {
+    this.renderFilterResult(e.target.value);
     this.props.handleFilter(e.target.value);
   };
 
   handleClear = () => {
+    this.renderFilterResult('');
     this.props.handleFilter('');
   };
 
@@ -72,8 +76,53 @@ export default class ListTree extends React.Component {
   };
 
   renderFilterResult = filter => {
-    return null;
-  }
+    const { flatTreeData, treeTitleKey, asyncSearch } = this.props;
+    if (asyncSearch && asyncSearch(filter).then) {
+      const promise = asyncSearch(filter);
+      if (promise.then) {
+        promise.then(listItem => {
+          this.setState({
+            searchList: listItem
+          });
+        });
+      }
+    } else {
+      this.setState({
+        searchList: flatTreeData.filter(
+          item => item[treeTitleKey].indexOf(filter) >= 0
+        )
+      });
+    }
+  };
+
+  renderSearchItem = searchList =>
+    searchList.map((item, index) => (
+      <li
+        className="list-comp-item"
+        title={item[this.props.treeTitleKey]}
+        key={item[this.props.treeKey]}
+        onClick={() => this.handleSelect(item)}
+      >
+        <span className="list-comp-item-body">{item.title}</span>
+      </li>
+    ));
+
+  handleSelect = selectedItem => {
+    const { selectedKeys, selectedNodes, treeKey } = this.props;
+    let _selectedNodes = selectedNodes ? [...selectedNodes] : [];
+
+    if (
+      selectedKeys &&
+      selectedKeys.some(key => key === selectedItem[treeKey])
+    ) {
+      _selectedNodes = _selectedNodes.filter(
+        item => item[treeKey] !== selectedItem[treeKey]
+      );
+    } else {
+      _selectedNodes.push(selectedItem);
+    }
+    this.props.onTreeSelected(_selectedNodes);
+  };
 
   onSelect = (selectedKeys, info) => {
     if (info.selected && info.node.props.dataRef) {
@@ -121,7 +170,7 @@ export default class ListTree extends React.Component {
       selectedKeys
     } = this.props;
 
-    const { expandedKeys } = this.state;
+    const { expandedKeys, autoExpandParent, searchList } = this.state;
 
     let { searchPlaceholder, notFoundContent } = this.props;
 
@@ -132,14 +181,12 @@ export default class ListTree extends React.Component {
         onExpand={this.onExpand}
         selectedKeys={selectedKeys || []}
         expandedKeys={expandedKeys}
-        autoExpandParent={this.state.autoExpandParent}
+        autoExpandParent={autoExpandParent}
         multiple
       >
         {this.renderTreeNodes(treeData)}
       </Tree>
     );
-
-    const filterResult = filter ? this.renderFilterResult(filter) : null;
 
     return (
       <div className={prefixCls} style={style}>
@@ -163,7 +210,11 @@ export default class ListTree extends React.Component {
             </div>
           ) : null}
           <div className={`${prefixCls}-body-content tree-content`}>
-            {filter ? filterResult : null}
+            {filter ? (
+              <ul className="tree-filter-result">
+                {this.renderSearchItem(searchList)}
+              </ul>
+            ) : null}
             {treeData.length ? (
               showTree
             ) : (
