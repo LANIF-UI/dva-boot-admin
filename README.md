@@ -61,6 +61,7 @@ $ npm start
 ```
 
 ## Change log
+- 增加TransferTree支持查询功能，示例见组件的穿梭树
 - 增加Form与SearchBar的TreeSelect增加异步数据支持
 - 修改SearchBar组件，Form组件，可增加appendTo属性，解决滚动时弹出的下拉框不随容器移动问题appendTo可为true|function
 - 增加SideLayout组件，可开关左侧面板，用法见数据表格最后‘左侧树联动’的例子
