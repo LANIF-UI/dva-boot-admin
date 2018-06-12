@@ -40,12 +40,12 @@ export default class ListTree extends React.Component {
   state = {
     expandedKeys: [],
     autoExpandParent: true,
-    searchList: []
+    searchList: [],
   };
 
-  handleFilter = e => {
-    this.renderFilterResult(e.target.value);
-    this.props.handleFilter(e.target.value);
+  handleFilter = value => {
+    this.renderFilterResult(value);
+    this.props.handleFilter(value);
   };
 
   handleClear = () => {
@@ -77,7 +77,7 @@ export default class ListTree extends React.Component {
 
   renderFilterResult = filter => {
     const { flatTreeData, treeTitleKey, asyncSearch } = this.props;
-    if (asyncSearch && asyncSearch(filter).then) {
+    if (asyncSearch) {
       const promise = asyncSearch(filter);
       if (promise.then) {
         promise.then(listItem => {
@@ -103,7 +103,9 @@ export default class ListTree extends React.Component {
         key={item[this.props.treeKey]}
         onClick={() => this.handleSelect(item)}
       >
-        <span className="list-comp-item-body">{item.title}</span>
+        <span className="list-comp-item-body">
+          {item[this.props.treeTitleKey]}
+        </span>
       </li>
     ));
 
@@ -125,7 +127,13 @@ export default class ListTree extends React.Component {
   };
 
   onSelect = (_selectedKeys, info) => {
-    const { selectedNodes, selectedKeys, loadData, onTreeSelected, treeKey } = this.props;
+    const {
+      selectedNodes,
+      selectedKeys,
+      loadData,
+      onTreeSelected,
+      treeKey
+    } = this.props;
     if (info.selected && info.node.props.dataRef) {
       if (loadData && !info.node.props.dataRef.isLeaf) {
         return;
@@ -137,14 +145,19 @@ export default class ListTree extends React.Component {
     // 如果是异步数据需要与老数据进行拼合及去重
     if (loadData) {
       let _selectedNodes = selectedNodes ? [...selectedNodes] : [];
-      if (!info.selected) { // 如果是取消选择树节点，则先过滤掉
-        _selectedNodes = _selectedNodes.filter(item => item[treeKey] !== info.node.props.eventKey)
+      if (!info.selected) {
+        // 如果是取消选择树节点，则先过滤掉
+        _selectedNodes = _selectedNodes.filter(
+          item => item[treeKey] !== info.node.props.eventKey
+        );
       }
-      const newNodes = selectedKeys ? _selectedNodes.concat(
-        info.selectedNodes.filter(
-          item => selectedKeys.indexOf(item[treeKey]) < 0
-        )
-      ) : info.selectedNodes;
+      const newNodes = selectedKeys
+        ? _selectedNodes.concat(
+            info.selectedNodes.filter(
+              item => selectedKeys.indexOf(item[treeKey]) < 0
+            )
+          )
+        : info.selectedNodes;
       onTreeSelected(newNodes);
     } else {
       onTreeSelected(info.selectedNodes);
@@ -220,7 +233,6 @@ export default class ListTree extends React.Component {
                 onChange={this.handleFilter}
                 handleClear={this.handleClear}
                 placeholder={searchPlaceholder || '请输入搜索内容'}
-                value={filter}
               />
             </div>
           ) : null}

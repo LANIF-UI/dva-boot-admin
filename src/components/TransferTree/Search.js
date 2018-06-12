@@ -1,16 +1,29 @@
 import React from 'react';
 import { Input, Icon } from 'antd';
+import $$ from 'cmn-utils';
 
-export default class Search extends React.Component {
+export default class Search extends React.PureComponent {
   static defaultProps = {
     placeholder: ''
   };
 
-  handleChange = e => {
+  state = {
+    value: '',
+  }
+
+  constructor(props) {
+    super(props);
+    this.onChange = $$.debounce(props.onChange, 500);
+  }
+
+  handleChange = value => {
     const onChange = this.props.onChange;
     if (onChange) {
-      onChange(e);
+      this.onChange(value);
     }
+    this.setState({
+      value
+    })
   };
 
   handleClear = e => {
@@ -20,12 +33,15 @@ export default class Search extends React.Component {
     if (handleClear) {
       handleClear(e);
     }
+    this.setState({
+      value: ''
+    })
   };
 
   render() {
-    const { placeholder, value, prefixCls } = this.props;
+    const { placeholder, prefixCls } = this.props;
     const icon =
-      value && value.length > 0 ? (
+      this.state.value && this.state.value.length > 0 ? (
         <a className={`${prefixCls}-action`} onClick={this.handleClear}>
           <Icon type="cross-circle" />
         </a>
@@ -39,9 +55,9 @@ export default class Search extends React.Component {
         <Input
           placeholder={placeholder}
           className={prefixCls}
-          value={value}
+          value={this.state.value}
           ref="input"
-          onChange={this.handleChange}
+          onChange={e => this.handleChange(e.target.value)}
         />
         {icon}
       </div>
