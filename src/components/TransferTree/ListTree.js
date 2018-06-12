@@ -124,16 +124,31 @@ export default class ListTree extends React.Component {
     this.props.onTreeSelected(_selectedNodes);
   };
 
-  onSelect = (selectedKeys, info) => {
+  onSelect = (_selectedKeys, info) => {
+    const { selectedNodes, selectedKeys, loadData, onTreeSelected, treeKey } = this.props;
     if (info.selected && info.node.props.dataRef) {
-      if (this.props.loadData && !info.node.props.dataRef.isLeaf) {
+      if (loadData && !info.node.props.dataRef.isLeaf) {
         return;
       } else if (info.node.props.dataRef.children) {
         this.onExpand([info.node.props.eventKey], info);
         return;
       }
     }
-    this.props.onTreeSelected(info.selectedNodes);
+    // 如果是异步数据需要与老数据进行拼合及去重
+    if (loadData) {
+      let _selectedNodes = selectedNodes ? [...selectedNodes] : [];
+      if (!info.selected) { // 如果是取消选择树节点，则先过滤掉
+        _selectedNodes = _selectedNodes.filter(item => item[treeKey] !== info.node.props.eventKey)
+      }
+      const newNodes = selectedKeys ? _selectedNodes.concat(
+        info.selectedNodes.filter(
+          item => selectedKeys.indexOf(item[treeKey]) < 0
+        )
+      ) : info.selectedNodes;
+      onTreeSelected(newNodes);
+    } else {
+      onTreeSelected(info.selectedNodes);
+    }
   };
 
   onExpand = (expandedKeys, info) => {
