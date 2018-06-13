@@ -5,7 +5,7 @@ const { MonthPicker, RangePicker } = DatePicker;
 /**
  * 日期，时间元件
  */
-export default ({name, form, type, record, initialValue, rules, formFieldOptions = {}, format, ...otherProps}) => {
+export default ({name, form, type, record, initialValue, rules, formFieldOptions = {}, format, preview, ...otherProps}) => {
   const { getFieldDecorator } = form;
   
   let initval = initialValue;
@@ -55,6 +55,10 @@ export default ({name, form, type, record, initialValue, rules, formFieldOptions
   else if (type === 'datetime' || type === 'date~') props.format = "YYYY-MM-DD HH:mm:ss";
   else if (type === 'time') props.format = "HH:mm:ss";
   else props.format = "YYYY-MM-DD";
+
+  if (preview) {
+    return <div style={otherProps.style}>{initval ? formFieldOptions.initialValue.format(props.format) : ''}</div>;
+  }
 
   return getFieldDecorator(name, formFieldOptions)(
     <Component {...props} />

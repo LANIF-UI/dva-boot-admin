@@ -4,7 +4,7 @@ const { TextArea } = Input;
 /**
  * 文本框元件
  */
-export default ({form, name, formFieldOptions = {}, record, initialValue, rules, onChange, preview, type, ...otherProps}) => {
+export default ({form, name, formFieldOptions = {}, record, initialValue, rules, onChange, type, preview, ...otherProps}) => {
   const { getFieldDecorator } = form;
 
   let initval = initialValue;
@@ -16,6 +16,11 @@ export default ({form, name, formFieldOptions = {}, record, initialValue, rules,
   // 如果存在初始值
   if (initval !== null && typeof (initval) !== "undefined") {
     formFieldOptions.initialValue = initval;
+  }
+
+  if (preview) {
+    if (type === 'hidden') return null;
+    return <div style={otherProps.style}>{initval || ''}</div>;
   }
 
   // 如果有rules
@@ -32,7 +37,7 @@ export default ({form, name, formFieldOptions = {}, record, initialValue, rules,
 
   delete otherProps.render;
 
-  return preview ? initval : getFieldDecorator(name, formFieldOptions)(
+  return getFieldDecorator(name, formFieldOptions)(
     <Comp {...otherProps} type={type} />
   );
 };

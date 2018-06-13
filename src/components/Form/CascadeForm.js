@@ -5,7 +5,7 @@ import {Cascader} from 'antd';
  * 级联表单元件
  * initialValue 初始值
  */
-export const CascadeForm = ({name, form, record, formFieldOptions = {}, initialValue, rules, onChange, ...otherProps}) => {
+export const CascadeForm = ({name, form, record, formFieldOptions = {}, initialValue, rules, onChange, preview, ...otherProps}) => {
   const { getFieldDecorator } = form;
   
   let initval = initialValue;
@@ -17,6 +17,26 @@ export const CascadeForm = ({name, form, record, formFieldOptions = {}, initialV
   // 如果存在初始值
   if (initval !== null && typeof (initval) !== "undefined") {
     formFieldOptions.initialValue = initval;
+  }
+
+  if (preview) {
+    if (otherProps.options && initval) {
+      const data = [];
+      let level = 0;
+      const loop = opts => {
+        opts.forEach(item => {
+          if (item.value === initval[level]) {
+            data.push(item.label);
+            if (item.children && initval[++level]) {
+              loop(item.children);
+            }
+          }
+        });
+      }
+      loop(otherProps.options);
+      return <div style={otherProps.style}>{data.join(' / ')}</div>;
+    }
+    return null
   }
 
   // 如果有rules

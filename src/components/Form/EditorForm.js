@@ -51,7 +51,7 @@ class EditorControlled extends Component {
 /**
  * EditorForm组件
  */
-export default ({form, name, formFieldOptions = {}, record, initialValue, rules, onChange, normalize, ...otherProps}) => {
+export default ({form, name, formFieldOptions = {}, record, initialValue, rules, onChange, normalize, preview, ...otherProps}) => {
   const { getFieldDecorator } = form;
 
   let initval = initialValue;
@@ -67,6 +67,10 @@ export default ({form, name, formFieldOptions = {}, record, initialValue, rules,
     } else {
       formFieldOptions.initialValue = initval;
     }
+  }
+
+  if (preview) {
+    return <div style={otherProps.style} dangerouslySetInnerHTML={{__html: initval || ''}}></div>;
   }
 
   // 如果有rules

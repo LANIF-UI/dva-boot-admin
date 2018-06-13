@@ -83,7 +83,7 @@ class FormComp extends React.Component {
      */
     preview: PropTypes.bool,
 
-    /** 是否是预览视图，所有表单项将展示为文本模式 */
+    /** antd formItemLayout */
     formItemLayout: PropTypes.object,
 
     /**
@@ -205,7 +205,7 @@ class FormComp extends React.Component {
                 title: field.title,
                 placeholder: field.formItem.placeholder || field.title,
                 record,
-                preview
+                preview,
               },
               field.formItem
             );
