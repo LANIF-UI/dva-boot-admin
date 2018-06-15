@@ -13,6 +13,10 @@ const TabPane = Tabs.TabPane;
  * 设置皮肤的右侧滑动的面板
  */
 class SkinToolbox extends Component {
+  state = {
+    collapsed: true,
+  }
+
   onChangeSideColor = e => {
     this.props.onChangeTheme({
       ...this.props.theme,
@@ -38,17 +42,26 @@ class SkinToolbox extends Component {
     $$.removeStore('theme');
   }
 
+  /**
+   * 切换皮肤设置面板
+   */
+  toggleSkinToolbox = _ => {
+    this.setState({
+      collapsed: !this.state.collapsed
+    });
+  };
+
   render() {
-    const { collapsed, toggleSkinToolbox, theme } = this.props;
+    const { theme } = this.props;
 
     const classnames = cx('skin-toolbox', {
-      'skin-toolbox-close': collapsed
+      'skin-toolbox-close': this.state.collapsed
     });
 
     return (
       <div className={classnames}>
         <div className="panel">
-          <div className="panel-head" onClick={toggleSkinToolbox}>
+          <div className="panel-head" onClick={this.toggleSkinToolbox}>
             <span className="panel-icon">
               <Icon type="gear" />
             </span>

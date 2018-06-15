@@ -1,5 +1,7 @@
 import React from 'react';
-import { PageLoading, Notification } from '@/components';
+import PageLoading from 'components/Loading/PageLoading';
+import Notification from 'components/Notification';
+
 const notice = Notification.notice;
 
 /**

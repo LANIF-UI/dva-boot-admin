@@ -9,12 +9,12 @@ import AntdIcon from 'antd/lib/icon';
 class Icon extends React.Component {
   static propTypes = {
     prefixCls: PropTypes.string,
-    type: PropTypes.string.isRequired,
+    type: PropTypes.string,
     className: PropTypes.string,
     children: PropTypes.node,
     font: PropTypes.string,
     antd: PropTypes.bool,
-    spin: PropTypes.bool,
+    spin: PropTypes.bool
   };
 
   static defaultProps = {
@@ -37,12 +37,15 @@ class Icon extends React.Component {
     const cn = classnames(
       prefixCls,
       {
-        [font]: !!font,
-        [font + '-' + type]: !!font,
-        spin,
+        [font]: font,
+        [font + '-' + type]: font && type,
+        spin
       },
       className
     );
+    if (/^&#x.+;$/.test(type)) {
+      return <i className={cn} {...props} dangerouslySetInnerHTML = {{ __html: type }} />
+    }
     return antd ? (
       <AntdIcon type={type} className={className} spin={spin} {...props}>
         {children}

@@ -45,7 +45,6 @@ export default class BasicLayout extends React.PureComponent {
       expandTopBar: false, // 头部多功能区开合
       showSidebarHeader: false, // 左边栏头部开关
       collapsedRightSide: true, // 右边栏开关
-      collapsedSkinToolbox: true, // 设置皮肤面板
       theme, // 皮肤设置
       user,
       menu,
@@ -166,15 +165,6 @@ export default class BasicLayout extends React.PureComponent {
     });
   };
 
-  /**
-   * 切换皮肤设置面板
-   */
-  toggleSkinToolbox = _ => {
-    this.setState({
-      collapsedSkinToolbox: !this.state.collapsedSkinToolbox
-    });
-  };
-
   onChangeTheme = theme => {
     $$.setStore('theme', theme);
     this.setState({
@@ -189,7 +179,6 @@ export default class BasicLayout extends React.PureComponent {
       expandTopBar,
       showSidebarHeader,
       collapsedRightSide,
-      collapsedSkinToolbox,
       theme,
       user,
       menu,
@@ -254,8 +243,6 @@ export default class BasicLayout extends React.PureComponent {
           <RightSideBar collapsed={collapsedRightSide} />
         </Layout>
         <SkinToolbox
-          collapsed={collapsedSkinToolbox}
-          toggleSkinToolbox={this.toggleSkinToolbox}
           onChangeTheme={this.onChangeTheme}
           theme={theme}
         />
