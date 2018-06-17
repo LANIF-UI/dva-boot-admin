@@ -79,6 +79,16 @@ export default ({fetchMock, delay, mock, toSuccess, toError}) => {
           {
             name: '图表',
             path: '/charts',
+            children: [
+              {
+                name: 'ECharts',
+                path: '/charts/ec',
+              },
+              {
+                name: 'G2',
+                path: '/charts/g2',
+              },
+            ]
           },
         ],
       },

@@ -41,16 +41,15 @@ class LeftSideBar extends Component {
 
   constructor(props) {
     super(props);
-    this.flatMenu = props.flatMenu;
     this.state = {
-      openKeys: props.currentMenu ? [props.currentMenu.parentPath] : [],
+      openKeys: props.currentMenu ? props.currentMenu.parentPath : [],
     };
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.location.pathname !== this.props.location.pathname) {
+    if ('currentMenu' in nextProps) {
       this.setState({
-        openKeys: [nextProps.currentMenu.parentPath],
+        openKeys: nextProps.currentMenu.parentPath,
       });
     }
   }
@@ -144,7 +143,7 @@ class LeftSideBar extends Component {
   // Get the currently selected menu
   getSelectedMenuKeys = () => {
     const pathname = this.props.location.pathname;
-    const selectMenu = getMeunMatchKeys(this.flatMenu, pathname)[0];
+    const selectMenu = getMeunMatchKeys(this.props.flatMenu, pathname)[0];
     return selectMenu ? [selectMenu.path] : [];
   };
 
@@ -178,9 +177,6 @@ class LeftSideBar extends Component {
     const { openKeys } = this.state;
     // if pathname can't match, use the nearest parent's key
     let selectedKeys = this.getSelectedMenuKeys();
-    if (!selectedKeys.length) {
-      selectedKeys = [openKeys[openKeys.length - 1]];
-    }
     // Don't show popup menu when it is been collapsed
     const menuProps = collapsed
       ? {

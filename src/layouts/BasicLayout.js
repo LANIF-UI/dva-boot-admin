@@ -20,13 +20,11 @@ const { Content, Header } = Layout;
  * 可设置多种布局 [header(固定头), sidebar(固定边栏), breadcrumb(固定面包蟹)]
  * @author weiq
  */
-@connect()
+@connect(({global}) => ({global}))
 export default class BasicLayout extends React.PureComponent {
   constructor(props) {
     super(props);
-    const menu = $$.getStore('menu', []);
     const user = $$.getStore('user', []);
-    const flatMenu = (this.flatMenu = this.getFlatMenu(menu));
     const theme = $$.getStore('theme', {
       leftSide: 'darkgrey', // 左边
       navbar: 'light' // 顶部
@@ -47,10 +45,12 @@ export default class BasicLayout extends React.PureComponent {
       collapsedRightSide: true, // 右边栏开关
       theme, // 皮肤设置
       user,
-      menu,
-      flatMenu,
-      currentMenu: this.getCurrentMenu(props) || {}
+      currentMenu: {}
     };
+
+    props.dispatch({
+      type: 'global/getMenu'
+    });
   }
 
   componentDidMount() {
@@ -67,7 +67,9 @@ export default class BasicLayout extends React.PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.location.pathname !== this.props.location.pathname) {
+    if (nextProps.location.pathname !== this.props.location.pathname ||
+      nextProps.global.flatMenu !== this.props.global.flatMenu
+    ) {
       this.setState({
         currentMenu: this.getCurrentMenu(nextProps) || {}
       });
@@ -76,21 +78,10 @@ export default class BasicLayout extends React.PureComponent {
 
   getCurrentMenu(props) {
     const {
-      location: { pathname }
-    } =
-      props || this.props;
-    const menu = this.getMeunMatchKeys(this.flatMenu, pathname)[0];
-    return menu;
-  }
-
-  getFlatMenu(menus) {
-    let menu = [];
-    menus.forEach(item => {
-      if (item.children) {
-        menu = menu.concat(this.getFlatMenu(item.children));
-      }
-      menu.push(item);
-    });
+      location: { pathname },
+      global,
+    } = props || this.props;
+    const menu = this.getMeunMatchKeys(global.flatMenu, pathname)[0];
     return menu;
   }
 
@@ -181,11 +172,10 @@ export default class BasicLayout extends React.PureComponent {
       collapsedRightSide,
       theme,
       user,
-      menu,
-      flatMenu,
       currentMenu
     } = this.state;
-    const { routerData, location } = this.props;
+    const { routerData, location, global } = this.props;
+    const {menu, flatMenu} = global;
     const { childRoutes } = routerData;
     const classnames = cx('basic-layout', 'full-layout', {
       'fixed': theme.layout && theme.layout.indexOf('fixedSidebar') !== -1,

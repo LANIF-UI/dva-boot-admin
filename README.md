@@ -61,6 +61,7 @@ $ npm start
 ```
 
 ## Change log
+- 修改菜单获取方式，之前是登录成功后获取，改为从BasicLayout中获取，修改前当如果修改菜单json，需要重新登录，修改后直接刷新即可
 - 升级Icon组件增加对unicode代码的支持 `<Icon type={"&#xe734;"} font="iconfont" />`
 - 增加TransferTree支持查询功能，示例见组件的穿梭树
 - 增加Form与SearchBar的TreeSelect增加异步数据支持

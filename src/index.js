@@ -24,11 +24,18 @@ request.config(config.request).headers(_ => ({
   userId: store.getStore('userId')
 }));
 
+// 使用mock数据
+require('./__mocks__');
+// -> Developer mock data
+// if (process.env.NODE_ENV === 'development') {
+//   require('./__mocks__');
+// }
+
 // -> loading
 dynamic.setDefaultLoadingComponent(() => config.router.loading);
 
 // -> 注册全局模型
-// app.model(require('./models/global').default);
+app.model(require('./models/global').default);
 
 // -> 初始化路由
 app.router(({ history, app }) => (
@@ -39,10 +46,3 @@ app.router(({ history, app }) => (
 
 // -> Start
 app.start('#root');
-
-// 使用mock数据
-require('./__mocks__');
-// -> Developer mock data
-// if (process.env.NODE_ENV === 'development') {
-//   require('./__mocks__');
-// }

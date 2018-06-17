@@ -8,8 +8,9 @@ const { Content } = Layout;
 export default class extends BaseComponent {
   render() {
     return (
-      <Layout className="full-layout page charts-page">
-        <Content>空白页</Content>
+      <Layout className="full-layout charts-page">
+        <Content>
+        </Content>
       </Layout>
     );
   }

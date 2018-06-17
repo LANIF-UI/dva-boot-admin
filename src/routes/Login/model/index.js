@@ -1,5 +1,5 @@
 import { routerRedux } from 'dva/router';
-import { login, getMenu } from '../service';
+import { login } from '../service';
 import $$ from 'cmn-utils';
 
 export default {
@@ -9,7 +9,6 @@ export default {
     loggedIn: false,
     message: '',
     user: {},
-    menu: [],
   },
 
   subscriptions: {
@@ -17,7 +16,6 @@ export default {
       return history.listen(({ pathname }) => {
         if (pathname.indexOf('/sign/login') !== -1) {
           $$.removeStore('user');
-          $$.removeStore('menu');
         }
       });
     }
@@ -28,38 +26,12 @@ export default {
       const { status, message, data } = yield call(login, payload);
       if (status) {
         $$.setStore('user', data);
-        yield put({
-          type: 'getMenu',
-          payload
-        });
+        yield put(routerRedux.replace('/'));
       } else {
         yield put({
           type: 'loginError',
           payload: { message }
         });
-      }
-    },
-    *getMenu({ payload }, { call, put }) {
-      const { status, data } = yield call(getMenu, payload);
-      if (status) {
-        const loopMenu = (menu, path) => {
-          menu.forEach(item => {
-            if (path) {
-              item.parentPath = path;
-            }
-            if (item.children && item.children.length) {
-              loopMenu(item.children, item.path);
-            }
-          });
-        }
-        loopMenu(data);
-        
-        $$.setStore('menu', data);
-        yield put({
-          type: 'getMenuSuccess',
-          payload: data,
-        });
-        yield put(routerRedux.replace('/'));
       }
     },
     *logout(_, { put }) {}
@@ -81,11 +53,5 @@ export default {
         message: payload.message
       };
     },
-    getMenuSuccess(state, { payload }) {
-      return {
-        ...state,
-        menu: payload,
-      };
-    }
   }
 };
