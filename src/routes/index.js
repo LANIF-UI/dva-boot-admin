@@ -14,7 +14,8 @@ import TransferTree from './Widgets/TransferTree';
 import SearchBar from './Widgets/SearchBar';
 import DataTable from './Widgets/DataTable';
 import Form from './Widgets/Form';
-import Charts from './Widgets/Charts';
+import EC from './Widgets/Charts/EC';
+import G2 from './Widgets/Charts/G2';
 import Icon from './UI/Icon';
 import Mask from './UI/Mask';
 import Editor from './UI/Editor';
@@ -42,7 +43,8 @@ const routesConfig = (app) => ([
       Toolbar(app),
       Column(),
       SearchBar(),
-      Charts(),
+      EC(app),
+      G2(app),
       Icon(),
       Mask(),
       Editor(),

@@ -36,20 +36,20 @@ export const getMeunMatchKeys = (flatMenu, path) => {
 class LeftSideBar extends Component {
   static defaultProps = {
     fixed: true,
-    theme: '',
-  }
+    theme: ''
+  };
 
   constructor(props) {
     super(props);
     this.state = {
-      openKeys: props.currentMenu ? props.currentMenu.parentPath : [],
+      openKeys: props.currentMenu ? props.currentMenu.parentPath : []
     };
   }
 
   componentWillReceiveProps(nextProps) {
     if ('currentMenu' in nextProps) {
       this.setState({
-        openKeys: nextProps.currentMenu.parentPath,
+        openKeys: nextProps.currentMenu.parentPath
       });
     }
   }
@@ -100,8 +100,8 @@ class LeftSideBar extends Component {
                   <span>{item.name}</span>
                 </span>
               ) : (
-                  item.name
-                )
+                item.name
+              )
             }
             key={item.path}
           >
@@ -111,7 +111,9 @@ class LeftSideBar extends Component {
       }
       return null;
     } else {
-      return <Menu.Item key={item.path}>{this.getMenuItemPath(item)}</Menu.Item>;
+      return (
+        <Menu.Item key={item.path}>{this.getMenuItemPath(item)}</Menu.Item>
+      );
     }
   };
   /**
@@ -148,31 +150,40 @@ class LeftSideBar extends Component {
   };
 
   isMainMenu = key => {
-    return this.props.menu.some(item => key && (item.key === key || item.path === key));
+    return this.props.menu.some(
+      item => key && (item.key === key || item.path === key)
+    );
   };
 
   handleOpenChange = openKeys => {
     const lastOpenKey = openKeys[openKeys.length - 1];
-    const moreThanOne = openKeys.filter(openKey => this.isMainMenu(openKey)).length > 1;
+    const moreThanOne =
+      openKeys.filter(openKey => this.isMainMenu(openKey)).length > 1;
     this.setState({
-      openKeys: moreThanOne ? [lastOpenKey] : [...openKeys],
+      openKeys: moreThanOne ? [lastOpenKey] : [...openKeys]
     });
   };
 
   render() {
-    const { fixed, theme, collapsed, onCollapse, onCollapseAll, leftCollapsedWidth, showHeader, menu, user } = this.props;
+    const {
+      fixed,
+      theme,
+      collapsed,
+      onCollapse,
+      onCollapseAll,
+      leftCollapsedWidth,
+      showHeader,
+      menu,
+      user
+    } = this.props;
 
-    const classnames = cx(
-      'sidebar-left',
-      'sidebar-default',
-      {
-        'affix': !!fixed,
-        'sidebar-left-sm': collapsed,
-        'show-header': collapsed ? false : showHeader,
-        'sidebar-left-close': leftCollapsedWidth === 0,
-        [theme]: !!theme,
-      }
-    );
+    const classnames = cx('sidebar-left', 'sidebar-default', {
+      affix: !!fixed,
+      'sidebar-left-sm': collapsed,
+      'show-header': collapsed ? false : showHeader,
+      'sidebar-left-close': leftCollapsedWidth === 0,
+      [theme]: !!theme
+    });
 
     const { openKeys } = this.state;
     // if pathname can't match, use the nearest parent's key
@@ -180,18 +191,18 @@ class LeftSideBar extends Component {
     // Don't show popup menu when it is been collapsed
     const menuProps = collapsed
       ? {
-        selectedKeys
-      }
+          selectedKeys
+        }
       : {
-        openKeys,
-        selectedKeys
-      };
+          openKeys,
+          selectedKeys
+        };
 
     return (
       <Sider
         className={classnames}
         width={230}
-        collapsedWidth={leftCollapsedWidth + .1}
+        collapsedWidth={leftCollapsedWidth + 0.1}
         collapsible
         collapsed={collapsed}
         onCollapse={onCollapse}
@@ -210,10 +221,18 @@ class LeftSideBar extends Component {
                     defaultValue="online"
                     dropdownClassName="sidebar-header-dropdown"
                   >
-                    <Option value="online"><span className="user online"></span>在线</Option>
-                    <Option value="busy"><span className="user busy"></span>忙碌</Option>
-                    <Option value="invisible"><span className="user invisible"></span>隐身</Option>
-                    <Option value="offline"><span className="user offline"></span>离线</Option>
+                    <Option value="online">
+                      <span className="user online" />在线
+                    </Option>
+                    <Option value="busy">
+                      <span className="user busy" />忙碌
+                    </Option>
+                    <Option value="invisible">
+                      <span className="user invisible" />隐身
+                    </Option>
+                    <Option value="offline">
+                      <span className="user offline" />离线
+                    </Option>
                   </Select>
                 </div>
               </div>
@@ -230,11 +249,17 @@ class LeftSideBar extends Component {
             {this.getNavMenuItems(menu)}
           </Menu>
           <div className="sidebar-toggle-mini">
-            {collapsed && leftCollapsedWidth !== 0 ? <Switch checked={collapsed} onChange={onCollapseAll} size="small" /> : null}
+            {collapsed && leftCollapsedWidth !== 0 ? (
+              <Switch
+                checked={collapsed}
+                onChange={onCollapseAll}
+                size="small"
+              />
+            ) : null}
           </div>
         </div>
       </Sider>
-    )
+    );
   }
 }
 

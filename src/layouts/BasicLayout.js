@@ -20,7 +20,7 @@ const { Content, Header } = Layout;
  * 可设置多种布局 [header(固定头), sidebar(固定边栏), breadcrumb(固定面包蟹)]
  * @author weiq
  */
-@connect(({global}) => ({global}))
+@connect(({ global }) => ({ global }))
 export default class BasicLayout extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -67,7 +67,8 @@ export default class BasicLayout extends React.PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.location.pathname !== this.props.location.pathname ||
+    if (
+      nextProps.location.pathname !== this.props.location.pathname ||
       nextProps.global.flatMenu !== this.props.global.flatMenu
     ) {
       this.setState({
@@ -79,8 +80,9 @@ export default class BasicLayout extends React.PureComponent {
   getCurrentMenu(props) {
     const {
       location: { pathname },
-      global,
-    } = props || this.props;
+      global
+    } =
+      props || this.props;
     const menu = this.getMeunMatchKeys(global.flatMenu, pathname)[0];
     return menu;
   }
@@ -175,10 +177,10 @@ export default class BasicLayout extends React.PureComponent {
       currentMenu
     } = this.state;
     const { routerData, location, global } = this.props;
-    const {menu, flatMenu} = global;
+    const { menu, flatMenu } = global;
     const { childRoutes } = routerData;
     const classnames = cx('basic-layout', 'full-layout', {
-      'fixed': theme.layout && theme.layout.indexOf('fixedSidebar') !== -1,
+      fixed: theme.layout && theme.layout.indexOf('fixedSidebar') !== -1,
       'fixed-header':
         theme.layout && theme.layout.indexOf('fixedHeader') !== -1,
       'fixed-breadcrumbs':
@@ -232,10 +234,7 @@ export default class BasicLayout extends React.PureComponent {
           </Content>
           <RightSideBar collapsed={collapsedRightSide} />
         </Layout>
-        <SkinToolbox
-          onChangeTheme={this.onChangeTheme}
-          theme={theme}
-        />
+        <SkinToolbox onChangeTheme={this.onChangeTheme} theme={theme} />
         <Notification />
       </Layout>
     );

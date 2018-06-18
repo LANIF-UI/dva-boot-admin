@@ -1,0 +1,42 @@
+.charts-page {
+  &-sider {
+    .header {
+      padding: 20px 20px 0px;
+      .icon-list {
+        margin-top: 20px;
+        font-size: 14px;
+        padding-left: 5px;
+        li:first-child {
+          margin-bottom: 10px;
+        }
+        i {
+          color: #f6bb42;
+          margin-right: 10px;
+        }
+      }
+    }
+    .charts-type-list {
+      .ant-list-item {
+        padding-left: 28px;
+        color: #999;
+        transition: .3s;
+        cursor: pointer;
+        &:hover {
+          background-color: #eeeeee;
+          color: #666;
+        }
+        .ant-list-item-content {
+          display: flex;
+          align-items: center;
+          > i {
+            margin-right: 10px;
+          }
+        }
+      }
+    }
+  }
+  > .ant-layout-content {
+    overflow: hidden !important;
+    padding: 24px;
+  }
+}
