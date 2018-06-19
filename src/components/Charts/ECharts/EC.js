@@ -28,24 +28,37 @@ class ECharts extends Component {
       return;
     }
 
+    // 大小改变时, 样式修改的时候，可能会导致大小变化，所以触发一下 resize
+    if (
+      !isEqual(prevProps.size, this.props.size) ||
+      !isEqual(prevProps.style, this.props.style) ||
+      !isEqual(prevProps.className, this.props.className)
+    ) {
+      try {
+        this.echartObj.resize();
+      } catch (e) {
+        console.warn(e);
+      }
+    }
+
     // 当这些属性保持不变的时候，不 setOption
-    const pickKeys = ['option', 'notMerge', 'lazyUpdate', 'showLoading', 'loadingOption'];
+    const pickKeys = [
+      'option',
+      'notMerge',
+      'lazyUpdate',
+      'showLoading',
+      'loadingOption'
+    ];
     if (pickKeys.every(item => isEqual(prevProps[item], this.props[item]))) {
       return;
     }
 
     // 判断是否需要 setOption，由开发者自己来确定。默认为 true
-    if (!this.props.shouldSetOption(prevProps, this.props)) { return; }
-
-    const echartObj = this.renderEchartDom();
-    // 样式修改的时候，可能会导致大小变化，所以触发一下 resize
-    if (!isEqual(prevProps.style, this.props.style) || !isEqual(prevProps.className, this.props.className)) {
-      try {
-        echartObj.resize();
-      } catch (e) {
-        console.warn(e);
-      }
+    if (!this.props.shouldSetOption(prevProps, this.props)) {
+      return;
     }
+
+    this.echartObj = this.renderEchartDom();
   }
 
   // remove
@@ -54,7 +67,8 @@ class ECharts extends Component {
   }
 
   // return the echart object
-  getEchartsInstance = () => echarts.getInstanceByDom(this.echartsElement) ||
+  getEchartsInstance = () =>
+    echarts.getInstanceByDom(this.echartsElement) ||
     echarts.init(this.echartsElement, this.props.theme, this.props.opts);
 
   // dispose echarts
@@ -68,11 +82,12 @@ class ECharts extends Component {
   rerender = () => {
     const { onEvents, onChartReady } = this.props;
 
-    const echartObj = this.renderEchartDom();
-    this.bindEvents(echartObj, onEvents || {});
+    this.echartObj = this.renderEchartDom();
+    this.bindEvents(this.echartObj, onEvents || {});
 
     // on chart ready
-    if (typeof onChartReady === 'function') this.props.onChartReady(echartObj);
+    if (typeof onChartReady === 'function')
+      this.props.onChartReady(this.echartObj);
   };
 
   // bind the events
@@ -82,7 +97,7 @@ class ECharts extends Component {
       if (typeof eventName === 'string' && typeof func === 'function') {
         // binding event
         // instance.off(eventName); // 已经 dispose 在重建，所以无需 off 操作
-        instance.on(eventName, (param) => {
+        instance.on(eventName, param => {
           func(param, instance);
         });
       }
@@ -101,9 +116,14 @@ class ECharts extends Component {
     // init the echart object
     const echartObj = this.getEchartsInstance();
     // set the echart option
-    echartObj.setOption(this.props.option, this.props.notMerge || false, this.props.lazyUpdate || false);
+    echartObj.setOption(
+      this.props.option,
+      this.props.notMerge || false,
+      this.props.lazyUpdate || false
+    );
     // set loading mask
-    if (this.props.showLoading) echartObj.showLoading(this.props.loadingOption || null);
+    if (this.props.showLoading)
+      echartObj.showLoading(this.props.loadingOption || null);
     else echartObj.hideLoading();
 
     return echartObj;
@@ -116,12 +136,14 @@ class ECharts extends Component {
     const newStyle = {
       height,
       width,
-      ...style,
+      ...style
     };
-    
+
     return (
       <div
-        ref={(e) => { this.echartsElement = e; }}
+        ref={e => {
+          this.echartsElement = e;
+        }}
         style={newStyle}
         {...otherProps}
       />
@@ -129,4 +151,5 @@ class ECharts extends Component {
   }
 }
 
+export { echarts };
 export default ECharts;
