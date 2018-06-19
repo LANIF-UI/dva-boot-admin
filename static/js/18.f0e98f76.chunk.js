@@ -1,0 +1,2 @@
+webpackJsonp([18],{998:function(e,a,t){"use strict";Object.defineProperty(a,"__esModule",{value:!0});var r=t(406);a.default=Object(r.a)({namespace:"transferTree",state:{dataSource:[],asyncDataSource:[]},subscriptions:{setup:function(e){var a=e.dispatch;e.history.listen(function(e){"/transferTree"===e.pathname&&a({type:"@request",afterResponse:function(e){return e.data},payload:[{valueField:"dataSource",url:"/tree/getData"},{valueField:"asyncDataSource",url:"/tree/getAsyncData"}]})})}}})}});
+//# sourceMappingURL=18.f0e98f76.chunk.js.map

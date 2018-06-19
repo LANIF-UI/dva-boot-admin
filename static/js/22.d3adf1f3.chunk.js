@@ -1,2 +1,0 @@
-webpackJsonp([22],{1008:function(e,t,a){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var s=a(406),r=a(415);t.default=Object(s.a)({namespace:"crud",state:{pageData:r.a.create(),employees:[]},subscriptions:{setup:function(e){var t=e.dispatch;e.history.listen(function(e){"/crud"===e.pathname&&t({type:"@request",afterResponse:function(e){return e.data},payload:{valueField:"employees",url:"/crud/getWorkEmployee"}})})}},effects:{},reducers:{}})}});
-//# sourceMappingURL=22.d3adf1f3.chunk.js.map
