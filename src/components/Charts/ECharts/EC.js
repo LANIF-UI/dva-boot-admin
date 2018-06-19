@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import echarts from 'echarts/lib/echarts';
 import resizeMe from '@/decorator/resizeMe';
 import isEqual from 'react-fast-compare';
@@ -130,7 +131,7 @@ class ECharts extends Component {
   };
 
   render() {
-    const { size, children, style, ...otherProps } = this.props;
+    const { size, style, id, className } = this.props;
     const { width, height } = size;
 
     const newStyle = {
@@ -145,11 +146,54 @@ class ECharts extends Component {
           this.echartsElement = e;
         }}
         style={newStyle}
-        {...otherProps}
+        id={id}
+        className={className}
       />
     );
   }
 }
+
+ECharts.propTypes = {
+  option: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  echarts: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  notMerge: PropTypes.bool,
+  lazyUpdate: PropTypes.bool,
+  style: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  className: PropTypes.string,
+  theme: PropTypes.string,
+  onChartReady: PropTypes.func,
+  showLoading: PropTypes.bool,
+  loadingOption: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  onEvents: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  opts: PropTypes.shape({
+    devicePixelRatio: PropTypes.number,
+    renderer: PropTypes.oneOf(['canvas', 'svg']),
+    width: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.oneOf([null, undefined, 'auto'])
+    ]),
+    height: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.oneOf([null, undefined, 'auto'])
+    ]),
+  }),
+  shouldSetOption: PropTypes.func,
+};
+
+ECharts.defaultProps = {
+  echarts: {},
+  notMerge: false,
+  lazyUpdate: false,
+  style: {},
+  className: '',
+  theme: null,
+  onChartReady: () => {},
+  showLoading: false,
+  loadingOption: null,
+  onEvents: {},
+  opts: {},
+  shouldSetOption: () => true,
+};
 
 export { echarts };
 export default ECharts;
