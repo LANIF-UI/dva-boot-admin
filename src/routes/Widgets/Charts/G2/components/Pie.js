@@ -37,7 +37,7 @@ export default props => (
     <Axis name="percent" />
     <Legend
       position="right"
-      offsetY={-window.innerHeight / 2 + 120}
+      offsetY={0}
       offsetX={-100}
     />
     <Tooltip

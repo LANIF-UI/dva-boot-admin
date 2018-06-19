@@ -11,13 +11,43 @@ export default class extends BaseComponent {
   state = {
     activeKey: 'Line',
     chartTypes: [
-      { title: '折线图 / Line', icon: 'line-chart', key: 'Line' },
-      { title: '柱状图 / Bar', icon: 'bar-chart', key: 'Bar' },
-      { title: '饼图 / Pie', icon: 'pie-chart', key: 'Pie' },
-      { title: '点图 / Scatter', icon: 'dot-chart', key: 'Scatter' },
-      { title: '地图 / Map', icon: 'global', key: 'Map' },
-      { title: '雷达图 / Radar', icon: 'trademark', key: 'Radar' },
-      { title: '仪表盘 / Gauge', icon: 'dashboard', key: 'Gauge' }
+      {
+        title: '折线图 / Line',
+        icon: 'line-chart',
+        key: 'Line',
+        components: ['./Line']
+      },
+      {
+        title: '柱状图 / Bar',
+        icon: 'bar-chart',
+        key: 'Bar',
+        components: ['./Bar']
+      },
+      {
+        title: '饼图 / Pie',
+        icon: 'pie-chart',
+        key: 'Pie',
+        components: ['./Pie', './Pie2']
+      },
+      {
+        title: '点图 / Scatter',
+        icon: 'dot-chart',
+        key: 'Scatter',
+        components: ['./Scatter']
+      },
+      { title: '地图 / Map', icon: 'global', key: 'Map', components: ['./Map'] },
+      {
+        title: '雷达图 / Radar',
+        icon: 'trademark',
+        key: 'Radar',
+        components: ['./Radar']
+      },
+      {
+        title: '仪表盘 / Gauge',
+        icon: 'dashboard',
+        key: 'Gauge',
+        components: ['./Gauge']
+      }
     ]
   };
 
@@ -44,7 +74,6 @@ export default class extends BaseComponent {
         )}
       />
     );
-    const Chart = require(`./${activeKey}`).default;
     const active = chartTypes.filter(item => item.key === activeKey)[0];
     return (
       <SideLayout
@@ -53,17 +82,23 @@ export default class extends BaseComponent {
         site="https://alibaba.github.io/BizCharts/"
         sideContent={sideContent}
       >
-        <Panel
-          title={
-            <div>
-              <Icon type={active.icon} antd />&nbsp;
-              {active.title}
-            </div>
-          }
-          height={400}
-        >
-          <Chart />
-        </Panel>
+        {active.components.map((item, index) => {
+          const Chart = require(`${item}`).default;
+          return (
+            <Panel
+              key={index}
+              title={
+                <div>
+                  <Icon type={active.icon} antd />&nbsp;
+                  {active.title}
+                </div>
+              }
+              height={400}
+            >
+              <Chart />
+            </Panel>
+          );
+        })}
       </SideLayout>
     );
   }

@@ -189,7 +189,7 @@ export default class Gauge extends React.Component {
             />
           )}
           <Html
-            position={['50%', '95%']}
+            position={['50%', '90%']}
             html={() => {
               return (
                 '<div style="width: 300px;text-align: center;font-size: 12px!important;"><p style="font-size: 1.75em; color: rgba(0,0,0,0.43);margin: 0;">合格率</p><p style="font-size: 3em;color: rgba(0,0,0,0.85);margin: 0;">' +
