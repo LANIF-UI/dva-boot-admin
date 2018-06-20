@@ -7,5 +7,8 @@ export default modelEnhance({
   state: {
     pageData: PageHelper.create(),
     deptTreeData: [],
+    dataList: {
+      list: []
+    },
   }
 });

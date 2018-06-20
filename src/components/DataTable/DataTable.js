@@ -133,11 +133,11 @@ class DataTable extends Component {
     let sortMap = sorter.field ? {
       [sorter.field]: sorter.order === 'ascend' ? 'asc' : 'desc'
     } : null;
-    this.props.onChange({pageNum, filters, sorter: sortMap});
+    this.props.onChange && this.props.onChange({pageNum, filters, sorter: sortMap});
   }
 
   onShowSizeChange = (pageNum, pageSize) => {
-    this.props.onChange({pageNum, pageSize});
+    this.props.onChange && this.props.onChange({pageNum, pageSize});
   }
 
   render() {
@@ -190,7 +190,7 @@ class DataTable extends Component {
     }
 
     // 分页
-    const paging = {
+    const paging = dataItems.pageSize ? {
       showSizeChanger: true,
       showQuickJumper: true,
       total: dataItems.total,
@@ -200,7 +200,7 @@ class DataTable extends Component {
       showTotal: total => `共 ${total} 条`,
       onShowSizeChange: this.onShowSizeChange,
       ...pagination
-    };
+    } : true;
 
     const _rowSelection = {
       type: selectType === "radio" ? "radio" : "checkbox",

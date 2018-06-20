@@ -37,6 +37,15 @@ export default class extends BaseComponent {
         valueField: 'deptTreeData',
         url: '/tree/getDept',
       }
+    });
+
+    dispatch({
+      type: 'datatable/@request',
+      afterResponse: resp => resp.data,
+      payload : {
+        valueField: 'dataList',
+        url: '/datatable/frontPaging',
+      }
     })
   }
 
@@ -71,7 +80,7 @@ export default class extends BaseComponent {
 
   render() {
     const { datatable, loading } = this.props;
-    const { pageData, deptTreeData } = datatable;
+    const { pageData, deptTreeData, dataList } = datatable;
     const dataTableProps1 = {
       loading,
       columns: columns1,
@@ -104,6 +113,14 @@ export default class extends BaseComponent {
       rowKey: 'id',
       selectType: 'radio',
       dataItems: pageData,
+      showNum: true
+    };
+
+    const dataTableProps5 = {
+      loading,
+      columns: columns1,
+      rowKey: 'id',
+      dataItems: dataList,
       showNum: true
     };
 
@@ -166,6 +183,13 @@ export default class extends BaseComponent {
                 >
                   <DataTable {...dataTableProps1} />
                 </SideLayout>
+              </Panel>
+            </Col>
+          </Row>
+          <Row gutter={20}>
+            <Col span={12}>
+              <Panel title="前台分页">
+                <DataTable pagination {...dataTableProps5} />
               </Panel>
             </Col>
           </Row>

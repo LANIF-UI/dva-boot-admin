@@ -107,20 +107,11 @@ class TableControlled extends Component {
 
     const comp = <DataTable {...dataTableProps} />;
 
-    const rows = dataSource.list.filter(item => value.indexOf(item[rowKey]) !== -1)
-
     if (modal) {
       return (
         <div>
-          <Button onClick={this.showModal}>请选择{otherProps.title}</Button>
-
-          {rows && rows.length ? (
-            <div className="table-value-list">
-              {rows.map((item, index) => (
-                <Tag key={index}>{item[titleKey]}</Tag>
-              ))}
-            </div>
-          ) : null}
+          <Button onClick={this.showModal}>请选择{otherProps.title}</Button>&nbsp;
+          {value && value.length ? <span>已选择：{value.length}项</span> : null}
 
           <Modal
             className="antui-table-modal"

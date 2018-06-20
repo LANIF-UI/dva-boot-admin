@@ -26,7 +26,7 @@ export default ({fetchMock, delay, mock, toSuccess, toError}) => {
     // 前台分页
     '/api/datatable/frontPaging': (options) => {
       return toSuccess(mock({
-        [`dataList|33`]: [{
+        [`list|33`]: [{
           'id|+1': 1,  
           'name': '@cname',
           'address': '@county()',
