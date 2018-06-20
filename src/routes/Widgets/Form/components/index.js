@@ -5,6 +5,8 @@ import { Layout, Row, Col, Button } from 'antd';
 import BaseComponent from 'components/BaseComponent';
 import Panel from 'components/Panel';
 import Form from 'components/Form';
+import PageHelper from '@/utils/pageHelper';
+import $$ from 'cmn-utils';
 import {
   columns1,
   columns2,
@@ -15,7 +17,8 @@ import {
   columns7,
   columns8,
   columns9,
-  createColumns10
+  createColumns10,
+  createColumns11
 } from './columns';
 const { Content } = Layout;
 
@@ -23,6 +26,23 @@ const { Content } = Layout;
   form
 }))
 export default class extends BaseComponent {
+  state = {
+    pageData: PageHelper.create()
+  };
+
+  componentDidMount() {
+    const { pageData } = this.state;
+    const pageInfo = pageData.startPage(1, 10);
+
+    $$.post('/datatable/getList', PageHelper.requestFormat(pageInfo)).then(resp => {
+      const data = PageHelper.responseFormat(resp);
+      const newPageData = Object.assign(pageData, data);
+      this.setState({
+        pageData: newPageData
+      });
+    });
+  }
+
   onSubmit(values) {
     console.log(values);
   }
@@ -55,6 +75,16 @@ export default class extends BaseComponent {
     });
   };
 
+  onLoadTableData = ({ pageNum, pageSize }) => {
+    const { pageData } = this.state;
+    const pageInfo = pageData.jumpPage(pageNum, pageSize);
+
+    return $$.post('/datatable/getList', PageHelper.requestFormat(pageInfo)).then(resp => {
+      const data = PageHelper.responseFormat(resp);
+      return Object.assign(pageData, data);
+    });
+  }
+
   render() {
     const { treeData } = this.props.form;
 
@@ -64,6 +94,7 @@ export default class extends BaseComponent {
       roleName: '管理员'
     };
     const columns10 = createColumns10(this, treeData);
+    const columns11 = createColumns11(this, this.state.pageData);
     return (
       <Layout className="full-layout page">
         <Content>
@@ -72,7 +103,8 @@ export default class extends BaseComponent {
             <p>
               Form通常结合<Link to="/column">Columns</Link>来使用，由Columns定义其数据结构，
               支持多种类型数据(<code>
-                cascade，date，editor，text，textarea，password，select，transfer，transferTree，treeSelect，custom(自定义)
+                cascade，date，editor，text，textarea，password，select，transfer，transferTree，treeSelect，table,
+                custom(自定义)
               </code>)， 扩展自antd的Form组件，可以使用其api。
             </p>
           </Panel>
@@ -172,6 +204,11 @@ export default class extends BaseComponent {
             <Col span={12}>
               <Panel title="自定义类型">
                 <Form columns={columns9} onSubmit={this.onSubmit} />
+              </Panel>
+            </Col>
+            <Col span={12}>
+              <Panel title="Table类型，用于大数据量选择">
+                <Form columns={columns11} onSubmit={this.onSubmit} />
               </Panel>
             </Col>
           </Row>

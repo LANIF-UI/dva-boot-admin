@@ -14,6 +14,7 @@ import InputNumber from './InputNumberForm';
 import TransferForm from './TransferForm';
 import EditorForm from './EditorForm';
 import TransferTreeForm from './TransferTreeForm';
+import TableForm from './TableForm';
 import $$ from 'cmn-utils';
 import './style/index.less';
 
@@ -187,7 +188,8 @@ class FormComp extends React.Component {
     let getPopupContainer = null;
     if (appendTo) {
       if ($$.isFunction(appendTo)) getPopupContainer = appendTo;
-      else if (appendTo === true) getPopupContainer = triggerNode => triggerNode.parentNode;
+      else if (appendTo === true)
+        getPopupContainer = triggerNode => triggerNode.parentNode;
       else getPopupContainer = _ => appendTo;
     }
 
@@ -205,7 +207,7 @@ class FormComp extends React.Component {
                 title: field.title,
                 placeholder: field.formItem.placeholder || field.title,
                 record,
-                preview,
+                preview
               },
               field.formItem
             );
@@ -365,6 +367,27 @@ class FormComp extends React.Component {
                       className="col-item-content"
                     >
                       {TransferTreeForm({
+                        form: form,
+                        style:
+                          type === 'inline'
+                            ? {
+                                width: width || this.width[field.formItem.type]
+                              }
+                            : {},
+                        ...otherField
+                      })}
+                    </ComponentItem>
+                  </ComponentCol>
+                );
+              case 'table':
+                return (
+                  <ComponentCol key={`col-${i}`} className="col-item" {...col}>
+                    <ComponentItem
+                      {...formItemLayout}
+                      label={field.title}
+                      className="col-item-content"
+                    >
+                      {TableForm({
                         form: form,
                         style:
                           type === 'inline'

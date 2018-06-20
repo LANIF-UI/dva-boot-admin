@@ -291,7 +291,7 @@ export const columns9 = [
     formItem: {}
   },
   {
-    title: '年龄',
+    title: '自定义表单',
     formItem: {
       type: 'custom',
       render: (record, form) => {
@@ -377,4 +377,44 @@ export const createColumns10 = (self, treeData) => [
       loadData: self.onLoadData
     }
   }
+];
+
+const innerColumns = [
+  {
+    title: '名称',
+    name: 'name',
+    tableItem: {},
+  },
+  {
+    title: '年龄',
+    name: 'age',
+    tableItem: {},
+  },
+  {
+    title: '地址',
+    name: 'address',
+    tableItem: {},
+  }
+]
+
+export const createColumns11 = (self, dataSource) => [
+  {
+    title: '用户名',
+    name: 'name',
+    formItem: {}
+  },
+  {
+    title: '表格数据',
+    name: 'field1',
+    formItem: {
+      type: 'table',
+      rowKey: 'id',
+      titleKey: 'name',
+      dataSource,
+      columns: innerColumns,
+      onChange: (form, value) => console.log('。。。:', value),
+      loadData: self.onLoadTableData,
+      initialValue: [1, 3, 5],
+    }
+  },
 ];

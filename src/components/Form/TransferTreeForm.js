@@ -16,16 +16,16 @@ class TransferTreeControlled extends Component {
   static propTypes = {
     value: PropTypes.array,
     dataSource: PropTypes.array,
-    onChange: PropTypes.func,
-  }
+    onChange: PropTypes.func
+  };
 
   constructor(props) {
     super(props);
-    const {value, dataSource} = props;
+    const { value, dataSource } = props;
     this.state = {
       value: value,
       dataSource: dataSource,
-      visible: false,
+      visible: false
     };
   }
 
@@ -43,46 +43,46 @@ class TransferTreeControlled extends Component {
     if (onChange) {
       onChange(targetNodes);
     }
-  }
+  };
 
   showModal = () => {
     this.setState({
-      visible: true,
+      visible: true
     });
-  }
+  };
 
   hideModal = () => {
     this.setState({
-      visible: false,
+      visible: false
     });
-  }
+  };
 
   render() {
-    const {modal, ...otherProps} = this.props;
-    const {dataSource, value} = this.state;
-    const comp = <TransferTree
-      {...otherProps}
-      dataSource={dataSource}
-      targetNodes={value}
-      onChange={this.triggerChange}
-    />;
-    
+    const { modal, ...otherProps } = this.props;
+    const { dataSource, value } = this.state;
+    const comp = (
+      <TransferTree
+        {...otherProps}
+        dataSource={dataSource}
+        targetNodes={value}
+        onChange={this.triggerChange}
+      />
+    );
+
     if (modal) {
       return (
         <div>
-          <Button onClick={this.showModal}>请选择{this.otherProps.title}</Button>
+          <Button onClick={this.showModal}>请选择{otherProps.title}</Button>
 
           {value && value.length ? (
             <div className="transfer-tree-value-list">
-              {value.map((item, index) => (
-                <Tag key={index}>{item.title}</Tag>
-              ))}
+              {value.map((item, index) => <Tag key={index}>{item.title}</Tag>)}
             </div>
           ) : null}
-          
+
           <Modal
             className="antui-transfer-modal"
-            title={"请选择" + this.otherProps.title}
+            title={'请选择' + otherProps.title}
             visible={this.state && this.state.visible}
             width={modal.width || 480}
             onOk={this.hideModal}
@@ -96,25 +96,37 @@ class TransferTreeControlled extends Component {
         </div>
       );
     }
-    
+
     return comp;
   }
 }
 
 /**
- * TransferForm组件
+ * TransferTreeForm组件
  */
-export default ({form, name, dict, formFieldOptions = {}, record, initialValue, rules, onChange, dataSource, normalize, ...otherProps}) => {
+export default ({
+  form,
+  name,
+  dict,
+  formFieldOptions = {},
+  record,
+  initialValue,
+  rules,
+  onChange,
+  dataSource,
+  normalize,
+  ...otherProps
+}) => {
   const { getFieldDecorator } = form;
 
   let initval = initialValue;
-  
+
   if (record) {
     initval = record[name];
   }
-  
+
   // 如果存在初始值
-  if (initval !== null && typeof (initval) !== "undefined") {
+  if (initval !== null && typeof initval !== 'undefined') {
     if ($$.isFunction(normalize)) {
       formFieldOptions.initialValue = normalize(initval);
     } else {
@@ -128,7 +140,7 @@ export default ({form, name, dict, formFieldOptions = {}, record, initialValue, 
   }
 
   // 如果需要onChange
-  if (typeof onChange === "function") {
+  if (typeof onChange === 'function') {
     formFieldOptions.onChange = value => onChange(form, value); // form, value
   }
 
