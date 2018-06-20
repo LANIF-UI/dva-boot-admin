@@ -14,7 +14,7 @@ export default ({fetchMock, delay, mock, toSuccess, toError}) => {
         'showCount': body.showCount,
         'totalResult': 100,
         'totalPage': 10,
-        [`dataList|100`]: [{
+        [`dataList|${body.showCount}`]: [{
           'id|+1': idbase,  
           'name': '@cname',
           'address': '@county()',
@@ -26,7 +26,7 @@ export default ({fetchMock, delay, mock, toSuccess, toError}) => {
     // 前台分页
     '/api/datatable/frontPaging': (options) => {
       return toSuccess(mock({
-        [`dataList|93`]: [{
+        [`dataList|33`]: [{
           'id|+1': 1,  
           'name': '@cname',
           'address': '@county()',
