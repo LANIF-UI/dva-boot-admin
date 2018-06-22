@@ -1,5 +1,6 @@
 import { notification } from 'antd';
 import $$ from 'cmn-utils';
+import Notification from './Notification';
 import './antdNotice.less';
 
 const prefixCls = 'antui-notification';
