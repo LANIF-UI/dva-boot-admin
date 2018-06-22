@@ -20,6 +20,7 @@ import Icon from './UI/Icon';
 import Mask from './UI/Mask';
 import Editor from './UI/Editor';
 import CSSAnimate from './UI/CSSAnimate';
+import Alerts from './UI/Alerts';
 import CRUD from './Business/CRUD';
 
 const routesConfig = (app) => ([
@@ -49,6 +50,7 @@ const routesConfig = (app) => ([
       Mask(),
       Editor(),
       CSSAnimate(),
+      Alerts(),
       DataTable(app),
       Form(app),
       TransferTree(app),

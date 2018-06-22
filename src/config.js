@@ -1,8 +1,8 @@
 import React from 'react';
 import PageLoading from 'components/Loading/PageLoading';
-import { normal, antdNotice } from 'components/Notification';
+import { normal } from 'components/Notification';
 
-// 系统通知, 定义使用什么风格的通知，兼容antd的notification
+// 系统通知, 定义使用什么风格的通知，normal或antdNotice
 const notice = normal;
 
 /**
