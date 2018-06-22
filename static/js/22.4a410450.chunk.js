@@ -1,0 +1,2 @@
+webpackJsonp([22],{1013:function(e,a,t){"use strict";Object.defineProperty(a,"__esModule",{value:!0});var s=t(409),c=t(417);a.default=Object(s.a)({namespace:"datatable",state:{pageData:c.a.create(),deptTreeData:[],dataList:{list:[]}}})}});
+//# sourceMappingURL=22.4a410450.chunk.js.map
