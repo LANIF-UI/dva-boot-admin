@@ -1,6 +1,6 @@
 ## column.js
 
-column.js 可以同时作用于DataTable组件，Form组件，SearchBar组件，定义其数据结构。
+column.js 可以同时作用于DataTable组件，Form组件，SearchBar组件，定义其数据结构。 
 
 ## 说明
 
