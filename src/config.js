@@ -1,13 +1,19 @@
 import React from 'react';
 import PageLoading from 'components/Loading/PageLoading';
-import Notification from 'components/Notification';
+import { normal, antdNotice } from 'components/Notification';
 
-const notice = Notification.notice;
+// 系统通知, 定义使用什么风格的通知，兼容antd的notification
+const notice = normal;
 
 /**
  * 应用配置 如请求格式，反回格式，异常处理方式，分页格式等
  */
 export default {
+  /**
+   * 系统通知
+   */
+  notice,
+
   // 异步请求配置
   request: {
     prefix: '/api',
@@ -21,19 +27,19 @@ export default {
      * 实际中应该通过服务端反回的response中的
      * 成功失败标识来进行区分
      */
-    afterResponse: (response) => {
-      const {status, message} = response;
+    afterResponse: response => {
+      const { status, message } = response;
       if (status) {
         return response;
       } else {
-        notice(message, 'error');
+        notice.error(message);
         return response;
       }
     },
-    errorHandle: (err) => {
+    errorHandle: err => {
       // 请求错误全局拦截
       if (err.name === 'RequestError') {
-        notice(err.text || err.message, 'error');
+        notice.error(err.text || err.message);
       }
     }
   },
@@ -44,37 +50,43 @@ export default {
       const errName = err.name;
       // RequestError为拦截请求异常
       if (errName === 'RequestError') {
-        console.error(err); 
+        console.error(err);
       } else {
         console.error(err);
       }
-      notice(err.message, 'error');
-    },
+      notice.error(err.message);
+    }
   },
 
   // 分页助手
   pageHelper: {
     // 格式化要发送到后端的数据
-    requestFormat: (pageInfo) => {
+    requestFormat: pageInfo => {
       const { pageNum, pageSize, filters, sorts } = pageInfo;
       return {
         currentPage: pageNum,
         showCount: pageSize,
         sortMap: sorts,
-        paramMap: filters,
-      }
+        paramMap: filters
+      };
     },
 
     // 格式化从后端反回的数据
-    responseFormat: (resp) => {
-      const { currentPage, showCount, totalResult, dataList, totalPage } = resp.data;
+    responseFormat: resp => {
+      const {
+        currentPage,
+        showCount,
+        totalResult,
+        dataList,
+        totalPage
+      } = resp.data;
       return {
         pageNum: currentPage,
         pageSize: showCount,
-        total: totalResult, 
+        total: totalResult,
         totalPages: totalPage,
         list: dataList
-      }
+      };
     }
   },
 
@@ -82,7 +94,7 @@ export default {
   router: {
     loading: <PageLoading loading />
   },
-  
+
   /**
    * 模拟数据时包装反回数据
    * 因为，后端反回数据时一般都会在外边包装一层状态信息
@@ -100,24 +112,14 @@ export default {
    * 这里就是配置这两个函数，为了我们模拟数据时可以少写几行代码的 orz...
    */
   mock: {
-    toSuccess: (response) => ({
+    toSuccess: response => ({
       status: true,
-      data: response,
+      data: response
     }),
 
-    toError: (message) => ({
+    toError: message => ({
       status: false,
-      message: message,
-    }),
-  },
-
-  /**
-   * 系统通知, 见modelEnhance.js,为了解耦
-   */
-  notice: {
-    success: (message) => notice(message, 'success'),
-    error: (message) => notice(message, 'error'),
-    warning: (message) => notice(message, 'warn'),
-    info: (message) => notice(message),
+      message: message
+    })
   }
-}
+};
