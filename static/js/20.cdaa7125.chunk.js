@@ -1,2 +1,0 @@
-webpackJsonp([20],{1006:function(e,a,t){"use strict";Object.defineProperty(a,"__esModule",{value:!0});var c=t(409);a.default=Object(c.a)({namespace:"toolbar"})}});
-//# sourceMappingURL=20.cdaa7125.chunk.js.map
