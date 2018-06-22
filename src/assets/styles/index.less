@@ -76,69 +76,6 @@ code {
   border-radius: 1px;
 }
 
-/* 应用布局&布局设置 */
-.full-layout {
-  // 固定所有元素，经典管理界面样式，即固定头，侧栏，面包屑
-  &.fixed.ant-layout,
-  &.fixed &.ant-layout {
-    position: absolute !important;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    .ant-layout-sider > .ant-layout-sider-children {
-      overflow-y: auto;
-      overflow-x: hidden;
-    }
-  }
-  // 只固定头部
-  &:not(.fixed)&.fixed-header {
-    > .ant-layout-header {
-      position: fixed;
-      z-index: 200;
-      left: 0; 
-      right: 0;
-    }
-    > .ant-layout {
-      padding-top: 60px;
-      overflow: auto;
-    }
-    .ant-layout.ant-layout-has-sider > .ant-layout, 
-    .ant-layout.ant-layout-has-sider > .ant-layout-content {
-      overflow-x: visible;
-    }
-  }
-  // 只固定面包屑，必需要先固定头部后才可生效
-  &.fixed-breadcrumbs {
-    & > .ant-layout-header {
-      box-shadow: none;
-    }
-    & > .ant-layout > .ant-layout-content > .ant-layout {
-      > .ant-layout-content {
-        overflow: auto;
-      }
-      > .ant-layout-header {
-        z-index: 2;
-        box-shadow: 0 3px 3px rgba(0, 0, 0, 0.05);
-      }
-    }
-  }
-  // 隐藏面包屑
-  &.hided-breadcrumbs .topbar-content{
-    display: none;
-  }
-  &.hided-breadcrumbs {
-    .router-page,
-    .router-page > .ant-layout {
-      min-height: ~'calc(100vh - 62px)'; // 排除顶部
-    }
-  }
-  .router-page,
-  .router-page > .ant-layout {
-    min-height: ~'calc(100vh - 110px)'; // 排除顶部和面包屑
-  }
-}
-
 /* 重写antd默认布局样式 */
 .ant-layout {
   .ant-layout-header {

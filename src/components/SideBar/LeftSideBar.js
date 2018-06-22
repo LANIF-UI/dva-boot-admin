@@ -49,7 +49,7 @@ class LeftSideBar extends Component {
   componentWillReceiveProps(nextProps) {
     if ('currentMenu' in nextProps) {
       this.setState({
-        openKeys: nextProps.currentMenu.parentPath
+        openKeys: nextProps.currentMenu.parentPath || []
       });
     }
   }
