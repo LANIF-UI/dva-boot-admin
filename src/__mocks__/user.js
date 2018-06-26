@@ -142,7 +142,7 @@ export default ({fetchMock, delay, mock, toSuccess, toError}) => {
           },
           {
             name: '画廊',
-            path: '/gallary',
+            path: '/gallery',
           },
           {
             name: '空白页',
