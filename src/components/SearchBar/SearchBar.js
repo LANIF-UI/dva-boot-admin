@@ -158,6 +158,8 @@ class SearchBar extends React.Component {
         )
       : searchFields;
 
+    if (!searchFields.length) return null;
+
     delete otherProps.onSearch;
 
     let getPopupContainer = null;

@@ -79,7 +79,7 @@ class TopBar extends Component {
             <Icon type="into" />
           </a>
         </header>
-        <Mask visible={expand} onClose={onCollapse} />
+        <Mask visible={expand} onClose={onCollapse} getContainer={node => node.parentNode} />
       </div>
     );
   }

@@ -90,8 +90,8 @@ class TableControlled extends Component {
   };
 
   render() {
-    const { modal, columns, titleKey, rowKey, value, ...otherProps } = this.props;
-    const { dataSource, loading } = this.state;
+    const { modal, columns, titleKey, rowKey, ...otherProps } = this.props;
+    const { dataSource, value, loading } = this.state;
 
     const dataTableProps = {
       loading,

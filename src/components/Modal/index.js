@@ -1,5 +1,7 @@
 import ModalForm from './ModalForm';
+import ModalTable from './ModalTable';
 
 export {
-  ModalForm
+  ModalForm,
+  ModalTable
 }

@@ -61,6 +61,7 @@ $ npm start
 ```
 
 ## Change log
+- 增加ModalTable & Button
 - 增加Notification通知页面，在UI元素>消息下
 - 增加TableForm，使表单支持Table类型字段 
 - 增加ECharts Demo页面，在组件>图表>ECharts，EC组件修改自[echarts-for-react](https://github.com/hustcc/echarts-for-react)
