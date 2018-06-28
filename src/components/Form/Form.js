@@ -139,9 +139,10 @@ class FormComp extends React.Component {
 
   onSubmit = e => {
     e.preventDefault();
-    this.props.form.validateFields((err, values) => {
+    const { form, record, onSubmit } = this.props;
+    form.validateFields((err, values) => {
       if (!err) {
-        this.props.onSubmit && this.props.onSubmit(values);
+        onSubmit && onSubmit(values, record);
       }
     });
   };

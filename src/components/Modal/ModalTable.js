@@ -43,7 +43,16 @@ class ModalTable extends Component {
     this.setState({ value: keys });
   };
 
-  async onChange({ pageNum, pageSize }) {
+  onSearch = (values, isReset) => {
+    const { dataItems } = this.state;
+    this.onChange({
+      pageNum: 1,
+      pageSize: dataItems.pageSize,
+      filters: values,
+    })
+  }
+
+  async onChange({ pageNum, pageSize, filters }) {
     const loadData = this.props.loadData;
 
     if (loadData) {
@@ -51,7 +60,7 @@ class ModalTable extends Component {
         loading: true
       });
 
-      const dataItems = await loadData({ pageNum, pageSize });
+      const dataItems = await loadData({ pageNum, pageSize, filters });
 
       this.setState({
         loading: false,
@@ -87,7 +96,7 @@ class ModalTable extends Component {
       rowKey,
       full,
       width,
-      onSearch
+      selectType
     } = this.props;
 
     const { dataItems, value, loading, visible } = this.state;
@@ -102,7 +111,7 @@ class ModalTable extends Component {
       rowKey,
       dataItems,
       selectedRowKeys: value,
-      selectType: 'checkbox',
+      selectType: selectType,
       showNum: true,
       onChange: ({ pageNum, pageSize }) => this.onChange({ pageNum, pageSize }),
       onSelect: (keys, rows) => this.onSelect(keys, rows)
@@ -110,7 +119,7 @@ class ModalTable extends Component {
 
     const searchBarProps = {
       columns,
-      onSearch
+      onSearch: this.onSearch
     };
 
     const comp = <DataTable {...dataTableProps} />;

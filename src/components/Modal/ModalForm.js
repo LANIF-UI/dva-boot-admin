@@ -67,7 +67,7 @@ class ModalForm extends Component {
             console.log(error);
             return;
           }
-          onSubmit(value);
+          onSubmit(value, record);
         });
       },
     };

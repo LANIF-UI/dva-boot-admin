@@ -108,10 +108,10 @@ export default (model) => {
             // 准备返回值
             resultState.success[valueField || '_@fake_'] = response;
           } catch(e) {
-            // 如果需要通知功能
-            if (notice) {
-              config.notice.error(notice === true ? (e.text || e.message) : notice[1], 'error');
-            }
+            // 如果需要通知功能, 通知会在config中进行配置
+            // if (notice) {
+            //   config.notice.error(notice === true ? (e.text || e.message) : notice[1], 'error');
+            // }
             
             resultState.error['error'] = e;
 
