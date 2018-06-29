@@ -52,7 +52,7 @@ export default class PageInfo {
    * @param {number} pageSize page size
    */
   jumpPage(pageNum, pageSize) {
-    if (pageNum && pageNum <= this.totalPages) {
+    if ((pageNum && pageNum <= this.totalPages) || pageNum === 1) {
       this.pageNum = pageNum;
       if (pageSize) this.pageSize = pageSize;
     }
