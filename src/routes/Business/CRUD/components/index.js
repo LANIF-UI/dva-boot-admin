@@ -39,9 +39,13 @@ export default class CRUD extends BaseComponent {
     
   }
 
+  onSelectChange = (rows) => {
+    this.setState({ rows });
+  }
+  
   handleDelete = (records) => {
     const {pageData} = this.props.crud;
-
+    this.setState({rows:[]})
     this.props.dispatch({
       type: 'crud/@request',
       payload: [{
@@ -79,6 +83,10 @@ export default class CRUD extends BaseComponent {
     const dataTableProps = {
       loading,
       columns,
+      rowSelection:{
+        selectedRowKeys:rows,
+        onChange: this.onSelectChange,
+      },
       rowKey: 'id',
       dataItems: pageData,
       selectType: 'checkbox',
@@ -94,7 +102,7 @@ export default class CRUD extends BaseComponent {
           }
         });
       },
-      onSelect: (keys, rows) => this.setState({rows}),
+     
     }
 
     const modalFormProps = {
@@ -151,7 +159,7 @@ export default class CRUD extends BaseComponent {
           </Toolbar>
         </Header>
         <Content>
-          <DataTable {...dataTableProps} />
+        <DataTable {...dataTableProps} />
         </Content>
         <Footer>
           <Pagination {...dataTableProps} />
