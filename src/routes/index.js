@@ -4,6 +4,7 @@ import UserLayout from '@/layouts/UserLayout';
 import NotFound from './Pages/404';
 import ScreenLock from './Pages/ScreenLock';
 import Coming from './Pages/Coming';
+import Gallery from './Pages/Gallery';
 import Login from './Login';
 import Dashboard from './Dashboard';
 import Blank from './Blank';
@@ -58,6 +59,7 @@ const routesConfig = (app) => ([
       CRUD(app),
       Coming(),
       ScreenLock(),
+      Gallery(),
       NotFound(),
     ]
   }
