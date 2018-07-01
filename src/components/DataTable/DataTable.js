@@ -123,6 +123,9 @@ class DataTable extends Component {
   }
 
   onSelectChange = (selectedRowKeys, selectedRows) => {
+    // 使用keys重新过滤一遍rows以key为准，解决keys与rows不同步问题
+    selectedRows = selectedRows.filter(item => selectedRowKeys.indexOf(item[this.props.rowKey]) !== -1);
+
     this.setState({ selectedRowKeys, selectedRows });
     this.props.onSelect && this.props.onSelect(selectedRowKeys, selectedRows);
   }
