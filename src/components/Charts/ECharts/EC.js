@@ -50,7 +50,7 @@ class ECharts extends Component {
       'showLoading',
       'loadingOption'
     ];
-    if (pickKeys.every(item => isEqual(prevProps[item], this.props[item]))) {
+    if (!pickKeys.some(item => !isEqual(prevProps[item], this.props[item]))) {
       return;
     }
 

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Masonry from 'masonry-layout';
 import cx from 'classnames';
@@ -7,7 +7,7 @@ import isEqual from 'react-fast-compare';
 import './style/index.less';
 
 @resizeMe({ refreshRate: 50 })
-class WaterFall extends Component {
+class WaterFall extends PureComponent {
   static propTypes = {
     dataSource: PropTypes.array,
     columnWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -27,6 +27,7 @@ class WaterFall extends Component {
       horizontalOrder,
       percentPosition,
       fitWidth,
+      getInstance
     } = this.props;
 
     this.msnry = new Masonry(this.node, {
@@ -38,18 +39,25 @@ class WaterFall extends Component {
       percentPosition,
       fitWidth
     });
+
+    this.msnry.on('layoutComplete', this.onLayoutComplete);
+
+    if (getInstance) getInstance(this.msnry);
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (
-      !isEqual(prevProps.size, this.props.size)
-    ) {
+    if (!isEqual(prevProps.size, this.props.size)) {
       this.msnry.layout();
     }
   }
 
   componentWillUnmount() {
+    this.msnry.off('layoutComplete', this.onLayoutComplete);
     this.msnry.destroy();
+  }
+
+  onLayoutComplete = items => {
+    const { getComplete } = this.props;
   }
 
   renderItem = dataSource => {
@@ -77,10 +85,14 @@ class WaterFall extends Component {
   };
 
   render() {
-    const { prefixCls, className, dataSource, ...otherProps } = this.props;
+    const { prefixCls, className, dataSource, style } = this.props;
     const classnames = cx(prefixCls, className);
     return (
-      <div ref={node => (this.node = node)} className={classnames}>
+      <div
+        ref={node => (this.node = node)}
+        className={classnames}
+        style={style}
+      >
         {this.renderItem(dataSource)}
       </div>
     );
