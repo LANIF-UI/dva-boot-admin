@@ -4530,6 +4530,10 @@ lazy-req@^1.1.0:
   version "1.1.0"
   resolved "http://registry.npm.taobao.org/lazy-req/download/lazy-req-1.1.0.tgz#bdaebead30f8d824039ce0ce149d4daa07ba1fac"
 
+lazysizes@^4.0.4:
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/lazysizes/-/lazysizes-4.0.4.tgz#a28541570f32a7c385efdb798c06c22b3fd08544"
+
 lcid@^1.0.0:
   version "1.0.0"
   resolved "http://registry.npm.taobao.org/lcid/download/lcid-1.0.0.tgz#308accafa0bc483a3867b4b6f2b9506251d1b835"

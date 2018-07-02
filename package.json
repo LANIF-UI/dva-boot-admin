@@ -36,6 +36,7 @@
     "dva": "^2.2.3",
     "dva-loading": "^1.0.4",
     "echarts": "^4.1.0",
+    "lazysizes": "^4.0.4",
     "masonry-layout": "^4.2.1",
     "object.omit": "^3.0.0",
     "path-to-regexp": "^2.2.1",
