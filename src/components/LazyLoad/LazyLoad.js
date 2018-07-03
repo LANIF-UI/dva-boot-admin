@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import lazySizes from 'lazysizes';
 import cx from 'classnames';
 import $$ from 'cmn-utils';
+import './style/index.less';
 
 class LazyLoad extends Component {
   static propTypes = {
@@ -15,13 +16,13 @@ class LazyLoad extends Component {
   };
 
   static defaultProps = {
-    src:
-      'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==',
+    src: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
     dataSizes: 'auto',
-    iframe: false
+    iframe: false,
+    prefixCls: 'antui-lazyload'
   };
 
-  componentWillUpdate (nextProps) {
+  componentWillUpdate(nextProps) {
     let propsChanged = false;
     for (let propName of [
       'src',
@@ -55,7 +56,7 @@ class LazyLoad extends Component {
     if ($$.isArray(dataSrcSet)) {
       return dataSrcSet.join(',');
     } else if (typeof dataSrcSet === 'string') {
-      return dataSrcSet
+      return dataSrcSet;
     } else {
       return null;
     }
@@ -65,14 +66,26 @@ class LazyLoad extends Component {
     if (!lazySizes) {
       return;
     }
-    if (!lazySizes.hC(this.node, 'lazyloaded') && !lazySizes.hC(this.node, 'lazyload')) {
+    if (
+      !lazySizes.hC(this.node, 'lazyloaded') &&
+      !lazySizes.hC(this.node, 'lazyload')
+    ) {
       lazySizes.aC(this.node, 'lazyload');
     }
   };
 
+  componentWillUnmount() {
+    this.node.src = '';
+  }
+
+  onError(e) {
+    e.target.classList.add('lazyerror');
+    e.target.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+  }
 
   render() {
     const {
+      prefixCls,
       src,
       dataSizes,
       dataSrc,
@@ -81,10 +94,10 @@ class LazyLoad extends Component {
       iframe,
       title,
       alt,
-      ...otherProps
+      ...otherProps,
     } = this.props;
 
-    const classNames = cx('lazyload', className);
+    const classNames = cx(prefixCls, 'lazyload', className);
 
     const lazyProps = { ...otherProps, src };
     if (dataSrc) lazyProps['data-src'] = dataSrc;
@@ -94,9 +107,25 @@ class LazyLoad extends Component {
     }
 
     if (iframe) {
-      return <iframe ref={node => this.node = node} className={classNames} title={title} {...lazyProps} />;
+      return (
+        <iframe
+          ref={node => (this.node = node)}
+          className={classNames}
+          title={title}
+          frameBorder="0"
+          {...lazyProps}
+        />
+      );
     }
-    return <img ref={node => this.node = node} className={className} alt={alt} {...lazyProps} />;
+    return (
+      <img
+        ref={node => (this.node = node)}
+        className={classNames}
+        alt={alt}
+        onError={this.onError}
+        {...lazyProps}
+      />
+    );
   }
 }
 

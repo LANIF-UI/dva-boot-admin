@@ -1,0 +1,19 @@
+.antui-lazyload {
+  transition: opacity 500ms;
+  &.lazyload,
+  &.lazyloading {
+    opacity: 0.5;
+    background: url('data:image/svg+xml;utf8,<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="24px" height="30px" viewBox="0 0 24 30" style="enable-background:new 0 0 50 50;" xml:space="preserve"><rect x="0" y="10" width="4" height="10" fill="#ff8300" opacity="0.2"><animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0s" dur="0.6s" repeatCount="indefinite" /><animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0s" dur="0.6s" repeatCount="indefinite" /><animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0s" dur="0.6s" repeatCount="indefinite" /></rect><rect x="8" y="10" width="4" height="10" fill="#ff8300"  opacity="0.2"><animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0.15s" dur="0.6s" repeatCount="indefinite" /><animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0.15s" dur="0.6s" repeatCount="indefinite" /><animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0.15s" dur="0.6s" repeatCount="indefinite" /></rect><rect x="16" y="10" width="4" height="10" fill="#ff8300"  opacity="0.2"><animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0.3s" dur="0.6s" repeatCount="indefinite" /><animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0.3s" dur="0.6s" repeatCount="indefinite" /><animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0.3s" dur="0.6s" repeatCount="indefinite" /></rect></svg>')
+      no-repeat center/1.6em;
+  }
+  &.lazyloaded {
+    opacity: 1;
+    background: url('data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==');
+  }
+
+  &.lazyerror {
+    opacity: 1;
+    background: url('data:image/svg+xml;utf8,<?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1495511011615" class="icon" style="" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="30687" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><defs><style type="text/css"></style></defs><path fill="#aaa" d="M548.352 620.544c8.19712-9.216 8.19712-24.576-1.024-33.79712L422.4 453.632l0 0-39.936-39.936c-2.048 1.024-3.072 3.072-5.12 5.12L118.272 732.16 118.272 197.632c2.048-14.336 13.312-23.552 26.624-23.552l353.28 0 57.344-65.536-445.44 0c-31.744 0-57.344 25.6-57.344 58.368l0 671.744c0 31.744 25.6 58.368 57.344 58.368l198.656 0L548.352 620.544z" p-id="30688"></path><path fill="#aaa" d="M634.36288 337.92c0 54.29248 44.01664 98.304 98.304 98.304 54.29248 0 98.304-44.01152 98.304-98.304s-44.01152-98.304-98.304-98.304C678.37952 239.616 634.36288 283.62752 634.36288 337.92L634.36288 337.92z" p-id="30689"></path><path fill="#aaa" d="M913.92 108.544l-191.488 0c-1.024 2.048-2.04288 5.12-4.096 6.144l-51.2 59.392 211.968 0c14.336 0 25.6 10.24 26.61888 24.576l1.024 533.504-204.8-219.136c-6.144-7.168-15.36-12.288-26.624-12.288-10.24 0-17.40288 5.12-26.61888 11.264l-9.22112 7.168L699.904 583.68c9.216 9.216 9.216 23.552 1.01888 33.792l-241.664 277.504 454.656 0c31.744 0 57.344-25.6 57.344-58.36288l0-670.72C971.264 134.144 945.664 108.544 913.92 108.544z" p-id="30690"></path></svg>')
+      no-repeat center/2em;
+  }
+}

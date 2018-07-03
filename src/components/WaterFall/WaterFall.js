@@ -57,7 +57,8 @@ class WaterFall extends PureComponent {
   }
 
   onLayoutComplete = items => {
-    const { getComplete } = this.props;
+    const { onLayout } = this.props;
+    onLayout && onLayout(items, this.msnry);
   }
 
   renderItem = dataSource => {
