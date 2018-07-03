@@ -61,6 +61,8 @@ $ npm start
 ```
 
 ## Change log
+- 增加Gallery示例页面，在页面>画廊下
+- 增加LazyLoad（懒加载）组件与WaterFall（瀑布流）组件
 - 增加ModalTable & Button
 - 增加Notification通知页面，在UI元素>消息下
 - 增加TableForm，使表单支持Table类型字段 
