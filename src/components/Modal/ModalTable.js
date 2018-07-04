@@ -10,13 +10,21 @@ const Pagination = DataTable.Pagination;
 class ModalTable extends Component {
   constructor(props) {
     super(props);
-    const { value, dataItems } = props;
+    const { value, dataItems, visible, loading } = props;
     this.state = {
-      value: value,
-      dataItems: dataItems,
-      visible: false,
-      loading: false
+      value,
+      dataItems,
+      visible,
+      loading
     };
+
+    if (visible) {
+      this.onChange({
+        pageNum: 1,
+        pageSize: dataItems.pageSize,
+        filters: dataItems.filters
+      });
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -36,6 +44,14 @@ class ModalTable extends Component {
       this.setState({
         visible: visible
       });
+
+      if (visible) {
+        this.onChange({
+          pageNum: 1,
+          pageSize: dataItems.pageSize,
+          filters: dataItems.filters
+        });
+      }
     }
   }
 
@@ -48,9 +64,9 @@ class ModalTable extends Component {
     this.onChange({
       pageNum: 1,
       pageSize: dataItems.pageSize,
-      filters: values,
-    })
-  }
+      filters: values
+    });
+  };
 
   async onChange({ pageNum, pageSize, filters }) {
     const loadData = this.props.loadData;
@@ -96,7 +112,9 @@ class ModalTable extends Component {
       rowKey,
       full,
       width,
-      selectType
+      selectType,
+      onCancel,
+      onSubmit
     } = this.props;
 
     const { dataItems, value, loading, visible } = this.state;
@@ -150,12 +168,16 @@ class ModalTable extends Component {
           showQuickJumper={false}
           {...dataTableProps}
         />,
-        <Button key="back" onClick={this.closeModal}>
-          取消
-        </Button>,
-        <Button key="submit" type="primary" onClick={this.onOk}>
-          确定
-        </Button>
+        onCancel && (
+          <Button key="back" onClick={this.closeModal}>
+            取消
+          </Button>
+        ),
+        onSubmit && (
+          <Button key="submit" type="primary" onClick={this.onOk}>
+            确定
+          </Button>
+        )
       ],
       ...modalOpts
     };

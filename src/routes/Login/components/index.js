@@ -41,6 +41,7 @@ class Login extends Component {
               </div>
               <FormItem>
                 {getFieldDecorator('userName', {
+                  initialValue: 'admin',
                   rules: [{ required: true, message: '请输入您的用户名，示例admin' }]
                 })(
                   <Input
@@ -52,6 +53,7 @@ class Login extends Component {
               </FormItem>
               <FormItem>
                 {getFieldDecorator('password', {
+                  initialValue: 'admin',
                   rules: [{ required: true, message: '请输入您的密码，示例admin' }]
                 })(
                   <Input

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Modal } from 'antd';
+import { Modal, Button } from 'antd';
 import Form from '../Form';
 import cx from 'classnames';
 import './style/index.less';
@@ -15,13 +15,13 @@ class ModalForm extends Component {
     onSubmit: PropTypes.func,
     modalOpts: PropTypes.object,
     formOpts: PropTypes.object,
-    className: PropTypes.string,
-  }
+    className: PropTypes.string
+  };
 
   constructor(props) {
     super(props);
     this.state = {
-      visible: this.props.visible,
+      visible: this.props.visible
     };
   }
 
@@ -34,42 +34,64 @@ class ModalForm extends Component {
   }
 
   closeModal = () => {
-    if(this.props.onCancel) {
+    if (this.props.onCancel) {
       this.props.onCancel();
       return;
     }
     this.setState({
-      visible: false,
+      visible: false
     });
-  }
+  };
+
+  onSubmit = () => {
+    const { record, onSubmit } = this.props;
+    this.refs.form.validateFields((error, value) => {
+      if (error) {
+        console.log(error);
+        return;
+      }
+      onSubmit && onSubmit(value, record);
+    });
+  };
 
   render() {
-    const { title, record, className, columns, onSubmit, modalOpts, formOpts, loading, full } = this.props;
-
-    const classname = cx(
+    const {
+      title,
+      record,
       className,
-      "antui-modalform",
-      {'full-modal': full}
-    )
+      columns,
+      onCancel,
+      onSubmit,
+      modalOpts,
+      formOpts,
+      loading,
+      full,
+      preview
+    } = this.props;
+
+    const classname = cx(className, 'antui-modalform', { 'full-modal': full });
     const modalProps = {
       className: classname,
       confirmLoading: loading,
       visible: this.state.visible,
-      style: {top: 20},
+      style: { top: 20 },
       title: title || (record ? '编辑内容' : '新增内容'),
       // maskClosable: true,
       destroyOnClose: true,
       onCancel: this.closeModal,
-      ...modalOpts,
-      onOk: (e) => {
-        this.refs.form.validateFields((error, value) => {
-          if (error) {
-            console.log(error);
-            return;
-          }
-          onSubmit(value, record);
-        });
-      },
+      footer: [
+        onCancel && (
+          <Button key="back" onClick={this.closeModal}>
+            取消
+          </Button>
+        ),
+        onSubmit && (
+          <Button key="submit" type="primary" onClick={this.onSubmit}>
+            确定
+          </Button>
+        )
+      ],
+      ...modalOpts
     };
 
     const formProps = {
@@ -77,14 +99,15 @@ class ModalForm extends Component {
       columns,
       onSubmit,
       record,
+      preview,
       footer: false,
       formItemLayout: {
         labelCol: { span: 4 },
-        wrapperCol: { span: 17 },
+        wrapperCol: { span: 17 }
       },
       ...formOpts
     };
-    
+
     return (
       <Modal {...modalProps}>
         <Form {...formProps} />
