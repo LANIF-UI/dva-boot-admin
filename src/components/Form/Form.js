@@ -223,7 +223,7 @@ class FormComp extends React.Component {
 
             let formItemLayout = { ..._formItemLayout };
             if (type === 'grid' && field.formItem.formItemLayout) {
-              formItemLayout = field.formItem.formItemLayout;
+              formItemLayout = { ...formItemLayout, ...field.formItem.formItemLayout };
             } else if (type !== 'grid') {
               formItemLayout = {};
             }
