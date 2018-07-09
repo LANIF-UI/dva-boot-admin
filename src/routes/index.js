@@ -4,6 +4,7 @@ import BasicLayout from '@/layouts/BasicLayout';
 import UserLayout from '@/layouts/UserLayout';
 import NotFound from './Pages/404';
 import ScreenLock from './Pages/ScreenLock';
+import Page500 from './Pages/500';
 import Coming from './Pages/Coming';
 import Gallery from './Pages/Gallery';
 import Login from './Login';
@@ -61,6 +62,7 @@ const routesConfig = (app) => ([
       Coming(),
       ScreenLock(),
       Gallery(),
+      Page500(),
       NotFound(),
     ]
   }

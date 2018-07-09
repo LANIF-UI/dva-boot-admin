@@ -61,6 +61,7 @@ $ npm start
 ```
 
 ## Change log
+- 增加500错误页面
 - 增加一个CardLayout布局，适合嵌入到其它系统界面，可以修改src>routes>index.js，替换`component: BasicLayout,`为`component: CardLayout,`查看效果
 - 增加Gallery示例页面，在页面>画廊下
 - 增加LazyLoad（懒加载）组件与WaterFall（瀑布流）组件

@@ -5,7 +5,7 @@ const { MonthPicker, RangePicker } = DatePicker;
 /**
  * 日期，时间元件
  */
-export default ({name, form, type, record, initialValue, rules, formFieldOptions = {}, format, preview, ...otherProps}) => {
+export default ({name, form, type, record, initialValue, rules, formFieldOptions = {}, format, onChange, preview, ...otherProps}) => {
   const { getFieldDecorator } = form;
   
   let initval = initialValue;
@@ -49,6 +49,11 @@ export default ({name, form, type, record, initialValue, rules, formFieldOptions
       break;
     default:
       break;
+  }
+
+  // 如果需要onChange
+  if (typeof onChange === "function") {
+    formFieldOptions.onChange = (date, dateString) => onChange(form, date, dateString);
   }
 
   if (format) props.format = format;

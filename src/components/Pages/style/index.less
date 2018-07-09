@@ -2,3 +2,23 @@
 @import './screenLock.less';
 @import './coming.less';
 @import './404.less';
+@import './500.less';
+
+.backhome {
+  position: absolute;
+  border: 1px solid #89949b;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  line-height: 0px;
+  color: #89949b;
+  top: 20px;
+  font-size: 48px;
+  left: 20px;
+  overflow: hidden;
+  &:hover {
+    color: @primary-color;
+    border-color: @primary-color;
+    background: #fff;
+  }
+}
