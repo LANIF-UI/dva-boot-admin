@@ -8,6 +8,7 @@ import Page500 from './Pages/500';
 import Coming from './Pages/Coming';
 import Gallery from './Pages/Gallery';
 import Login from './Login';
+import Register from './Register';
 import Dashboard from './Dashboard';
 import Blank from './Blank';
 import Toolbar from './Widgets/Toolbar';
@@ -34,6 +35,7 @@ const routesConfig = (app) => ([
     component: UserLayout,
     childRoutes: [
       Login(app),
+      Register(app),
       NotFound()
     ]
   }, {

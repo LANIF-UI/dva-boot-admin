@@ -30,18 +30,18 @@ const resizeMe = (config = defaultConfig) => {
       }
 
       componentDidMount() {
-        const element = this.refs.element.parentNode;
+        const element = this.element.parentNode;
         this.resizeSensor = new ResizeSensor(element, this.onResizeStrategy);
         this.onResizeStrategy();
       }
     
       componentWillUnmount() {
-        const element = this.refs.element.parentNode;
+        const element = this.element.parentNode;
         this.resizeSensor.detach(element, this.onResizeStrategy);
       }
     
       onResize = () => {
-        const element = this.refs.element.parentNode;
+        const element = this.element.parentNode;
         const { onResize } = this.props;
         const { width, height, paddingLeft, paddingRight, paddingTop, paddingBottom } = getComputedStyle(element);
         
@@ -63,7 +63,7 @@ const resizeMe = (config = defaultConfig) => {
           height: '100%',
         }
         return (
-          <div ref="element" style={styles} className={className}>
+          <div ref={node => this.element = node} style={styles} className={className}>
             {width && height ? (
               <WrappedComponent {...otherProps} size={{...this.state}} />
             ) : null}
