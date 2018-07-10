@@ -12,7 +12,7 @@ import {
   Progress,
   Layout
 } from 'antd';
-import styles from './index.less';
+import './index.less';
 import '../../Login/components/index.less';
 import logoImg from 'assets/images/logo1.png';
 const { Content } = Layout;
@@ -22,9 +22,9 @@ const { Option } = Select;
 const InputGroup = Input.Group;
 
 const passwordStatusMap = {
-  ok: <div className={styles.success}>强度：强</div>,
-  pass: <div className={styles.warning}>强度：中</div>,
-  poor: <div className={styles.error}>强度：太短</div>
+  ok: <div style={{color: '#52c41a'}}>强度：强</div>,
+  pass: <div style={{color: '#faad14'}}>强度：中</div>,
+  poor: <div style={{color: '#f5222d'}}>强度：太短</div>
 };
 
 const passwordProgressMap = {
@@ -162,15 +162,13 @@ export default class Register extends Component {
     const value = form.getFieldValue('password');
     const passwordStatus = this.getPasswordStatus();
     return value && value.length ? (
-      <div className={styles[`progress-${passwordStatus}`]}>
-        <Progress
-          status={passwordProgressMap[passwordStatus]}
-          className={styles.progress}
-          strokeWidth={6}
-          percent={value.length * 10 > 100 ? 100 : value.length * 10}
-          showInfo={false}
-        />
-      </div>
+      <Progress
+        status={passwordProgressMap[passwordStatus]}
+        className={`progress-${passwordStatus}`}
+        strokeWidth={6}
+        percent={value.length * 10 > 100 ? 100 : value.length * 10}
+        showInfo={false}
+      />
     ) : null;
   };
 

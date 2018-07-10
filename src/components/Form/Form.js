@@ -171,7 +171,8 @@ class FormComp extends React.Component {
 
     let classname = cx(prefixCls, className, {
       'form-inline': type === 'inline',
-      'form-grid': type === 'grid'
+      'form-grid': type === 'grid',
+      'preview': preview,
     });
 
     let colopts = type === 'grid' ? objectAssign(this.cols, cols) : {};
