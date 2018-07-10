@@ -52,9 +52,10 @@ export default {
       if (errName === 'RequestError') {
         console.error(err);
       } else {
+        notice.error(err.message);
         console.error(err);
       }
-      notice.error(err.message);
+      // notice.error(err.message);
     }
   },
 

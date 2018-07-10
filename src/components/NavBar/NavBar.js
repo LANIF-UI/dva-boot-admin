@@ -144,13 +144,13 @@ const UserDropDown = (props) => (
     <li className="list-group-item">
       <a className="animated animated-short fadeInUp">
         <Icon type="mail" /> 信息
-        <span className="label label-warning">2</span>
+        <Badge count={5} className="label" />
       </a>
     </li>
     <li className="list-group-item">
       <a className="animated animated-short fadeInUp">
         <Icon type="users" /> 好友
-        <span className="label label-warning">6</span>
+        <Badge count={6} className="label" />
       </a>
     </li>
     <li className="list-group-item">

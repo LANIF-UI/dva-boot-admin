@@ -3,7 +3,7 @@ import { connect } from 'dva';
 import { Link } from 'dva/router';
 import { Form, Layout, Button, Icon, Input, Checkbox, Spin } from 'antd';
 import logoImg from 'assets/images/logo1.png';
-import './style.less';
+import './index.less';
 const { Content } = Layout;
 const FormItem = Form.Item;
 
@@ -81,7 +81,7 @@ class Login extends Component {
                   登录
                 </Button>
                 <div className="new-user">
-                  新用户？<Link to="#">现在注册</Link>
+                  新用户？<Link to="/sign/register">现在注册</Link>
                 </div>
               </FormItem>
             </Form>

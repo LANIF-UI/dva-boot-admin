@@ -1,0 +1,38 @@
+.card-layout {
+  .ant-menu {
+    font-size: 16px;
+  }
+  &.full-layout .router-page, 
+  &.full-layout .router-page > .ant-layout {
+    min-height: ~'calc(100vh - 48px)';
+    > .ant-layout-content {
+      overflow: auto;
+    }
+  }
+
+  /* 应用布局&布局设置 */
+  &.full-layout {
+    // 固定所有元素，经典管理界面样式，即固定头，侧栏，面包屑
+    &.fixed.ant-layout,
+    &.fixed .full-layout.ant-layout {
+      position: absolute !important;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+    // 只固定头部
+    &:not(.fixed)&.fixed-header {
+      > .ant-layout-header {
+        position: fixed;
+        z-index: 200;
+        left: 0;
+        right: 0;
+      }
+      > .ant-layout-content {
+        padding-top: 46px;
+        overflow: auto;
+      }
+    }
+  }
+}
