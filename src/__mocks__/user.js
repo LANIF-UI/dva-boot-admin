@@ -37,6 +37,7 @@ export default ({fetchMock, delay, mock, toSuccess, toError}) => {
         return toError('请输入用户名和密码');
       }
     },
+    '/api/user/register': options => toSuccess(),
     '/api/user/menu': options => toSuccess([
       {
         name: '仪表盘',
@@ -147,6 +148,10 @@ export default ({fetchMock, delay, mock, toSuccess, toError}) => {
           {
             name: '空白页',
             path: '/blank',
+          },
+          {
+            name: '结果页',
+            path: '/result',
           },
           {
             name: 'Coming Soon',

@@ -7,6 +7,7 @@ import ScreenLock from './Pages/ScreenLock';
 import Page500 from './Pages/500';
 import Coming from './Pages/Coming';
 import Gallery from './Pages/Gallery';
+import Result from './Pages/Result';
 import Login from './Login';
 import Register from './Register';
 import Dashboard from './Dashboard';
@@ -64,6 +65,7 @@ const routesConfig = (app) => ([
       Coming(),
       ScreenLock(),
       Gallery(),
+      Result(),
       Page500(),
       NotFound(),
     ]

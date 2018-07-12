@@ -22,9 +22,9 @@ const { Option } = Select;
 const InputGroup = Input.Group;
 
 const passwordStatusMap = {
-  ok: <div style={{color: '#52c41a'}}>强度：强</div>,
-  pass: <div style={{color: '#faad14'}}>强度：中</div>,
-  poor: <div style={{color: '#f5222d'}}>强度：太短</div>
+  ok: <div style={{ color: '#52c41a' }}>强度：强</div>,
+  pass: <div style={{ color: '#faad14' }}>强度：中</div>,
+  poor: <div style={{ color: '#f5222d' }}>强度：太短</div>
 };
 
 const passwordProgressMap = {
@@ -50,7 +50,7 @@ export default class Register extends Component {
   componentWillReceiveProps(nextProps) {
     const { form, dispatch } = this.props;
     const account = form.getFieldValue('mail');
-    if (nextProps.register.status === 'ok') {
+    if (nextProps.register.status) {
       dispatch(
         routerRedux.push({
           pathname: '/user/register-result',
