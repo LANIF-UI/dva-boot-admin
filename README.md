@@ -1,7 +1,9 @@
 # :beginner: DVA-BOOT-ADMIN :lemon: :tangerine: :cherries: :cake: :grapes: :watermelon: :strawberry: :corn: :peach: :melon:
 
-We use the React of the ecosystem is the most mature technology system, set up a set of out-of-the-box, admin dashboard system framework includes a unique custom components in the DBA, and many public praise good third-party components after much practice, it is not just a simple dashboard display interface, but also necessary to ensure that your next web project all the tools, we want to use it can be fast, stable develop robust, beautiful, easy to use web applications.
+我们使用React生态系统的最成熟的技术体系，搭建的一套开箱即用的后台管理系统，框架里包含了一些独有的定制组件，以及许多经过大量实践口碑良好的第三方组件，它不仅仅是一个简单的仪表盘展示界面，更是保证您下一个web项目所必需的所有工具，我们希望使用它的人可以快速、稳定的开发出健壮、美观、易用的web程序。
+
 ![](https://ucarecdn.com/8b5bbe87-d34a-4fc7-849e-fe17214e71f3/TIM20180601171049.png)
+
 ## Feature
 - 封装了dva框架的数据流转，简单的请求可以不用在model和service中定义
 - 封装了数据模模拟，可以独立于后台开发前台功能
@@ -59,6 +61,12 @@ $ yarn start
 $ npm install
 $ npm start
 ```
+
+## End
+
+欢迎大家提问题，感谢大家的PR，如果觉得不错，还请帮忙加个:star:哦
+
+企鹅群 820881369 :penguin:
 
 ## Change log
 - 增加用户注册页面
