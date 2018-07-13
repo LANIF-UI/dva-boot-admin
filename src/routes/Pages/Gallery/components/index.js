@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import WaterFall from 'components/WaterFall';
 import LazyLoad from 'components/LazyLoad';
+import Mask from 'components/Mask';
 import { Layout, Card } from 'antd';
 import './index.less';
 const { Meta } = Card;
 const { Content } = Layout;
 
-
 class Gallery extends Component {
   state = {
+    dataSrc: '',
+    visible: false,
     dataSource: [
       'https://images.pexels.com/photos/39493/animals-cat-girl-happiness-39493.jpeg?auto=compress&cs=tinysrgb',
       'https://images.pexels.com/photos/271955/pexels-photo-271955.jpeg?auto=compress&cs=tinysrgb',
@@ -40,17 +42,30 @@ class Gallery extends Component {
       'https://images.pexels.com/photos/735423/pexels-photo-735423.jpeg?auto=compress&cs=tinysrgb',
       'https://images.pexels.com/photos/617278/pexels-photo-617278.jpeg?auto=compress&cs=tinysrgb',
       'https://images.pexels.com/photos/326875/pexels-photo-326875.jpeg?auto=compress&cs=tinysrgb',
-      'https://images.pexels.com/photos/209037/pexels-photo-209037.jpeg?auto=compress&cs=tinysrgb',
+      'https://images.pexels.com/photos/209037/pexels-photo-209037.jpeg?auto=compress&cs=tinysrgb'
     ]
   };
 
   componentDidMount() {
     const self = this;
-    document.addEventListener('lazybeforeunveil', ({target}) => {
+    document.addEventListener('lazybeforeunveil', ({ target }) => {
       self.water.layout();
     });
   }
-  
+
+  onPreview = item => {
+    this.setState({
+      dataSrc: item,
+      visible: true
+    });
+  };
+
+  onClose = () => {
+    this.setState({
+      visible: false
+    });
+  };
+
   render() {
     const { dataSource } = this.state;
     return (
@@ -63,12 +78,15 @@ class Gallery extends Component {
             columnWidth={240}
             fitWidth
             gutter={16}
-            getInstance={water => this.water = water}
+            getInstance={water => (this.water = water)}
             render={item => (
               <Card
                 hoverable
                 cover={
-                  <LazyLoad dataSrc={item} />
+                  <LazyLoad
+                    dataSrc={item}
+                    onClick={e => this.onPreview(item)}
+                  />
                 }
               >
                 <Meta
@@ -79,6 +97,21 @@ class Gallery extends Component {
             )}
           />
         </Content>
+        <Mask visible={this.state.visible} onClose={this.onClose} closable>
+          <img
+            src={this.state.dataSrc}
+            alt=""
+            style={{
+              position: 'absolute',
+              margin: 'auto',
+              left: 0,
+              right: 0,
+              top: 0,
+              bottom: 0,
+              maxHeight: '80%',
+            }}
+          />
+        </Mask>
       </Layout>
     );
   }
