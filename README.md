@@ -77,6 +77,8 @@ $ npm start
 企鹅群 820881369 :penguin:
 
 ## Change log
+
+- 增加结果展示页面，在页面>结果页
 - 增加用户注册页面
 - 增加500错误页面
 - 增加一个CardLayout布局，适合嵌入到其它系统界面，可以修改src>routes>index.js，替换`component: BasicLayout,`为`component: CardLayout,`查看效果

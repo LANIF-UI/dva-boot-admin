@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
-import { routerRedux, Link } from 'dva/router';
+import { Link } from 'dva/router';
 import {
   Form,
   Input,
@@ -15,6 +15,7 @@ import {
 import './index.less';
 import '../../Login/components/index.less';
 import logoImg from 'assets/images/logo1.png';
+import Success from './Success';
 const { Content } = Layout;
 
 const FormItem = Form.Item;
@@ -44,21 +45,15 @@ export default class Register extends Component {
     confirmDirty: false,
     visible: false,
     help: '',
-    prefix: '86'
+    prefix: '86',
+    registerSuccess: false,
   };
 
   componentWillReceiveProps(nextProps) {
-    const { form, dispatch } = this.props;
-    const account = form.getFieldValue('mail');
     if (nextProps.register.status) {
-      dispatch(
-        routerRedux.push({
-          pathname: '/user/register-result',
-          state: {
-            account
-          }
-        })
-      );
+      this.setState({
+        registerSuccess: true,
+      })
     }
   }
 
@@ -175,7 +170,11 @@ export default class Register extends Component {
   render() {
     const { form, submitting } = this.props;
     const { getFieldDecorator } = form;
-    const { count, prefix, help, visible } = this.state;
+    const { count, prefix, help, visible, registerSuccess } = this.state;
+
+    if (registerSuccess) {
+      return <Success />
+    }
     return (
       <Layout className="full-layout register-page login-page">
         <Content>
