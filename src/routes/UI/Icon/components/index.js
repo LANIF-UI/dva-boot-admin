@@ -66,7 +66,7 @@ const icomoonlist = [
   'lines', 'wand', 'radio-tower', 'ruby', 'screen-full', 'home', 'image', 'camera', 'play', 'equalizer', 
   'headphones', 'message', 'mail', 'man', 'woman', 'user', 'ring', 'gear', 'increase', 'decrease', 'users', 
   'poweroff', 'check', 'close', 'into', 'trash', 'minus', 'plus', 'refresh', 'sync', 'enlarge', 'shrink', 
-  'edit', 'buret', 'finder', 
+  'edit', 'buret', 'finder', 'download', 'upload', 'info', 'exclamation'
 ];
 
 const antdlist = [

@@ -1,7 +1,17 @@
 # :beginner: DVA-BOOT-ADMIN :lemon: :tangerine: :cherries: :cake: :grapes: :watermelon: :strawberry: :corn: :peach: :melon:
 
-We use the React of the ecosystem is the most mature technology system, set up a set of out-of-the-box, admin dashboard system framework includes a unique custom components in the DBA, and many public praise good third-party components after much practice, it is not just a simple dashboard display interface, but also necessary to ensure that your next web project all the tools, we want to use it can be fast, stable develop robust, beautiful, easy to use web applications.
-![](https://ucarecdn.com/8b5bbe87-d34a-4fc7-849e-fe17214e71f3/TIM20180601171049.png)
+我们使用React生态系统的最成熟的技术体系，搭建的一套开箱即用的后台管理系统，框架里包含了一些独有的定制组件，以及许多经过大量实践口碑良好的第三方组件，它不仅仅是一个简单的仪表盘展示界面，更是保证您下一个web项目所必需的所有工具，我们希望使用它的人可以快速、稳定的开发出健壮、美观、易用的web程序。
+
+![](https://ucarecdn.com/b296e689-19fd-46f5-863e-40c0d4ba7a61/1.jpg)
+
+## Table of Contents
+* [功能](#feature)
+* [目录结构](#structure)
+* [开发](#usage)
+* [截图](#gallery)
+* [更新日志](#change-log)
+* [结尾](#end)
+
 ## Feature
 - 封装了dva框架的数据流转，简单的请求可以不用在model和service中定义
 - 封装了数据模模拟，可以独立于后台开发前台功能
@@ -60,7 +70,15 @@ $ npm install
 $ npm start
 ```
 
+## End
+
+欢迎大家提问题，感谢大家的PR，如果觉得不错，还请帮忙加个:star:哦
+
+企鹅群 820881369 :penguin:
+
 ## Change log
+
+- 增加结果展示页面，在页面>结果页
 - 增加用户注册页面
 - 增加500错误页面
 - 增加一个CardLayout布局，适合嵌入到其它系统界面，可以修改src>routes>index.js，替换`component: BasicLayout,`为`component: CardLayout,`查看效果
@@ -105,3 +123,20 @@ $ npm start
 - 组件增加Clock组件
 - 组件增加密码解锁组件
 - 组件增加Coming Soon组件
+
+# Gallery
+
+![](https://ucarecdn.com/7602439b-fa79-4a57-a2f1-c4448710c1c2/14.jpg)
+![](https://ucarecdn.com/fcfdbd3f-3d43-4a1e-a090-10038f92e1a6/13.jpg)
+![](https://ucarecdn.com/6f9862ab-d9e6-4bda-9c6f-9b6a608ccc2a/12.jpg)
+![](https://ucarecdn.com/fd93aad7-7963-4cbb-9ffd-4a09c44ee0a0/11.jpg)
+![](https://ucarecdn.com/5440ec1c-f524-46ab-826b-742f20476ddf/15.jpg)
+![](https://ucarecdn.com/2f35d9c3-d5e8-4519-bfbc-a0ee310e6817/2.jpg)
+![](https://ucarecdn.com/eaef12d9-c878-4311-a539-cf53fd461280/3.jpg)
+![](https://ucarecdn.com/e44e4383-d49c-46a6-a708-dbc5078d33f4/4.jpg)
+![](https://ucarecdn.com/bef74a5c-fc05-4dcb-8512-7429971110c1/6.jpg)
+![](https://ucarecdn.com/55cdf8da-37e0-4f19-b24f-00f00eddf5e1/5.jpg)
+![](https://ucarecdn.com/890cae0d-dcde-48b4-9434-19e5fee2c883/9.jpg)
+![](https://ucarecdn.com/54014eec-406b-437f-9356-f466a1a868ab/7.jpg)
+![](https://ucarecdn.com/4e8c9b75-11df-4108-8437-bdb2627e3ebc/8.jpg)
+![](https://ucarecdn.com/7831ce59-f412-4109-a75c-2b9f86b78c43/10.jpg)

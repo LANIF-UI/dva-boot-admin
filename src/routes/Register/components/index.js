@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
-import { routerRedux, Link } from 'dva/router';
+import { Link } from 'dva/router';
 import {
   Form,
   Input,
@@ -15,6 +15,7 @@ import {
 import './index.less';
 import '../../Login/components/index.less';
 import logoImg from 'assets/images/logo1.png';
+import Success from './Success';
 const { Content } = Layout;
 
 const FormItem = Form.Item;
@@ -22,9 +23,9 @@ const { Option } = Select;
 const InputGroup = Input.Group;
 
 const passwordStatusMap = {
-  ok: <div style={{color: '#52c41a'}}>强度：强</div>,
-  pass: <div style={{color: '#faad14'}}>强度：中</div>,
-  poor: <div style={{color: '#f5222d'}}>强度：太短</div>
+  ok: <div style={{ color: '#52c41a' }}>强度：强</div>,
+  pass: <div style={{ color: '#faad14' }}>强度：中</div>,
+  poor: <div style={{ color: '#f5222d' }}>强度：太短</div>
 };
 
 const passwordProgressMap = {
@@ -44,21 +45,15 @@ export default class Register extends Component {
     confirmDirty: false,
     visible: false,
     help: '',
-    prefix: '86'
+    prefix: '86',
+    registerSuccess: false,
   };
 
   componentWillReceiveProps(nextProps) {
-    const { form, dispatch } = this.props;
-    const account = form.getFieldValue('mail');
-    if (nextProps.register.status === 'ok') {
-      dispatch(
-        routerRedux.push({
-          pathname: '/user/register-result',
-          state: {
-            account
-          }
-        })
-      );
+    if (nextProps.register.status) {
+      this.setState({
+        registerSuccess: true,
+      })
     }
   }
 
@@ -175,7 +170,11 @@ export default class Register extends Component {
   render() {
     const { form, submitting } = this.props;
     const { getFieldDecorator } = form;
-    const { count, prefix, help, visible } = this.state;
+    const { count, prefix, help, visible, registerSuccess } = this.state;
+
+    if (registerSuccess) {
+      return <Success />
+    }
     return (
       <Layout className="full-layout register-page login-page">
         <Content>
