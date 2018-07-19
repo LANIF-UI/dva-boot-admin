@@ -78,7 +78,7 @@ export const columns3 = [
     title: '选择时间',
     name: 'date3',
     searchItem: {
-      type: 'monthDate'
+      type: 'month'
     }
   }
 ];

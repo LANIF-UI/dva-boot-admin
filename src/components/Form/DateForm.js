@@ -41,7 +41,7 @@ export default ({name, form, type, record, initialValue, rules, formFieldOptions
     case 'date~':
       Component = RangePicker;
       break;
-    case 'monthDate':
+    case 'month':
       Component = MonthPicker;
       break;
     case 'time':

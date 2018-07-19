@@ -85,7 +85,7 @@ class SearchBar extends React.Component {
   // 内联元素默认宽
   width = {
     date: 100,
-    monthDate: 100,
+    month: 100,
     'date~': 280,
     datetime: 140,
     select: 100,
@@ -193,7 +193,7 @@ class SearchBar extends React.Component {
                 case 'date~':
                 case 'datetime':
                 case 'date':
-                case 'monthDate':
+                case 'month':
                   const dateProps = {
                     form,
                     type: field.searchItem.type,
