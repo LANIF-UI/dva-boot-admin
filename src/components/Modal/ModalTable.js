@@ -17,6 +17,10 @@ class ModalTable extends Component {
       visible,
       loading
     };
+  }
+
+  componentWillMount() {
+    const { dataItems, visible } = this.props;
 
     if (visible) {
       this.onChange({
@@ -131,6 +135,7 @@ class ModalTable extends Component {
       selectedRowKeys: value,
       selectType: selectType,
       showNum: true,
+      isScroll: true,
       onChange: ({ pageNum, pageSize }) => this.onChange({ pageNum, pageSize }),
       onSelect: (keys, rows) => this.onSelect(keys, rows)
     };
@@ -150,7 +155,6 @@ class ModalTable extends Component {
     );
 
     const modalProps = {
-      closable: false,
       className: classname,
       confirmLoading: loading,
       visible,

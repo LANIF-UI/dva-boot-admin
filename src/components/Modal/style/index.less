@@ -34,4 +34,31 @@
       }
     }
   }
+  &.antui-table-modal {
+    .ant-modal-header {
+      .with-search-title {
+        display: flex;
+        align-items: center;
+        .left-title {
+          flex: auto;
+        }
+        .antui-searchbar {
+          margin-right: 25px;
+        }
+      }
+    }
+    .ant-modal-body {
+      padding: 0;
+      max-height: 418px;
+      overflow: auto;
+    }
+    .ant-modal-footer {
+      display: flex;
+      align-items: center;
+      .ant-pagination {
+        flex: auto;
+        text-align: left;
+      }
+    }
+  }
 }
