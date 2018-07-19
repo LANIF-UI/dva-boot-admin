@@ -64,6 +64,8 @@ class LeftSideBar extends Component {
     const icon = getIcon(item.icon);
     const { target, name } = item;
     // Is it a http link
+    // coversionPath方法里已经将item.path做了一步正则处理，http:// 会被解析成/http:/www.baidu.com，下面的正则检测始终返回false
+    // 不清楚conversionPath的真正用意是啥
     if (/^https?:\/\//.test(itemPath)) {
       return (
         <a href={itemPath} target={target}>
