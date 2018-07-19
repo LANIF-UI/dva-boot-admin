@@ -60,7 +60,7 @@ class ModalTable extends Component {
   }
 
   onSelect = (keys, rows) => {
-    this.setState({ value: keys });
+    this.setState({ value: keys, selectedRows: rows });
   };
 
   onSearch = (values, isReset) => {

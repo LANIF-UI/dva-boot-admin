@@ -404,7 +404,7 @@ export const createColumns11 = (self, dataSource) => [
     formItem: {}
   },
   {
-    title: '表格数据',
+    title: '表格(弹窗)',
     name: 'field1',
     formItem: {
       type: 'table',
@@ -413,6 +413,21 @@ export const createColumns11 = (self, dataSource) => [
       dataSource,
       columns: innerColumns,
       onChange: (form, value) => console.log('。。。:', value),
+      loadData: self.onLoadTableData,
+      initialValue: [11, 3, 5],
+    }
+  },
+  {
+    title: '表格(内联)',
+    name: 'field1',
+    formItem: {
+      type: 'table',
+      modal: false,
+      rowKey: 'id',
+      titleKey: 'name',
+      dataSource,
+      columns: innerColumns,
+      onChange: (form, value, rows) => console.log('。。。:', value, rows),
       loadData: self.onLoadTableData,
       initialValue: [11, 3, 5],
     }

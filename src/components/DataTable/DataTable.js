@@ -144,7 +144,7 @@ class DataTable extends Component {
   }
 
   render() {
-    const {prefixCls, className, columns, dataItems, showNum, alternateColor,
+    const {prefixCls, className, columns, dataItems, showNum, alternateColor, onChange,
       selectType, rowSelection, isScroll, pagination, ...otherProps} = this.props;
 
     let classname = cx(

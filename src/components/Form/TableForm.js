@@ -90,7 +90,14 @@ class TableControlled extends Component {
   };
 
   render() {
-    const { modal, columns, titleKey, rowKey, ...otherProps } = this.props;
+    const {
+      modal,
+      columns,
+      titleKey,
+      rowKey,
+      selectType,
+      ...otherProps
+    } = this.props;
     const { dataSource, value, loading } = this.state;
 
     const dataTableProps = {
@@ -99,20 +106,17 @@ class TableControlled extends Component {
       rowKey,
       dataItems: dataSource,
       selectedRowKeys: value,
-      selectType: 'checkbox',
+      selectType: typeof selectType === 'undefined' ? 'checkbox' : selectType,
       showNum: true,
       onChange: ({ pageNum, pageSize }) => this.onChange({ pageNum, pageSize }),
       onSelect: (keys, rows) => this.onSelect(keys, rows)
     };
-
-    const comp = <DataTable {...dataTableProps} />;
 
     if (modal) {
       return (
         <div>
           <Button onClick={this.showModal}>请选择{otherProps.title}</Button>&nbsp;
           {value && value.length ? <span>已选择：{value.length}项</span> : null}
-
           <Modal
             className="antui-table-modal"
             title={'请选择' + otherProps.title}
@@ -137,13 +141,21 @@ class TableControlled extends Component {
             ]}
             {...modal}
           >
-            {comp}
+            <DataTable {...dataTableProps} />
           </Modal>
         </div>
       );
     }
 
-    return comp;
+    return (
+      <DataTable
+        pagination={{
+          showSizeChanger: false,
+          showQuickJumper: false
+        }}
+        {...dataTableProps}
+      />
+    );
   }
 }
 
@@ -187,7 +199,7 @@ export default ({
 
   // 如果需要onChange
   if (typeof onChange === 'function') {
-    formFieldOptions.onChange = value => onChange(form, value); // form, value
+    formFieldOptions.onChange = (value, rows) => onChange(form, value, rows); // form, value
   }
 
   return getFieldDecorator(name, formFieldOptions)(
