@@ -1,38 +1,25 @@
 import React, { Component } from 'react';
+import cx from 'classnames';
 import './style/ripple.less';
 
 /**
  * 仿 material design ripple 效果
  */
 class Ripple extends Component {
-  static defaultProps = {
-    color: 'rgba(255, 255, 255, 0.4)',
-    eventName: 'click'
-  };
-
-  state = {
-    mouseMove: false,
-    ripples: []
-  };
-
   componentDidMount() {
-    const eventName = this.props.eventName;
-    if (this.element)
-      this.element.addEventListener(eventName, this.createRipple);
+    if (this.element) this.element.addEventListener('click', this.createRipple);
   }
 
   componentWillUnmount() {
-    const eventName = this.props.eventName;
     if (this.element) {
-      this.element.removeEventListener(eventName, this.createRipple);
+      this.element.removeEventListener('click', this.createRipple);
       this.element = null;
     }
   }
 
   createRipple = e => {
-    const { eventName, color } = this.props;
-    const pageX = eventName.match(/touch/) ? e.changedTouches[0].pageX : e.x;
-    const pageY = eventName.match(/touch/) ? e.changedTouches[0].pageY : e.y;
+    const pageX = e.x;
+    const pageY = e.y;
     const btnWidth = this.element.clientWidth;
     const rect = this.element.getBoundingClientRect();
     const btnOffsetTop = rect.top;
@@ -42,20 +29,21 @@ class Ripple extends Component {
     const rippleX = posMouseX - btnOffsetLeft;
     const rippleY = posMouseY - btnOffsetTop;
 
-    const rippleAnimate = document.createElement('span');
+    const rippleAnimate = document.createElement('div');
     rippleAnimate.className = 'ripple-animate';
     const baseStyle = `
       top: ${rippleY - btnWidth}px; 
       left: ${rippleX - btnWidth}px; 
       width: ${btnWidth * 2}px; 
-      height: ${btnWidth * 2}px; 
-      background: ${color};
+      height: ${btnWidth * 2}px;
     `;
     rippleAnimate.style.cssText = baseStyle;
     this.element.appendChild(rippleAnimate);
 
     requestAnimationFrame(function() {
-      rippleAnimate.style.cssText = baseStyle + ' transform: scale(1); opacity: 0;';
+      rippleAnimate.style.cssText =
+        baseStyle +
+        ' transform: scale(1); -webkit-transition: scale(1); opacity: 0;';
     });
 
     setTimeout(function() {
@@ -64,10 +52,15 @@ class Ripple extends Component {
   };
 
   render() {
-    const { children } = this.props;
+    const { children, type, ghost, onClick, ...otherProps } = this.props;
     return (
-      <a ref={node => (this.element = node)} className="ripple-btn">
-        {children}
+      <a
+        ref={node => (this.element = node)}
+        className={cx('ripple-btn', type, { ghost })}
+        onClick={onClick}
+        {...otherProps}
+      >
+        <span>{children}</span>
       </a>
     );
   }
