@@ -1,0 +1,35 @@
+.ripple-btn {
+  position: relative;
+  display: inline-block;
+  background: #aaa;
+  color: #fff;
+  padding: 8px 16px;
+  font-size: 14px;
+  min-width: 64px;
+  min-height: 36px;
+  box-sizing: border-box;
+  line-height: 1.5;
+  border-radius: 4px;
+  font-weight: 500;
+  overflow: hidden;
+  > span.ripple-animate {
+    position: absolute;
+    border-radius: 50%;
+    transition: transform 700ms, opacity 700ms;
+    transition-timing-function: cubic-bezier(0.250, 0.460, 0.450, 0.940);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    transform: scale(0);
+    pointer-events: none;
+  }
+}
+
+.ripple-btn:focus {
+  outline: none;
+}
+
+.ripple-btn::selection {
+  background: transparent;
+  pointer-events: none;
+}

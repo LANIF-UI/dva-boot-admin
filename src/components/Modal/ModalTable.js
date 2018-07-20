@@ -15,7 +15,8 @@ class ModalTable extends Component {
       value,
       dataItems,
       visible,
-      loading
+      loading,
+      selectedRows: [],
     };
   }
 
@@ -100,10 +101,10 @@ class ModalTable extends Component {
   };
 
   onOk = () => {
-    const { value } = this.state;
+    const { value, selectedRows } = this.state;
     const onSubmit = this.props.onSubmit;
     if (onSubmit) {
-      onSubmit(value);
+      onSubmit(value, selectedRows);
     }
   };
 

@@ -26,6 +26,7 @@ import Mask from './UI/Mask';
 import Editor from './UI/Editor';
 import CSSAnimate from './UI/CSSAnimate';
 import Alerts from './UI/Alerts';
+import Button from './UI/Button';
 import CRUD from './Business/CRUD';
 
 const routesConfig = (app) => ([
@@ -37,7 +38,7 @@ const routesConfig = (app) => ([
     childRoutes: [
       Login(app),
       Register(app),
-      NotFound()
+      NotFound()  // 这个要放到最下面，当所有路由当没匹配到时会进入这个页面
     ]
   }, {
     path: '/',
@@ -57,6 +58,7 @@ const routesConfig = (app) => ([
       Editor(),
       CSSAnimate(),
       Alerts(),
+      Button(),
       DataTable(app),
       Form(app),
       TransferTree(app),
@@ -67,7 +69,7 @@ const routesConfig = (app) => ([
       Gallery(),
       Result(),
       Page500(),
-      NotFound(),
+      NotFound(), // 这个要放到最下面，当所有路由当没匹配到时会进入这个页面
     ]
   }
 ]);

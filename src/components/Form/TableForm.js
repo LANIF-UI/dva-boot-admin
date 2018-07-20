@@ -9,9 +9,13 @@ const Pagination = DataTable.Pagination;
 /**
  *  formItem: {
       type: 'table',
-      modal: true,
-      dataSource: xxx,
-      normalize: (value) => value.map(item => item.key)
+      rowKey: 'id',
+      titleKey: 'name',
+      dataSource,
+      columns: innerColumns,
+      onChange: (form, value) => console.log('。。。:', value),
+      loadData: self.onLoadTableData,
+      initialValue: [11, 3, 5],
     }
  */
 class TableControlled extends Component {

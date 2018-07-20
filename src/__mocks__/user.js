@@ -99,6 +99,10 @@ export default ({fetchMock, delay, mock, toSuccess, toError}) => {
         path: '/ui',
         children: [
           {
+            name: '按钮',
+            path: '/button',
+          },
+          {
             name: '消息',
             path: '/alerts',
           },
