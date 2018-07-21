@@ -16,6 +16,7 @@
   transition: background-color 250ms;
   border: none;
   > span {
+    user-select: none;
     position: relative;
     z-index: 1;
   }
@@ -30,64 +31,52 @@
     background-size: 100%;
     transform: scale(0);
     pointer-events: none;
-    background: shade(@default-color, 20%);
   }
   color: #000;
   background: transparent;
-  & > span::selection {
-    color: #000;
-    background: transparent;
-    pointer-events: none;
-  }
 }
 
 .ripple-btn {
   &:not(.ghost) {
     & > .ripple-animate {
-      background: rgba(255, 255, 255, .4);
+      background: rgba(0, 0, 0, 0.4);
     }
     color: #000;
     background: #d5d5d5;
-    &:hover,
-    &:active {
-      background: shade(#d5d5d5, 10%);
-    }
     &.primary {
       color: #fff;
       background: @primary-color;
-      &:hover,
-      &:active {
-        background: shade(@primary-color, 10%);
-      }
-      & > span::selection {
-        color: #fff;
+      & > .ripple-animate {
+        background: rgba(255, 255, 255, .4);
       }
     }
     &.danger {
       color: #fff;
       background: @error-color;
-      &:hover,
-      &:active {
-        background: shade(@error-color, 10%);
-      }
-      & > span::selection {
-        color: #fff;
+      & > .ripple-animate {
+        background: rgba(255, 255, 255, .4);
       }
     }
   }
   &.ghost {
+    & > .ripple-animate {
+      background: rgba(0, 0, 0, 0.4);
+    }
+    color: #000;
+    background: transparent;
+    &:hover,
+    &:active {
+      background: rgba(0, 0, 0, 0.08);;
+    }
     &.primary {
       color: @primary-color;
       background: transparent;
       &:hover,
       &:active {
-        background: tint(@primary-color, 80%);
-      }
-      & > span::selection {
-        color: @primary-color;
+        background: fadeOut(@primary-color, 80%);
       }
       & > .ripple-animate {
-        background: tint(@primary-color, 60%);
+        background: fadeOut(@primary-color, 60%);
       }
     }
     &.danger {
@@ -95,13 +84,10 @@
       background: transparent;
       &:hover,
       &:active {
-        background: tint(@error-color, 80%);
-      }
-      & > span::selection {
-        color: @error-color;
+        background: fadeOut(@error-color, 80%);
       }
       & > .ripple-animate {
-        background: tint(@error-color, 60%);
+        background: fadeOut(@error-color, 60%);
       }
     }
   }

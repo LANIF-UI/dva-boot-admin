@@ -6,26 +6,17 @@ import './style/ripple.less';
  * 仿 material design ripple 效果
  */
 class Ripple extends Component {
-  componentDidMount() {
-    if (this.element) this.element.addEventListener('click', this.createRipple);
-  }
-
-  componentWillUnmount() {
-    if (this.element) {
-      this.element.removeEventListener('click', this.createRipple);
-      this.element = null;
-    }
-  }
+  onClick = e => {
+    this.createRipple(e);
+  };
 
   createRipple = e => {
-    const pageX = e.x;
-    const pageY = e.y;
     const btnWidth = this.element.clientWidth;
     const rect = this.element.getBoundingClientRect();
     const btnOffsetTop = rect.top;
     const btnOffsetLeft = rect.left;
-    const posMouseX = pageX;
-    const posMouseY = pageY;
+    const posMouseX = e.pageX;
+    const posMouseY = e.pageY;
     const rippleX = posMouseX - btnOffsetLeft;
     const rippleY = posMouseY - btnOffsetTop;
 
@@ -40,25 +31,27 @@ class Ripple extends Component {
     rippleAnimate.style.cssText = baseStyle;
     this.element.appendChild(rippleAnimate);
 
-    requestAnimationFrame(function() {
-      rippleAnimate.style.cssText =
-        baseStyle +
-        ' transform: scale(1); -webkit-transition: scale(1); opacity: 0;';
-    });
+    setTimeout(() => {
+      requestAnimationFrame(() => {
+        rippleAnimate.style.cssText =
+          baseStyle +
+          ' transform: scale(1); -webkit-transition: scale(1); opacity: 0;';
+      });
+    }, 50); // 如不加延时有时动画不会生效，没找到原因
 
-    setTimeout(function() {
+    setTimeout(() => {
       rippleAnimate.remove();
-    }, 700);
+    }, 750);
   };
 
   render() {
-    const { children, type, ghost, onClick, ...otherProps } = this.props;
+    const { children, type, ghost, ...otherProps } = this.props;
     return (
       <a
         ref={node => (this.element = node)}
         className={cx('ripple-btn', type, { ghost })}
-        onClick={onClick}
         {...otherProps}
+        onClick={this.onClick}
       >
         <span>{children}</span>
       </a>
