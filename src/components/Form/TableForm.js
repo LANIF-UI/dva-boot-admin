@@ -112,6 +112,7 @@ class TableControlled extends Component {
       selectedRowKeys: value,
       selectType: typeof selectType === 'undefined' ? 'checkbox' : selectType,
       showNum: true,
+      isScroll: true,
       onChange: ({ pageNum, pageSize }) => this.onChange({ pageNum, pageSize }),
       onSelect: (keys, rows) => this.onSelect(keys, rows)
     };

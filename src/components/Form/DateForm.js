@@ -57,6 +57,7 @@ export default ({name, form, type, record, initialValue, rules, formFieldOptions
   }
 
   if (format) props.format = format;
+  else if (type === 'month') props.format = "YYYY-MM";
   else if (type === 'datetime' || type === 'date~') props.format = "YYYY-MM-DD HH:mm:ss";
   else if (type === 'time') props.format = "HH:mm:ss";
   else props.format = "YYYY-MM-DD";
