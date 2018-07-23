@@ -1,6 +1,7 @@
 import React from 'react';
 import PageLoading from 'components/Loading/PageLoading';
 import { normal } from 'components/Notification';
+import store from 'cmn-utils/lib/store';
 
 // 系统通知, 定义使用什么风格的通知，normal或antdNotice
 const notice = normal;
@@ -18,12 +19,16 @@ export default {
   request: {
     prefix: '/api',
 
+    // 每次请求头部都会带着这些参数
+    withHeaders: () => ({
+      token: store.getStore("token"),
+    }),
+
     /**
      * 因为modelEnhance需要知道服务器反回的数据，
      * 什么样的是成功，什么样的是失败，如
      * {status: true, data: ...} // 代表成功
      * {status: false, message: ...} // 代表失败
-     * 下面写法代表只要有反回就认为是成功，
      * 实际中应该通过服务端反回的response中的
      * 成功失败标识来进行区分
      */

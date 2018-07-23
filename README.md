@@ -10,9 +10,9 @@
 * [开发](#usage)
 * 文档
   - [如何开始](https://github.com/LANIF-UI/dva-boot-admin/blob/master/docs/start.md)
+  - [全局配置](https://github.com/LANIF-UI/dva-boot-admin/blob/master/docs/config.md)
   - [modelEnhance用法](https://github.com/LANIF-UI/dva-boot-admin/blob/master/docs/modelEnhance.md)
   - [pageHelper用法](https://github.com/LANIF-UI/dva-boot-admin/blob/master/docs/pageHelper.md)
-  - [全局配置](https://github.com/LANIF-UI/dva-boot-admin/blob/master/docs/config.md)
   - [组件](https://github.com/LANIF-UI/dva-boot-admin/blob/master/docs/components.md)
   - [接口数据模拟](https://github.com/LANIF-UI/dva-boot-admin/blob/master/docs/mock.md)
 * [截图](#gallery)

@@ -103,7 +103,7 @@ export default (model) => {
             
             // 如果需要通知功能
             if (notice) {
-              config.notice.success(notice === true ? '操作成功' : notice[0], 'success');
+              config.notice.success(notice === true ? '操作成功' : notice[0]);
             }
 
             // 准备返回值

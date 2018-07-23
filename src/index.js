@@ -20,9 +20,7 @@ app.use(createLoading());
 app.use({ onError: config.exception.global });
 
 // -> 请求
-request.config(config.request).headers(_ => ({
-  userId: store.getStore('userId')
-}));
+request.config(config.request);
 
 // 使用mock数据
 require('./__mocks__');

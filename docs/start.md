@@ -1,6 +1,6 @@
 # 如何开始
 
-开始之间最好先了解一下dva.js和create-react-app.
+开始之间最好先了解一下[dva.js](https://github.com/dvajs/dva/blob/master/README_zh-CN.md)和create-react-app.
 
 ## 如何得到一个干净的工程结构
 
