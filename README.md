@@ -8,7 +8,7 @@
 * [功能](#feature)
 * [目录结构](#structure)
 * [开发](#usage)
-* 文档
+* [文档](https://github.com/LANIF-UI/dva-boot-admin/blob/master/docs/index.md)
   - [如何开始](https://github.com/LANIF-UI/dva-boot-admin/blob/master/docs/start.md)
   - [全局配置](https://github.com/LANIF-UI/dva-boot-admin/blob/master/docs/config.md)
   - [modelEnhance用法](https://github.com/LANIF-UI/dva-boot-admin/blob/master/docs/modelEnhance.md)
