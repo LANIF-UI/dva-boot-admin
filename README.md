@@ -15,6 +15,7 @@
   - [pageHelper用法](https://github.com/LANIF-UI/dva-boot-admin/blob/master/docs/pageHelper.md)
   - [组件](https://github.com/LANIF-UI/dva-boot-admin/blob/master/docs/components.md)
   - [接口数据模拟](https://github.com/LANIF-UI/dva-boot-admin/blob/master/docs/mock.md)
+  - [FAQs](https://github.com/LANIF-UI/dva-boot-admin/blob/master/docs/faqs.md)
 * [截图](#gallery)
 * [更新日志](#change-log)
 * [结尾](#end)

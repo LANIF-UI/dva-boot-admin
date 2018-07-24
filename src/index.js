@@ -5,7 +5,6 @@ import dynamic from 'dva/dynamic';
 import createLoading from 'dva-loading';
 import createHistory from 'history/createHashHistory';
 import request from 'cmn-utils/lib/request';
-import store from 'cmn-utils/lib/store';
 import createRoutes from '@/routes';
 import 'assets/styles/index.less';
 import config from './config';
