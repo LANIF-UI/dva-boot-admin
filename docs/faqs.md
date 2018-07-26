@@ -41,3 +41,15 @@
   }
 },
 ```
+
+## 发布路径
+
+build项目的时候注意在`config-overrides.js`中配置正确的`publicPath`,例如放到`demo`文件夹下为
+```js
+config.output.publicPath = '/demo/'; // 跟据实际项目设置
+```
+若发布到服务器的跟目录下为
+```js
+config.output.publicPath = '/'; // 跟据实际项目设置
+```
+配置错则有可能加载不到相关资源
