@@ -1,2 +1,0 @@
-webpackJsonp([24],{1026:function(e,t,a){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var r=a(411);t.default=Object(r.a)({namespace:"form",state:{treeData:[]},subscriptions:{setup:function(e){var t=e.dispatch;e.history.listen(function(e){"/form"===e.pathname&&t({type:"@request",afterResponse:function(e){return e.data},payload:{valueField:"treeData",url:"/tree/getAsyncTreeSelect"}})})}}})}});
-//# sourceMappingURL=24.44298c6e.chunk.js.map
