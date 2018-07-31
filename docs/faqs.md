@@ -1,5 +1,19 @@
 # FAQs
 
+## columns.js 增加自定义事件
+columns里的`formItem`是直接用的antd里的对应组件 比如默认 `formItem: {}` 这样写用的就是antd的`Input`组件`formItem: { type: 'select' }`就是antd的Select下拉组件，要写事件的话直接在formItem里定义就行了,之后会传给对应组件,例：
+```js
+...
+{
+  title: '角色名',
+  name: 'roleName',
+  formItem: {
+    onKeyDown: e => console.log(e)
+  }
+},
+...
+```
+
 ## 如何配代理 proxy
 
 当请求后端接口时，我们使用反向代理方式，在`package.json`中进行设置，更多设置看[create-react-app](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#proxying-api-requests-in-development)
