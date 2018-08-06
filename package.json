@@ -30,7 +30,7 @@
     "antd": "^3.6.1",
     "bizcharts": "^3.1.5",
     "classnames": "^2.2.5",
-    "cmn-utils": "^1.0.4",
+    "cmn-utils": "^1.0.6",
     "css-animation": "^1.4.1",
     "css-element-queries": "^1.0.2",
     "dva": "^2.2.3",
