@@ -2,7 +2,6 @@
   "name": "dva-boot-admin",
   "version": "1.0.0",
   "description": "dva-boot-admin",
-  "main": "index.js",
   "homepage": "https://lanif-ui.github.io/dva-boot-admin",
   "repository": {
     "type": "git",
