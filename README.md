@@ -118,7 +118,7 @@ $ npm start
 - 新增Editor（富文本）页面
 - 更新Panel组件增加刷新，关闭功能
 - 新增Mask UI页面
-- 增增Icon UI页面
+- 新增Icon UI页面
 - 新增SearchBar页面
 - 新增TransferTree页面（扩展自antd的Transfer组件，可支持左侧为树的穿缩框，并支持异步加载）
 - 更新内置ICON图标
