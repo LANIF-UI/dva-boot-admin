@@ -35,7 +35,7 @@ export const TreeSelectForm = ({
 
   // 如果需要onChange
   if (typeof onChange === 'function') {
-    formFieldOptions.onChange = value => onChange(form, value); // form, value
+    formFieldOptions.onChange = (value, label, extra) => onChange(form, value, label, extra); // form, value
   }
 
   return getFieldDecorator(name, formFieldOptions)(
