@@ -433,3 +433,46 @@ export const createColumns11 = (self, dataSource) => [
     }
   },
 ];
+
+export const columns12 = [
+  {
+    title: '单选',
+    name: 'radio1',
+    dict: [
+      { code: '1', codeName: 'Hangzhou' },
+      { code: '2', codeName: 'Shanghai' },
+      { code: '3', codeName: 'Beijing' },
+      { code: '4', codeName: 'Chengdu' }
+    ],
+    formItem: {
+      type: 'radio'
+    }
+  },
+  {
+    title: '单选（样式）',
+    name: 'radio2',
+    dict: [
+      { code: '1', codeName: 'Hangzhou' },
+      { code: '2', codeName: 'Shanghai' },
+      { code: '3', codeName: 'Beijing' },
+      { code: '4', codeName: 'Chengdu' }
+    ],
+    formItem: {
+      type: 'radio',
+      buttonStyle: 'solid'
+    }
+  },
+  {
+    title: '复选',
+    name: 'radio3',
+    dict: [
+      { code: '1', codeName: 'Hangzhou' },
+      { code: '2', codeName: 'Shanghai' },
+      { code: '3', codeName: 'Beijing' },
+      { code: '4', codeName: 'Chengdu' }
+    ],
+    formItem: {
+      type: 'checkbox'
+    }
+  },
+];

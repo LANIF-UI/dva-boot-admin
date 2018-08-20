@@ -18,7 +18,8 @@ import {
   columns8,
   columns9,
   createColumns10,
-  createColumns11
+  createColumns11,
+  columns12,
 } from './columns';
 const { Content } = Layout;
 
@@ -204,6 +205,9 @@ export default class extends BaseComponent {
             <Col span={12}>
               <Panel title="自定义类型">
                 <Form columns={columns9} onSubmit={this.onSubmit} />
+              </Panel>
+              <Panel title="单选&复选">
+                <Form columns={columns12} onSubmit={this.onSubmit} />
               </Panel>
             </Col>
             <Col span={12}>

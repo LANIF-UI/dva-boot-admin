@@ -4,7 +4,6 @@ import { Form, Row, Col, Button } from 'antd';
 import cx from 'classnames';
 import objectAssign from 'object-assign';
 import InputForm from './InputForm';
-import SelectForm from './SelectForm';
 import DateForm from './DateForm';
 import CascadeForm from './CascadeForm';
 import TreeSelectForm from './TreeSelectForm';
@@ -15,6 +14,9 @@ import TransferForm from './TransferForm';
 import EditorForm from './EditorForm';
 import TransferTreeForm from './TransferTreeForm';
 import TableForm from './TableForm';
+import SelectForm from './SelectForm';
+import CheckboxForm from './CheckboxForm';
+import RadioForm from './RadioForm';
 import $$ from 'cmn-utils';
 import './style/index.less';
 
@@ -172,7 +174,7 @@ class FormComp extends React.Component {
     let classname = cx(prefixCls, className, {
       'form-inline': type === 'inline',
       'form-grid': type === 'grid',
-      'preview': preview,
+      preview: preview
     });
 
     let colopts = type === 'grid' ? objectAssign(this.cols, cols) : {};
@@ -224,7 +226,10 @@ class FormComp extends React.Component {
 
             let formItemLayout = { ..._formItemLayout };
             if (type === 'grid' && field.formItem.formItemLayout) {
-              formItemLayout = { ...formItemLayout, ...field.formItem.formItemLayout };
+              formItemLayout = {
+                ...formItemLayout,
+                ...field.formItem.formItemLayout
+              };
             } else if (type !== 'grid') {
               formItemLayout = {};
             }
@@ -289,6 +294,13 @@ class FormComp extends React.Component {
                   </ComponentCol>
                 );
               case 'select':
+              case 'checkbox':
+              case 'radio':
+                const crsForms = {
+                  select: SelectForm,
+                  checkbox: CheckboxForm,
+                  radio: RadioForm
+                };
                 const selectProps = {
                   form: form,
                   dict: field.dict,
@@ -310,7 +322,7 @@ class FormComp extends React.Component {
                       label={field.title}
                       className="col-item-content"
                     >
-                      {SelectForm(selectProps)}
+                      {crsForms[field.formItem.type](selectProps)}
                     </ComponentItem>
                   </ComponentCol>
                 );
