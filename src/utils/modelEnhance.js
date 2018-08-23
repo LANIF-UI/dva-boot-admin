@@ -33,7 +33,8 @@ async function asyncRequest(payload) {
     return _promise.then(resp => {
       if ($$.isFunction(config.pageHelper.responseFormat)) {
         const newPageInfo = config.pageHelper.responseFormat(resp);
-        return Object.assign(pageInfo, newPageInfo);
+        // 生成新实例，防止新老指向同一个实例问题
+        return Object.assign(new PageInfo(), pageInfo, newPageInfo);
       }
     })
   } else {
