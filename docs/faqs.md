@@ -67,3 +67,12 @@ config.output.publicPath = '/demo/'; // 跟据实际项目设置
 config.output.publicPath = '/'; // 跟据实际项目设置
 ```
 配置错则有可能加载不到相关资源
+
+## 使用`$$.post, $$.get`等发送请求时，注意处理反回异常
+例：
+```js
+$$.get('url').then(resp => {
+  // ...more      
+}).catch(e => console.err(e)); // 最好处理下错误
+```
+因为：在`config.js`中的`afterResponse`会再次抛出错误，需要我们自已处理

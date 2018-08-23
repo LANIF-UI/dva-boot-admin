@@ -37,8 +37,7 @@ export default {
       if (status) {
         return response;
       } else {
-        notice.error(message);
-        return response;
+        throw new Error(message);
       }
     },
     errorHandle: err => {
@@ -55,13 +54,12 @@ export default {
       const errName = err.name;
       // RequestError为拦截请求异常
       if (errName === 'RequestError') {
-        console.error(err);
-      } else {
         notice.error(err.message);
+        console.error(err); 
+      } else {
         console.error(err);
       }
-      // notice.error(err.message);
-    }
+    },
   },
 
   // 分页助手
