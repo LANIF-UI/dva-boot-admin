@@ -21,7 +21,7 @@
   - [接口数据模拟](https://github.com/LANIF-UI/dva-boot-admin/blob/master/docs/mock.md)
   - [FAQs](https://github.com/LANIF-UI/dva-boot-admin/blob/master/docs/faqs.md)
 * [截图](#gallery)
-* [更新日志](https://github.com/LANIF-UI/dva-boot-admin/CHANGELOG.md)
+* [更新日志](https://github.com/LANIF-UI/dva-boot-admin/blob/master/CHANGELOG.md)
 * [结尾](#end)
 
 ## Feature
