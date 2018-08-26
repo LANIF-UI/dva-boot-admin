@@ -138,7 +138,7 @@ class LeftSideBar extends Component {
     if (path && path.indexOf('http') === 0) {
       return path;
     } else {
-      return `/${path || ''}`.replace(/\/+/g, '/');
+      return `/${path || ''}`.replace(/\/+/g, '/').replace(/\/:\w+\??/, '');
     }
   };
 

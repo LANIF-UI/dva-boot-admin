@@ -8,6 +8,7 @@ import Page500 from './Pages/500';
 import Coming from './Pages/Coming';
 import Gallery from './Pages/Gallery';
 import Result from './Pages/Result';
+import LevelRoute from './Pages/LevelRoute';
 import Login from './Login';
 import Register from './Register';
 import Dashboard from './Dashboard';
@@ -69,6 +70,7 @@ const routesConfig = (app) => ([
       Gallery(),
       Result(),
       Page500(),
+      LevelRoute(app),
       NotFound(), // 这个要放到最下面，当所有路由当没匹配到时会进入这个页面
     ]
   }

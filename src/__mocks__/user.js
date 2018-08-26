@@ -173,6 +173,10 @@ export default ({fetchMock, delay, mock, toSuccess, toError}) => {
             name: '500',
             path: '/500',
           },
+          {
+            name: '多级路由',
+            path: '/level-route/:sub?',
+          },
         ],
       },
       {
