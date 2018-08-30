@@ -220,6 +220,7 @@ class DataTable extends Component {
           onRow={selectType ? (record, index) => ({
             onClick: _ => this.tableOnRow(record, index)
           }) : () => {}}
+          bodyStyle={{ overflowX: "auto" }}
           scroll={isScroll ? objectAssign({x: true}) : {}}
           columns={cols}
           pagination={pagination ? paging : false}

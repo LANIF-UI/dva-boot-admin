@@ -169,21 +169,21 @@ export const columns5 = [
       treeData: [
         {
           value: 'zhejiang',
-          label: 'Zhejiang',
+          title: 'Zhejiang',
           children: [
             {
               value: 'hangzhou',
-              label: 'Hangzhou'
+              title: 'Hangzhou'
             }
           ]
         },
         {
           value: 'jiangsu',
-          label: 'Jiangsu',
+          title: 'Jiangsu',
           children: [
             {
               value: 'nanjing',
-              label: 'Nanjing'
+              title: 'Nanjing'
             }
           ]
         }
