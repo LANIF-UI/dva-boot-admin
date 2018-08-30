@@ -15,16 +15,16 @@ class TransferControlled extends Component {
   static propTypes = {
     value: PropTypes.array,
     dataSource: PropTypes.array,
-    onChange: PropTypes.func,
-  }
+    onChange: PropTypes.func
+  };
 
   constructor(props) {
     super(props);
-    const {value, dataSource, ...otherProps} = props;
+    const { value, dataSource, ...otherProps } = props;
     this.state = {
       value: value,
       dataSource: dataSource,
-      visible: false,
+      visible: false
     };
     this.otherProps = otherProps;
   }
@@ -43,39 +43,44 @@ class TransferControlled extends Component {
     if (onChange) {
       onChange(nextTargetKeys);
     }
-  }
+  };
 
   showModal = () => {
     this.setState({
-      visible: true,
+      visible: true
     });
-  }
+  };
 
   hideModal = () => {
     this.setState({
-      visible: false,
+      visible: false
     });
-  }
+  };
 
   render() {
-    const {dataSource, value} = this.state;
-    
-    const comp = <Transfer
-      {...this.otherProps}
-      dataSource={dataSource}
-      titles={['源', '目标']}
-      targetKeys={value}
-      onChange={this.triggerChange}
-      render={item => item.title || item.label}
-    />;
+    const { dataSource, value } = this.state;
+
+    const comp = (
+      <Transfer
+        {...this.otherProps}
+        dataSource={dataSource}
+        titles={['源', '目标']}
+        targetKeys={value}
+        onChange={this.triggerChange}
+        render={item => item.title || item.label}
+      />
+    );
 
     if (this.otherProps.modal) {
       return (
         <div>
-          <Button onClick={this.showModal}>请选择{this.otherProps.title}</Button>
+          <Button onClick={this.showModal}>
+            请选择
+            {this.otherProps.title}
+          </Button>
           <Modal
             className="antui-transfer-modal"
-            title={"请选择" + this.otherProps.title}
+            title={'请选择' + this.otherProps.title}
             visible={this.state && this.state.visible}
             onOk={this.hideModal}
             onCancel={this.hideModal}
@@ -88,7 +93,7 @@ class TransferControlled extends Component {
         </div>
       );
     }
-    
+
     return comp;
   }
 }
@@ -96,17 +101,28 @@ class TransferControlled extends Component {
 /**
  * TransferForm组件
  */
-export default ({form, name, dict, formFieldOptions = {}, record, initialValue, rules, onChange, dataSource, normalize, ...otherProps}) => {
+export default ({
+  form,
+  name,
+  formFieldOptions = {},
+  record,
+  initialValue,
+  rules,
+  onChange,
+  dataSource,
+  normalize,
+  ...otherProps
+}) => {
   const { getFieldDecorator } = form;
 
   let initval = initialValue;
-  
+
   if (record) {
     initval = record[name];
   }
-  
+
   // 如果存在初始值
-  if (initval !== null && typeof (initval) !== "undefined") {
+  if (initval !== null && typeof initval !== 'undefined') {
     if ($$.isFunction(normalize)) {
       formFieldOptions.initialValue = normalize(initval);
     } else {
@@ -120,7 +136,7 @@ export default ({form, name, dict, formFieldOptions = {}, record, initialValue, 
   }
 
   // 如果需要onChange
-  if (typeof onChange === "function") {
+  if (typeof onChange === 'function') {
     formFieldOptions.onChange = value => onChange(form, value); // form, value
   }
 

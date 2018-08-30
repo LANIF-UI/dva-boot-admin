@@ -170,7 +170,6 @@ class TableControlled extends Component {
 export default ({
   form,
   name,
-  dict,
   formFieldOptions = {},
   record,
   initialValue,

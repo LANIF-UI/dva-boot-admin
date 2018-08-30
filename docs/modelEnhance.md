@@ -118,6 +118,7 @@ dispatch({
 dispatch({
   type: 'ns/@request',      // @request请求
   payload: {
+    actionType: 'typeName', // 表示自已处理reducer, 值为 actionType + ('_SUCCESS' | '_ERROR'),有此属性不必设置 valueField
     valueField: 'shopList', // 对应model中state里的key,响应结果会存到这个变量里，非必需
     url: 'apiAddress',      // 接口地址，必需
     method: 'POST',         // 默认为POST请求，非必需
