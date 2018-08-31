@@ -47,7 +47,7 @@ export default class CRUD extends BaseComponent {
       payload: [{
         notice: true,
         url: '/crud/bathDelete',
-        data: records.map(item => item.id)
+        data: records.map(item => item.rowKey)
       }, {
         valueField: 'pageData',
         url: '/crud/getList',
@@ -56,7 +56,7 @@ export default class CRUD extends BaseComponent {
       success: () => {
         // 如果操作成功，在已选择的行中，排除删除的行
         this.setState({
-          rows: rows.filter(item => !records.some(jtem => jtem.id === item.id))
+          rows: rows.filter(item => !records.some(jtem => jtem.rowKey === item.rowKey))
         });
       }
     });
@@ -90,7 +90,7 @@ export default class CRUD extends BaseComponent {
       selectType: 'checkbox',
       showNum: true,
       isScroll: true,
-      selectedRowKeys: rows.map(item => item.id),
+      selectedRowKeys: rows.map(item => item.rowKey),
       onChange: ({pageNum, pageSize}) => {
         dispatch({
           type: 'crud/@request',
