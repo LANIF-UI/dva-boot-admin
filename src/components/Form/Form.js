@@ -273,6 +273,7 @@ class FormComp extends React.Component {
               case 'select':
               case 'checkbox':
               case 'radio':
+              case 'treeSelect':
               case 'autoComplete': 
                 const crsForms = {
                   select: SelectForm,
@@ -280,7 +281,8 @@ class FormComp extends React.Component {
                   radio: RadioForm,
                   autoComplete: AutoCompleteForm,
                   cascade: CascadeForm,
-                  cascader: CascadeForm
+                  cascader: CascadeForm,
+                  treeSelect: TreeSelectForm
                 };
 
                 const ph = field.formItem.type === 'autoComplete' ? '请输入' : '请选择';
@@ -307,31 +309,6 @@ class FormComp extends React.Component {
                       className="col-item-content"
                     >
                       {crsForms[field.formItem.type](selectProps)}
-                    </ComponentItem>
-                  </ComponentCol>
-                );
-              case 'treeSelect':
-                const treeSelectProps = {
-                  form: form,
-                  allowClear: true,
-                  style:
-                    type === 'inline'
-                      ? { width: width || this.width[field.formItem.type] }
-                      : {},
-                  placeholder: `请选择${placeholder}`,
-                  ...otherField
-                };
-                if (getPopupContainer) {
-                  treeSelectProps.getPopupContainer = getPopupContainer;
-                }
-                return (
-                  <ComponentCol key={`col-${i}`} className="col-item" {...col}>
-                    <ComponentItem
-                      {...formItemLayout}
-                      label={field.title}
-                      className="col-item-content"
-                    >
-                      {TreeSelectForm(treeSelectProps)}
                     </ComponentItem>
                   </ComponentCol>
                 );
