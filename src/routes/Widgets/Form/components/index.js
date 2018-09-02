@@ -53,6 +53,11 @@ export default class extends BaseComponent {
     return new Promise(resolve => {
       this.props.dispatch({
         type: 'form/@request',
+        payload: {
+          valueField: 'treeData',
+          url: '/tree/getAsyncTreeSelect',
+          data: treeNode.props.eventKey
+        },
         afterResponse: resp => {
           const loop = data => {
             data.forEach(item => {
@@ -66,11 +71,6 @@ export default class extends BaseComponent {
           loop(treeData);
           resolve();
           return treeData;
-        },
-        payload: {
-          valueField: 'treeData',
-          url: '/tree/getAsyncTreeSelect',
-          data: treeNode.props.eventKey
         }
       });
     });
@@ -83,6 +83,15 @@ export default class extends BaseComponent {
     return $$.post('/datatable/getList', PageHelper.requestFormat(pageInfo)).then(resp => {
       const data = PageHelper.responseFormat(resp);
       return Object.assign(pageData, data);
+    });
+  }
+
+  onLoadAutoCompleteData = (value) => {
+    return new Promise(resolve => {
+      $$.post('/form/autoComplete', value).then(resp => {
+        const { data } = resp;
+        resolve(data.list);
+      }).catch(e => console.error(e));
     });
   }
 

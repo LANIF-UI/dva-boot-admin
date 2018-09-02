@@ -1,37 +1,150 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { AutoComplete } from 'antd';
+import { AutoComplete, Input, Icon } from 'antd';
 import $$ from 'cmn-utils';
+import omit from 'object.omit';
+import isEqual from 'react-fast-compare';
+const Option = AutoComplete.Option;
 
 class AutoCompleteControlled extends Component {
   static propTypes = {
-    value: PropTypes.array,
+    value: PropTypes.any,
     dataSource: PropTypes.array,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    keyField: PropTypes.string,
+    valueField: PropTypes.string,
+    render: PropTypes.func,
+    renderItem: PropTypes.func
   };
 
   constructor(props) {
     super(props);
-    const { value, dataSource, ...otherProps } = props;
+    const { value, loadData } = props;
     this.state = {
       value: value,
-      dataSource: dataSource,
-      visible: false
+      dataSource: [],
+      loading: false
     };
-    this.otherProps = otherProps;
+
+    this.handleSearch = loadData ? $$.debounce(this._handleSearch, 500) : null;
   }
 
   componentWillReceiveProps(nextProps) {
-    if ('value' in nextProps) {
-      const value = nextProps.value;
-      this.setState(value);
+    const { dataSource, value, loadData } = nextProps;
+    if (
+      !isEqual(this.props.dataSource, dataSource) ||
+      !isEqual(this.props.value, value)
+    ) {
+      const newState = { value };
+      if (!loadData && dataSource) {
+        newState.dataSource = value ? dataSource : [];
+      }
+
+      this.setState(newState);
     }
   }
 
-  render() {
-    const { dataSource, value } = this.state;
+  onSearch = value => {
+    const { onChange, loadData } = this.props;
+    if (onChange) {
+      onChange(value, {});
+    }
+    if (!value.trim()) {
+      this.setState({
+        dataSource: [],
+        value
+      });
+      return;
+    } else {
+      this.setState({
+        value
+      })
+    }
+    
+    if (loadData) {
+      this.handleSearch(value);
+    }
+  };
 
-    return null;
+  _handleSearch = value => {
+    const { loadData } = this.props;
+
+    this.setState({ loading: true });
+    const promise = loadData(value);
+    if (promise && promise.then) {
+      promise
+        .then(listItem => {
+          this.setState({
+            dataSource: listItem,
+            loading: false
+          });
+        })
+        .catch(e =>
+          this.setState({
+            dataSource: [],
+            loading: false
+          })
+        );
+    }
+  };
+
+  renderOptions = dataSource => {
+    const { render, renderItem } = this.props;
+    if (render) return render(dataSource) || [];
+    else if (renderItem) {
+      return dataSource.map(this.renderOptionItem);
+    } else {
+      return dataSource;
+    }
+  };
+
+  renderOptionItem = (item, index) => {
+    const { keyField, renderItem } = this.props;
+    return (
+      <Option key={item[keyField] || index} {...item}>
+        {renderItem(item)}
+      </Option>
+    );
+  };
+
+  onSelect = (value, option) => {
+    const onChange = this.props.onChange;
+    if (onChange) {
+      const { valueField, optionLabelProp } = this.props;
+      const itemProps = option.props;
+      const valueKey = valueField || optionLabelProp;
+      const rvalue = itemProps[valueKey] || value;
+      onChange(rvalue, option);
+    }
+  };
+
+  render() {
+    const { value, dataSource, loading } = this.state;
+    const { valueField } = this.props;
+    const autoComponentProps = omit(this.props, [
+      'value',
+      'dataSource',
+      'onChange'
+    ]);
+    return (
+      <AutoComplete
+        value={value}
+        dataSource={this.renderOptions(dataSource)}
+        onSelect={this.onSelect}
+        onSearch={this.onSearch}
+        optionLabelProp={valueField}
+        {...autoComponentProps}
+        allowClear={false}
+      >
+        <Input
+          suffix={
+            loading ? (
+              <Icon className="auto-complete-loading" type="loading" />
+            ) : null
+          }
+        />
+      </AutoComplete>
+    );
   }
 }
 
@@ -71,7 +184,8 @@ export default ({
 
   // 如果需要onChange
   if (typeof onChange === 'function') {
-    formFieldOptions.onChange = value => onChange(form, value); // form, value
+    formFieldOptions.onChange = (value, option) =>
+      onChange(form, value, option); // form, value, option 选中的项
   }
 
   return getFieldDecorator(name, formFieldOptions)(

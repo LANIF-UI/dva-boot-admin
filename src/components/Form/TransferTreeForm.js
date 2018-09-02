@@ -32,7 +32,7 @@ class TransferTreeControlled extends Component {
   componentWillReceiveProps(nextProps) {
     if ('value' in nextProps) {
       const value = nextProps.value;
-      this.setState(value);
+      this.setState({ value });
     }
   }
 

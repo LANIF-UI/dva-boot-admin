@@ -17,6 +17,7 @@ import TableForm from './TableForm';
 import SelectForm from './SelectForm';
 import CheckboxForm from './CheckboxForm';
 import RadioForm from './RadioForm';
+import AutoCompleteForm from './AutoCompleteForm';
 import $$ from 'cmn-utils';
 import './style/index.less';
 
@@ -269,38 +270,21 @@ class FormComp extends React.Component {
                 );
               case 'cascade':
               case 'cascader':
-                const cascadeProps = {
-                  form: form,
-                  allowClear: true,
-                  style:
-                    type === 'inline'
-                      ? { width: width || this.width[field.formItem.type] }
-                      : {},
-                  placeholder: `请选择${placeholder}`,
-                  ...otherField
-                };
-                if (getPopupContainer) {
-                  cascadeProps.getPopupContainer = getPopupContainer;
-                }
-                return (
-                  <ComponentCol key={`col-${i}`} className="col-item" {...col}>
-                    <ComponentItem
-                      {...formItemLayout}
-                      label={field.title}
-                      className="col-item-content"
-                    >
-                      {CascadeForm(cascadeProps)}
-                    </ComponentItem>
-                  </ComponentCol>
-                );
               case 'select':
               case 'checkbox':
               case 'radio':
+              case 'autoComplete': 
                 const crsForms = {
                   select: SelectForm,
                   checkbox: CheckboxForm,
-                  radio: RadioForm
+                  radio: RadioForm,
+                  autoComplete: AutoCompleteForm,
+                  cascade: CascadeForm,
+                  cascader: CascadeForm
                 };
+
+                const ph = field.formItem.type === 'autoComplete' ? '请输入' : '请选择';
+
                 const selectProps = {
                   form: form,
                   dict: field.dict,
@@ -309,7 +293,7 @@ class FormComp extends React.Component {
                     type === 'inline'
                       ? { width: width || this.width[field.formItem.type] }
                       : {},
-                  placeholder: `请选择${placeholder}`,
+                  placeholder: ph + placeholder,
                   ...otherField
                 };
                 if (getPopupContainer) {

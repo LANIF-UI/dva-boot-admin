@@ -5,6 +5,7 @@ import crud from './crud';
 import tree from './tree';
 import datatable from './datatable';
 import charts from './charts';
+import formData from './form';
 
 packMock(
   user,
@@ -12,4 +13,5 @@ packMock(
   tree,
   datatable,
   charts,
+  formData,
 );

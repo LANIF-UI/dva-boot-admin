@@ -81,17 +81,17 @@ export default ({fetchMock, delay, mock, toSuccess, toError}) => {
       }
       return toSuccess([
         {
-          label: '子节点0' + key,
+          title: '子节点0' + key,
           value: '0' + key,
           key: '0' + key,
         },
         {
-          label: '子节点1' + key,
+          title: '子节点1' + key,
           value: '1' + key,
           key: '1' + key,
         },
         {
-          label: '子节点2' + key,
+          title: '子节点2' + key,
           value: '2' + key,
           key: '2' + key,
           isLeaf: true,

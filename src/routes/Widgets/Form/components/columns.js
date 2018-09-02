@@ -376,6 +376,27 @@ export const createColumns10 = (self, treeData) => [
       treeData,
       loadData: self.onLoadData
     }
+  },
+  {
+    title: '自动完成',
+    name: 'name1',
+    formItem: {
+      type: 'autoComplete',
+      dataSource: ['111', '222', '333'],
+    }
+  },
+  {
+    title: '自动完成(异步)',
+    name: 'name',
+    formItem: {
+      type: 'autoComplete',
+      loadData: self.onLoadAutoCompleteData,
+      valueField: 'name',
+      keyField: 'id',
+      renderItem: item => (
+        <div>{item.name}/{item.age}岁/{item.city}</div>
+      ),
+    }
   }
 ];
 

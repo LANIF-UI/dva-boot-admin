@@ -2,47 +2,47 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Editor from '../Editor';
 import $$ from 'cmn-utils';
+import omit from 'object.omit';
 
 class EditorControlled extends Component {
   static propTypes = {
     value: PropTypes.string,
-    onChange: PropTypes.func,
-  }
+    onChange: PropTypes.func
+  };
 
   constructor(props) {
     super(props);
-    const {value, ...otherProps} = props;
+    const { value } = props;
     this.state = {
       value
     };
-    this.otherProps = otherProps;
   }
 
   componentWillReceiveProps(nextProps) {
-    const {value, ...otherProps} = nextProps;
+    const { value } = nextProps;
     if (value) {
-      this.otherProps = otherProps;
       this.setState({ value });
     }
   }
 
-  triggerChange = (value) => {
+  triggerChange = value => {
     this.setState({ value });
 
     const onChange = this.props.onChange;
     if (onChange) {
       onChange(value);
     }
-  }
+  };
 
   render() {
-    const {value} = this.state;
+    const { value } = this.state;
+    const otherProps = omit(this.props, 'value');
 
     return (
       <Editor
         value={value}
         onChange={this.triggerChange}
-        {...this.otherProps}
+        {...otherProps}
       />
     );
   }
@@ -51,17 +51,28 @@ class EditorControlled extends Component {
 /**
  * EditorForm组件
  */
-export default ({form, name, formFieldOptions = {}, record, initialValue, rules, onChange, normalize, preview, ...otherProps}) => {
+export default ({
+  form,
+  name,
+  formFieldOptions = {},
+  record,
+  initialValue,
+  rules,
+  onChange,
+  normalize,
+  preview,
+  ...otherProps
+}) => {
   const { getFieldDecorator } = form;
 
   let initval = initialValue;
-  
+
   if (record) {
     initval = record[name];
   }
-  
+
   // 如果存在初始值
-  if (initval !== null && typeof (initval) !== "undefined") {
+  if (initval !== null && typeof initval !== 'undefined') {
     if ($$.isFunction(normalize)) {
       formFieldOptions.initialValue = normalize(initval);
     } else {
@@ -70,7 +81,12 @@ export default ({form, name, formFieldOptions = {}, record, initialValue, rules,
   }
 
   if (preview) {
-    return <div style={otherProps.style} dangerouslySetInnerHTML={{__html: initval || ''}}></div>;
+    return (
+      <div
+        style={otherProps.style}
+        dangerouslySetInnerHTML={{ __html: initval || '' }}
+      />
+    );
   }
 
   // 如果有rules
@@ -79,7 +95,7 @@ export default ({form, name, formFieldOptions = {}, record, initialValue, rules,
   }
 
   // 如果需要onChange
-  if (typeof onChange === "function") {
+  if (typeof onChange === 'function') {
     formFieldOptions.onChange = value => onChange(form, value); // form, value
   }
 
