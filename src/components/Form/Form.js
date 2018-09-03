@@ -9,7 +9,7 @@ import CascadeForm from './CascadeForm';
 import TreeSelectForm from './TreeSelectForm';
 import CustomForm from './CustomForm';
 import PasswordForm from './PasswordForm';
-import InputNumber from './InputNumberForm';
+import InputNumberForm from './InputNumberForm';
 import TransferForm from './TransferForm';
 import EditorForm from './EditorForm';
 import TransferTreeForm from './TransferTreeForm';
@@ -235,6 +235,21 @@ class FormComp extends React.Component {
               formItemLayout = {};
             }
 
+            const crsForms = {
+              select: SelectForm,
+              checkbox: CheckboxForm,
+              radio: RadioForm,
+              autoComplete: AutoCompleteForm,
+              cascade: CascadeForm,
+              cascader: CascadeForm,
+              treeSelect: TreeSelectForm,
+              transfer: TransferForm,
+              transferTree: TransferTreeForm,
+              table: TableForm,
+              editor: EditorForm,
+              custom: CustomForm
+            };
+
             switch (field.formItem.type) {
               case 'date~':
               case 'datetime':
@@ -275,18 +290,7 @@ class FormComp extends React.Component {
               case 'radio':
               case 'treeSelect':
               case 'autoComplete': 
-                const crsForms = {
-                  select: SelectForm,
-                  checkbox: CheckboxForm,
-                  radio: RadioForm,
-                  autoComplete: AutoCompleteForm,
-                  cascade: CascadeForm,
-                  cascader: CascadeForm,
-                  treeSelect: TreeSelectForm
-                };
-
                 const ph = field.formItem.type === 'autoComplete' ? '请输入' : '请选择';
-
                 const selectProps = {
                   form: form,
                   dict: field.dict,
@@ -313,89 +317,9 @@ class FormComp extends React.Component {
                   </ComponentCol>
                 );
               case 'transfer':
-                return (
-                  <ComponentCol key={`col-${i}`} className="col-item" {...col}>
-                    <ComponentItem
-                      {...formItemLayout}
-                      label={field.title}
-                      className="col-item-content"
-                    >
-                      {TransferForm({
-                        form: form,
-                        style:
-                          type === 'inline'
-                            ? {
-                                width: width || this.width[field.formItem.type]
-                              }
-                            : {},
-                        ...otherField
-                      })}
-                    </ComponentItem>
-                  </ComponentCol>
-                );
               case 'transferTree':
-                return (
-                  <ComponentCol key={`col-${i}`} className="col-item" {...col}>
-                    <ComponentItem
-                      {...formItemLayout}
-                      label={field.title}
-                      className="col-item-content"
-                    >
-                      {TransferTreeForm({
-                        form: form,
-                        style:
-                          type === 'inline'
-                            ? {
-                                width: width || this.width[field.formItem.type]
-                              }
-                            : {},
-                        ...otherField
-                      })}
-                    </ComponentItem>
-                  </ComponentCol>
-                );
               case 'table':
-                return (
-                  <ComponentCol key={`col-${i}`} className="col-item" {...col}>
-                    <ComponentItem
-                      {...formItemLayout}
-                      label={field.title}
-                      className="col-item-content"
-                    >
-                      {TableForm({
-                        form: form,
-                        style:
-                          type === 'inline'
-                            ? {
-                                width: width || this.width[field.formItem.type]
-                              }
-                            : {},
-                        ...otherField
-                      })}
-                    </ComponentItem>
-                  </ComponentCol>
-                );
               case 'editor':
-                return (
-                  <ComponentCol key={`col-${i}`} className="col-item" {...col}>
-                    <ComponentItem
-                      {...formItemLayout}
-                      label={field.title}
-                      className="col-item-content"
-                    >
-                      {EditorForm({
-                        form: form,
-                        style:
-                          type === 'inline'
-                            ? {
-                                width: width || this.width[field.formItem.type]
-                              }
-                            : {},
-                        ...otherField
-                      })}
-                    </ComponentItem>
-                  </ComponentCol>
-                );
               case 'custom':
                 return (
                   <ComponentCol key={`col-${i}`} className="col-item" {...col}>
@@ -404,9 +328,8 @@ class FormComp extends React.Component {
                       label={field.title}
                       className="col-item-content"
                     >
-                      {CustomForm({
+                      {crsForms[field.formItem.type]({
                         form: form,
-                        render: field.formItem.render,
                         style:
                           type === 'inline'
                             ? {
@@ -446,27 +369,23 @@ class FormComp extends React.Component {
                   />
                 );
               case 'number':
-                return (
-                  <ComponentCol key={`col-${i}`} className="col-item" {...col}>
-                    <ComponentItem
-                      {...formItemLayout}
-                      label={field.title}
-                      className="col-item-content"
-                    >
-                      {InputNumber({
-                        form,
-                        style:
-                          type === 'inline'
-                            ? { width: width || this.width.default }
-                            : {},
-                        placeholder: `请输入${placeholder}`,
-                        maxLength: field.formItem.maxLength || '100',
-                        ...otherField
-                      })}
-                    </ComponentItem>
-                  </ComponentCol>
-                );
               default:
+                const inputProps = {
+                  form,
+                  style:
+                    type === 'inline'
+                      ? { width: width || this.width.default }
+                      : {},
+                  placeholder: `请输入${placeholder}`,
+                  ...otherField
+                };
+                let Comp = InputForm;
+                if (field.formItem.type === 'number') {
+                  inputProps.maxLength = field.formItem.maxLength || '100';
+                  Comp = InputNumberForm;
+                } else {
+                  inputProps.type = field.formItem.type
+                }
                 return (
                   <ComponentCol key={`col-${i}`} className="col-item" {...col}>
                     <ComponentItem
@@ -474,18 +393,7 @@ class FormComp extends React.Component {
                       label={field.title}
                       className="col-item-content"
                     >
-                      {InputForm({
-                        form,
-                        type: field.formItem.type,
-                        style:
-                          type === 'inline'
-                            ? { width: width || this.width.default }
-                            : {},
-                        placeholder: `请输入${placeholder}`,
-                        maxLength: field.formItem.maxLength || '100',
-                        autoComplete: 'off',
-                        ...otherField
-                      })}
+                      {Comp(inputProps)}
                     </ComponentItem>
                   </ComponentCol>
                 );

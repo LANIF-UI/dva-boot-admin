@@ -38,6 +38,6 @@ export default ({form, name, formFieldOptions = {}, record, initialValue, rules,
   delete otherProps.render;
 
   return getFieldDecorator(name, formFieldOptions)(
-    <Comp {...otherProps} type={type} />
+    <Comp {...otherProps} type={type} autoComplete="off" />
   );
 };
