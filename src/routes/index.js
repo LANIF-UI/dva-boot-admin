@@ -22,6 +22,7 @@ import DataTable from './Widgets/DataTable';
 import Form from './Widgets/Form';
 import EC from './Widgets/Charts/EC';
 import G2 from './Widgets/Charts/G2';
+import Print from './Widgets/Print';
 import Icon from './UI/Icon';
 import Mask from './UI/Mask';
 import Editor from './UI/Editor';
@@ -70,6 +71,7 @@ const routesConfig = (app) => ([
       Gallery(),
       Result(),
       Page500(),
+      Print(),
       LevelRoute(app),
       NotFound(), // 这个要放到最下面，当所有路由当没匹配到时会进入这个页面
     ]

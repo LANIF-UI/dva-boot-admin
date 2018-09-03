@@ -91,6 +91,10 @@ export default ({fetchMock, delay, mock, toSuccess, toError}) => {
               },
             ]
           },
+          {
+            name: '打印',
+            path: '/print',
+          },
         ],
       },
       {

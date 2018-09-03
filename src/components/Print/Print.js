@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types'
 import assign from 'object-assign';
 import { isArray } from 'cmn-utils/lib/utils';
-
+const ROOT = 'antui-print-container';
 /**
  * 打印页面中的指定组件，fork自 https://github.com/jasonday/printThis
  */
@@ -17,6 +17,10 @@ class Print extends Component {
     pageTitle: PropTypes.string,
     formValues: PropTypes.bool,
     removeScripts: PropTypes.bool,
+    beforePrint: PropTypes.func,
+    afterPrint: PropTypes.func,
+    printDelay: PropTypes.number,
+    trigger: PropTypes.node,
   }
 
   static defaultProps = {
@@ -27,39 +31,54 @@ class Print extends Component {
     loadCSS: "",                      // path to additional css file - use an array [] for multiple
     formValues: true,                 // preserve input/form values
     removeScripts: false,             // remove script tags from print content
+    beforePrint: null,                // function called before iframe is filled
+    afterPrint: null,                 // function called before iframe is removed
+    printDelay: 333,                  // variable print delay
   }
 
-  componentDidMount() {
-    const { content } = this.props;
+  constructor(props) {
+    super();
+    this.container = this.createContainer(props);
+    this.iframe = this.createFrame(props);
 
-    this.container = this.createContainer();
-    this.iframe = this.createFrame();
-
+    const { content } = props;
+    
     if (typeof content === 'string') {          // html string
       this.element = document.createElement('div');
       this.element.innerHTML = content;
-    } else if (React.isValidElement(content)) { // <div>bla,bla,bal...</div>
-      React.cloneElement(content, {
-        ref: node => this.element = node
-      });
-      ReactDOM.createPortal(this.props.children, this.container);
     } else if (content instanceof Element) {    // real dom element
       this.element = content;
     }
+  }
 
-    setTimeout(this.setContent, 333);  
+  componentDidMount() {
+    this.setContent();  
+  }
+
+  componentWillUnmount() {
+    // remove iframe after print
+    this.iframe.parentNode.removeChild(this.iframe);
   }
 
   /**
    * create container
    */
-  createContainer = () => {
-    let container = document.querySelector('#antui-print-container');
+  createContainer = (props) => {
+    let container = document.querySelector('#' + ROOT);
     if (container) return container;
     else {
       container = document.createElement('div');
-      container.id = 'antui-print-container';
+      container.id = ROOT;
       document.body.appendChild(container);
+      if (!props.debug) {
+        assign(container.style, {
+          position: "absolute",
+          width: "0px",
+          height: "0px",
+          left: "-600px",
+          top: "-600px"
+        });
+      };
       return container;
     }
   }
@@ -68,7 +87,6 @@ class Print extends Component {
    * create print iframe
    */
   createFrame = (props) => {
-    const { debug } = props;
     const strFrameName = "printThis-" + (new Date()).getTime();
 
     let printI = document.createElement('iframe');
@@ -85,15 +103,6 @@ class Print extends Component {
     }
     this.container.appendChild(printI);
 
-    if (!debug) {
-      assign(printI.style, {
-        position: "absolute",
-        width: "0px",
-        height: "0px",
-        left: "-600px",
-        top: "-600px"
-      });
-    };
     return printI;
   }
 
@@ -122,7 +131,7 @@ class Print extends Component {
     // import style tags
     if (importStyle) {
       document.querySelectorAll('style').forEach(item => {
-        head.appendChild(item);
+        head.appendChild(item.cloneNode(true));
       })
     }
 
@@ -156,7 +165,7 @@ class Print extends Component {
       })
     }
 
-    appendBody(body, this.element);
+    appendBody(body, this.element, this.props);
 
     if (canvas) {
       // Re-draw new canvases by referencing the originals
@@ -192,16 +201,42 @@ class Print extends Component {
 
   // print it
   handlePrint = () => {
+    const { afterPrint } = this.props;
+    // proper method
+    if (document.queryCommandSupported("print")) {
+      this.iframe.contentWindow.document.execCommand("print", false, null);
+    } else {
+      this.iframe.contentWindow.focus();
+      this.iframe.contentWindow.print();
+    }
 
+    // after print callback
+    if (typeof afterPrint === "function") {
+      afterPrint();
+    }
   }
 
   render() {
-    return React.cloneElement(this.props.trigger(), {
-      ref: this.savePrint,
-      onClick: this.handlePrint
-    });
+    const { content } = this.props;
+    return (
+      <React.Fragment>
+        {React.isValidElement(content) ? (
+          <Rootless container={this.container}>{
+            React.cloneElement(content, {
+              ref: node => this.element = node
+            })
+          }</Rootless>
+        ) : null}
+        {React.cloneElement(this.props.trigger, {
+          ref: this.savePrint,
+          onClick: this.handlePrint
+        })}
+      </React.Fragment>
+    );
   }
 }
+
+const Rootless = ({ children, container }) => ReactDOM.createPortal(children, container)
 
 // Add doctype to fix the style difference between printing and render
 function setDocType(iframe, doctype){
@@ -221,8 +256,8 @@ function setLink(head, href, media) {
   head.appendChild(link);
 }
 
-function appendBody(body, element) {
-  const { formValues, removeScripts } = this.props;
+function appendBody(body, element, props) {
+  const { formValues, removeScripts } = props;
   // Clone for safety and convenience
   const content = element.cloneNode(true);
 
