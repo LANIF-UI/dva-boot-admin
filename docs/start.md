@@ -44,7 +44,7 @@ export default app => createRoutes(app, routesConfig);
 
 ## 新建一个页面
 
-路由页面由四部分组成，**components，model，service，index.js**，
+首先在`src/routes`下建一个路由文件夹，形式可仿造`src/routes/Blank`，路由页面由四部分组成，**components，model，service，index.js**，
 
 ### components视图页面
 
