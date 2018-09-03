@@ -2,6 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
+/**
+ * 封装 ReactDOM.createPortal
+ */
 export default class Portal extends React.Component {
   static propTypes = {
     getContainer: PropTypes.func.isRequired,
