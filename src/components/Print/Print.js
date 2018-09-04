@@ -32,7 +32,7 @@ class Print extends Component {
     trigger: <button>打印</button>,
     doctypeString: '<!DOCTYPE html>',
     importCSS: true,
-    importStyle: false,
+    importStyle: true,
     pageTitle: "",
     loadCSS: "",
     formValues: true,
@@ -84,7 +84,8 @@ class Print extends Component {
           width: "0px",
           height: "0px",
           left: "-600px",
-          top: "-600px"
+          top: "-600px",
+          overflow: "hidden",
         });
       };
       return container;
@@ -267,12 +268,13 @@ function setLink(head, href, media) {
 function appendBody(body, element, props) {
   const { formValues, removeScripts } = props;
   // Clone for safety and convenience
-  const content = element.cloneNode(true);
+  const _element = ReactDOM.findDOMNode(element);
+  const content = _element.cloneNode(true);
 
   if (formValues) {
       // Copy original select and textarea values to their cloned counterpart
       // Makes up for inability to clone select and textarea values with clone(true)
-      copyValues(element, content, 'select, textarea');
+      copyValues(_element, content, 'select, textarea');
   }
 
   if (removeScripts) {
