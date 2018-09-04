@@ -5,35 +5,41 @@ import assign from 'object-assign';
 import { isArray } from 'cmn-utils/lib/utils';
 const ROOT = 'antui-print-container';
 /**
- * 打印页面中的指定组件，fork自 https://github.com/jasonday/printThis
+ * 打印页面中的指定组件，
+ * fork自：
+ *   https://github.com/gregnb/react-to-print
+ *   https://github.com/jasonday/printThis
  */
 class Print extends Component {
   static propTypes = {
-    content: PropTypes.any, // 可以是 string | node | element
-    debug: PropTypes.bool,
-    doctypeString: PropTypes.string,
-    importCSS: PropTypes.bool,
-    importStyle: PropTypes.bool,
-    pageTitle: PropTypes.string,
-    formValues: PropTypes.bool,
-    removeScripts: PropTypes.bool,
-    beforePrint: PropTypes.func,
-    afterPrint: PropTypes.func,
-    printDelay: PropTypes.number,
-    trigger: PropTypes.node,
+    content: PropTypes.any.isRequired,// 可以是 string | React组件 | DOM 元素
+    trigger: PropTypes.node,          // print controller area
+    debug: PropTypes.bool,            // debug
+    doctypeString: PropTypes.string,  // enter a different doctype for older markup
+    importCSS: PropTypes.bool,        // import parent page css
+    importStyle: PropTypes.bool,      // import style tags
+    pageTitle: PropTypes.string,      // add title to print page
+    loadCSS: PropTypes.oneOfType([PropTypes.string, PropTypes.array]), // path to additional css file - use an array [] for multiple
+    formValues: PropTypes.bool,       // preserve input/form values
+    removeScripts: PropTypes.bool,    // remove script tags from print content
+    beforePrint: PropTypes.func,      // function called before iframe is filled
+    afterPrint: PropTypes.func,       // function called before iframe is removed
+    printDelay: PropTypes.number,     // 
   }
 
   static defaultProps = {
-    doctypeString: '<!DOCTYPE html>', // enter a different doctype for older markup
-    importCSS: true,                  // import parent page css
-    importStyle: false,               // import style tags
-    pageTitle: "",                    // add title to print page
-    loadCSS: "",                      // path to additional css file - use an array [] for multiple
-    formValues: true,                 // preserve input/form values
-    removeScripts: false,             // remove script tags from print content
-    beforePrint: null,                // function called before iframe is filled
-    afterPrint: null,                 // function called before iframe is removed
-    printDelay: 333,                  // variable print delay
+    debug: false,
+    trigger: <button>打印</button>,
+    doctypeString: '<!DOCTYPE html>',
+    importCSS: true,
+    importStyle: false,
+    pageTitle: "",
+    loadCSS: "",
+    formValues: true,
+    removeScripts: false,
+    beforePrint: null,
+    afterPrint: null,
+    printDelay: 333,
   }
 
   constructor(props) {
@@ -48,6 +54,8 @@ class Print extends Component {
       this.element.innerHTML = content;
     } else if (content instanceof Element) {    // real dom element
       this.element = content;
+    } else if (!React.isValidElement(content) && ReactDOM.findDOMNode(content)) {
+      this.element = ReactDOM.findDOMNode(content);
     }
   }
 
