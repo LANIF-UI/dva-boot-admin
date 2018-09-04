@@ -87,11 +87,11 @@ export default class extends BaseComponent {
   }
 
   onLoadAutoCompleteData = (value) => {
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       $$.post('/form/autoComplete', value).then(resp => {
         const { data } = resp;
         resolve(data.list);
-      }).catch(e => console.error(e));
+      }).catch(e => reject(e)); // reject stop loading
     });
   }
 
