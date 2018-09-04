@@ -4,18 +4,75 @@ import { Layout, Row, Col, Button } from 'antd';
 import BaseComponent from 'components/BaseComponent';
 import Panel from 'components/Panel';
 import Print from 'components/Print';
+import EC from 'components/Charts/ECharts/EC';
+import 'echarts/lib/chart/pie';
+import 'echarts/lib/component/tooltip';
+import 'echarts/lib/component/title';
 const { Content } = Layout;
 
 @connect()
 export default class Blank extends BaseComponent {
-  saveRef = node => {
-    this.element1 = node;
+  state = {
+    element1: null,
+    element2: null,
+  }
+
+  saveElement1 = node => {
+    this.setState({
+      element1: node,
+    })
   };
 
+  saveElement2 = node => {
+    this.setState({
+      element2: node,
+    })
+  };
+
+  getOption = () => ({
+    title: {
+      text: '某站点用户访问来源',
+      subtext: '纯属虚构',
+      x: 'center'
+    },
+    tooltip: {
+      trigger: 'item',
+      formatter: '{a} <br/>{b} : {c} ({d}%)'
+    },
+    legend: {
+      orient: 'vertical',
+      left: 'left',
+      data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
+    },
+    series: [
+      {
+        name: '访问来源',
+        type: 'pie',
+        radius: '55%',
+        center: ['50%', '60%'],
+        data: [
+          { value: 335, name: '直接访问' },
+          { value: 310, name: '邮件营销' },
+          { value: 234, name: '联盟广告' },
+          { value: 135, name: '视频广告' },
+          { value: 1548, name: '搜索引擎' }
+        ],
+        itemStyle: {
+          emphasis: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.5)'
+          }
+        }
+      }
+    ]
+  });
+
   render() {
+    const { element1, element2 } = this.state;
     const comps = (
       <div>
-        <table>
+        <table border="1">
           <thead>
             <tr>
               <th>姓名</th>
@@ -38,7 +95,7 @@ export default class Blank extends BaseComponent {
     return (
       <Layout className="full-layout page print-page">
         <Content>
-          <Panel title="说明" ref={this.saveRef}>
+          <Panel title="说明" ref={this.saveElement1}>
             <h3>Print 用法</h3>
             <p>支持打印组件，打印HTML文本，dom元素，未渲染的React组件等</p>
           </Panel>
@@ -54,11 +111,10 @@ export default class Blank extends BaseComponent {
               <Panel title="ref 对应的 DOM 元素 | React 节点">
                 <div>将打印顶部说明内容</div>
                 <br />
-                {this.element1 ? (
+                {element1 ? (
                   <Print
-                    importStyle
                     trigger={<Button icon="printer">打印</Button>}
-                    content={this.element1}
+                    content={element1}
                   />
                 ) : null}
               </Panel>
@@ -68,10 +124,24 @@ export default class Blank extends BaseComponent {
                 <div>{comps}</div>
                 <br />
                 <Print
-                  importStyle
                   trigger={<Button icon="printer">打印</Button>}
                   content={comps}
                 />
+              </Panel>
+            </Col>
+            <Col span={8}>
+              <Panel title="">
+                <div style={{height: 300}}>
+                  <EC option={this.getOption()} ref={this.saveElement2} />
+                </div>
+                <br />
+                {element2 ? (
+                  <Print
+                    canvas
+                    trigger={<Button icon="printer">打印</Button>}
+                    content={element2}
+                  />
+                ) : null}
               </Panel>
             </Col>
           </Row>

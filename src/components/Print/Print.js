@@ -25,6 +25,7 @@ class Print extends Component {
     beforePrint: PropTypes.func,      // function called before iframe is filled
     afterPrint: PropTypes.func,       // function called before iframe is removed
     printDelay: PropTypes.number,     // 
+    canvas: PropTypes.bool,           // copy canvas content
   }
 
   static defaultProps = {
@@ -40,6 +41,7 @@ class Print extends Component {
     beforePrint: null,
     afterPrint: null,
     printDelay: 333,
+    canvas: false,
   }
 
   constructor(props) {
@@ -60,7 +62,7 @@ class Print extends Component {
   }
 
   componentDidMount() {
-    this.setContent();  
+    // setTimeout(this.setContent, this.props.printDelay);  
   }
 
   componentWillUnmount() {
@@ -182,7 +184,7 @@ class Print extends Component {
         const cid = item.getAttribute('data-printthis');
         const src = document.querySelector('[data-printthis="' + cid + '"]');
 
-        item.getContext('2d').drawImage(src[0], 0, 0);
+        item.getContext('2d').drawImage(src, 0, 0);
         src.removeAttribute('data-printthis');
       });
     }
@@ -211,6 +213,8 @@ class Print extends Component {
   // print it
   handlePrint = () => {
     const { afterPrint } = this.props;
+    
+    this.setContent();
     // proper method
     if (document.queryCommandSupported("print")) {
       this.iframe.contentWindow.document.execCommand("print", false, null);
