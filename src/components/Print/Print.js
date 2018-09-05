@@ -48,8 +48,23 @@ class Print extends Component {
     super();
     this.container = this.createContainer(props);
     this.iframe = this.createFrame(props);
+  }
 
-    const { content } = props;
+  componentDidMount() {
+    this.normalElement();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    this.normalElement();
+  }
+
+  componentWillUnmount() {
+    // remove iframe after print
+    this.iframe.parentNode.removeChild(this.iframe);
+  }
+
+  normalElement = () => {
+    const { content } = this.props;
     
     if (typeof content === 'string') {          // html string
       this.element = document.createElement('div');
@@ -59,15 +74,6 @@ class Print extends Component {
     } else if (!React.isValidElement(content) && ReactDOM.findDOMNode(content)) {
       this.element = ReactDOM.findDOMNode(content);
     }
-  }
-
-  componentDidMount() {
-    // setTimeout(this.setContent, this.props.printDelay);  
-  }
-
-  componentWillUnmount() {
-    // remove iframe after print
-    this.iframe.parentNode.removeChild(this.iframe);
   }
 
   /**

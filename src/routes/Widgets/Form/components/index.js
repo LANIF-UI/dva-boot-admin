@@ -114,7 +114,7 @@ export default class extends BaseComponent {
               Form通常结合<Link to="/column">Columns</Link>来使用，由Columns定义其数据结构，
               支持多种类型数据(<code>
                 cascade，date，editor，text，textarea，password，select，transfer，transferTree，treeSelect，table,
-                custom(自定义)
+                custom(自定义)，checkbox，radio，autoComplete等
               </code>)， 扩展自antd的Form组件，可以使用其api。
             </p>
           </Panel>
@@ -199,7 +199,7 @@ export default class extends BaseComponent {
           </Row>
           <Row gutter={20}>
             <Col span={12}>
-              <Panel title="级联&下拉树">
+              <Panel title="级联&下拉树&自动完成">
                 <Form columns={columns10} onSubmit={this.onSubmit} />
               </Panel>
             </Col>
