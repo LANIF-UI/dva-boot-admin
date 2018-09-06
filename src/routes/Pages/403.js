@@ -3,7 +3,7 @@ import { P403 } from 'components/Pages';
 
 const routesConfig = app => ({
   path: '/403',
-  title: 'DBAdmin - 403',
+  title: '403',
   component: P403
 });
 

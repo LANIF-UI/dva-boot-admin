@@ -3,7 +3,7 @@ import { ScreenLock } from 'components/Pages';
 
 const routesConfig = app => ({
   path: '/lock',
-  title: 'DBAdmin - Lock',
+  title: '锁屏',
   component: ScreenLock
 });
 

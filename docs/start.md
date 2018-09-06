@@ -84,7 +84,7 @@ export default modelEnhance({
 ```js
 const routesConfig = app => ({
   path: '/blank',                // url
-  title: 'DBAdmin - blank page', // 页面标题
+  title: 'blank page', // 页面标题
   component: dynamicWrapper(app, [import('./model')], () => import('./components')) // 如果没有 model 可以不写import('./model')
 });
 ```

@@ -2,7 +2,7 @@ import { dynamicWrapper, createRoute } from '@/utils/core';
 
 const routesConfig = (app) => ({
   path: '/level-route/sub-route',
-  title: 'DBAdmin - 二级路由',
+  title: '二级路由',
   component: dynamicWrapper(app, [import('./model')], () => import('./components')),
 });
 

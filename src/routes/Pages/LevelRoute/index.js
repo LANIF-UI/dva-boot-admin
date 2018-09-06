@@ -3,7 +3,7 @@ import SubRoute from './routes/SubRoute';
 
 const routesConfig = (app) => ({
   path: '/level-route',
-  title: 'DBAdmin - 一级路由',
+  title: '一级路由',
   component: dynamicWrapper(app, [import('./model')], () => import('./components')),
   childRoutes: [
     SubRoute(app),

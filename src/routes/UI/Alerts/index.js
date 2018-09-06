@@ -2,7 +2,7 @@ import { dynamicWrapper, createRoute } from '@/utils/core';
 
 const routesConfig = app => ({
   path: '/alerts',
-  title: 'DBAdmin - Alerts page',
+  title: 'Alerts page',
   component: dynamicWrapper(app, [], () => import('./components'))
 });
 

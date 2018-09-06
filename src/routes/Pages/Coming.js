@@ -3,7 +3,7 @@ import { Coming } from 'components/Pages';
 
 const routesConfig = app => ({
   path: '/coming',
-  title: 'DBAdmin - Coming Soon',
+  title: 'Coming Soon',
   component: Coming
 });
 

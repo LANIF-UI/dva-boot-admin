@@ -2,7 +2,7 @@ import { dynamicWrapper, createRoute } from '@/utils/core';
 
 const routesConfig = app => ({
   path: '/button',
-  title: 'DBAdmin - Button page',
+  title: '按钮',
   component: dynamicWrapper(app, [], () => import('./components'))
 });
 
