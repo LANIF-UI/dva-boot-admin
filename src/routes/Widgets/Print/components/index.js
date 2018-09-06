@@ -14,19 +14,19 @@ const { Content } = Layout;
 export default class Blank extends BaseComponent {
   state = {
     element1: null,
-    element2: null,
-  }
+    element2: null
+  };
 
   saveElement1 = node => {
     this.setState({
-      element1: node,
-    })
+      element1: node
+    });
   };
 
   saveElement2 = node => {
     this.setState({
-      element2: node,
-    })
+      element2: node
+    });
   };
 
   getOption = () => ({
@@ -100,14 +100,22 @@ export default class Blank extends BaseComponent {
             <p>支持打印组件，打印HTML文本，dom元素，未渲染的React组件等</p>
           </Panel>
           <Row gutter={20}>
-            <Col span={8}>
+            <Col span={12}>
               <Panel title="字符串 & HTML文本">
                 <div>{`<span style="color: red">今晚打老虎</span>`}</div>
                 <br />
                 <Print content={`<span style="color: red">今晚打老虎</span>`} />
               </Panel>
+              <Panel title="未渲染的React组件">
+                <div>{comps}</div>
+                <br />
+                <Print
+                  trigger={<Button icon="printer">打印</Button>}
+                  content={comps}
+                />
+              </Panel>
             </Col>
-            <Col span={8}>
+            <Col span={12}>
               <Panel title="ref 对应的 DOM 元素 | React 节点">
                 <div>将打印顶部说明内容</div>
                 <br />
@@ -118,20 +126,8 @@ export default class Blank extends BaseComponent {
                   />
                 ) : null}
               </Panel>
-            </Col>
-            <Col span={8}>
-              <Panel title="未渲染的React组件">
-                <div>{comps}</div>
-                <br />
-                <Print
-                  trigger={<Button icon="printer">打印</Button>}
-                  content={comps}
-                />
-              </Panel>
-            </Col>
-            <Col span={8}>
               <Panel title="">
-                <div style={{height: 300}}>
+                <div style={{ height: 300 }}>
                   <EC option={this.getOption()} ref={this.saveElement2} />
                 </div>
                 <br />

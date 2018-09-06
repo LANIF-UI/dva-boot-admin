@@ -11,6 +11,11 @@ const notice = normal;
  */
 export default {
   /**
+   * HTML的title模板
+   */
+  htmlTitle: 'DBAdmin - {title}',
+  
+  /**
    * 系统通知
    */
   notice,

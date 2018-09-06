@@ -223,6 +223,7 @@ export default class BasicLayout extends React.PureComponent {
                   collapsedRightSide={collapsedRightSide}
                   onCollapse={this.onCollapseTopBar}
                   currentMenu={currentMenu}
+                  location={location}
                   theme={theme}
                 />
               </Header>

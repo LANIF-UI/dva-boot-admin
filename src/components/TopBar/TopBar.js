@@ -8,8 +8,17 @@ import Mask from '../Mask';
 import './style/index.less';
 
 class TopBar extends Component {
+  state = {
+    currentRoute: []
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.getRouteLevel(nextProps.location.pathname);
+  }
+
   render() {
-    const { expand, toggleRightSide, collapsedRightSide, onCollapse, currentMenu } = this.props;
+    const { expand, toggleRightSide, collapsedRightSide, onCollapse } = this.props;
+    const { currentRoute } = this.state;
     const classnames = cx('topbar', {
       'topbar-expand': expand,
     });
@@ -69,12 +78,16 @@ class TopBar extends Component {
           </Row>
         </div>
         <header className="topbar-content">
-          <Breadcrumb>
-            <Breadcrumb.Item className="first">{currentMenu.name}</Breadcrumb.Item>
-            <Breadcrumb.Item className="icon"><Icon type="home" /></Breadcrumb.Item>
-            <Breadcrumb.Item><Link to="/">主页</Link></Breadcrumb.Item>
-            <Breadcrumb.Item>{currentMenu.name}</Breadcrumb.Item>
-          </Breadcrumb>
+          { currentRoute.length ? (
+            <Breadcrumb>
+              <Breadcrumb.Item className="first">{currentRoute[currentRoute.length-1].title}</Breadcrumb.Item>
+              <Breadcrumb.Item className="icon"><Icon type="home" /></Breadcrumb.Item>
+              <Breadcrumb.Item><Link to="/">主页</Link></Breadcrumb.Item>
+              {currentRoute.map((item, index) => (
+                <Breadcrumb.Item key={index}>{ index === currentRoute.length-1 ? item.title : <Link to={item.path}>{item.title}</Link>}</Breadcrumb.Item>
+              ))}
+            </Breadcrumb>
+          ) : null }
           <a className={cx("topbar-right", {"collapse": collapsedRightSide})} onClick={toggleRightSide}>
             <Icon type="into" />
           </a>
@@ -82,6 +95,19 @@ class TopBar extends Component {
         <Mask visible={expand} onClose={onCollapse} getContainer={node => node.parentNode} />
       </div>
     );
+  }
+
+  getRouteLevel = (pathName) => {
+    const orderPaths = [];
+    pathName.split('/').reduce((prev, next) => {
+      const path = [prev, next].join('/');
+      orderPaths.push(path);
+      return path;
+    });
+
+    this.setState({
+      currentRoute: orderPaths.map(item => window.dva_router_pathMap[item]).filter(item => !!item)
+    });
   }
 }
 
