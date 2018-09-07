@@ -8,6 +8,7 @@ import EC from 'components/Charts/ECharts/EC';
 import 'echarts/lib/chart/pie';
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';
+import Report from './Report';
 const { Content } = Layout;
 
 @connect()
@@ -114,6 +115,14 @@ export default class Blank extends BaseComponent {
                   content={comps}
                 />
               </Panel>
+              <Panel title="报表示例">
+                <div>点击按钮打印一份报表</div>
+                <br />
+                <Print
+                  trigger={<Button icon="printer">打印</Button>}
+                  content={<Report />}
+                />
+              </Panel>
             </Col>
             <Col span={12}>
               <Panel title="ref 对应的 DOM 元素 | React 节点">
@@ -126,7 +135,7 @@ export default class Blank extends BaseComponent {
                   />
                 ) : null}
               </Panel>
-              <Panel title="">
+              <Panel title="Canvas图表">
                 <div style={{ height: 300 }}>
                   <EC option={this.getOption()} ref={this.saveElement2} />
                 </div>

@@ -83,7 +83,7 @@ export default class extends BaseComponent {
     return $$.post('/datatable/getList', PageHelper.requestFormat(pageInfo)).then(resp => {
       const data = PageHelper.responseFormat(resp);
       return Object.assign(pageData, data);
-    });
+    }).catch(e => console.error(e));
   }
 
   onLoadAutoCompleteData = (value) => {
