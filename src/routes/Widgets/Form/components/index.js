@@ -19,7 +19,7 @@ import {
   columns9,
   createColumns10,
   createColumns11,
-  columns12,
+  columns12
 } from './columns';
 const { Content } = Layout;
 
@@ -27,23 +27,6 @@ const { Content } = Layout;
   form
 }))
 export default class extends BaseComponent {
-  state = {
-    pageData: PageHelper.create()
-  };
-
-  componentDidMount() {
-    const { pageData } = this.state;
-    const pageInfo = pageData.startPage(1, 10);
-
-    $$.post('/datatable/getList', PageHelper.requestFormat(pageInfo)).then(resp => {
-      const data = PageHelper.responseFormat(resp);
-      const newPageData = Object.assign(pageData, data);
-      this.setState({
-        pageData: newPageData
-      });
-    });
-  }
-
   onSubmit(values) {
     console.log(values);
   }
@@ -76,24 +59,24 @@ export default class extends BaseComponent {
     });
   };
 
-  onLoadTableData = ({ pageNum, pageSize }) => {
-    const { pageData } = this.state;
-    const pageInfo = pageData.jumpPage(pageNum, pageSize);
+  onLoadTableData = pageInfo => {
+    return $$.post('/datatable/getList', PageHelper.requestFormat(pageInfo))
+      .then(resp => {
+        return PageHelper.responseFormat(resp);
+      })
+      .catch(e => console.error(e));
+  };
 
-    return $$.post('/datatable/getList', PageHelper.requestFormat(pageInfo)).then(resp => {
-      const data = PageHelper.responseFormat(resp);
-      return Object.assign(pageData, data);
-    }).catch(e => console.error(e));
-  }
-
-  onLoadAutoCompleteData = (value) => {
+  onLoadAutoCompleteData = value => {
     return new Promise((resolve, reject) => {
-      $$.post('/form/autoComplete', value).then(resp => {
-        const { data } = resp;
-        resolve(data.list);
-      }).catch(e => reject(e)); // reject stop loading
+      $$.post('/form/autoComplete', value)
+        .then(resp => {
+          const { data } = resp;
+          resolve(data.list);
+        })
+        .catch(e => reject(e)); // reject stop loading
     });
-  }
+  };
 
   render() {
     const { treeData } = this.props.form;
@@ -104,18 +87,21 @@ export default class extends BaseComponent {
       roleName: '管理员'
     };
     const columns10 = createColumns10(this, treeData);
-    const columns11 = createColumns11(this, this.state.pageData);
+    const columns11 = createColumns11(this);
     return (
       <Layout className="full-layout page">
         <Content>
           <Panel title="说明">
             <h3>Form 用法</h3>
             <p>
-              Form通常结合<Link to="/column">Columns</Link>来使用，由Columns定义其数据结构，
-              支持多种类型数据(<code>
+              Form通常结合
+              <Link to="/column">Columns</Link>
+              来使用，由Columns定义其数据结构， 支持多种类型数据(
+              <code>
                 cascade，date，editor，text，textarea，password，select，transfer，transferTree，treeSelect，table,
                 custom(自定义)，checkbox，radio，autoComplete等
-              </code>)， 扩展自antd的Form组件，可以使用其api。
+              </code>
+              )， 扩展自antd的Form组件，可以使用其api。
             </p>
           </Panel>
           <Row gutter={20}>

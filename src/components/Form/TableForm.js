@@ -4,6 +4,8 @@ import { Modal, Button } from 'antd';
 import DataTable from '../DataTable';
 import $$ from 'cmn-utils';
 import isEqual from 'react-fast-compare';
+import PageHelper from '@/utils/pageHelper';
+import assign from 'object-assign';
 const Pagination = DataTable.Pagination;
 
 /**
@@ -28,7 +30,8 @@ class TableControlled extends Component {
   static defaultProps = {
     rowKey: 'id',
     titleKey: 'title',
-    modal: {}
+    modal: {},
+    dataSource: PageHelper.create()
   };
 
   constructor(props) {
@@ -42,16 +45,25 @@ class TableControlled extends Component {
     };
   }
 
+  componentDidMount() {
+    const { loadData } = this.props;
+    if (loadData) {
+      this.onChange({ pageNum: 1 });
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
-    const { dataSource, value } = nextProps;
+    const { dataSource, value, loadData } = nextProps;
     if (
       !isEqual(this.props.dataSource, dataSource) ||
       !isEqual(this.props.value, value)
     ) {
-      this.setState({
-        dataSource: dataSource,
-        value: value
-      });
+      const newState = { value };
+      if (!loadData && dataSource) {
+        newState.dataSource = dataSource;
+      }
+
+      this.setState(newState);
     }
   }
 
@@ -65,18 +77,18 @@ class TableControlled extends Component {
   };
 
   async onChange({ pageNum, pageSize }) {
-    const loadData = this.props.loadData;
+    const { loadData, dataSource } = this.props;
 
     if (loadData) {
       this.setState({
         loading: true
       });
 
-      const dataSource = await loadData({ pageNum, pageSize });
+      const newDataSource = await loadData(dataSource.jumpPage(pageNum, pageSize));
 
       this.setState({
         loading: false,
-        dataSource: dataSource || this.props.dataSource
+        dataSource: assign(dataSource, newDataSource)
       });
     }
   }
