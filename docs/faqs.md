@@ -14,7 +14,7 @@ columns里的`formItem`是直接用的antd里的对应组件 比如默认 `formI
 ...
 ```
 
-## 如何配代理 proxy
+## 如何配代理 proxy （开发环境下生效）
 
 当请求后端接口时，我们使用反向代理方式，在`package.json`中进行设置，更多设置看[create-react-app](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#proxying-api-requests-in-development)
 ```json
@@ -55,6 +55,31 @@ columns里的`formItem`是直接用的antd里的对应组件 比如默认 `formI
   }
 },
 ```
+
+## 不配代理，后台配跨域（不推荐）
+
+场景一：如果后台设置如下 （推荐）
+```js
+Access-Control-Allow-Origin *;
+Access-Control-Allow-Credentials true // 重要
+```
+则前台可以直接发请求（可能会有一条options请求），不用改配置
+
+场景二：如果后台设置如下
+```js
+Access-Control-Allow-Origin *;
+```
+
+如果前台不改配置，会报错<font color="red">device:1 Failed to load http://localhost:8080/test: Response to preflight request doesn't pass access control check: The value of the 'Access-Control-Allow-Origin' header in the response must not be the wildcard '*' when the request's credentials mode is 'include'. Origin 'http://localhost:3000' is therefore not allowed access.</font>
+
+
+需要前台需改配置`config.js`中的`request`
+```js
+  request: {
+    prefix: '/api',
+    credentials: 'omit', // credentials改为omit，fetch的默认值
+```
+在发请求应该就ok了，因为可能不是简单请求同样会有一条options
 
 ## 发布路径
 
