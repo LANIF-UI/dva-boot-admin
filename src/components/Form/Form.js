@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Form, Row, Col, Button } from 'antd';
+import { Form, Row, Col, Button, Divider } from 'antd';
 import cx from 'classnames';
 import objectAssign from 'object-assign';
 import InputForm from './InputForm';
@@ -19,6 +19,7 @@ import CheckboxForm from './CheckboxForm';
 import RadioForm from './RadioForm';
 import AutoCompleteForm from './AutoCompleteForm';
 import $$ from 'cmn-utils';
+import omit from 'object.omit';
 import './style/index.less';
 
 const createForm = Form.create;
@@ -371,6 +372,9 @@ class FormComp extends React.Component {
                     {...otherField}
                   />
                 );
+              case 'line':
+                const lineProps = omit(otherField, 'type');
+                return <Divider key={`col-${i}`} {...lineProps}>{otherField.name}</Divider>
               case 'number':
               default:
                 const inputProps = {

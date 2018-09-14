@@ -378,6 +378,12 @@ export const createColumns10 = (self, treeData) => [
     }
   },
   {
+    name: '分隔线',
+    formItem: {
+      type: 'line'
+    }
+  },
+  {
     title: '自动完成',
     name: 'name1',
     formItem: {
