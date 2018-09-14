@@ -43,3 +43,10 @@ app.router(({ history, app }) => (
 
 // -> Start
 app.start('#root');
+
+// export global
+export default{
+  app,
+  store: app._store,
+  dispatch: app._store.dispatch,
+}

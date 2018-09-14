@@ -49,7 +49,7 @@ class TableControlled extends Component {
     const { loadData } = this.props;
     if (loadData) {
       this.onChange({ pageNum: 1 });
-    }
+    }    
   }
 
   componentWillReceiveProps(nextProps) {
@@ -112,6 +112,7 @@ class TableControlled extends Component {
       titleKey,
       rowKey,
       selectType,
+      showNum,
       ...otherProps
     } = this.props;
     const { dataSource, value, loading } = this.state;
@@ -123,7 +124,7 @@ class TableControlled extends Component {
       dataItems: dataSource,
       selectedRowKeys: value,
       selectType: typeof selectType === 'undefined' ? 'checkbox' : selectType,
-      showNum: true,
+      showNum: typeof showNum === 'undefined' ? true : showNum,
       isScroll: true,
       onChange: ({ pageNum, pageSize }) => this.onChange({ pageNum, pageSize }),
       onSelect: (keys, rows) => this.onSelect(keys, rows)
@@ -189,6 +190,7 @@ export default ({
   onChange,
   dataSource,
   normalize,
+  rowKey,
   ...otherProps
 }) => {
   const { getFieldDecorator } = form;
@@ -219,6 +221,6 @@ export default ({
   }
 
   return getFieldDecorator(name, formFieldOptions)(
-    <TableControlled dataSource={dataSource} {...otherProps} />
+    <TableControlled dataSource={dataSource} rowKey={rowKey || name} {...otherProps} />
   );
 };
