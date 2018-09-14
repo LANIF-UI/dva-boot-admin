@@ -89,6 +89,7 @@ class FormComp extends React.Component {
 
     /** antd formItemLayout */
     formItemLayout: PropTypes.object,
+    layout: PropTypes.object, // 同formItemLayout
 
     /**
      * 是否是提交中状态
@@ -158,6 +159,7 @@ class FormComp extends React.Component {
       rows,
       cols,
       formItemLayout: _formItemLayout,
+      layout,
       appendTo,
       columns,
       record,
@@ -225,11 +227,12 @@ class FormComp extends React.Component {
               col = {};
             }
 
-            let formItemLayout = { ..._formItemLayout };
-            if (type === 'grid' && field.formItem.formItemLayout) {
+            let formItemLayout = { ..._formItemLayout, ...layout };
+            if (type === 'grid' && (field.formItem.formItemLayout || field.formItem.layout)) {
               formItemLayout = {
                 ...formItemLayout,
-                ...field.formItem.formItemLayout
+                ...field.formItem.formItemLayout,
+                ...field.formItem.layout
               };
             } else if (type !== 'grid') {
               formItemLayout = {};
