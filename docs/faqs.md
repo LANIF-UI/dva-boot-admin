@@ -56,6 +56,26 @@ columns里的`formItem`是直接用的antd里的对应组件 比如默认 `formI
 },
 ```
 
+## 如何配反向代理 nginx （生产环境下）
+
+1. 打开nginx配置文件`nginx.conf`，与上面效果一样，在`server`下增加
+```js
+location /api/v1/ {
+  proxy_pass http://192.168.202.11/v1/;
+}
+
+location /api/v2/ {
+  proxy_pass http://192.168.202.12/v2/;
+}
+
+location /api/ {
+  proxy_pass http://192.168.202.13/;
+}
+```
+更多配置自行查找...
+
+2. 重启nginx
+
 ## 不配代理，后台配跨域（不推荐）
 
 场景一：如果后台设置如下 （推荐）
