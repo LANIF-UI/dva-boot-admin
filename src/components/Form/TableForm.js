@@ -24,7 +24,8 @@ class TableControlled extends Component {
   static propTypes = {
     value: PropTypes.array,
     dataSource: PropTypes.object,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    loadData: PropTypes.func,
   };
 
   static defaultProps = {
