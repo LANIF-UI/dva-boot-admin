@@ -58,7 +58,7 @@ export default class PageInfo {
    * @param {number} pageSize page size
    */
   jumpPage(pageNum, pageSize) {
-    if ((pageNum && pageNum <= this.totalPages) || pageNum === 1) {
+    if ((pageNum && pageNum <= Math.ceil(this.totalPages)) || pageNum === 1) {
       this.pageNum = pageNum;
       if (pageSize) this.pageSize = pageSize;
     }
@@ -98,9 +98,9 @@ export default class PageInfo {
    */
   nextPage(pageNum) {
     if (this.totalPages !== -1) {
-      if (pageNum && pageNum <= this.totalPages) {
+      if (pageNum && pageNum <= Math.ceil(this.totalPages)) {
         this.pageNum = pageNum;
-      } else if (this.pageNum + 1 <= this.totalPages) {
+      } else if (this.pageNum + 1 <= Math.ceil(this.totalPages)) {
         this.pageNum ++;
       }
     } else {
