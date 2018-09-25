@@ -33,7 +33,7 @@ PlainComp.propTypes = {
 };
 
 /**
- * 搜索条
+ * 表单组件
  */
 class FormComp extends React.Component {
   static propTypes = {
