@@ -33,7 +33,7 @@ PlainComp.propTypes = {
 };
 
 /**
- * 搜索条
+ * 表单组件
  */
 class FormComp extends React.Component {
   static propTypes = {
@@ -374,7 +374,7 @@ class FormComp extends React.Component {
                 );
               case 'line':
                 const lineProps = omit(otherField, 'type');
-                return <Divider key={`col-${i}`} {...lineProps}>{otherField.name}</Divider>
+                return <Divider key={`col-${i}`} {...lineProps}>{otherField.title}</Divider>
               case 'number':
               default:
                 const inputProps = {

@@ -378,7 +378,7 @@ export const createColumns10 = (self, treeData) => [
     }
   },
   {
-    name: '分隔线',
+    title: '分隔线',
     formItem: {
       type: 'line'
     }
