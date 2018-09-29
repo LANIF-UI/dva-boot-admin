@@ -1,6 +1,7 @@
 import React from 'react';
 import { DatePicker, TimePicker } from 'antd';
 import $$ from 'cmn-utils';
+import moment from 'moment';
 const { MonthPicker, RangePicker } = DatePicker;
 /**
  * 日期，时间元件
@@ -32,7 +33,11 @@ export default ({
     if ($$.isFunction(normalize)) {
       formFieldOptions.initialValue = normalize(initval);
     } else {
-      formFieldOptions.initialValue = initval;
+      if ($$.isArray(initval)) {
+        formFieldOptions.initialValue = initval.map(item => moment.isMoment(item) ? item : moment(item))
+      } else {
+        formFieldOptions.initialValue = moment.isMoment(initval) ? initval : moment(initval);
+      }
     }
   }
 
