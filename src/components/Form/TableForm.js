@@ -25,14 +25,13 @@ class TableControlled extends Component {
     value: PropTypes.array,
     dataSource: PropTypes.object,
     onChange: PropTypes.func,
-    loadData: PropTypes.func,
+    loadData: PropTypes.func
   };
 
   static defaultProps = {
     rowKey: 'id',
     titleKey: 'title',
-    modal: {},
-    dataSource: PageHelper.create()
+    modal: {}
   };
 
   constructor(props) {
@@ -40,7 +39,7 @@ class TableControlled extends Component {
     const { value, dataSource } = props;
     this.state = {
       value: value,
-      dataSource: dataSource,
+      dataSource: dataSource || PageHelper.create(),
       visible: false,
       loading: false
     };
@@ -50,7 +49,7 @@ class TableControlled extends Component {
     const { loadData } = this.props;
     if (loadData) {
       this.onChange({ pageNum: 1 });
-    }    
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -78,14 +77,17 @@ class TableControlled extends Component {
   };
 
   async onChange({ pageNum, pageSize }) {
-    const { loadData, dataSource } = this.props;
+    const { loadData } = this.props;
+    const { dataSource } = this.state;
 
     if (loadData) {
       this.setState({
         loading: true
       });
 
-      const newDataSource = await loadData(dataSource.jumpPage(pageNum, pageSize));
+      const newDataSource = await loadData(
+        dataSource.jumpPage(pageNum, pageSize)
+      );
 
       this.setState({
         loading: false,
@@ -134,8 +136,17 @@ class TableControlled extends Component {
     if (modal) {
       return (
         <div>
-          <Button onClick={this.showModal}>请选择{otherProps.title}</Button>&nbsp;
-          {value && value.length ? <span>已选择：{value.length}项</span> : null}
+          <Button onClick={this.showModal}>
+            请选择
+            {otherProps.title}
+          </Button>
+          &nbsp;
+          {value && value.length ? (
+            <span>
+              已选择：
+              {value.length}项
+            </span>
+          ) : null}
           <Modal
             className="antui-table-modal"
             title={'请选择' + otherProps.title}
@@ -222,6 +233,10 @@ export default ({
   }
 
   return getFieldDecorator(name, formFieldOptions)(
-    <TableControlled dataSource={dataSource} rowKey={rowKey || name} {...otherProps} />
+    <TableControlled
+      dataSource={dataSource}
+      rowKey={rowKey || name}
+      {...otherProps}
+    />
   );
 };
