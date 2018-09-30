@@ -1610,9 +1610,9 @@ clone@^2.1.1:
   version "2.1.1"
   resolved "http://registry.npm.taobao.org/clone/download/clone-2.1.1.tgz#d217d1e961118e3ac9a4b8bba3285553bf647cdb"
 
-cmn-utils@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/cmn-utils/-/cmn-utils-1.0.6.tgz#0fffa350accee6d0f0330ec381505a57f6fc27ba"
+cmn-utils@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.npmjs.org/cmn-utils/-/cmn-utils-1.0.7.tgz#71259793343ef03194174e3eb85ace81146ae6f0"
   dependencies:
     downloadjs "^1.4.7"
     fetch-jsonp "^1.1.3"
