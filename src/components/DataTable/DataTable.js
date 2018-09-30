@@ -193,6 +193,15 @@ class DataTable extends Component {
           dataIndex: col.name,
           ...item
         };
+      })
+      // 保存rowkey在record
+      .concat({
+        dataIndex: '_rowkey',
+        width: 0,
+        render(text, record, index) {
+          record.rowKey = record[rowKey || colRowKey];
+          return <div style={{ display: 'none' }}>{record.rowKey}</div>;
+        }
       });
 
     // 显示行号
@@ -253,10 +262,7 @@ class DataTable extends Component {
           bodyStyle={{ overflowX: 'auto' }}
           columns={cols}
           pagination={pagination ? paging : false}
-          dataSource={dataItems.list.map(item => ({
-            ...item,
-            rowKey: item[this._rowKey]
-          }))}
+          dataSource={dataItems.list}
           onChange={this.handleTableChange}
           rowKey={this._rowKey}
           {...otherProps}
