@@ -92,3 +92,7 @@ const routesConfig = app => ({
 ## 注册新页面到全局路由
 
 在routers下的index.js里加入我们新写的页面即可。
+
+## 配置路由到左侧菜单
+
+在菜单的模拟数据里[`src/__mocks__/user.js`](https://github.com/LANIF-UI/dva-boot-admin/blob/master/src/__mocks__/user.js#L41)增加我们新写的这个路由页面
