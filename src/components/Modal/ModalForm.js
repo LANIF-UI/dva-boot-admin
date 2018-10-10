@@ -72,7 +72,6 @@ class ModalForm extends Component {
     const classname = cx(className, 'antui-modalform', { 'full-modal': full });
     const modalProps = {
       className: classname,
-      confirmLoading: loading,
       visible: this.state.visible,
       style: { top: 20 },
       title: title || (record ? '编辑内容' : '新增内容'),
@@ -86,7 +85,7 @@ class ModalForm extends Component {
           </Button>
         ),
         onSubmit && (
-          <Button key="submit" type="primary" onClick={this.onSubmit}>
+          <Button key="submit" type="primary" onClick={this.onSubmit} loading={loading}>
             确定
           </Button>
         )
