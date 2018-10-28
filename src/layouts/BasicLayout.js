@@ -8,6 +8,7 @@ import TopBar from 'components/TopBar';
 import SkinToolbox from 'components/SkinToolbox';
 import pathToRegexp from 'path-to-regexp';
 import ElementQueries from 'css-element-queries/src/ElementQueries';
+import TabsLayout from './TabsLayout';
 import './styles/basic.less';
 import $$ from 'cmn-utils';
 import cx from 'classnames';
@@ -32,7 +33,8 @@ export default class BasicLayout extends React.PureComponent {
       theme.layout = [
         'fixedHeader',
         'fixedSidebar',
-        'fixedBreadcrumbs'
+        'fixedBreadcrumbs',
+        'tabLayout',
         // 'hidedBreadcrumbs',
       ];
     }
@@ -80,8 +82,7 @@ export default class BasicLayout extends React.PureComponent {
     const {
       location: { pathname },
       global
-    } =
-      props || this.props;
+    } = props || this.props;
     const menu = this.getMeunMatchKeys(global.flatMenu, pathname)[0];
     return menu;
   }
@@ -215,22 +216,26 @@ export default class BasicLayout extends React.PureComponent {
             user={user}
           />
           <Content>
-            <Layout className="full-layout">
-              <Header>
-                <TopBar
-                  expand={expandTopBar}
-                  toggleRightSide={this.toggleRightSide}
-                  collapsedRightSide={collapsedRightSide}
-                  onCollapse={this.onCollapseTopBar}
-                  currentMenu={currentMenu}
-                  location={location}
-                  theme={theme}
-                />
-              </Header>
-              <Content className="router-page">
-                <Switch>{childRoutes}</Switch>
-              </Content>
-            </Layout>
+            {theme.layout.indexOf('tabLayout') >= 0 ? (
+              <TabsLayout childRoutes={childRoutes} location={location} />
+            ) : (
+              <Layout className="full-layout">
+                <Header>
+                  <TopBar
+                    expand={expandTopBar}
+                    toggleRightSide={this.toggleRightSide}
+                    collapsedRightSide={collapsedRightSide}
+                    onCollapse={this.onCollapseTopBar}
+                    currentMenu={currentMenu}
+                    location={location}
+                    theme={theme}
+                  />
+                </Header>
+                <Content className="router-page">
+                  <Switch>{childRoutes}</Switch>
+                </Content>
+              </Layout>
+            )}
           </Content>
           <RightSideBar collapsed={collapsedRightSide} />
         </Layout>
