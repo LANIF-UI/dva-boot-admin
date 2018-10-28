@@ -78,9 +78,6 @@ $ cd dva-boot-admin
 // 使用yarn
 $ yarn
 $ yarn start
-// 使用npm
-$ npm install
-$ npm start
 ```
 
 ## End
