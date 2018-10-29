@@ -34,7 +34,6 @@ export default class BasicLayout extends React.PureComponent {
         'fixedHeader',
         'fixedSidebar',
         'fixedBreadcrumbs',
-        'tabLayout',
         // 'hidedBreadcrumbs',
       ];
     }

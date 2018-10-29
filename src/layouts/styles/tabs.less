@@ -1,8 +1,5 @@
 .tabs-layout {
   .lanif-tabs-content {
-    height: 100%;
-    width: 100%;
-    position: absolute;
     background: #fff;
     > .ant-tabs-bar {
       margin-bottom: 0;
@@ -47,6 +44,17 @@
     > .ant-tabs-content {
       position: relative;
       height: ~'calc(100% - 44px)';
+      overflow: auto;
+    }
+  }
+}
+
+.basic-layout {
+  &.fixed {
+    .tabs-layout .lanif-tabs-content {
+      height: 100%;
+      width: 100%;
+      position: absolute;
     }
   }
 }
