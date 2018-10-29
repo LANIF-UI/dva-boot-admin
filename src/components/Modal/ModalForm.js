@@ -74,7 +74,7 @@ class ModalForm extends Component {
       className: classname,
       visible: this.state.visible,
       style: { top: 20 },
-      title: title || (record ? '编辑内容' : '新增内容'),
+      title: title || (record ? '编辑' : '新增'),
       // maskClosable: true,
       destroyOnClose: true,
       onCancel: this.closeModal,
