@@ -260,6 +260,7 @@ class SearchBar extends React.Component {
                     form,
                     allowClear: true,
                     showSearch: true,
+                    optionFilterProp: 'children',
                     dict: field.dict,
                     style:
                       type === 'inline'
