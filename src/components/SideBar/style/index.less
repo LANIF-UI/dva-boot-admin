@@ -4,6 +4,9 @@
 .sidebar-left {
   background-color: #001529;
   user-select: none;
+  position: relative;
+  z-index: 10;
+  
   &.sidebar-left-sm {
     .ant-menu {
       transition: transform 0.3s ease;
@@ -160,6 +163,13 @@
   }
   .offline {
     background-color: #666;
+  }
+}
+
+// 左抽屉
+.left-sidebar-drawer {
+  .sidebar-left {
+    min-height: 100vh;
   }
 }
 

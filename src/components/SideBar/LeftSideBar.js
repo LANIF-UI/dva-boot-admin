@@ -4,7 +4,7 @@
  */
 import React, { Component } from 'react';
 import cx from 'classnames';
-import { Menu, Layout, Switch, Select } from 'antd';
+import { Menu, Layout, Switch, Select, Drawer } from 'antd';
 import { Link } from 'dva/router';
 import pathToRegexp from 'path-to-regexp';
 import Icon from '../Icon';
@@ -174,7 +174,8 @@ class LeftSideBar extends Component {
       leftCollapsedWidth,
       showHeader,
       menu,
-      user
+      user,
+      isMobile
     } = this.props;
 
     const classnames = cx('sidebar-left', 'sidebar-default', {
@@ -198,14 +199,14 @@ class LeftSideBar extends Component {
           selectedKeys
         };
 
-    return (
+    const siderBar = (
       <Sider
         className={classnames}
         width={230}
         collapsedWidth={leftCollapsedWidth + 0.1}
         collapsible
-        collapsed={collapsed}
-        onCollapse={onCollapse}
+        collapsed={isMobile ? false : collapsed}
+        onCollapse={isMobile ? null : onCollapse}
         breakpoint="lg"
         trigger={null}
       >
@@ -222,16 +223,20 @@ class LeftSideBar extends Component {
                     dropdownClassName="sidebar-header-dropdown"
                   >
                     <Option value="online">
-                      <span className="user online" />在线
+                      <span className="user online" />
+                      在线
                     </Option>
                     <Option value="busy">
-                      <span className="user busy" />忙碌
+                      <span className="user busy" />
+                      忙碌
                     </Option>
                     <Option value="invisible">
-                      <span className="user invisible" />隐身
+                      <span className="user invisible" />
+                      隐身
                     </Option>
                     <Option value="offline">
-                      <span className="user offline" />离线
+                      <span className="user offline" />
+                      离线
                     </Option>
                   </Select>
                 </div>
@@ -249,7 +254,7 @@ class LeftSideBar extends Component {
             {this.getNavMenuItems(menu)}
           </Menu>
           <div className="sidebar-toggle-mini">
-            {collapsed && leftCollapsedWidth !== 0 ? (
+            {collapsed && leftCollapsedWidth !== 0 && !isMobile ? (
               <Switch
                 checked={collapsed}
                 onChange={onCollapseAll}
@@ -259,6 +264,24 @@ class LeftSideBar extends Component {
           </div>
         </div>
       </Sider>
+    );
+
+    return isMobile ? (
+      <Drawer
+        className="left-sidebar-drawer"
+        visible={!collapsed}
+        placement="left"
+        onClose={onCollapse}
+        width={230}
+        style={{
+          padding: 0,
+          height: '100vh'
+        }}
+      >
+        {siderBar}
+      </Drawer>
+    ) : (
+      siderBar
     );
   }
 }
