@@ -2,7 +2,7 @@
  * 来源
  * https://github.com/ant-design/ant-design-pro/blob/master/src/components/SiderMenu/SiderMenu.js
  */
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import cx from 'classnames';
 import { Menu, Layout, Switch, Select, Drawer } from 'antd';
 import { Link } from 'dva/router';
@@ -33,7 +33,7 @@ export const getMeunMatchKeys = (flatMenu, path) => {
   });
 };
 
-class LeftSideBar extends Component {
+class LeftSideBar extends PureComponent {
   static defaultProps = {
     fixed: true,
     theme: ''
@@ -273,10 +273,6 @@ class LeftSideBar extends Component {
         placement="left"
         onClose={onCollapse}
         width={230}
-        style={{
-          padding: 0,
-          height: '100vh'
-        }}
       >
         {siderBar}
       </Drawer>

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import Icon from '../Icon';
 import { Popover, Badge, Avatar } from 'antd';
 import { Link } from 'dva/router';
@@ -10,7 +10,7 @@ import SearchBox from './SearchBox';
 /**
  * 其本本局头部区域
  */
-class NavBar extends Component {
+class NavBar extends PureComponent {
   state = {
     openSearchBox: false
   };
@@ -107,18 +107,19 @@ class NavBar extends Component {
               <Icon type="wand" />
             </a>
           </li>
-          <li onClick={this.toggleFullScreen}>
-            <a className="request-fullscreen">
-              <Icon type="screen-full" />
-            </a>
-          </li>
           {isMobile ? (
             <li className="mini-search" onClick={this.onOpenSearchBox}>
               <a>
                 <Icon type="search" antd />
               </a>
             </li>
-          ) : null}
+          ) : (
+            <li onClick={this.toggleFullScreen}>
+              <a className="request-fullscreen">
+                <Icon type="screen-full" />
+              </a>
+            </li>
+          )}
         </ul>
         {isMobile ? null : (
           <form className="navbar-form navbar-search clearfix">
