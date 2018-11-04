@@ -2,7 +2,9 @@ import './styles/tabs.less';
 import React from 'react';
 import { Layout, Tabs, Dropdown, Button, Menu, Icon } from 'antd';
 import BaseComponent from 'components/BaseComponent';
-import { Switch } from 'dva/router';
+import { Switch, Route } from 'dva/router';
+import NotFound from 'components/Pages/404';
+
 const { Content } = Layout;
 const TabPane = Tabs.TabPane;
 
@@ -11,7 +13,7 @@ function getTitle(pathName) {
   return <div className="tab-title">{map ? map.title : 'Tag'}</div>;
 }
 
-export default class UserLayout extends BaseComponent {
+export default class TabsLayout extends BaseComponent {
   constructor(props) {
     const {
       childRoutes,
@@ -22,7 +24,8 @@ export default class UserLayout extends BaseComponent {
     const panes = childRoutes.filter(item => item.key === pathname);
     this.state = {
       activeKey: panes.length ? panes[0].key : '/notfound',
-      panes
+      panes,
+      noMatch: !panes.length
     };
   }
 
@@ -31,22 +34,25 @@ export default class UserLayout extends BaseComponent {
       childRoutes,
       location: { pathname }
     } = this.props;
-    const { panes } = this.state;
+    let { panes } = this.state;
     const nextpathname = nextProps.location.pathname;
     if (pathname !== nextpathname) {
+      let noMatch;
       let newPanes = [];
       const existPane = panes.some(item => item.key === nextpathname);
       if (!existPane) {
-        newPanes = panes.concat(
-          childRoutes.filter(item => item.key === nextpathname)
-        );
+        const nextPanes = childRoutes.filter(item => item.key === nextpathname);
+        noMatch = !nextPanes.length;
+        newPanes = panes.concat(nextPanes);
       } else {
         newPanes = panes;
+        noMatch = false;
       }
 
       this.setState({
         activeKey: nextpathname,
-        panes: newPanes
+        panes: newPanes,
+        noMatch
       });
     }
   }
@@ -100,42 +106,46 @@ export default class UserLayout extends BaseComponent {
   };
 
   render() {
-    const { panes, activeKey } = this.state;
+    const { panes, activeKey, noMatch } = this.state;
 
     return (
       <Layout className="full-layout tabs-layout">
         <Content>
           <Switch>
-            <Tabs
-              hideAdd
-              type="editable-card"
-              className="lanif-tabs-content"
-              tabBarExtraContent={
-                <Dropdown
-                  overlay={
-                    <Menu onClick={this.onTabsActions}>
-                      <Menu.Item key="close">关闭当前</Menu.Item>
-                      <Menu.Item key="closeother">关闭其它</Menu.Item>
-                      <Menu.Item key="closeall">关闭所有</Menu.Item>
-                    </Menu>
-                  }
-                >
-                  <Button type="primary" ghost>
-                    操作
-                    <Icon type="down" />
-                  </Button>
-                </Dropdown>
-              }
-              onEdit={this.onRemove}
-              onChange={this.onChange}
-              activeKey={activeKey}
-            >
-              {panes.map(item => (
-                <TabPane tab={getTitle(item.key)} key={item.key}>
-                  {item}
-                </TabPane>
-              ))}
-            </Tabs>
+            {noMatch ? (
+              <Route component={NotFound} />
+            ) : (
+              <Tabs
+                hideAdd
+                type="editable-card"
+                className="lanif-tabs-content"
+                tabBarExtraContent={
+                  <Dropdown
+                    overlay={
+                      <Menu onClick={this.onTabsActions}>
+                        <Menu.Item key="close">关闭当前</Menu.Item>
+                        <Menu.Item key="closeother">关闭其它</Menu.Item>
+                        <Menu.Item key="closeall">关闭所有</Menu.Item>
+                      </Menu>
+                    }
+                  >
+                    <Button type="primary" ghost>
+                      操作
+                      <Icon type="down" />
+                    </Button>
+                  </Dropdown>
+                }
+                onEdit={this.onRemove}
+                onChange={this.onChange}
+                activeKey={activeKey}
+              >
+                {panes.map(item => (
+                  <TabPane tab={getTitle(item.key)} key={item.key}>
+                    {item}
+                  </TabPane>
+                ))}
+              </Tabs>
+            )}
           </Switch>
         </Content>
       </Layout>
