@@ -1,10 +1,23 @@
 import React from 'react';
-import {Input} from 'antd';
+import { Input } from 'antd';
+import $$ from 'cmn-utils';
 const { TextArea } = Input;
 /**
  * 文本框元件
  */
-export default ({form, name, formFieldOptions = {}, record, initialValue, rules, onChange, type, preview, ...otherProps}) => {
+export default ({
+  form,
+  name,
+  formFieldOptions = {},
+  record,
+  initialValue,
+  normalize,
+  rules,
+  onChange,
+  type,
+  preview,
+  ...otherProps
+}) => {
   const { getFieldDecorator } = form;
 
   let initval = initialValue;
@@ -14,8 +27,12 @@ export default ({form, name, formFieldOptions = {}, record, initialValue, rules,
   }
 
   // 如果存在初始值
-  if (initval !== null && typeof (initval) !== "undefined") {
-    formFieldOptions.initialValue = initval;
+  if (initval !== null && typeof initval !== 'undefined') {
+    if ($$.isFunction(normalize)) {
+      formFieldOptions.initialValue = normalize(initval);
+    } else {
+      formFieldOptions.initialValue = initval;
+    }
   }
 
   if (preview) {
@@ -29,8 +46,8 @@ export default ({form, name, formFieldOptions = {}, record, initialValue, rules,
   }
 
   // 如果需要onChange
-  if (typeof onChange === "function") {
-    formFieldOptions.onChange = (e) => onChange(form, e.target.value, e); // form, value, event
+  if (typeof onChange === 'function') {
+    formFieldOptions.onChange = e => onChange(form, e.target.value, e); // form, value, event
   }
 
   const Comp = type === 'textarea' ? TextArea : Input;

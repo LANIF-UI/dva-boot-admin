@@ -98,6 +98,19 @@ export const columns3 = [
         }
       ]
     }
+  },
+  {
+    title: '用户图标',
+    name: 'avatar',
+    formItem: {
+      type: 'upload',
+      initialValue: ['https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg'],
+      rules: [{
+        required: true,
+        message: '请选择用户头像'
+      }],
+      max: 2,
+    }
   }
 ];
 

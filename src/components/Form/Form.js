@@ -18,6 +18,7 @@ import SelectForm from './SelectForm';
 import CheckboxForm from './CheckboxForm';
 import RadioForm from './RadioForm';
 import AutoCompleteForm from './AutoCompleteForm';
+import UploadForm from './UploadForm';
 import $$ from 'cmn-utils';
 import omit from 'object.omit';
 import './style/index.less';
@@ -251,7 +252,8 @@ class FormComp extends React.Component {
               transferTree: TransferTreeForm,
               table: TableForm,
               editor: EditorForm,
-              custom: CustomForm
+              custom: CustomForm,
+              upload: UploadForm,
             };
 
             switch (field.formItem.type) {
@@ -294,6 +296,7 @@ class FormComp extends React.Component {
               case 'radio':
               case 'treeSelect':
               case 'autoComplete': 
+              case 'upload':
                 const ph = field.formItem.type === 'autoComplete' ? '请输入' : '请选择';
                 const selectProps = {
                   form: form,

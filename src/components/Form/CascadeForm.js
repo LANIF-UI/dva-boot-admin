@@ -1,22 +1,38 @@
 import React from 'react';
-import {Cascader} from 'antd';
+import { Cascader } from 'antd';
+import $$ from 'cmn-utils';
 
 /**
  * 级联表单元件
  * initialValue 初始值
  */
-export const CascadeForm = ({name, form, record, formFieldOptions = {}, initialValue, rules, onChange, preview, ...otherProps}) => {
+export const CascadeForm = ({
+  name,
+  form,
+  record,
+  formFieldOptions = {},
+  normalize,
+  initialValue,
+  rules,
+  onChange,
+  preview,
+  ...otherProps
+}) => {
   const { getFieldDecorator } = form;
-  
+
   let initval = initialValue;
-  
+
   if (record) {
     initval = record[name];
   }
-  
+
   // 如果存在初始值
-  if (initval !== null && typeof (initval) !== "undefined") {
-    formFieldOptions.initialValue = initval;
+  if (initval !== null && typeof initval !== 'undefined') {
+    if ($$.isFunction(normalize)) {
+      formFieldOptions.initialValue = normalize(initval);
+    } else {
+      formFieldOptions.initialValue = initval;
+    }
   }
 
   if (preview) {
@@ -32,11 +48,11 @@ export const CascadeForm = ({name, form, record, formFieldOptions = {}, initialV
             }
           }
         });
-      }
+      };
       loop(otherProps.options);
       return <div style={otherProps.style}>{data.join(' / ')}</div>;
     }
-    return null
+    return null;
   }
 
   // 如果有rules
@@ -45,8 +61,9 @@ export const CascadeForm = ({name, form, record, formFieldOptions = {}, initialV
   }
 
   // 如果需要onChange
-  if (typeof onChange === "function") {
-    formFieldOptions.onChange = (value, selectedOptions) => onChange(form, value, selectedOptions); // form, value, selectedOptions
+  if (typeof onChange === 'function') {
+    formFieldOptions.onChange = (value, selectedOptions) =>
+      onChange(form, value, selectedOptions); // form, value, selectedOptions
   }
 
   return getFieldDecorator(name, formFieldOptions)(

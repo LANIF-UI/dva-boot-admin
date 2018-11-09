@@ -1,5 +1,7 @@
 import React from 'react';
 import { TreeSelect } from 'antd';
+import $$ from 'cmn-utils';
+
 /**
  * 下拉树菜单元件
  */
@@ -10,6 +12,7 @@ export const TreeSelectForm = ({
   children,
   record,
   initialValue,
+  normalize,
   rules,
   onChange,
   ...otherProps
@@ -25,7 +28,11 @@ export const TreeSelectForm = ({
 
   // 如果存在初始值
   if (initval !== null && typeof initval !== 'undefined') {
-    formFieldOptions.initialValue = initval;
+    if ($$.isFunction(normalize)) {
+      formFieldOptions.initialValue = normalize(initval);
+    } else {
+      formFieldOptions.initialValue = initval;
+    }
   }
 
   // 如果有rules
@@ -35,7 +42,8 @@ export const TreeSelectForm = ({
 
   // 如果需要onChange
   if (typeof onChange === 'function') {
-    formFieldOptions.onChange = (value, label, extra) => onChange(form, value, label, extra); // form, value
+    formFieldOptions.onChange = (value, label, extra) =>
+      onChange(form, value, label, extra); // form, value
   }
 
   return getFieldDecorator(name, formFieldOptions)(
