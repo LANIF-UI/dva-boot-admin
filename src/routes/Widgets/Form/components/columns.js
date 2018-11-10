@@ -104,11 +104,13 @@ export const columns3 = [
     name: 'avatar',
     formItem: {
       type: 'upload',
-      initialValue: ['https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg'],
+      initialValue: ['https://avatars1.githubusercontent.com/u/34116960'],
       rules: [{
         required: true,
         message: '请选择用户头像'
       }],
+      maxFileSize: 1000, // 最大限制 kb
+      fileTypes: ['.png', '.jpg', '.gif'], // 允许类型
       max: 2,
     }
   }

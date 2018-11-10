@@ -17,9 +17,13 @@ class BannerForm extends React.Component {
   };
 
   handleSubmit = values => {
-    const { record, onSubmit } = this.props;
-
-    onSubmit && onSubmit(objectAssign({}, record, values));
+    const { record, onSubmit, imageKey } = this.props;
+    if (values[imageKey] && values[imageKey].length) {
+      values[imageKey] = values[imageKey][0].url || values[imageKey][0].thumbUrl;
+      onSubmit && onSubmit(objectAssign({}, record, values));
+    } else {
+      console.warn('not found a image field!');
+    }
   };
 
   render() {

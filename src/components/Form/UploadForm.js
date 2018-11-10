@@ -22,6 +22,8 @@ export default ({
   renderUpload,
   btnIcon = 'upload',
   max,
+  maxFileSize, // 最大文件大小
+  fileTypes, // 允许文件类型
   ...otherProps
 }) => {
   const { getFieldDecorator } = form;
@@ -60,12 +62,23 @@ export default ({
     formFieldOptions.rules = rules;
   }
 
+  if (maxFileSize || fileTypes) {
+    formFieldOptions.rules = [
+      {
+        validator: (rule, value, callback) => {
+          validatorFileSize(maxFileSize, value, callback, form);
+          validatorFileTypes(fileTypes, value, callback, form);
+          callback();
+        }
+      },
+      ...formFieldOptions.rules
+    ];
+  }
+
   // 如果需要onChange
   if (typeof onChange === 'function') {
     formFieldOptions.onChange = args => onChange(form, args); // form, args
   }
-
-  const value = form.getFieldValue(name);
 
   return getFieldDecorator(name, {
     valuePropName: 'fileList',
@@ -74,14 +87,38 @@ export default ({
   })(
     <Upload listType="picture" beforeUpload={file => false} {...otherProps}>
       {renderUpload ? (
-        renderUpload(form, record, isDisabled(max, value))
+        renderUpload(form, record, isDisabled(max, form.getFieldValue(name)))
       ) : (
-        <Button icon={btnIcon} disabled={isDisabled(max, value)}>
+        <Button
+          icon={btnIcon}
+          disabled={isDisabled(max, form.getFieldValue(name))}
+        >
           点击上传
         </Button>
       )}
     </Upload>
   );
+};
+
+const validatorFileSize = (maxFileSize, value, callback) => {
+  if (value.some(item => item.size > maxFileSize * 1024)) {
+    callback(new Error(`请上传文件大小在${maxFileSize}K以内的图片`));
+    return;
+  }
+};
+
+const validatorFileTypes = (fileTypes, value, callback) => {
+  if ($$.isArray(fileTypes) && fileTypes.length > 0) {
+    if (
+      value.some(
+        item =>
+          item.name && !fileTypes.some(type => item.name.indexOf(type) !== -1)
+      )
+    ) {
+      callback(new Error(`请上传${fileTypes.join('、')}，类型文件`));
+      return;
+    }
+  }
 };
 
 // 如果设置max，控制按钮禁用状态

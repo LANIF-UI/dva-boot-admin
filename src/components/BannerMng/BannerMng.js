@@ -1,9 +1,9 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button, message } from 'antd';
 import Form from './Form';
 import Icon from 'components/Icon';
-import objectAssign from 'object-assign';
+import LazyLoad from 'components/LazyLoad';
 import isEqual from 'react-fast-compare';
 import notdata from 'assets/images/nodata.svg';
 import './style/index.less';
@@ -48,11 +48,12 @@ const columns = [
   },
   {
     title: '图片',
-    name: 'files',
+    name: 'file',
     formItem: {
       type: 'upload',
       listType: 'picture-card',
       max: 1,
+      fileTypes: ['.png', '.jpg', '.gif'],
       rules: [
         {
           required: true,
@@ -70,18 +71,20 @@ const columns = [
   }
 ];
 
-class BannerMng extends PureComponent {
+class BannerMng extends Component {
   static propTypes = {
     dataSource: PropTypes.array,
     onChange: PropTypes.func,
     fileNum: PropTypes.number,
     fileSize: PropTypes.number,
     fileType: PropTypes.array,
-    formCols: PropTypes.array
+    formCols: PropTypes.array,
+    title: PropTypes.node
   };
 
   static defaultProps = {
-    formCols: columns
+    formCols: columns,
+    title: '幻灯片'
   };
 
   constructor(props) {
@@ -94,6 +97,8 @@ class BannerMng extends PureComponent {
         imageKey = item.name;
       }
     });
+    if (!imageKey)
+      console.error("BannerMng required a column of type 'upload'");
 
     this.state = {
       isEdit: false,
@@ -146,6 +151,7 @@ class BannerMng extends PureComponent {
 
   onChange = (type, item, i) => {
     let { dataSource, isEdit } = this.state;
+    const newState = {};
     switch (type) {
       case 'up':
         dataSource.splice(i - 1, 0, dataSource.splice(i, 1)[0]);
@@ -154,6 +160,7 @@ class BannerMng extends PureComponent {
         dataSource.splice(i + 1, 0, dataSource.splice(i, 1)[0]);
         break;
       case 'add':
+        newState.isAdd = false;
         dataSource.push(item);
         break;
       case 'edit':
@@ -162,11 +169,12 @@ class BannerMng extends PureComponent {
           if ('edit_' + index === isEdit) {
             tempIndex = index;
             return false;
-          } 
+          }
           return true;
         });
         temp.splice(tempIndex, 0, item);
         dataSource = temp;
+        newState.isEdit = false;
         break;
       case 'delete':
         dataSource.splice(i, 1);
@@ -174,27 +182,24 @@ class BannerMng extends PureComponent {
       default:
         break;
     }
-    this.setState(
-      objectAssign(
-        { dataSource },
-        type === 'add' && { isAdd: false },
-        type === 'edit' && { isEdit: false }
-      )
-    );
+    this.setState({
+      dataSource,
+      ...newState
+    });
 
     this.props.onChange && this.props.onChange(dataSource);
   };
 
   render() {
-    const { formCols } = this.props;
-    let { dataSource, record, isEdit, isAdd } = this.state;
+    const { formCols, title } = this.props;
+    let { dataSource, record, isEdit, isAdd, imageKey } = this.state;
 
     return (
       <div className="banner-view-mng">
         <div className="banner-title clearfix">
           <div className="title">
             <Icon type="picture" /> {isEdit ? '修改' : isAdd ? '新增' : ''}
-            幻灯片
+            {title}
           </div>
           <div className="btns">
             {!isAdd && !isEdit ? (
@@ -210,6 +215,7 @@ class BannerMng extends PureComponent {
         </div>
         {isEdit || isAdd ? (
           <Form
+            imageKey={imageKey}
             columns={formCols}
             record={record}
             onCancel={this.onCancel}
@@ -226,7 +232,7 @@ class BannerMng extends PureComponent {
             {dataSource.map((item, i) => (
               <div className="row" key={i}>
                 <div className="preview">
-                  <img src={item.imgUrl} alt="" />
+                  <LazyLoad dataSrc={item[imageKey]} />
                 </div>
                 <ul className="oper">
                   <li className="top">
