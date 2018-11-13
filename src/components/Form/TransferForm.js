@@ -32,22 +32,18 @@ class TransferControlled extends Component {
   componentWillReceiveProps(nextProps) {
     if ('value' in nextProps) {
       const value = nextProps.value;
-      this.setState(value);
+      this.setState({ value });
     }
   }
 
   triggerChange = (nextTargetKeys, direction, moveKeys) => {
     this.setState({ value: nextTargetKeys });
-
-    const onChange = this.props.onChange;
-    if (onChange) {
-      onChange(nextTargetKeys);
-    }
   };
 
   showModal = () => {
     this.setState({
-      visible: true
+      visible: true,
+      value: this.props.value
     });
   };
 
@@ -57,7 +53,18 @@ class TransferControlled extends Component {
     });
   };
 
+  onSubmit = () => {
+    this.setState({
+      visible: false
+    });
+    const { onChange } = this.props;
+    if (onChange) {
+      onChange(this.state.value);
+    }
+  }
+
   render() {
+    const propsValue = this.props.value;
     const { dataSource, value } = this.state;
 
     const comp = (
@@ -75,14 +82,17 @@ class TransferControlled extends Component {
       return (
         <div>
           <Button onClick={this.showModal}>
-            请选择
-            {this.otherProps.title}
+            { propsValue && propsValue.length > 0
+              ? dataSource.filter(item => propsValue.includes(item.key))
+                .map(item => item.title || item.label).join(', ')
+              : <span>请选择{this.otherProps.title}</span>
+            }
           </Button>
           <Modal
             className="antui-transfer-modal"
             title={'请选择' + this.otherProps.title}
             visible={this.state && this.state.visible}
-            onOk={this.hideModal}
+            onOk={this.onSubmit}
             onCancel={this.hideModal}
             okText="确定"
             cancelText="取消"
