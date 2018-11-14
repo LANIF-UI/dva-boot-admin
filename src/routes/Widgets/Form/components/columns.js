@@ -382,7 +382,7 @@ export const createColumns10 = (self, treeData) => [
         }
       ]
     }
-  }, 
+  },
   {
     title: 'asyncTreeSelect',
     name: 'key3',
@@ -461,7 +461,7 @@ export const createColumns11 = (self, dataSource) => [
   },
   {
     title: '表格(内联)',
-    name: 'field1',
+    name: 'field2',
     formItem: {
       type: 'table',
       modal: false,

@@ -38,6 +38,11 @@ class TransferControlled extends Component {
 
   triggerChange = (nextTargetKeys, direction, moveKeys) => {
     this.setState({ value: nextTargetKeys });
+    const { onChange, modal } = this.props
+    if (modal) {
+      return
+    }
+    onChange && onChange(nextTargetKeys);
   };
 
   showModal = () => {

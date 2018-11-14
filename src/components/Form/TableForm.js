@@ -68,12 +68,13 @@ class TableControlled extends Component {
   }
 
   onSelect = (keys, rows) => {
-    this.setState({ value: keys });
+    this.setState({ value: keys, rows });
 
-    const onChange = this.props.onChange;
-    if (onChange) {
-      onChange(keys, rows);
+    const { onChange, modal } = this.props
+    if (modal) {
+      return
     }
+    onChange && onChange(keys, rows);
   };
 
   async onChange({ pageNum, pageSize }) {
@@ -108,6 +109,16 @@ class TableControlled extends Component {
     });
   };
 
+  onSubmit = () => {
+    this.setState({
+      visible: false
+    });
+
+    const { value, rows } = this.state
+    const { onChange } = this.props
+    onChange && onChange(value, rows)
+  }
+
   render() {
     const {
       modal,
@@ -116,6 +127,7 @@ class TableControlled extends Component {
       rowKey,
       selectType,
       showNum,
+      value: propsValue,
       ...otherProps
     } = this.props;
     const { dataSource, value, loading } = this.state;
@@ -137,22 +149,16 @@ class TableControlled extends Component {
       return (
         <div>
           <Button onClick={this.showModal}>
-            请选择
-            {otherProps.title}
+            { propsValue && propsValue.length
+              ? <span>已选择：{propsValue.length}项</span>
+              : <span>请选择{otherProps.title}</span>
+            }
           </Button>
-          &nbsp;
-          {value && value.length ? (
-            <span>
-              已选择：
-              {value.length}项
-            </span>
-          ) : null}
           <Modal
             className="antui-table-modal"
             title={'请选择' + otherProps.title}
             visible={this.state && this.state.visible}
             width={modal.width || 600}
-            onOk={this.hideModal}
             onCancel={this.hideModal}
             footer={[
               <Pagination
@@ -165,7 +171,7 @@ class TableControlled extends Component {
               <Button key="back" onClick={this.hideModal}>
                 取消
               </Button>,
-              <Button key="submit" type="primary" onClick={this.hideModal}>
+              <Button key="submit" type="primary" onClick={this.onSubmit}>
                 确定
               </Button>
             ]}
