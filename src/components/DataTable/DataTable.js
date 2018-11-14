@@ -235,7 +235,7 @@ class DataTable extends Component {
           onShowSizeChange: this.onShowSizeChange,
           ...pagination
         }
-      : true;
+      : (pagination || true);
 
     const _rowSelection = {
       type: selectType === 'radio' ? 'radio' : 'checkbox',
