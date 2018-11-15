@@ -1,9 +1,8 @@
-/* eslint-disable */ 
 import React from 'react';
 import dva from 'dva';
 import dynamic from 'dva/dynamic';
 import createLoading from 'dva-loading';
-import { BrowserRouter, HashRouter } from 'dva/router';
+import { Router } from 'dva/router';
 import createHistory from 'history/createBrowserHistory';
 import request from 'cmn-utils/lib/request';
 import createRoutes from '@/routes';
@@ -13,10 +12,12 @@ import { LocaleProvider } from 'antd';
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import { baseURL } from '../package.json';
 
-// -> 初始化 HashHistory
-const app = dva();
-// -> 初始化 BrowserHistory
-// const app = dva({ history: createHistory() });
+// -> 初始化
+const app = dva({
+  history: createHistory({
+    basename: baseURL
+  })
+});
 
 // -> 插件
 app.use(createLoading());
@@ -41,9 +42,7 @@ app.model(require('./models/global').default);
 // -> 初始化路由
 app.router(({ history, app }) => (
   <LocaleProvider locale={zh_CN}>
-    <HashRouter basename={baseURL}>
-      {createRoutes(app)}
-    </HashRouter>
+    <Router history={history}>{createRoutes(app)}</Router>
   </LocaleProvider>
 ));
 
