@@ -223,19 +223,18 @@ class DataTable extends Component {
     }
 
     // 分页
-    const paging = dataItems.pageSize
-      ? {
-          showSizeChanger: true,
-          showQuickJumper: true,
-          total: dataItems.total,
-          pageSize: dataItems.pageSize,
-          current: dataItems.pageNum,
-          defaultCurrent: dataItems.pageNum,
-          showTotal: total => `共 ${total} 条`,
-          onShowSizeChange: this.onShowSizeChange,
-          ...pagination
-        }
-      : (pagination || true);
+    const paging = objectAssign(
+      {
+        showSizeChanger: true,
+        showQuickJumper: true,
+        showTotal: total => `共 ${total} 条`,
+        onShowSizeChange: this.onShowSizeChange
+      },
+      dataItems.pageSize && { pageSize: dataItems.pageSize },
+      dataItems.pageNum && { current: dataItems.pageNum },
+      dataItems.total && {total: dataItems.total },
+      pagination
+    );
 
     const _rowSelection = {
       type: selectType === 'radio' ? 'radio' : 'checkbox',

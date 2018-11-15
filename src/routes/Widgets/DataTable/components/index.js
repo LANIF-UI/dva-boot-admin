@@ -188,8 +188,8 @@ export default class extends BaseComponent {
           </Row>
           <Row gutter={20}>
             <Col span={12}>
-              <Panel title="前台分页">
-                <DataTable pagination {...dataTableProps5} />
+              <Panel title="前台分页" height={500} scroll>
+                <DataTable pagination={{ pageSize: 20 }} {...dataTableProps5} />
               </Panel>
             </Col>
           </Row>
