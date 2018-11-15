@@ -1,6 +1,7 @@
 const path = require('path');
 const { injectBabelPlugin } = require('react-app-rewired');
 const rewireLess = require('react-app-rewire-less-modules');
+const baseURL = require('./package.json').baseURL;
 
 module.exports = function override(config, env) {
   config.resolve = {
@@ -14,7 +15,9 @@ module.exports = function override(config, env) {
   if (env === 'development') {
     config = injectBabelPlugin(['dva-hmr'], config);
   } else {
-    config.output.publicPath = '/dva-boot-admin/'; // 跟据实际项目设置
+    if (baseURL) {
+      config.output.publicPath = baseURL.slice(-1) !== '/' ? baseURL + '/' : baseURL; // 跟据实际项目设置 
+    }
   }
 
   config = injectBabelPlugin('transform-decorators-legacy', config);

@@ -1,6 +1,6 @@
 {
   "name": "dva-boot-admin",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "dva-boot-admin",
   "homepage": "https://lanif-ui.github.io/dva-boot-admin",
   "repository": {
@@ -15,6 +15,7 @@
     "eject": "react-scripts eject",
     "gh-pages": "react-app-rewired build && gh-pages -d build"
   },
+  "baseURL": "/dva-boot-admin",
   "proxy": {
     "/api": {
       "target": "http://localhost:8080",

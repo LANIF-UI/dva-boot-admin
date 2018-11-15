@@ -103,15 +103,31 @@ Access-Control-Allow-Origin *;
 
 ## 发布路径
 
+> **注：1.1.0之后这个配置被移到了package.json中 publicPath 改为 baseURL，以'/'开头，结尾没有'/'**
+
 build项目的时候注意在`config-overrides.js`中配置正确的`publicPath`,例如放到`demo`文件夹下为
 ```js
-config.output.publicPath = '/demo/'; // 跟据实际项目设置
+config.output.publicPath = '/demo'; // 跟据实际项目设置
 ```
 若发布到服务器的跟目录下为
 ```js
 config.output.publicPath = '/'; // 跟据实际项目设置
 ```
 配置错则有可能加载不到相关资源
+
+## 发布时路由配置
+
+当使用browser history时，需要在`nginx.conf`下设置所有页面都指向index.html
+```js
+server {
+  // ...
+  location / {
+    index  index.html;
+    try_files $uri $uri/ /index.html;
+  }
+  // ...
+}
+```
 
 ## 使用`$$.post, $$.get`等发送请求时，注意处理反回异常
 例：
