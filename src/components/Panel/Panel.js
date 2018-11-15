@@ -103,7 +103,8 @@ class Panel extends Component {
       style,
       children,
       header,
-      cover
+      cover,
+      scroll,
     } = this.props;
 
     const classnames = cx(prefix, className, {
@@ -120,6 +121,9 @@ class Panel extends Component {
     const bodyStyles = {};
     if (!expand) {
       bodyStyles.height = height;
+    }
+    if (scroll) {
+      bodyStyles.overflow = 'auto';
     }
 
     const Header =
