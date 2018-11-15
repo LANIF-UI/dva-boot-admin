@@ -118,11 +118,14 @@ config.output.publicPath = '/'; // 跟据实际项目设置
 ## 发布时路由配置
 
 当使用browser history时，需要在`nginx.conf`下设置所有页面都指向index.html
-```js
+```bash
 server {
   // ...
   location / {
     index  index.html;
+    # 如果部署到/dva-boot-admin目录下
+    # try_files $uri $uri/ /dva-boot-admin/index.html;
+    # 如果部署到根目录
     try_files $uri $uri/ /index.html;
   }
   // ...
