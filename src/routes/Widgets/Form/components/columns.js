@@ -451,22 +451,38 @@ export const createColumns11 = (self, dataSource) => [
     formItem: {
       type: 'table',
       rowKey: 'id',
-      titleKey: 'name',
       dataSource,
       columns: innerColumns,
-      onChange: (form, value) => console.log('。。。:', value),
+      onChange: (form, value, rows) => console.log('。。。:', value, rows),
       loadData: self.onLoadTableData,
       initialValue: [11, 3, 5],
     }
   },
   {
-    title: '表格(内联)',
+    title: '表格(弹窗),回显',
     name: 'field1',
+    formItem: {
+      type: 'table',
+      rowKey: 'id',
+      titleKey: 'name',
+      dataSource,
+      columns: innerColumns,
+      onChange: (form, value, rows) => console.log('。。。:', value, rows),
+      loadData: self.onLoadTableData,
+      initialValue: [
+        {id: 3, name: '张三'},
+        {id: 5, name: '赵四'},
+        {id: 11, name: '王五'},
+      ],
+    }
+  },
+  {
+    title: '表格(内联)',
+    name: 'field3',
     formItem: {
       type: 'table',
       modal: false,
       rowKey: 'id',
-      titleKey: 'name',
       dataSource,
       columns: innerColumns,
       onChange: (form, value, rows) => console.log('。。。:', value, rows),

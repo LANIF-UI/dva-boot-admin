@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Modal, Button } from 'antd';
+import { Modal, Button, Select, Tag } from 'antd';
 import DataTable from '../DataTable';
 import $$ from 'cmn-utils';
 import isEqual from 'react-fast-compare';
 import PageHelper from '@/utils/pageHelper';
 import assign from 'object-assign';
+
 const Pagination = DataTable.Pagination;
+const Option = Select.Option;
 
 /**
  *  formItem: {
       type: 'table',
       rowKey: 'id',
-      titleKey: 'name',
       dataSource,
       columns: innerColumns,
       onChange: (form, value) => console.log('。。。:', value),
@@ -30,7 +31,6 @@ class TableControlled extends Component {
 
   static defaultProps = {
     rowKey: 'id',
-    titleKey: 'title',
     modal: {}
   };
 
@@ -38,7 +38,8 @@ class TableControlled extends Component {
     super(props);
     const { value, dataSource } = props;
     this.state = {
-      value: value,
+      value: this.getKeys(value),
+      rows: this.getRows(value),
       dataSource: dataSource || PageHelper.create(),
       visible: false,
       loading: false
@@ -54,11 +55,16 @@ class TableControlled extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { dataSource, value, loadData } = nextProps;
+    const { rows } = this.state;
     if (
       !isEqual(this.props.dataSource, dataSource) ||
       !isEqual(this.props.value, value)
     ) {
-      const newState = { value };
+      const _value = this.getKeys(value);
+      const newState = {
+        value: _value,
+        rows: this.getRows(_value, rows)
+      };
       if (!loadData && dataSource) {
         newState.dataSource = dataSource;
       }
@@ -67,11 +73,31 @@ class TableControlled extends Component {
     }
   }
 
-  onSelect = (keys, rows) => {
-    this.setState({ value: keys });
+  // 将值转成对像数组
+  getRows(value, oldValue = []) {
+    const { rowKey } = this.props;
+    if (value) {
+      return value.map(item => {
+        const oldv = oldValue.filter(jtem => jtem[rowKey] === item)[0];
+        return typeof item === 'object' ? item : oldv || { [rowKey]: item };
+      });
+    }
+    return [];
+  }
 
-    const onChange = this.props.onChange;
-    if (onChange) {
+  getKeys(value) {
+    const { rowKey } = this.props;
+    if (value) {
+      return value.map(item => ($$.isObject(item) ? item[rowKey] : item));
+    }
+    return [];
+  }
+
+  onSelect = (keys, rows) => {
+    const { modal, onChange } = this.props;
+    this.setState({ value: keys, rows });
+
+    if (onChange && !modal) {
       onChange(keys, rows);
     }
   };
@@ -96,10 +122,28 @@ class TableControlled extends Component {
     }
   }
 
+  onSelectChange = (value, option) => {
+    const { rowKey, onChange } = this.props;
+    const { rows } = this.state;
+    const newRows = rows.filter(item => value.indexOf(item[rowKey]) !== -1);
+    this.setState({
+      value,
+      rows: newRows
+    });
+    onChange && onChange(value, newRows);
+  };
+
   showModal = () => {
     this.setState({
       visible: true
     });
+  };
+
+  onSubmit = () => {
+    const { value, rows } = this.state;
+    const { onChange } = this.props;
+    this.hideModal();
+    onChange && onChange(value, rows);
   };
 
   hideModal = () => {
@@ -118,7 +162,7 @@ class TableControlled extends Component {
       showNum,
       ...otherProps
     } = this.props;
-    const { dataSource, value, loading } = this.state;
+    const { dataSource, value, rows, loading, visible } = this.state;
 
     const dataTableProps = {
       loading,
@@ -132,27 +176,36 @@ class TableControlled extends Component {
       onChange: ({ pageNum, pageSize }) => this.onChange({ pageNum, pageSize }),
       onSelect: (keys, rows) => this.onSelect(keys, rows)
     };
-
     if (modal) {
       return (
         <div>
-          <Button onClick={this.showModal}>
-            请选择
-            {otherProps.title}
-          </Button>
-          &nbsp;
-          {value && value.length ? (
-            <span>
-              已选择：
-              {value.length}项
-            </span>
-          ) : null}
+          <div onClick={this.showModal}>
+            <Select
+              readOnly
+              mode="multiple"
+              open={false}
+              value={titleKey ? value : value.length ? '_selected' : []}
+              onChange={this.onSelectChange}
+              placeholder={`请选择${otherProps.title}`}
+            >
+              {titleKey ? (
+                rows.map(item => (
+                  <Option key={item[rowKey]} value={item[rowKey]}>
+                    {item[titleKey]}
+                  </Option>
+                ))
+              ) : (
+                <Option key="_selected" value="_selected">
+                  已选择{rows.length}项
+                </Option>
+              )}
+            </Select>
+          </div>
           <Modal
             className="antui-table-modal"
             title={'请选择' + otherProps.title}
-            visible={this.state && this.state.visible}
+            visible={visible}
             width={modal.width || 600}
-            onOk={this.hideModal}
             onCancel={this.hideModal}
             footer={[
               <Pagination
@@ -165,7 +218,7 @@ class TableControlled extends Component {
               <Button key="back" onClick={this.hideModal}>
                 取消
               </Button>,
-              <Button key="submit" type="primary" onClick={this.hideModal}>
+              <Button key="submit" type="primary" onClick={this.onSubmit}>
                 确定
               </Button>
             ]}

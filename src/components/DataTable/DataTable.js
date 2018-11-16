@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Table, Pagination, Tooltip } from 'antd';
 import objectAssign from 'object-assign';
+import isEqual from 'react-fast-compare';
 import cx from 'classnames';
 import './style/index.less';
 
@@ -68,8 +69,8 @@ class DataTable extends Component {
     super(props);
 
     this.state = {
-      selectedRowKeys: this.getSelectedRowKeys(props),
-      selectedRows: [],
+      selectedRowKeys: props.selectedRowKeys,
+      selectedRows: this.getSelectedRows(props.selectedRowKeys),
       tableHeight: null
     };
   }
@@ -80,15 +81,29 @@ class DataTable extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    const selectedRowKeys = this.getSelectedRowKeys(nextProps);
-    const st = {};
-
-    if (selectedRowKeys) {
-      st.selectedRowKeys = selectedRowKeys;
+  // 将值转成对像数组
+  getSelectedRows(value, oldValue = []) {
+    const { rowKey } = this.props;
+    if (value) {
+      return value.map(item => {
+        const oldv = oldValue.filter(jtem => jtem[rowKey] === item)[0];
+        return typeof item === 'object' ? item : oldv || { [rowKey]: item };
+      });
     }
+    return [];
+  }
 
-    if (Object.keys(st).length) this.setState(st);
+  componentWillReceiveProps(nextProps) {
+    const { selectedRowKeys, selectedRows } = this.state;
+    const newState = {};
+    if (!isEqual(this.props.selectedRowKeys, nextProps.selectedRowKeys)) {
+      newState.selectedRowKeys = nextProps.selectedRowKeys;
+      newState.selectedRows = this.getSelectedRows(
+        selectedRowKeys,
+        selectedRows
+      );
+      this.setState(newState);
+    }
   }
 
   componentWillUpdate(nextProps, nextState) {
@@ -232,7 +247,7 @@ class DataTable extends Component {
       },
       dataItems.pageSize && { pageSize: dataItems.pageSize },
       dataItems.pageNum && { current: dataItems.pageNum },
-      dataItems.total && {total: dataItems.total },
+      dataItems.total && { total: dataItems.total },
       pagination
     );
 
