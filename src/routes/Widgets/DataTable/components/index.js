@@ -153,8 +153,8 @@ export default class extends BaseComponent {
           </Panel>
           <Row gutter={20}>
             <Col span={12}>
-              <Panel title="行号">
-                <DataTable {...dataTableProps2} />
+              <Panel title="行号,初始值">
+                <DataTable {...dataTableProps2} selectedRowKeys={[1, 2, 4]} />
               </Panel>
             </Col>
             <Col span={12}>

@@ -460,7 +460,7 @@ export const createColumns11 = (self, dataSource) => [
   },
   {
     title: '表格(弹窗),回显',
-    name: 'field1',
+    name: 'field2',
     formItem: {
       type: 'table',
       rowKey: 'id',
@@ -469,7 +469,7 @@ export const createColumns11 = (self, dataSource) => [
       columns: innerColumns,
       onChange: (form, value, rows) => console.log('。。。:', value, rows),
       loadData: self.onLoadTableData,
-      initialValue: [
+      initialValue: [ // 初始值为对像数组时，可以用titleKey指定的字段回显
         {id: 3, name: '张三'},
         {id: 5, name: '赵四'},
         {id: 11, name: '王五'},

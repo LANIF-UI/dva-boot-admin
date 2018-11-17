@@ -75,12 +75,6 @@ class DataTable extends Component {
     };
   }
 
-  getSelectedRowKeys(props) {
-    if ('selectedRowKeys' in props) {
-      return props.selectedRowKeys;
-    }
-  }
-
   // 将值转成对像数组
   getSelectedRows(value, oldValue = []) {
     const { rowKey } = this.props;
@@ -94,22 +88,15 @@ class DataTable extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { selectedRowKeys, selectedRows } = this.state;
+    const { selectedRows } = this.state;
     const newState = {};
     if (!isEqual(this.props.selectedRowKeys, nextProps.selectedRowKeys)) {
       newState.selectedRowKeys = nextProps.selectedRowKeys;
       newState.selectedRows = this.getSelectedRows(
-        selectedRowKeys,
+        nextProps.selectedRowKeys,
         selectedRows
       );
       this.setState(newState);
-    }
-  }
-
-  componentWillUpdate(nextProps, nextState) {
-    if (nextProps.dataItems.list.length === 0) {
-      nextState.selectedRowKeys = [];
-      nextState.selectedRows = [];
     }
   }
 
@@ -138,8 +125,9 @@ class DataTable extends Component {
       item => selectedRowKeys.indexOf(item[this._rowKey]) !== -1
     );
 
-    this.setState({ selectedRowKeys, selectedRows });
-    this.props.onSelect && this.props.onSelect(selectedRowKeys, selectedRows);
+    this.setState({ selectedRowKeys, selectedRows }, () => {
+      this.props.onSelect && this.props.onSelect(selectedRowKeys, selectedRows);
+    });
   };
 
   handleTableChange = (pagination, filters, sorter) => {

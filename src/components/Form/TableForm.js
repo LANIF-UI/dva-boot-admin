@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Modal, Button, Select, Tag } from 'antd';
+import { Modal, Button, Select } from 'antd';
 import DataTable from '../DataTable';
 import $$ from 'cmn-utils';
 import isEqual from 'react-fast-compare';
