@@ -1,6 +1,8 @@
 import React from 'react';
 import { Checkbox } from 'antd';
 import $$ from 'cmn-utils';
+import omit from 'object.omit';
+
 const CheckboxGroup = Checkbox.Group;
 /**
  * 单选框
@@ -44,9 +46,10 @@ export default ({
   if (typeof onChange === 'function') {
     formFieldOptions.onChange = e => onChange(form, e.target.value, e); // form, value
   }
-
+  
+  const checkboxProps = omit(otherProps, 'allowClear');
   return getFieldDecorator(name, formFieldOptions)(
-    <CheckboxGroup {...otherProps}>
+    <CheckboxGroup {...checkboxProps}>
       {dict.map((dic, i) => (
         <Checkbox key={dic.code} value={dic.code} title={dic.codeName}>
           {dic.codeName}

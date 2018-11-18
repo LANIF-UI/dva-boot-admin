@@ -99,7 +99,7 @@ export default class extends BaseComponent {
               来使用，由Columns定义其数据结构， 支持多种类型数据(
               <code>
                 cascade，date，editor，text，textarea，password，select，transfer，transferTree，treeSelect，table，
-                custom(自定义)，checkbox，radio，autoComplete，line(分隔线)等
+                custom(自定义)，checkbox，radio，autoComplete，upload，line(分隔线)等
               </code>
               )， 扩展自antd的Form组件，可以使用其api。
             </p>

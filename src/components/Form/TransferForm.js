@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Transfer, Modal, Button } from 'antd';
+import { Transfer, Modal, Select } from 'antd';
 import $$ from 'cmn-utils';
 
+const Option = Select.Option;
 /**
  *  formItem: {
       type: 'transfer',
@@ -20,13 +21,12 @@ class TransferControlled extends Component {
 
   constructor(props) {
     super(props);
-    const { value, dataSource, ...otherProps } = props;
+    const { value, dataSource } = props;
     this.state = {
-      value: value,
+      value: value || [],
       dataSource: dataSource,
       visible: false
     };
-    this.otherProps = otherProps;
   }
 
   componentWillReceiveProps(nextProps) {
@@ -37,7 +37,12 @@ class TransferControlled extends Component {
   }
 
   triggerChange = (nextTargetKeys, direction, moveKeys) => {
+    const { modal, onChange } = this.props;
     this.setState({ value: nextTargetKeys });
+
+    if (onChange && !modal) {
+      onChange(nextTargetKeys);
+    }
   };
 
   showModal = () => {
@@ -54,22 +59,31 @@ class TransferControlled extends Component {
   };
 
   onSubmit = () => {
+    const { onChange } = this.props;
+    const { value } = this.state;
     this.setState({
       visible: false
     });
-    const { onChange } = this.props;
     if (onChange) {
-      onChange(this.state.value);
+      onChange(value);
     }
-  }
+  };
+
+  onSelectChange = (value, option) => {
+    const { onChange } = this.props;
+    this.setState({
+      value
+    });
+    onChange && onChange(value);
+  };
 
   render() {
-    const propsValue = this.props.value;
-    const { dataSource, value } = this.state;
+    const { title, modal, ...otherProps } = this.props;
+    const { dataSource, value, visible } = this.state;
 
     const comp = (
       <Transfer
-        {...this.otherProps}
+        {...otherProps}
         dataSource={dataSource}
         titles={['源', '目标']}
         targetKeys={value}
@@ -78,25 +92,37 @@ class TransferControlled extends Component {
       />
     );
 
-    if (this.otherProps.modal) {
+    if (modal) {
       return (
         <div>
-          <Button onClick={this.showModal}>
-            { propsValue && propsValue.length > 0
-              ? dataSource.filter(item => propsValue.includes(item.key))
-                .map(item => item.title || item.label).join(', ')
-              : <span>请选择{this.otherProps.title}</span>
-            }
-          </Button>
+          <div onClick={this.showModal}>
+            <Select
+              readOnly
+              mode="multiple"
+              open={false}
+              value={otherProps.value}
+              onChange={this.onSelectChange}
+              placeholder={`请选择${title}`}
+            >
+              {otherProps.value &&
+                dataSource
+                  .filter(item => otherProps.value.indexOf(item.key) !== -1)
+                  .map(item => (
+                    <Option key={item.key} value={item.key}>
+                      {item.title || item.label}
+                    </Option>
+                  ))}
+            </Select>
+          </div>
           <Modal
             className="antui-transfer-modal"
-            title={'请选择' + this.otherProps.title}
-            visible={this.state && this.state.visible}
+            title={'请选择' + title}
+            visible={visible}
             onOk={this.onSubmit}
             onCancel={this.hideModal}
             okText="确定"
             cancelText="取消"
-            {...this.otherProps.modal}
+            {...modal}
           >
             {comp}
           </Modal>
