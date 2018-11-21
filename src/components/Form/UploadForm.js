@@ -112,7 +112,10 @@ const validatorFileTypes = (fileTypes, value, callback) => {
     if (
       value.some(
         item =>
-          item.name && !fileTypes.some(type => item.name.indexOf(type) !== -1)
+          item.name &&
+          !fileTypes.some(
+            type => item.name.toLowerCase().indexOf(type.toLowerCase()) !== -1
+          )
       )
     ) {
       callback(new Error(`请上传${fileTypes.join('、')}，类型文件`));
