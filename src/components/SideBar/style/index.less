@@ -5,7 +5,7 @@
   background-color: #001529;
   user-select: none;
   position: relative;
-  z-index: 10;
+  z-index: 2;
   
   &.sidebar-left-sm {
     .ant-menu {
@@ -166,6 +166,9 @@
 
 // 左抽屉
 .left-sidebar-drawer {
+  .ant-drawer-close-x {
+    display: none;
+  }
   .ant-drawer-body {
     padding: 0px;
     overflow-y: auto;
