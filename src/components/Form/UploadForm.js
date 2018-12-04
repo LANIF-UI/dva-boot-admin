@@ -71,7 +71,7 @@ export default ({
           callback();
         }
       },
-      ...formFieldOptions.rules
+      ...(formFieldOptions.rules || [])
     ];
   }
 
