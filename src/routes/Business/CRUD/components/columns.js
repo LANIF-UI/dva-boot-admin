@@ -8,7 +8,9 @@ export default (self, employees) => [
     title: '单位名称',
     name: 'deptName',
     tableItem: {},
-    searchItem: {},
+    searchItem: {
+      group: 'abc'
+    },
     formItem: {},
   },
   {
@@ -21,19 +23,24 @@ export default (self, employees) => [
     tableItem: {},
     formItem: {
       type: 'select',
-    }
+    },
+    searchItem: {
+      type: 'select',
+    },
   },
   {
     title: '作业地点',
     name: 'address',
     tableItem: {},
     formItem: {},
+    searchItem: {},
   },
   {
     title: '作业类型',
     name: 'type',
     tableItem: {},
-    formItem: {}
+    formItem: {},
+    searchItem: {},
   },
   {
     title: '开工时间',
@@ -41,7 +48,10 @@ export default (self, employees) => [
     tableItem: {},
     formItem: {
       type: 'datetime'
-    }
+    },
+    searchItem: {
+      type: 'datetime'
+    },
   },
   {
     title: '竣工时间',
@@ -49,7 +59,10 @@ export default (self, employees) => [
     tableItem: {},
     formItem: {
       type: 'datetime'
-    }
+    },
+    searchItem: {
+      type: 'datetime'
+    },
   },
   {
     title: '到岗人员',

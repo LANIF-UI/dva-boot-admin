@@ -151,10 +151,10 @@ export default class CRUD extends BaseComponent {
               </Button.Group>
             }
             pullDown={
-              <SearchBar type="grid" {...searchBarProps} />
+              <SearchBar type="grid"  {...searchBarProps} />
             }
           >
-            <SearchBar {...searchBarProps} />
+            <SearchBar group="abc" {...searchBarProps} />
           </Toolbar>
         </Header>
         <Content>
