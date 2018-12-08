@@ -9,6 +9,7 @@ import 'echarts/lib/chart/pie';
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';
 import Report from './Report';
+import Dynamic from './Dynamic';
 const { Content } = Layout;
 
 @connect()
@@ -73,21 +74,21 @@ export default class Blank extends BaseComponent {
     const { element1, element2 } = this.state;
     const comps = (
       <div>
-        <table border="1">
+        <table border="1" style={{width: '100%'}}>
           <thead>
             <tr>
-              <th>姓名</th>
-              <th>年级</th>
+              <th style={{textAlign: 'center', color: 'aqua'}}>姓名</th>
+              <th style={{textAlign: 'center', color: 'aqua'}}>年级</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>张三</td>
-              <td>一年级</td>
+              <td style={{textAlign: 'center'}}>张三</td>
+              <td style={{textAlign: 'center'}}>一年级</td>
             </tr>
             <tr>
-              <td>王五</td>
-              <td>二年级</td>
+              <td style={{textAlign: 'center'}}>王五</td>
+              <td style={{textAlign: 'center'}}>二年级</td>
             </tr>
           </tbody>
         </table>
@@ -121,6 +122,14 @@ export default class Blank extends BaseComponent {
                 <Print
                   trigger={<Button icon="printer">打印</Button>}
                   content={<Report />}
+                />
+              </Panel>
+              <Panel title="动态获取内容">
+                <div>打印 EMOJI</div>
+                <br />
+                <Print
+                  trigger={<Button icon="printer">打印</Button>}
+                  content={<Dynamic />}
                 />
               </Panel>
             </Col>

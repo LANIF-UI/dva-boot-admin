@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types'
 import assign from 'object-assign';
@@ -10,7 +10,7 @@ const ROOT = 'antui-print-container';
  *   https://github.com/gregnb/react-to-print
  *   https://github.com/jasonday/printThis
  */
-class Print extends Component {
+class Print extends PureComponent {
   static propTypes = {
     content: PropTypes.any.isRequired,// 可以是 string | React组件 | DOM 元素
     trigger: PropTypes.node,          // print controller area

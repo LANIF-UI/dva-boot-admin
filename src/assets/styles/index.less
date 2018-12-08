@@ -11,6 +11,16 @@ body,
   background: #f0f2f5;
 }
 
+@media print {
+  .ant-checkbox-checked .ant-checkbox-inner {
+    background: transparent !important;
+    border-color: #333 !important;
+  }
+  .ant-checkbox-checked .ant-checkbox-inner:after {
+    border-color: #333 !important;
+  }
+}
+
 /* 滚动条样式 */
 ::-webkit-scrollbar {
   z-index: 30;
