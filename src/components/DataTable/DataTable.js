@@ -137,7 +137,7 @@ class DataTable extends Component {
       ? {
           [sorter.field]: sorter.order === 'ascend' ? 'asc' : 'desc'
         }
-      : null;
+      : sorter;
     this.props.onChange &&
       this.props.onChange({ pageNum, filters, sorter: sortMap });
   };
