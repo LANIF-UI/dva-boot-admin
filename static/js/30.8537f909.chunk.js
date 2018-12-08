@@ -1,0 +1,1 @@
+webpackJsonp([30],{1136:function(a,e,t){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var c=t(446),r=t(448);e.default=Object(c.a)({namespace:"datatable",state:{pageData:r.a.create(),pageDataSort:r.a.create(),deptTreeData:[],dataList:{list:[]}}})}});
