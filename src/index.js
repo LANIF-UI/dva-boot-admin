@@ -10,6 +10,7 @@ import 'assets/styles/index.less';
 import config from './config';
 import { LocaleProvider } from 'antd';
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
+import 'moment/locale/zh-cn';
 import { baseURL } from '../package.json';
 
 // -> 初始化
