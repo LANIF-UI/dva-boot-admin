@@ -113,6 +113,15 @@ export const columns3 = [
       fileTypes: ['.png', '.jpg', '.gif'], // 允许类型
       max: 2,
     }
+  },
+  {
+    title: '马上传',
+    name: 'userFile',
+    formItem: {
+      type: 'upload',
+      action: 'https://httpbin.org/post', // 后台接口 例：/uploadFile 会走代理
+      fileName: 'file1',     // 后台接收的名字
+    }
   }
 ];
 

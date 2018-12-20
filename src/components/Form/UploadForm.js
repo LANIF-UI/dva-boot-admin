@@ -1,5 +1,7 @@
 import React from 'react';
-import { Upload, Button } from 'antd';
+import { Button } from 'antd';
+import Upload from '../Upload';
+import omit from 'object.omit';
 import $$ from 'cmn-utils';
 /**
  * Upload元件, 可能需要自已处理反回值，如果后台需要FormData
@@ -24,6 +26,8 @@ export default ({
   max,
   maxFileSize, // 最大文件大小
   fileTypes, // 允许文件类型
+  action,    // 后台地址
+  fileName,  // 上传到后台的文件名
   ...otherProps
 }) => {
   const { getFieldDecorator } = form;
@@ -80,12 +84,24 @@ export default ({
     formFieldOptions.onChange = args => onChange(form, args); // form, args
   }
 
+  let uploadProps = {
+    listType: 'picture',
+    beforeUpload: file => false,
+  }
+
+  // 真接上传到后台
+  if (action) {
+    uploadProps = omit(otherProps, ['beforeUpload']);
+    uploadProps.action = action;
+    uploadProps.name = fileName || 'file';
+  } 
+
   return getFieldDecorator(name, {
     valuePropName: 'fileList',
     getValueFromEvent: normFile,
     ...formFieldOptions
   })(
-    <Upload listType="picture" beforeUpload={file => false} {...otherProps}>
+    <Upload {...uploadProps} {...otherProps}>
       {renderUpload ? (
         renderUpload(form, record, isDisabled(max, form.getFieldValue(name)))
       ) : (
