@@ -1,4 +1,4 @@
-import $$, {request} from 'cmn-utils';
+import $$, { request } from 'cmn-utils';
 import objectAssign from 'object-assign';
 import PageInfo from './pageHelper/PageInfo';
 import config from '@/config';
@@ -6,6 +6,20 @@ import config from '@/config';
 const REQUEST = '@request';
 const REQUEST_SUCCESS = '@request_success';
 const REQUEST_ERROR = '@request_error';
+/**
+ * 如果单纯想改变一个状态可以在页面中用这个action
+ * dispatch({
+ *   type: 'crud/@change',
+ *   payload: {
+ *     showModal: true,
+ *   },
+ *   success: () => {
+ *     console.log('state updated!')
+ *   }
+ * })
+ */
+const CHANGE_STATE = '@change';
+const CHANGE_STATE_SUCCESS = '@change_success';
 
 /**
  * 封装service中的异步方法，如在model中使用
@@ -18,11 +32,12 @@ const REQUEST_ERROR = '@request_error';
  * @param {*} payload 
  */
 export async function asyncRequest(payload) {
-  if (!payload || !payload.url) throw(new Error('payload require contains url opt'));
+  if (!payload || !payload.url)
+    throw new Error('payload require contains url opt');
   /**
    * other中可以配置 method headers data 等参数
    */
-  const {url, pageInfo, ...other} = payload;
+  const { url, pageInfo, ...other } = payload;
 
   // 如果是分页查询 (格式化发送参数)
   if (pageInfo && pageInfo instanceof PageInfo) {
@@ -35,7 +50,7 @@ export async function asyncRequest(payload) {
     other.data = data;
   }
 
-  const _promise = other.method 
+  const _promise = other.method
     ? request[other.method.toLowerCase()](url, other.data, other)
     : request.send(url, other);
 
@@ -47,9 +62,9 @@ export async function asyncRequest(payload) {
         // 生成新实例，防止新老指向同一个实例问题
         return objectAssign(new PageInfo(), pageInfo, newPageInfo);
       }
-    })
+    });
   } else {
-    return _promise
+    return _promise;
   }
 }
 
@@ -58,14 +73,17 @@ export const simpleModel = {
   enhance: true,
   state: {},
   effects: {},
-  reducers: {},
+  reducers: {}
 };
 
-export default (model) => {
-  const {namespace, state, subscriptions, effects, reducers, enhance} = {...simpleModel, ...model};
+export default model => {
+  const { namespace, state, subscriptions, effects, reducers, enhance } = {
+    ...simpleModel,
+    ...model
+  };
 
   if (!enhance) {
-    return {namespace, state, subscriptions, effects, reducers};
+    return { namespace, state, subscriptions, effects, reducers };
   }
   return {
     namespace,
@@ -80,26 +98,26 @@ export default (model) => {
        * error 在dispatch结束后得到失败的回调
        * afterResponse 模拟reduce中的操作，可以让我们有机会处理反回的数据，不能有副作用的方法
        */
-      * [REQUEST]({ payload, success, error, afterResponse }, { call, put }) {
+      *[REQUEST]({ payload, success, error, afterResponse }, { call, put }) {
         let _payloads = [];
         if ($$.isObject(payload)) {
           _payloads.push(payload);
         } else if ($$.isArray(payload)) {
           _payloads = payload;
-        };
+        }
 
         const resultState = {
           success: {},
           error: {}
         };
-      
+
         for (let i = 0; i < _payloads.length; i++) {
           /**
            * valueField: 返回结果将使用valueField字段的值来接收
            * notice: 弹出通知
            * actionType: 如果存在actionType, 则表示自已处理reducer,值为 actionType + ('_SUCCESS' | '_ERROR')
            */
-          const {valueField, notice, actionType, ...otherPayload} = _payloads[i];
+          const { valueField, notice, actionType, ...otherPayload } = _payloads[i];
 
           try {
             let response = yield call(asyncRequest, otherPayload);
@@ -114,7 +132,7 @@ export default (model) => {
             if (otherPayload.success) {
               otherPayload.success(response);
             }
-            
+
             // 如果需要通知功能
             if (notice) {
               config.notice.success(notice === true ? '操作成功' : notice[0]);
@@ -130,7 +148,7 @@ export default (model) => {
               // 准备返回值
               resultState.success[valueField || '_@fake_'] = response;
             }
-          } catch(e) {
+          } catch (e) {
             resultState.error['error'] = e;
 
             // 如果需要内部回调
@@ -138,7 +156,7 @@ export default (model) => {
               otherPayload.error(e);
             } else if ($$.isFunction(error)) {
               error(e);
-            } 
+            }
 
             // 通知reducer 如果存在actionType,则表示自已处理reducer
             yield put({
@@ -163,24 +181,31 @@ export default (model) => {
           });
         }
       },
+
+      *[CHANGE_STATE]({ payload, success }, { put }) {
+        yield put({
+          type: CHANGE_STATE_SUCCESS,
+          payload
+        });
+
+        if ($$.isFunction(success)) {
+          success();
+        }
+      }
     },
-  
+
     reducers: {
       // get old reducers
       ...reducers,
       // append new request reducers
-      [REQUEST_SUCCESS](state, { payload }) {
-        return {
-          ...state,
-          ...payload
-        };
-      },
-      [REQUEST_ERROR](state, { payload }) {
-        return {
-          ...state,
-          ...payload
-        };
-      },
-    },
-  }
-}
+      [REQUEST_SUCCESS]: _changeState,
+      [REQUEST_ERROR]: _changeState,
+      [CHANGE_STATE_SUCCESS]: _changeState
+    }
+  };
+};
+
+const _changeState = (state, { payload }) => ({
+  ...state,
+  ...payload
+});

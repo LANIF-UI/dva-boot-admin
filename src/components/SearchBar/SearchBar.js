@@ -35,6 +35,10 @@ class SearchBar extends React.Component {
      */
     columns: PropTypes.array.isRequired,
     /**
+     * 使用record的数据对表单进行赋值 {key:value, key1: value1}, 时间类型初始值需转成moment类型
+     */
+    record: PropTypes.object,
+    /**
      * 搜索条类型 inline(行内)，grid(栅格)
      */
     type: PropTypes.string,
@@ -132,6 +136,7 @@ class SearchBar extends React.Component {
       children,
       form,
       appendTo,
+      record,
       ...otherProps
     } = this.props;
 
@@ -184,7 +189,8 @@ class SearchBar extends React.Component {
                 {
                   name: field.name,
                   title: field.title,
-                  placeholder: field.title
+                  placeholder: field.title,
+                  record
                 },
                 field.searchItem
               );
