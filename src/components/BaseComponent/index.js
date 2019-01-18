@@ -35,7 +35,7 @@ class BaseComponent extends React.Component {
    * 修改
    * @param {object} 表单记录
    */
-  onUpdate = record => () => {
+  onUpdate = record => {
     this.setState({
       record,
       visible: true
@@ -46,7 +46,7 @@ class BaseComponent extends React.Component {
    * 删除
    * @param {object | array} 表单记录, 批量删除时为数组
    */
-  onDelete = record => () => {
+  onDelete = record => {
     if (!record) return;
     if ($$.isArray(record) && !record.length) return;
 

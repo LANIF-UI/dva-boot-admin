@@ -35,10 +35,6 @@ export default class extends BaseComponent {
     });
   }
 
-  handleUpdate = () => {
-    
-  }
-
   handleDelete = (records) => {
     const {pageData} = this.props.crud;
     const { rows } = this.state;
@@ -118,6 +114,8 @@ export default class extends BaseComponent {
           visible: false
         })
       },
+      // 新增、修改都会进到这个方法中，
+      // 可以使用主键或是否有record来区分状态
       onSubmit: (values) => {
         dispatch({
           type: 'crud/@request',
@@ -147,7 +145,7 @@ export default class extends BaseComponent {
             appendLeft={
               <Button.Group>
                 <Button type="primary" icon="plus" onClick={this.onAdd}>新增</Button>
-                <Button disabled={!rows.length} onClick={this.onDelete(rows)} icon="delete">删除</Button>
+                <Button disabled={!rows.length} onClick={e => this.onDelete(rows)} icon="delete">删除</Button>
               </Button.Group>
             }
             pullDown={

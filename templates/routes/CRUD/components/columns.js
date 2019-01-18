@@ -11,36 +11,33 @@ export default (self, employees) => [
     searchItem: {
       group: 'abc'
     },
-    formItem: {},
+    formItem: {}
   },
   {
     title: '配电网络',
     name: 'distributionNetwork',
-    dict: [
-      {code: '0', codeName: '城市'},
-      {code: '1', codeName: '乡村'},
-    ],
+    dict: [{ code: '0', codeName: '城市' }, { code: '1', codeName: '乡村' }],
     tableItem: {},
     formItem: {
-      type: 'select',
+      type: 'select'
     },
     searchItem: {
-      type: 'select',
-    },
+      type: 'select'
+    }
   },
   {
     title: '作业地点',
     name: 'address',
     tableItem: {},
     formItem: {},
-    searchItem: {},
+    searchItem: {}
   },
   {
     title: '作业类型',
     name: 'type',
     tableItem: {},
     formItem: {},
-    searchItem: {},
+    searchItem: {}
   },
   {
     title: '开工时间',
@@ -51,7 +48,7 @@ export default (self, employees) => [
     },
     searchItem: {
       type: 'datetime'
-    },
+    }
   },
   {
     title: '竣工时间',
@@ -62,19 +59,19 @@ export default (self, employees) => [
     },
     searchItem: {
       type: 'datetime'
-    },
+    }
   },
   {
     title: '到岗人员',
     name: 'workEmployee',
     tableItem: {
-      render: (text) => text.map(item => item.title).join(',')
+      render: text => text.map(item => item.title).join(',')
     },
     formItem: {
       type: 'transfer',
       modal: true,
       dataSource: employees,
-      normalize: (value) => value.map(item => item.key)
+      normalize: value => value.map(item => item.key)
     }
   },
   {
@@ -90,10 +87,10 @@ export default (self, employees) => [
       width: 180,
       render: (text, record) => (
         <DataTable.Oper>
-          <Button tooltip="修改" onClick={self.onUpdate(record)}>
+          <Button tooltip="修改" onClick={e => self.onUpdate(record)}>
             <Icon type="edit" />
           </Button>
-        <Button tooltip="删除" onClick={self.onDelete(record)}>
+          <Button tooltip="删除" onClick={e => self.onDelete(record)}>
             <Icon type="trash" />
           </Button>
         </DataTable.Oper>
