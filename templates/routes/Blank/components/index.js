@@ -9,7 +9,7 @@ const { Content } = Layout;
 export default class extends BaseComponent {
   render() {
     return (
-      <Layout className="full-layout page <%=name %>-page">
+      <Layout className="full-layout page <%=namespace %>-page">
         <Content>Route created success, happy work!</Content>
       </Layout>
     );
