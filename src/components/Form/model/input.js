@@ -1,23 +1,23 @@
 import React from 'react';
-import { Checkbox } from 'antd';
+import { Input } from 'antd';
 import $$ from 'cmn-utils';
-import omit from 'object.omit';
-
-const CheckboxGroup = Checkbox.Group;
+const { TextArea } = Input;
 /**
- * 单选框
+ * 文本框元件
  */
 export default ({
   form,
   name,
-  dict = [],
   formFieldOptions = {},
   record,
   initialValue,
+  normalize,
   rules,
   onChange,
-  normalize,
-  buttonStyle = 'solid',
+  type,
+  preview,
+  placeholder,
+  getPopupContainer,
   ...otherProps
 }) => {
   const { getFieldDecorator } = form;
@@ -37,6 +37,11 @@ export default ({
     }
   }
 
+  if (preview) {
+    if (type === 'hidden') return null;
+    return <div style={otherProps.style}>{initval || ''}</div>;
+  }
+
   // 如果有rules
   if (rules && rules.length) {
     formFieldOptions.rules = rules;
@@ -44,17 +49,19 @@ export default ({
 
   // 如果需要onChange
   if (typeof onChange === 'function') {
-    formFieldOptions.onChange = e => onChange(form, e.target.value, e); // form, value
+    formFieldOptions.onChange = e => onChange(form, e.target.value, e); // form, value, event
   }
 
-  const checkboxProps = omit(otherProps, 'allowClear');
-  return getFieldDecorator(name, formFieldOptions)(
-    <CheckboxGroup {...checkboxProps}>
-      {dict.map((dic, i) => (
-        <Checkbox key={dic.code} value={dic.code} title={dic.codeName}>
-          {dic.codeName}
-        </Checkbox>
-      ))}
-    </CheckboxGroup>
-  );
+  const Comp = type === 'textarea' ? TextArea : Input;
+
+  delete otherProps.render;
+
+  const props = {
+    autoComplete: 'off',
+    type,
+    placeholder: placeholder || `请输入${otherProps.title}`,
+    ...otherProps
+  };
+
+  return getFieldDecorator(name, formFieldOptions)(<Comp {...props} />);
 };

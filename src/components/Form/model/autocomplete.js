@@ -158,6 +158,8 @@ export default ({
   onChange,
   dataSource,
   normalize,
+  getPopupContainer,
+  placeholder,
   ...otherProps
 }) => {
   const { getFieldDecorator } = form;
@@ -188,7 +190,16 @@ export default ({
       onChange(form, value, option); // form, value, option 选中的项
   }
 
+  const props = {
+    placeholder: placeholder || `请输入${otherProps.title}`,
+    ...otherProps
+  };
+
+  if (getPopupContainer) {
+    props.getPopupContainer = getPopupContainer;
+  }
+
   return getFieldDecorator(name, formFieldOptions)(
-    <AutoCompleteControlled dataSource={dataSource} {...otherProps} />
+    <AutoCompleteControlled dataSource={dataSource} {...props} />
   );
 };

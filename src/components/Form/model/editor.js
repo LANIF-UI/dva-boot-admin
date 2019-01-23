@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Editor from '../Editor';
+import Editor from '../../Editor';
 import $$ from 'cmn-utils';
 import omit from 'object.omit';
 
@@ -20,7 +20,7 @@ class EditorControlled extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { value } = nextProps;
-    if (value) {
+    if (this.props.value !== value) {
       this.setState({ value });
     }
   }
@@ -39,11 +39,7 @@ class EditorControlled extends Component {
     const otherProps = omit(this.props, 'value');
 
     return (
-      <Editor
-        value={value}
-        onChange={this.triggerChange}
-        {...otherProps}
-      />
+      <Editor value={value} onChange={this.triggerChange} {...otherProps} />
     );
   }
 }
@@ -61,6 +57,7 @@ export default ({
   onChange,
   normalize,
   preview,
+  getPopupContainer,
   ...otherProps
 }) => {
   const { getFieldDecorator } = form;

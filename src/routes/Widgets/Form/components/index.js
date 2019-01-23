@@ -163,13 +163,20 @@ export default class extends BaseComponent {
             <Col span={12}>
               <Panel title="自定义提交按钮">
                 <Form
-                  ref="form"
+                  ref={node => this.customBtnForm = node}
                   columns={columns5}
                   footer={
                     <Button
                       style={{ display: 'block', margin: '0 auto' }}
                       size="large"
-                      onClick={this.onCustomSubmit}
+                      onClick={e => {
+                        const form = this.customBtnForm;
+                        form.validateFields((err, values) => {
+                          if (!err) {
+                            console.log('自定义提交:', values)
+                          }
+                        });
+                      }}
                     >
                       注册
                     </Button>

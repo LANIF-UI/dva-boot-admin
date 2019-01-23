@@ -1,23 +1,26 @@
 import React from 'react';
-import { TreeSelect } from 'antd';
+import { Checkbox } from 'antd';
 import $$ from 'cmn-utils';
+import omit from 'object.omit';
 
+const CheckboxGroup = Checkbox.Group;
 /**
- * 下拉树菜单元件
+ * 单选框
  */
-export const TreeSelectForm = ({
+export default ({
   form,
   name,
+  dict = [],
   formFieldOptions = {},
-  children,
   record,
   initialValue,
-  normalize,
   rules,
   onChange,
+  normalize,
+  buttonStyle = 'solid',
+  getPopupContainer,
   ...otherProps
 }) => {
-  // --
   const { getFieldDecorator } = form;
 
   let initval = initialValue;
@@ -42,13 +45,17 @@ export const TreeSelectForm = ({
 
   // 如果需要onChange
   if (typeof onChange === 'function') {
-    formFieldOptions.onChange = (value, label, extra) =>
-      onChange(form, value, label, extra); // form, value
+    formFieldOptions.onChange = e => onChange(form, e.target.value, e); // form, value
   }
 
+  const checkboxProps = omit(otherProps, 'allowClear');
   return getFieldDecorator(name, formFieldOptions)(
-    <TreeSelect {...otherProps} />
+    <CheckboxGroup {...checkboxProps}>
+      {dict.map((dic, i) => (
+        <Checkbox key={dic.code} value={dic.code} title={dic.codeName}>
+          {dic.codeName}
+        </Checkbox>
+      ))}
+    </CheckboxGroup>
   );
 };
-
-export default TreeSelectForm;

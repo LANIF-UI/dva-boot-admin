@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Modal, Button, Tag } from 'antd';
-import TransferTree from '../TransferTree';
+import { Modal, Select } from 'antd';
+import TransferTree from '../../TransferTree';
 import $$ from 'cmn-utils';
+const Option = Select.Option;
 
 /**
  *  formItem: {
@@ -30,17 +31,16 @@ class TransferTreeControlled extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if ('value' in nextProps) {
-      const value = nextProps.value;
-      this.setState({ value });
+    if (this.props.value !== nextProps.value) {
+      this.setState({ value: nextProps.value });
     }
   }
 
   triggerChange = (targetKeys, targetNodes) => {
+    const { modal, onChange } = this.props;
     this.setState({ value: targetNodes });
 
-    const onChange = this.props.onChange;
-    if (onChange) {
+    if (onChange && !modal) {
       onChange(targetNodes);
     }
   };
@@ -57,8 +57,16 @@ class TransferTreeControlled extends Component {
     });
   };
 
+  onSelectChange = (value, option) => {
+    const { onChange } = this.props;
+    this.setState({
+      value
+    });
+    onChange && onChange(value);
+  };
+
   render() {
-    const { modal, ...otherProps } = this.props;
+    const { modal, placeholder, ...otherProps } = this.props;
     const { dataSource, value } = this.state;
     const comp = (
       <TransferTree
@@ -72,14 +80,25 @@ class TransferTreeControlled extends Component {
     if (modal) {
       return (
         <div>
-          <Button onClick={this.showModal}>请选择{otherProps.title}</Button>
-
-          {value && value.length ? (
-            <div className="transfer-tree-value-list">
-              {value.map((item, index) => <Tag key={index}>{item.title}</Tag>)}
-            </div>
-          ) : null}
-
+          <div onClick={this.showModal}>
+            <Select
+              readOnly
+              mode="multiple"
+              open={false}
+              value={otherProps.value}
+              onChange={this.onSelectChange}
+              placeholder={placeholder}
+            >
+              {otherProps.value &&
+                dataSource
+                  .filter(item => otherProps.value.indexOf(item.key) !== -1)
+                  .map(item => (
+                    <Option key={item.key} value={item.key}>
+                      {item.title || item.label}
+                    </Option>
+                  ))}
+            </Select>
+          </div>
           <Modal
             className="antui-transfer-modal"
             title={'请选择' + otherProps.title}
@@ -114,6 +133,8 @@ export default ({
   onChange,
   dataSource,
   normalize,
+  placeholder,
+  getPopupContainer,
   ...otherProps
 }) => {
   const { getFieldDecorator } = form;
@@ -143,7 +164,12 @@ export default ({
     formFieldOptions.onChange = value => onChange(form, value); // form, value
   }
 
+  const props = {
+    placeholder: placeholder || `请选择${otherProps.title}`,
+    ...otherProps
+  };
+
   return getFieldDecorator(name, formFieldOptions)(
-    <TransferTreeControlled dataSource={dataSource} {...otherProps} />
+    <TransferTreeControlled dataSource={dataSource} {...props} />
   );
 };

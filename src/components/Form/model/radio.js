@@ -1,21 +1,22 @@
 import React from 'react';
-import { InputNumber } from 'antd';
+import { Radio } from 'antd';
 import $$ from 'cmn-utils';
-
+const RadioGroup = Radio.Group;
 /**
- * 文本框元件
+ * 单选框
  */
 export default ({
   form,
   name,
+  dict = [],
   formFieldOptions = {},
   record,
   initialValue,
-  normalize,
   rules,
   onChange,
-  type,
-  preview,
+  normalize,
+  buttonStyle,
+  getPopupContainer,
   ...otherProps
 }) => {
   const { getFieldDecorator } = form;
@@ -35,10 +36,6 @@ export default ({
     }
   }
 
-  if (preview) {
-    return <div style={otherProps.style}>{initval || ''}</div>;
-  }
-
   // 如果有rules
   if (rules && rules.length) {
     formFieldOptions.rules = rules;
@@ -46,10 +43,19 @@ export default ({
 
   // 如果需要onChange
   if (typeof onChange === 'function') {
-    formFieldOptions.onChange = value => onChange(form, value, null); // form, value, event
+    formFieldOptions.onChange = e => onChange(form, e.target.value, e); // form, value
   }
 
+  let RadioComp = Radio;
+  if (buttonStyle === 'solid') RadioComp = Radio.Button;
+
   return getFieldDecorator(name, formFieldOptions)(
-    <InputNumber {...otherProps} />
+    <RadioGroup {...otherProps}>
+      {dict.map((dic, i) => (
+        <RadioComp key={dic.code} value={dic.code} title={dic.codeName}>
+          {dic.codeName}
+        </RadioComp>
+      ))}
+    </RadioGroup>
   );
 };

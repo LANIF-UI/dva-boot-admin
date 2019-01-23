@@ -30,9 +30,8 @@ class TransferControlled extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if ('value' in nextProps) {
-      const value = nextProps.value;
-      this.setState({ value });
+    if (this.props.value !== nextProps.value) {
+      this.setState({ value: nextProps.value });
     }
   }
 
@@ -78,7 +77,7 @@ class TransferControlled extends Component {
   };
 
   render() {
-    const { title, modal, ...otherProps } = this.props;
+    const { title, modal, placeholder, ...otherProps } = this.props;
     const { dataSource, value, visible } = this.state;
 
     const comp = (
@@ -102,7 +101,7 @@ class TransferControlled extends Component {
               open={false}
               value={otherProps.value}
               onChange={this.onSelectChange}
-              placeholder={`请选择${title}`}
+              placeholder={placeholder}
             >
               {otherProps.value &&
                 dataSource
@@ -147,6 +146,8 @@ export default ({
   onChange,
   dataSource,
   normalize,
+  placeholder,
+  getPopupContainer,
   ...otherProps
 }) => {
   const { getFieldDecorator } = form;
@@ -176,7 +177,12 @@ export default ({
     formFieldOptions.onChange = value => onChange(form, value); // form, value
   }
 
+  const props = {
+    placeholder: placeholder || `请选择${otherProps.title}`,
+    ...otherProps
+  };
+
   return getFieldDecorator(name, formFieldOptions)(
-    <TransferControlled dataSource={dataSource} {...otherProps} />
+    <TransferControlled dataSource={dataSource} {...props} />
   );
 };

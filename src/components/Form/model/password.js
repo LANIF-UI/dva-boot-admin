@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {Input, Form, Col} from 'antd';
+import { Input, Form, Col } from 'antd';
 /**
  * 密码控件
  */
-export default class PasswordForm extends React.Component {
+export default class PasswordForm extends Component {
   static propTypes = {
     form: PropTypes.object,
     name: PropTypes.string,
@@ -16,17 +16,17 @@ export default class PasswordForm extends React.Component {
     formItemLayout: PropTypes.object,
     col: PropTypes.object,
     repeat: PropTypes.bool,
-    type: PropTypes.string,
-  }
+    type: PropTypes.string
+  };
 
   state = {
     confirmDirty: false
-  }
+  };
 
-  handleConfirmBlur = (e) => {
+  handleConfirmBlur = e => {
     const value = e.target.value;
     this.setState({ confirmDirty: this.state.confirmDirty || !!value });
-  }
+  };
 
   checkPassword = (rule, value, callback) => {
     const form = this.props.form;
@@ -35,28 +35,41 @@ export default class PasswordForm extends React.Component {
     } else {
       callback();
     }
-  }
+  };
 
   checkConfirm = (rule, value, callback) => {
     const form = this.props.form;
     if (value && this.state.confirmDirty) {
-      form.validateFields([this.props.name + "_repeat"], { force: true });
+      form.validateFields([this.props.name + '_repeat'], { force: true });
     }
     callback();
-  }
+  };
 
   render() {
-    const {form, name, formFieldOptions = {}, rules, placeholder, type,
-      formItemLayout, col, repeat, ...otherProps} = this.props;
-    
+    const {
+      form,
+      name,
+      formFieldOptions = {},
+      rules,
+      placeholder,
+      type,
+      formItemLayout,
+      col,
+      repeat,
+      getPopupContainer,
+      ...otherProps
+    } = this.props;
+
     const { getFieldDecorator } = form;
 
     // 如果有rules
     formFieldOptions.rules = [
       {
-        required: true, message: `请输入${otherProps.title}`,
-      }, {
-        validator: this.checkConfirm,
+        required: true,
+        message: `请输入${otherProps.title}`
+      },
+      {
+        validator: this.checkConfirm
       }
     ];
 
@@ -64,30 +77,47 @@ export default class PasswordForm extends React.Component {
       formFieldOptions.rules.concat(rules);
     }
 
-    let ComponentCol = type === "inline" ? "div" : Col;
+    let ComponentCol = type === 'inline' ? 'div' : Col;
 
     return (
       <div className="col-item col-item-password-wrap">
         <ComponentCol className="col-item col-item-password" {...col}>
-          <Form.Item {...formItemLayout} label={otherProps.title} hasFeedback className="col-item-content">
+          <Form.Item
+            {...formItemLayout}
+            label={otherProps.title}
+            hasFeedback
+            className="col-item-content"
+          >
             {getFieldDecorator(name, formFieldOptions)(
-              <Input type="password" placeholder={placeholder} />
+              <Input
+                type="password"
+                placeholder={placeholder || `请输入${otherProps.title}`}
+              />
             )}
           </Form.Item>
         </ComponentCol>
         {repeat ? (
           <ComponentCol className="col-item col-item-repeat-password" {...col}>
-            <Form.Item {...formItemLayout} label={"确认" + otherProps.title} hasFeedback className="col-item-content">
-              {getFieldDecorator(name + "_repeat", {
-                rules: [{
-                  required: true, message: `请再次输入${otherProps.title}`,
-                }, {
-                  validator: this.checkPassword,
-                }],
+            <Form.Item
+              {...formItemLayout}
+              label={'确认' + otherProps.title}
+              hasFeedback
+              className="col-item-content"
+            >
+              {getFieldDecorator(name + '_repeat', {
+                rules: [
+                  {
+                    required: true,
+                    message: `请再次输入${otherProps.title}`
+                  },
+                  {
+                    validator: this.checkPassword
+                  }
+                ]
               })(
-                <Input 
-                  type="password" 
-                  onBlur={this.handleConfirmBlur} 
+                <Input
+                  type="password"
+                  onBlur={this.handleConfirmBlur}
                   placeholder="两次输入需保持一致"
                 />
               )}

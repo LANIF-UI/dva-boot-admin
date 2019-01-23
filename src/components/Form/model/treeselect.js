@@ -1,23 +1,25 @@
 import React from 'react';
-import { Input } from 'antd';
+import { TreeSelect } from 'antd';
 import $$ from 'cmn-utils';
-const { TextArea } = Input;
+
 /**
- * 文本框元件
+ * 下拉树菜单元件
  */
-export default ({
+export const TreeSelectForm = ({
   form,
   name,
   formFieldOptions = {},
+  children,
   record,
   initialValue,
   normalize,
   rules,
   onChange,
-  type,
-  preview,
+  getPopupContainer,
+  placeholder,
   ...otherProps
 }) => {
+  // --
   const { getFieldDecorator } = form;
 
   let initval = initialValue;
@@ -35,11 +37,6 @@ export default ({
     }
   }
 
-  if (preview) {
-    if (type === 'hidden') return null;
-    return <div style={otherProps.style}>{initval || ''}</div>;
-  }
-
   // 如果有rules
   if (rules && rules.length) {
     formFieldOptions.rules = rules;
@@ -47,14 +44,22 @@ export default ({
 
   // 如果需要onChange
   if (typeof onChange === 'function') {
-    formFieldOptions.onChange = e => onChange(form, e.target.value, e); // form, value, event
+    formFieldOptions.onChange = (value, label, extra) =>
+      onChange(form, value, label, extra); // form, value
   }
 
-  const Comp = type === 'textarea' ? TextArea : Input;
+  const props = {
+    placeholder: placeholder || `请选择${otherProps.title}`,
+    ...otherProps
+  };
 
-  delete otherProps.render;
+  if (getPopupContainer) {
+    props.getPopupContainer = getPopupContainer;
+  }
 
   return getFieldDecorator(name, formFieldOptions)(
-    <Comp {...otherProps} type={type} autoComplete="off" />
+    <TreeSelect {...props} />
   );
 };
+
+export default TreeSelectForm;

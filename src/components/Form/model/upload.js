@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from 'antd';
-import Upload from '../Upload';
+import Upload from '../../Upload';
 import omit from 'object.omit';
 import $$ from 'cmn-utils';
 /**
@@ -28,6 +28,7 @@ export default ({
   fileTypes, // 允许文件类型
   action,    // 后台地址
   fileName,  // 上传到后台的文件名
+  getPopupContainer,
   ...otherProps
 }) => {
   const { getFieldDecorator } = form;

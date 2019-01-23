@@ -105,13 +105,15 @@ export const columns3 = [
     formItem: {
       type: 'upload',
       initialValue: ['https://avatars1.githubusercontent.com/u/34116960'],
-      rules: [{
-        required: true,
-        message: '请选择用户头像'
-      }],
+      rules: [
+        {
+          required: true,
+          message: '请选择用户头像'
+        }
+      ],
       maxFileSize: 1000, // 最大限制 kb
       fileTypes: ['.png', '.jpg', '.gif'], // 允许类型
-      max: 2,
+      max: 2
     }
   },
   {
@@ -120,7 +122,7 @@ export const columns3 = [
     formItem: {
       type: 'upload',
       action: 'https://httpbin.org/post', // 后台接口 例：/uploadFile 会走代理
-      fileName: 'file1',     // 后台接收的名字
+      fileName: 'file1' // 后台接收的名字
     }
   }
 ];
@@ -320,11 +322,11 @@ export const columns9 = [
       type: 'custom',
       render: (record, form) => {
         const { getFieldDecorator } = form;
-        return getFieldDecorator('age', {
-          initialValue: record && record.age
-        })(
+        return (
           <div>
-            <InputNumber />
+            {getFieldDecorator('age', {
+              initialValue: record && record.age
+            })(<InputNumber />)}
             <Button size='small'>其它操作</Button>
           </div>
         );
@@ -391,7 +393,7 @@ export const createColumns10 = (self, treeData) => [
         }
       ]
     }
-  }, 
+  },
   {
     title: 'asyncTreeSelect',
     name: 'key3',
@@ -412,7 +414,7 @@ export const createColumns10 = (self, treeData) => [
     name: 'name1',
     formItem: {
       type: 'autoComplete',
-      dataSource: ['111', '222', '333'],
+      dataSource: ['111', '222', '333']
     }
   },
   {
@@ -424,8 +426,10 @@ export const createColumns10 = (self, treeData) => [
       valueField: 'name',
       keyField: 'id',
       renderItem: item => (
-        <div>{item.name}/{item.age}岁/{item.city}</div>
-      ),
+        <div>
+          {item.name}/{item.age}岁/{item.city}
+        </div>
+      )
     }
   }
 ];
@@ -434,19 +438,19 @@ const innerColumns = [
   {
     title: '名称',
     name: 'name',
-    tableItem: {},
+    tableItem: {}
   },
   {
     title: '年龄',
     name: 'age',
-    tableItem: {},
+    tableItem: {}
   },
   {
     title: '地址',
     name: 'address',
-    tableItem: {},
+    tableItem: {}
   }
-]
+];
 
 export const createColumns11 = (self, dataSource) => [
   {
@@ -464,7 +468,7 @@ export const createColumns11 = (self, dataSource) => [
       columns: innerColumns,
       onChange: (form, value, rows) => console.log('。。。:', value, rows),
       loadData: self.onLoadTableData,
-      initialValue: [11, 3, 5],
+      initialValue: [11, 3, 5]
     }
   },
   {
@@ -478,11 +482,12 @@ export const createColumns11 = (self, dataSource) => [
       columns: innerColumns,
       onChange: (form, value, rows) => console.log('。。。:', value, rows),
       loadData: self.onLoadTableData,
-      initialValue: [ // 初始值为对像数组时，可以用titleKey指定的字段回显
-        {id: 3, name: '张三'},
-        {id: 5, name: '赵四'},
-        {id: 11, name: '王五'},
-      ],
+      initialValue: [
+        // 初始值为对像数组时，可以用titleKey指定的字段回显
+        { id: 3, name: '张三' },
+        { id: 5, name: '赵四' },
+        { id: 11, name: '王五' }
+      ]
     }
   },
   {
@@ -496,9 +501,9 @@ export const createColumns11 = (self, dataSource) => [
       columns: innerColumns,
       onChange: (form, value, rows) => console.log('。。。:', value, rows),
       loadData: self.onLoadTableData,
-      initialValue: [11, 3, 5],
+      initialValue: [11, 3, 5]
     }
-  },
+  }
 ];
 
 export const columns12 = [
@@ -541,5 +546,5 @@ export const columns12 = [
     formItem: {
       type: 'checkbox'
     }
-  },
+  }
 ];

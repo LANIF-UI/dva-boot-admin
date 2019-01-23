@@ -1,23 +1,22 @@
 import React from 'react';
-import { Checkbox } from 'antd';
+import { InputNumber } from 'antd';
 import $$ from 'cmn-utils';
-import omit from 'object.omit';
-
-const CheckboxGroup = Checkbox.Group;
 /**
- * 单选框
+ * 数字输入框元件
  */
 export default ({
   form,
   name,
-  dict = [],
   formFieldOptions = {},
   record,
   initialValue,
+  normalize,
   rules,
   onChange,
-  normalize,
-  buttonStyle = 'solid',
+  preview,
+  placeholder,
+  getPopupContainer,
+  type,
   ...otherProps
 }) => {
   const { getFieldDecorator } = form;
@@ -37,6 +36,10 @@ export default ({
     }
   }
 
+  if (preview) {
+    return <div style={otherProps.style}>{initval || ''}</div>;
+  }
+
   // 如果有rules
   if (rules && rules.length) {
     formFieldOptions.rules = rules;
@@ -44,17 +47,15 @@ export default ({
 
   // 如果需要onChange
   if (typeof onChange === 'function') {
-    formFieldOptions.onChange = e => onChange(form, e.target.value, e); // form, value
+    formFieldOptions.onChange = e => onChange(form, e.target.value, e); // form, value, event
   }
-  
-  const checkboxProps = omit(otherProps, 'allowClear');
-  return getFieldDecorator(name, formFieldOptions)(
-    <CheckboxGroup {...checkboxProps}>
-      {dict.map((dic, i) => (
-        <Checkbox key={dic.code} value={dic.code} title={dic.codeName}>
-          {dic.codeName}
-        </Checkbox>
-      ))}
-    </CheckboxGroup>
-  );
+
+  delete otherProps.render;
+
+  const props = {
+    placeholder: placeholder || `请输入${otherProps.title}`,
+    ...otherProps
+  };
+
+  return getFieldDecorator(name, formFieldOptions)(<InputNumber {...props} />);
 };

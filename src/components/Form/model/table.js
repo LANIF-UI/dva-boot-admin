@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Modal, Button, Select } from 'antd';
-import DataTable from '../DataTable';
+import DataTable from '../../DataTable';
 import $$ from 'cmn-utils';
 import isEqual from 'react-fast-compare';
 import PageHelper from '@/utils/pageHelper';
@@ -160,6 +160,8 @@ class TableControlled extends Component {
       rowKey,
       selectType,
       showNum,
+      placeholder,
+      getPopupContainer,
       ...otherProps
     } = this.props;
     const { dataSource, value, rows, loading, visible } = this.state;
@@ -186,7 +188,7 @@ class TableControlled extends Component {
               open={false}
               value={titleKey ? value : value.length ? '_selected' : []}
               onChange={this.onSelectChange}
-              placeholder={`请选择${otherProps.title}`}
+              placeholder={placeholder}
             >
               {titleKey ? (
                 rows.map(item => (
@@ -256,6 +258,7 @@ export default ({
   dataSource,
   normalize,
   rowKey,
+  placeholder,
   ...otherProps
 }) => {
   const { getFieldDecorator } = form;
@@ -285,11 +288,16 @@ export default ({
     formFieldOptions.onChange = (value, rows) => onChange(form, value, rows); // form, value
   }
 
+  const props = {
+    placeholder: placeholder || `请选择${otherProps.title}`,
+    ...otherProps
+  };
+
   return getFieldDecorator(name, formFieldOptions)(
     <TableControlled
       dataSource={dataSource}
       rowKey={rowKey || name}
-      {...otherProps}
+      {...props}
     />
   );
 };
