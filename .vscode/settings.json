@@ -4,4 +4,5 @@
   "editor.renderIndentGuides": true,
   "eslint.enable": true,
   "prettier.singleQuote": true,
+  "javascript.implicitProjectConfig.experimentalDecorators": true,
 }
