@@ -167,8 +167,8 @@ class FormComp extends React.Component {
       preview: preview
     });
 
-    const colopts = type === 'grid' ? objectAssign(this.cols, cols) : {};
-    const rowopts = type === 'grid' ? objectAssign(this.rows, rows) : {};
+    const colopts = type === 'grid' ? cols || this.cols : {};
+    const rowopts = type === 'grid' ? rows || this.rows : {};
 
     let ComponentRow = type === 'inline' ? PlainComp : Row;
     let ComponentCol = type === 'inline' ? PlainComp : Col;

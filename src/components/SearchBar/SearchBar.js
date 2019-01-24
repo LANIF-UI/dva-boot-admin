@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Form, Row, Col, Button, message } from 'antd';
 import cx from 'classnames';
-import objectAssign from 'object-assign';
 import $$ from 'cmn-utils';
 import './style/index.less';
 const createForm = Form.create;
@@ -131,8 +130,8 @@ class SearchBar extends React.Component {
       ...otherProps
     } = this.props;
 
-    const colopts = type === 'grid' ? objectAssign(this.cols, cols) : {};
-    const rowopts = type === 'grid' ? objectAssign(this.rows, rows) : {};
+    const colopts = type === 'grid' ? cols || this.cols : {};
+    const rowopts = type === 'grid' ? rows || this.rows : {};
 
     let ComponentRow = type === 'inline' ? PlainComp : Row;
     let ComponentCol = type === 'inline' ? PlainComp : Col;

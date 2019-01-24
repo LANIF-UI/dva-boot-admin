@@ -16,7 +16,8 @@ class LazyLoad extends Component {
   };
 
   static defaultProps = {
-    src: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
+    src:
+      'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
     dataSizes: 'auto',
     iframe: false,
     prefixCls: 'antui-lazyload'
@@ -80,7 +81,8 @@ class LazyLoad extends Component {
 
   onError(e) {
     e.target.classList.add('lazyerror');
-    e.target.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+    e.target.src =
+      'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
   }
 
   render() {
@@ -94,7 +96,7 @@ class LazyLoad extends Component {
       iframe,
       title,
       alt,
-      ...otherProps,
+      ...otherProps
     } = this.props;
 
     const classNames = cx(prefixCls, 'lazyload', className);
