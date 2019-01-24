@@ -11,12 +11,12 @@ import config from './config';
 import { LocaleProvider } from 'antd';
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import 'moment/locale/zh-cn';
-import { baseURL } from '../package.json';
+import { homepage } from '../package.json';
 
 // -> 初始化
 const app = dva({
   history: createHistory({
-    basename: baseURL
+    basename: homepage
   })
 });
 

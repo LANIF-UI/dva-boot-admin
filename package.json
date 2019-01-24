@@ -2,7 +2,7 @@
   "name": "dva-boot-admin",
   "version": "1.1.0",
   "description": "dva-boot-admin",
-  "homepage": "https://lanif-ui.github.io/dva-boot-admin",
+  "homepage": "/dva-boot-admin",
   "repository": {
     "type": "git",
     "url": "git@github.com:LANIF-UI/dva-boot-admin.git"
@@ -15,19 +15,9 @@
     "eject": "react-scripts eject",
     "gh-pages": "react-app-rewired build && gh-pages -d build"
   },
-  "baseURL": "/dva-boot-admin",
-  "proxy": {
-    "/api": {
-      "target": "http://localhost:8080",
-      "changeOrigin": true,
-      "pathRewrite": {
-        "^/api": ""
-      }
-    }
-  },
   "dependencies": {
     "@antv/data-set": "^0.8.9",
-    "antd": "^3.10.4",
+    "antd": "^3.12.4",
     "bizcharts": "^3.1.5",
     "classnames": "^2.2.5",
     "cmn-utils": "^1.0.7",
@@ -48,18 +38,24 @@
     "wangeditor": "^3.1.1"
   },
   "devDependencies": {
-    "autodll-webpack-plugin": "^0.3.8",
-    "babel-plugin-dva-hmr": "^0.4.0",
-    "babel-plugin-import": "^1.6.3",
+    "@babel/plugin-proposal-decorators": "^7.3.0",
+    "babel-plugin-import": "^1.11.0",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "customize-cra": "^0.2.10",
     "fetch-mock": "^6.4.3",
     "gh-pages": "^1.1.0",
+    "http-proxy-middleware": "^0.19.1",
     "less": "^2.7.3",
     "less-loader": "^4.0.5",
     "mockjs": "^1.0.1-beta3",
     "prop-types": "^15.6.1",
-    "react-app-rewire-less-modules": "1.1.0",
-    "react-app-rewired": "^1.3.8",
-    "react-scripts": "^1.1.5"
-  }
+    "react-app-rewired": "^2.0.2",
+    "react-scripts": "^2.1.3"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

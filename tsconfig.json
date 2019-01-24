@@ -1,7 +1,0 @@
-{
-  "compilerOptions": {
-    "experimentalDecorators": true,
-    "allowJs": true,
-    "outDir": "build"
-  }
-}
