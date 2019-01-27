@@ -1,4 +1,4 @@
-# Build 打包部部署
+# Build 打包部署
 
 > `yarn run build` or `npm run build`
 
