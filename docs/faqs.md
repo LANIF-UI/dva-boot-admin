@@ -101,7 +101,7 @@ Access-Control-Allow-Origin *;
 ```
 在发请求应该就ok了，因为可能不是简单请求同样会有一条options
 
-## 发布路径
+## 发布路径（[1.2.0以后参考](https://github.com/LANIF-UI/dva-boot-admin/blob/master/docs/build.md)）
 
 > **注：1.1.0之后这个配置被移到了package.json中 publicPath 改为 baseURL，以'/'开头，结尾没有'/'**
 
