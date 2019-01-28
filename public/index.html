@@ -11,10 +11,12 @@
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
     <link href="https://cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
-    <!-- Polyfills -->
-    <!--[if lt IE 10]>
-    <script src="./polyfill/ie10.js"></script>
-    <![endif]-->
+    <script>
+      // Polyfills IE 10
+      if (Function('/*@cc_on return document.documentMode===10@*/')()){
+        document.write('<script src="./polyfill/ie10.js"><\/script>');
+      }
+    </script>
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
