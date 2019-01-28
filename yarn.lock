@@ -2880,9 +2880,10 @@ csstype@^2.2.0:
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-2.4.2.tgz#158e36c69566bf968da63d0ba14eda1c20e8643a"
 
-customize-cra@^0.2.10:
-  version "0.2.10"
-  resolved "http://registry.npm.taobao.org/customize-cra/download/customize-cra-0.2.10.tgz#256ef5234e8446caccdefdf52a22abb702350fd8"
+customize-cra@^0.2.11:
+  version "0.2.11"
+  resolved "http://registry.npm.taobao.org/customize-cra/download/customize-cra-0.2.11.tgz#eda1cad4e16c958c577fa43c9776ea372e82671d"
+  integrity sha1-7aHK1OFslYxXf6Q8l3bqNy6CZx0=
   dependencies:
     lodash.flow "^3.5.0"
 
