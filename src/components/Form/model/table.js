@@ -162,6 +162,7 @@ class TableControlled extends Component {
       showNum,
       placeholder,
       getPopupContainer,
+      disabled,
       ...otherProps
     } = this.props;
     const { dataSource, value, rows, loading, visible } = this.state;
@@ -178,12 +179,13 @@ class TableControlled extends Component {
       onChange: ({ pageNum, pageSize }) => this.onChange({ pageNum, pageSize }),
       onSelect: (keys, rows) => this.onSelect(keys, rows)
     };
-    if (modal) {
+    if (modal || disabled) {
       return (
         <div>
-          <div onClick={this.showModal}>
+          <div onClick={disabled ? () => {} : this.showModal}>
             <Select
               readOnly
+              disabled={!!disabled}
               mode="multiple"
               open={false}
               value={titleKey ? value : value.length ? '_selected' : []}

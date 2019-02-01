@@ -91,12 +91,13 @@ class TransferControlled extends Component {
       />
     );
 
-    if (modal) {
+    if (modal || otherProps.disabled) {
       return (
         <div>
-          <div onClick={this.showModal}>
+          <div onClick={otherProps.disabled ? () => {} : this.showModal}>
             <Select
               readOnly
+              disabled={!!otherProps.disabled}
               mode="multiple"
               open={false}
               value={otherProps.value}
