@@ -1,6 +1,19 @@
 Changelog
 =========
 
+2.0.0
+-----
+重要更新 :tada: :tada: :tada: 
+
+### Features & Improvements
+* 升级**create-react-app**到最新v2版本
+* 使用**customize-cra**覆盖cra默认配置
+* 兼容**ie10**及以上浏览器
+* 重新优化的`Form`&`ScarchBar`，更易于扩展
+* `Form`增加`upload`类型
+* `modelEnhance`增加`@change`类型
+* 增加`Coming Page`示例
+
 1.1.0
 -----
 提供更多实用的组件，提升性能及稳定性
