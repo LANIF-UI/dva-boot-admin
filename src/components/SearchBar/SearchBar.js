@@ -225,7 +225,7 @@ class SearchBar extends React.Component {
                       }
                     ]
                   };
-                  formProps.maxLength = field.searchItem.maxLength || '100';
+                  formProps.maxLength = field.searchItem.maxLength || 100;
                   formProps.autoComplete = 'off';
                   FieldComp = require(`../Form/model/input`).default(formProps);
                   break;

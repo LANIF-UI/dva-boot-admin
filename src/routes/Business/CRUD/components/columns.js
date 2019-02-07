@@ -1,7 +1,7 @@
 import React from 'react';
 import DataTable from 'components/DataTable';
 import Icon from 'components/Icon';
-import { Button } from 'antd';
+import Button from 'components/Button';
 
 export default (self, employees) => [
   {
