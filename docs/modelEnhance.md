@@ -112,9 +112,31 @@ dispatch({
 });
 ```
 
+### 场景二的另一种写法
+上面的写法是把业务逻辑都写到了视图组件中，这样的写法适合简单且不会进行复用的场景.
+
+如果我们不希望业务和视图耦合到一处，且同一`@request`需要多次进行复用，这时我们推荐这种写法(dva标准写法)，即把业务分离到**model**中，在`effects`中用`put`发出`@request`，在组件中通过`dispatch`调用相应`effect`,例如
+
+model.js 详见*CRUD*示例中model的写法
+```js
+// 获取分页数据
+*getPageInfo({ payload }, { call, put }) {
+  const { pageData } = payload;
+  yield put({
+    type: '@request',
+    payload: {
+      valueField: 'pageData',
+      url: '/crud/getList',
+      pageInfo: pageData
+    }
+  });
+}
+```
+
 ## 怎么使用
 
 ```js
+// 在组件中
 dispatch({
   type: 'ns/@request',      // @request请求
   payload: {
@@ -130,4 +152,11 @@ dispatch({
   success: resp => {}, // 在dispatch结束后得到成功的回调，非必需
   error: e => {}, // 在dispatch结束后得到失败的回调，非必需
 });
+
+// 在effects中
+*getPageInfo({ payload }, { put }) {
+  yield put({
+    // 同上
+  });
+}
 ```
