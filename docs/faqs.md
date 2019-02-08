@@ -16,44 +16,48 @@ columns里的`formItem`是直接用的antd里的对应组件 比如默认 `formI
 
 ## 如何配代理 proxy （开发环境下生效）
 
-当请求后端接口时，我们使用反向代理方式，在`package.json`中进行设置，更多设置看[create-react-app](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#proxying-api-requests-in-development)
-```json
-"proxy": {
-  "/api": {
-    "target": "http://192.168.202.12:8391",
-    "changeOrigin": true,
-    "pathRewrite": {
-      "^/api": ""
+当请求后端接口时，我们使用反向代理方式，在`src/setupProxy.js`中进行设置，更多设置看[create-react-app v2](https://facebook.github.io/create-react-app/docs/proxying-api-requests-in-development#configuring-the-proxy-manually)和[http-proxy-middleware](https://github.com/chimurai/http-proxy-middleware)
+```js
+app.use(
+  proxy('/api', {
+    target: 'http://192.168.202.12:8391',
+    changeOrigin: true,
+    pathRewrite: {
+      '^/api': ''
     }
-  }
-},
+  })
+);
 
 // 例 fetch('/api/user/getDetail') -> 'http://192.168.202.12:8391/user/getDetail'
 
 // 可配置多个, 注意顺序，最大范围的要放到最下面，
-"proxy": {
-  "/api/v1": {
-    "target": "http://192.168.202.11",
-    "changeOrigin": true,
-    "pathRewrite": {
-      "^/api": ""
+app.use(
+  proxy('/api/sub', {
+    target: 'http://localhost:8080',
+    changeOrigin: true,
+    pathRewrite: {
+      '^/api': ''
     }
-  },
-  "/api/v2": {
-    "target": "http://192.168.202.12",
-    "changeOrigin": true,
-    "pathRewrite": {
-      "^/api": ""
+  })
+);
+app.use(
+  proxy('/api', {
+    target: 'http://aaa:1000',
+    changeOrigin: true,
+    pathRewrite: {
+      '^/api': ''
     }
-  },
-  "/api": {
-    "target": "http://192.168.202.13",
-    "changeOrigin": true,
-    "pathRewrite": {
-      "^/api": ""
+  })
+);
+app.use(
+  proxy('/xxx', {
+    target: 'http://bbb:2000',
+    changeOrigin: true,
+    pathRewrite: {
+      '^/xxx': ''
     }
-  }
-},
+  })
+);
 ```
 
 ## 如何配反向代理 nginx （生产环境下）
