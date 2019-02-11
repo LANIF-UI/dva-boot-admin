@@ -6,7 +6,10 @@ import tree from './tree';
 import datatable from './datatable';
 import charts from './charts';
 import formData from './form';
-
+/**
+ * 加载mock文件
+ * packMock(mock1[,mock2])
+ */
 packMock(
   user,
   crud,

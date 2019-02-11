@@ -16,46 +16,58 @@ function getTitle(pathName) {
 export default class TabsLayout extends BaseComponent {
   constructor(props) {
     const {
-      childRoutes,
       location: { pathname }
     } = props;
     super(props);
-    this.newTabIndex = 0;
-    const panes = childRoutes.filter(item => item.key === pathname);
-    this.state = {
-      activeKey: panes.length ? panes[0].key : '/notfound',
-      panes,
-      noMatch: !panes.length
-    };
+    this.state = this.setCurPanes(pathname, []);
   }
 
   componentWillReceiveProps(nextProps) {
     const {
-      childRoutes,
       location: { pathname }
     } = this.props;
-    let { panes } = this.state;
     const nextpathname = nextProps.location.pathname;
     if (pathname !== nextpathname) {
-      let noMatch;
-      let newPanes = [];
-      const existPane = panes.some(item => item.key === nextpathname);
-      if (!existPane) {
-        const nextPanes = childRoutes.filter(item => item.key === nextpathname);
-        noMatch = !nextPanes.length;
-        newPanes = panes.concat(nextPanes);
-      } else {
-        newPanes = panes;
-        noMatch = false;
-      }
-
-      this.setState({
-        activeKey: nextpathname,
-        panes: newPanes,
-        noMatch
-      });
+      const newState = this.setCurPanes(nextpathname);
+      this.setState(newState);
     }
   }
+
+  setCurPanes = (pathName, _panes) => {
+    const { childRoutes } = this.props;
+    let panes = _panes || this.state.panes;
+    const existPane = panes.some(item => item.key === pathName);
+    if (existPane) {
+      return {
+        activeKey: pathName,
+        panes,
+        noMatch: false
+      };
+    } else {
+      const nextPanes = childRoutes.filter(item => item.key === pathName);
+      if (nextPanes.length) {
+        return {
+          activeKey: pathName,
+          panes: panes.concat(nextPanes),
+          noMatch: false
+        };
+      } else if (
+        window.dva_router_pathMap[pathName] &&
+        window.dva_router_pathMap[pathName].parentPath
+      ) {
+        // childRoutes中如果没有(分两种情况,确实没有,或可能是一个子路由在subChildRoute中)
+        // 如果是子路由
+        const parentPath = window.dva_router_pathMap[pathName].parentPath;
+        return this.setCurPanes(parentPath, panes);
+      } else {
+        return {
+          activeKey: pathName,
+          panes: panes,
+          noMatch: true
+        };
+      }
+    }
+  };
 
   onChange = activeKey => {
     this.history.push(activeKey);

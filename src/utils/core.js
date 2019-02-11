@@ -48,6 +48,12 @@ export const createRoute = (app, routesConfig) => {
   } = routesConfig(app);
   if (path && path !== '/') {
     window.dva_router_pathMap[path] = { path, title, ...otherProps };
+    // 为子路由增加parentPath
+    if (otherProps.childRoutes && otherProps.childRoutes.length) {
+      otherProps.childRoutes.forEach(item => {
+        window.dva_router_pathMap[item.key].parentPath = path;
+      });
+    }
   }
   const routeProps = assign(
     {
@@ -55,9 +61,7 @@ export const createRoute = (app, routesConfig) => {
       render: props => (
         <DocumentTitle
           title={
-            config.htmlTitle
-              ? config.htmlTitle.replace(/{.*}/gi, title)
-              : title
+            config.htmlTitle ? config.htmlTitle.replace(/{.*}/gi, title) : title
           }
         >
           <Comp routerData={otherProps} {...props} />
