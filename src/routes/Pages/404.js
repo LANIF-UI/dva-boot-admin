@@ -1,9 +1,9 @@
 import { createRoute } from '@/utils/core';
-import NotFound from 'components/Pages/404'
+import { P404 } from 'components/Pages';
 
 const routesConfig = (app) => ({
   title: '页面没有找到',
-  component: NotFound,
+  component: P404,
 });
 
 export default (app) => createRoute(app, routesConfig);
