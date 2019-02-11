@@ -51,7 +51,9 @@ export const createRoute = (app, routesConfig) => {
     // 为子路由增加parentPath
     if (otherProps.childRoutes && otherProps.childRoutes.length) {
       otherProps.childRoutes.forEach(item => {
-        window.dva_router_pathMap[item.key].parentPath = path;
+        if (window.dva_router_pathMap[item.key]) {
+          window.dva_router_pathMap[item.key].parentPath = path;
+        }
       });
     }
   }
