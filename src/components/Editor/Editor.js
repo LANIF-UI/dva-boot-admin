@@ -12,7 +12,7 @@ class Editor extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if ('value' in nextProps && this.props.value !== nextProps.value) {
+    if (this.props.value !== nextProps.value) {
       this.setState({
         value: nextProps.value
       });

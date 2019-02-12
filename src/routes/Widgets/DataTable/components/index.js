@@ -17,7 +17,7 @@ const TreeNode = Tree.TreeNode;
   loading: loading.models.datatable
 }))
 export default class extends BaseComponent {
-  componentWillMount() {
+  componentDidMount() {
     const { dispatch, datatable } = this.props;
     const { pageData, pageDataSort } = datatable;
 
