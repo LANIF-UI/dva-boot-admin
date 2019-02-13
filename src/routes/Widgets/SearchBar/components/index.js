@@ -34,6 +34,9 @@ export default class extends BaseComponent {
           <Panel title="行内搜索">
             <SearchBar columns={columns1} onSearch={this.onSearch} />
           </Panel>
+          <Panel title="初始值">
+            <SearchBar columns={columns1} record={{roleType: '2', roleName: '游客', order: 2}} onSearch={this.onSearch} />
+          </Panel>
           <Panel title="日期时间">
             <SearchBar columns={columns3} onSearch={this.onSearch} />
           </Panel>

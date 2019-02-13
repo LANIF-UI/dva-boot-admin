@@ -6,7 +6,7 @@ import BaseComponent from 'components/BaseComponent';
 import Panel from 'components/Panel';
 import SideLayout from 'components/SideLayout';
 import DataTable from 'components/DataTable';
-import { columns1, columns2, columns3 } from './columns';
+import { columns1, columns2, columns3, columns4 } from './columns';
 import './index.less';
 const { Content } = Layout;
 const Pagination = DataTable.Pagination;
@@ -17,9 +17,9 @@ const TreeNode = Tree.TreeNode;
   loading: loading.models.datatable
 }))
 export default class extends BaseComponent {
-  componentWillMount() {
+  componentDidMount() {
     const { dispatch, datatable } = this.props;
-    const { pageData } = datatable;
+    const { pageData, pageDataSort } = datatable;
 
     dispatch({
       type: 'datatable/@request',
@@ -33,24 +33,33 @@ export default class extends BaseComponent {
     dispatch({
       type: 'datatable/@request',
       afterResponse: resp => resp.data,
-      payload : {
+      payload: {
         valueField: 'deptTreeData',
-        url: '/tree/getDept',
+        url: '/tree/getDept'
       }
     });
 
     dispatch({
       type: 'datatable/@request',
       afterResponse: resp => resp.data,
-      payload : {
+      payload: {
         valueField: 'dataList',
-        url: '/datatable/frontPaging',
+        url: '/datatable/frontPaging'
       }
-    })
+    });
+
+    dispatch({
+      type: 'datatable/@request',
+      payload: {
+        valueField: 'pageDataSort',
+        url: '/datatable/getList',
+        pageInfo: pageDataSort.startPage(1, 10)
+      }
+    });
   }
 
-  renderTreeNodes = (data) => {
-    return data.map((item) => {
+  renderTreeNodes = data => {
+    return data.map(item => {
       if (item.children) {
         return (
           <TreeNode title={item.title} key={item.key} dataRef={item}>
@@ -60,7 +69,7 @@ export default class extends BaseComponent {
       }
       return <TreeNode {...item} />;
     });
-  }
+  };
 
   onSelectTreeNode = (selectedKeys, info) => {
     console.log('onSelect', selectedKeys);
@@ -76,11 +85,11 @@ export default class extends BaseComponent {
         pageInfo: pageData.startPage(1, 10)
       }
     });
-  }
+  };
 
   render() {
     const { datatable, loading } = this.props;
-    const { pageData, deptTreeData, dataList } = datatable;
+    const { pageData, deptTreeData, dataList, pageDataSort } = datatable;
     const dataTableProps1 = {
       loading,
       columns: columns1,
@@ -124,13 +133,32 @@ export default class extends BaseComponent {
       showNum: true
     };
 
+    const dataTableProps6 = {
+      loading,
+      columns: columns4,
+      rowKey: 'id',
+      dataItems: pageDataSort,
+      onChange: ({ pageNum, pageSize, sorter }) => {
+        this.props.dispatch({
+          type: 'datatable/@request',
+          payload: {
+            valueField: 'pageDataSort',
+            url: '/datatable/getList',
+            pageInfo: pageDataSort.sortBy(sorter).jumpPage(pageNum, pageSize),
+          }
+        });
+      },
+      isScroll: true
+    };
+
     return (
       <Layout className="full-layout page datatable-page">
         <Content>
           <Panel title="说明">
             <h3>DataTable 用法</h3>
             <p>
-              DataTable通常结合<Link to="/column">Columns</Link>来使用，由Columns定义其数据结构，支持多种类型数据，扩展自antd的Table组件，可以使用Table的api。
+              DataTable通常结合<Link to="/column">Columns</Link>
+              来使用，由Columns定义其数据结构，支持多种类型数据，扩展自antd的Table组件，可以使用Table的api。
             </p>
           </Panel>
           <Row gutter={20}>
@@ -153,8 +181,8 @@ export default class extends BaseComponent {
           </Panel>
           <Row gutter={20}>
             <Col span={12}>
-              <Panel title="行号">
-                <DataTable {...dataTableProps2} />
+              <Panel title="行号,初始值">
+                <DataTable {...dataTableProps2} selectedRowKeys={[1, 2, 4]} />
               </Panel>
             </Col>
             <Col span={12}>
@@ -174,9 +202,7 @@ export default class extends BaseComponent {
                 <SideLayout
                   title="组织机构"
                   sideContent={
-                    <Tree
-                      onSelect={this.onSelectTreeNode}
-                    >
+                    <Tree onSelect={this.onSelectTreeNode}>
                       {this.renderTreeNodes(deptTreeData)}
                     </Tree>
                   }
@@ -187,9 +213,17 @@ export default class extends BaseComponent {
             </Col>
           </Row>
           <Row gutter={20}>
-            <Col span={12}>
-              <Panel title="前台分页">
-                <DataTable pagination {...dataTableProps5} />
+            <Col span={10}>
+              <Panel title="前台分页" height={500} scroll>
+                <DataTable pagination={{ pageSize: 20 }} {...dataTableProps5} />
+              </Panel>
+            </Col>
+            <Col span={14}>
+              <Panel title="排序" height={500} scroll>
+                <DataTable {...dataTableProps6} />
+                <div className="footer">
+                  <Pagination {...dataTableProps6} />
+                </div>
               </Panel>
             </Col>
           </Row>

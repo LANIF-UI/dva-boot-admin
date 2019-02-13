@@ -1,28 +1,31 @@
 import React from 'react';
 import dva from 'dva';
-import { Router } from 'dva/router';
 import dynamic from 'dva/dynamic';
 import createLoading from 'dva-loading';
+import { Router } from 'dva/router';
 import createHistory from 'history/createHashHistory';
 import request from 'cmn-utils/lib/request';
-import store from 'cmn-utils/lib/store';
 import createRoutes from '@/routes';
 import 'assets/styles/index.less';
 import config from './config';
 import { LocaleProvider } from 'antd';
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
+import 'moment/locale/zh-cn';
+import { homepage } from '../package.json';
 
 // -> 初始化
-const app = dva({ history: createHistory() });
+const app = dva({
+  history: createHistory({
+    basename: homepage
+  })
+});
 
 // -> 插件
 app.use(createLoading());
 app.use({ onError: config.exception.global });
 
 // -> 请求
-request.config(config.request).headers(_ => ({
-  userId: store.getStore('userId')
-}));
+request.config(config.request);
 
 // 使用mock数据
 require('./__mocks__');
@@ -46,3 +49,10 @@ app.router(({ history, app }) => (
 
 // -> Start
 app.start('#root');
+
+// export global
+export default {
+  app,
+  store: app._store,
+  dispatch: app._store.dispatch
+};

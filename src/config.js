@@ -1,6 +1,7 @@
 import React from 'react';
 import PageLoading from 'components/Loading/PageLoading';
 import { normal } from 'components/Notification';
+import store from 'cmn-utils/lib/store';
 
 // 系统通知, 定义使用什么风格的通知，normal或antdNotice
 const notice = normal;
@@ -10,6 +11,11 @@ const notice = normal;
  */
 export default {
   /**
+   * HTML的title模板
+   */
+  htmlTitle: 'DBAdmin - {title}',
+  
+  /**
    * 系统通知
    */
   notice,
@@ -18,12 +24,16 @@ export default {
   request: {
     prefix: '/api',
 
+    // 每次请求头部都会带着这些参数
+    withHeaders: () => ({
+      token: store.getStore("token"),
+    }),
+
     /**
      * 因为modelEnhance需要知道服务器反回的数据，
      * 什么样的是成功，什么样的是失败，如
      * {status: true, data: ...} // 代表成功
      * {status: false, message: ...} // 代表失败
-     * 下面写法代表只要有反回就认为是成功，
      * 实际中应该通过服务端反回的response中的
      * 成功失败标识来进行区分
      */
@@ -32,8 +42,7 @@ export default {
       if (status) {
         return response;
       } else {
-        notice.error(message);
-        return response;
+        throw new Error(message);
       }
     },
     errorHandle: err => {
@@ -50,13 +59,12 @@ export default {
       const errName = err.name;
       // RequestError为拦截请求异常
       if (errName === 'RequestError') {
-        console.error(err);
-      } else {
         notice.error(err.message);
+        console.error(err); 
+      } else {
         console.error(err);
       }
-      // notice.error(err.message);
-    }
+    },
   },
 
   // 分页助手

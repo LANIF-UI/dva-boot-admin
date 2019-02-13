@@ -3,8 +3,8 @@
 @menu-darkgrey-arrow-color: #fff;
 @menu-darkgrey-submenu-bg: #282d33;
 @menu-darkgrey-highlight-color: #fff;
-@menu-darkgrey-item-active-bg: #30363e;
-@menu-darkgrey-item-selected-bg: #30363e;
+@menu-darkgrey-item-active-bg: rgba(0, 0, 0, 0.1);
+@menu-darkgrey-item-selected-bg: rgba(0, 0, 0, 0.1);
 @disabled-color-darkgrey: fade(#fff, 35%);
 
 .ant-menu {
@@ -115,6 +115,7 @@
   &&-darkgrey &-item-selected,
   &-submenu-popup&-darkgrey &-item-selected {
     background-color: @menu-darkgrey-item-selected-bg;
+    box-shadow: 4px 0px 0px 0px @primary-color inset;
   }
 
   // Disabled state sets text to darkgrey gray and nukes hover/tab effects

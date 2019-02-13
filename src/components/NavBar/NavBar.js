@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import Icon from '../Icon';
 import { Popover, Badge, Avatar } from 'antd';
 import { Link } from 'dva/router';
@@ -10,19 +10,23 @@ import SearchBox from './SearchBox';
 /**
  * 其本本局头部区域
  */
-class NavBar extends Component {
+class NavBar extends PureComponent {
   state = {
-    openSearchBox: false,
-  }
+    openSearchBox: false
+  };
 
   static defaultProps = {
     fixed: true,
-    theme: '', //'bg-dark',
-  }
+    theme: '' //'bg-dark',
+  };
 
   toggleFullScreen() {
-    if (!document.fullscreenElement &&
-        !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement ) {
+    if (
+      !document.fullscreenElement &&
+      !document.mozFullScreenElement &&
+      !document.webkitFullscreenElement &&
+      !document.msFullscreenElement
+    ) {
       if (document.documentElement.requestFullscreen) {
         document.documentElement.requestFullscreen();
       } else if (document.documentElement.msRequestFullscreen) {
@@ -30,7 +34,9 @@ class NavBar extends Component {
       } else if (document.documentElement.mozRequestFullScreen) {
         document.documentElement.mozRequestFullScreen();
       } else if (document.documentElement.webkitRequestFullscreen) {
-        document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+        document.documentElement.webkitRequestFullscreen(
+          Element.ALLOW_KEYBOARD_INPUT
+        );
       }
     } else {
       if (document.exitFullscreen) {
@@ -47,42 +53,49 @@ class NavBar extends Component {
 
   onCloseSearchBox = () => {
     this.setState({
-      openSearchBox: false,
+      openSearchBox: false
     });
-  }
+  };
 
   onOpenSearchBox = () => {
     this.setState({
-      openSearchBox: true,
-    })
-  }
+      openSearchBox: true
+    });
+  };
 
   render() {
     const { openSearchBox } = this.state;
-    const { fixed, theme, onCollapseLeftSide, collapsed,
-      onExpandTopBar, toggleSidebarHeader, user } = this.props;
+    const {
+      fixed,
+      theme,
+      onCollapseLeftSide,
+      collapsed,
+      onExpandTopBar,
+      toggleSidebarHeader,
+      user,
+      isMobile
+    } = this.props;
 
-    const classnames = cx(
-      'navbar',
-      {
-        'navbar-fixed-top': !!fixed,
-        'navbar-sm': collapsed,
-        ['bg-' + theme]: !!theme,
-      }
-    );
+    const classnames = cx('navbar', {
+      'navbar-fixed-top': !!fixed,
+      'navbar-sm': isMobile ? true : collapsed,
+      ['bg-' + theme]: !!theme
+    });
 
     return (
       <header className={classnames}>
         <div className="navbar-branding">
           <Link className="navbar-brand" to="/">
-            <img src={logoImg} alt="logo" /><b>LANIF</b>Admin
+            <img src={logoImg} alt="logo" />
+            <b>LANIF</b>
+            Admin
           </Link>
           <span className="toggle_sidemenu_l" onClick={onCollapseLeftSide}>
             <Icon type="lines" />
           </span>
         </div>
         <ul className="nav navbar-nav navbar-left clearfix">
-          {collapsed ? null : (
+          {collapsed || isMobile ? null : (
             <li>
               <a className="sidebar-menu-toggle" onClick={toggleSidebarHeader}>
                 <Icon type="ruby" />
@@ -94,22 +107,32 @@ class NavBar extends Component {
               <Icon type="wand" />
             </a>
           </li>
-          <li onClick={this.toggleFullScreen}>
-            <a className="request-fullscreen">
-              <Icon type="screen-full" />
-            </a>
-          </li>
-          <li className="mini-search" onClick={this.onOpenSearchBox}>
-            <a>
-              <Icon type="search" antd />
-            </a>
-          </li>
+          {isMobile ? (
+            <li className="mini-search" onClick={this.onOpenSearchBox}>
+              <a>
+                <Icon type="search" antd />
+              </a>
+            </li>
+          ) : (
+            <li onClick={this.toggleFullScreen}>
+              <a className="request-fullscreen">
+                <Icon type="screen-full" />
+              </a>
+            </li>
+          )}
         </ul>
-        <form className="navbar-form navbar-search clearfix">
-          <div className="form-group">
-            <input type="text" className="form-control" placeholder="全文检索" onClick={this.onOpenSearchBox} />
-          </div>
-        </form>
+        {isMobile ? null : (
+          <form className="navbar-form navbar-search clearfix">
+            <div className="form-group">
+              <input
+                type="text"
+                className="form-control"
+                placeholder="全文检索"
+                onClick={this.onOpenSearchBox}
+              />
+            </div>
+          </form>
+        )}
         <ul className="nav navbar-nav navbar-right clearfix">
           <li>
             <a href="https://github.com/LANIF-UI/dva-boot-admin">
@@ -117,18 +140,32 @@ class NavBar extends Component {
             </a>
           </li>
           <li className="dropdown">
-            <Popover placement="bottomRight" title={'通知'} 
-              overlayClassName={cx("navbar-popup", {[theme]: !!theme})} content={''} trigger="click">
+            <Popover
+              placement="bottomRight"
+              title={'通知'}
+              overlayClassName={cx('navbar-popup', { [theme]: !!theme })}
+              content={''}
+              trigger="click"
+            >
               <a className="dropdown-toggle">
                 <Icon type="radio-tower" />
               </a>
             </Popover>
           </li>
           <li className="dropdown">
-            <Popover placement="bottomRight" title={`WELCOME ${user.userName}`} 
-              overlayClassName={cx("navbar-popup", {[theme]: !!theme})} content={<UserDropDown />} trigger="click">
+            <Popover
+              placement="bottomRight"
+              title={`WELCOME ${user.userName}`}
+              overlayClassName={cx('navbar-popup', { [theme]: !!theme })}
+              content={<UserDropDown />}
+              trigger="click"
+            >
               <a className="dropdown-toggle">
-                <Badge dot><Avatar src={require('assets/images/avatar.jpg')}>{user.userName}</Avatar></Badge>
+                <Badge dot>
+                  <Avatar src={require('assets/images/avatar.jpg')}>
+                    {user.userName}
+                  </Avatar>
+                </Badge>
               </a>
             </Popover>
           </li>
@@ -139,7 +176,7 @@ class NavBar extends Component {
   }
 }
 
-const UserDropDown = (props) => (
+const UserDropDown = props => (
   <ul className="dropdown-menu list-group dropdown-persist">
     <li className="list-group-item">
       <a className="animated animated-short fadeInUp">
@@ -155,20 +192,20 @@ const UserDropDown = (props) => (
     </li>
     <li className="list-group-item">
       <a className="animated animated-short fadeInUp">
-        <Icon type="gear" /> 帐户设置 
+        <Icon type="gear" /> 帐户设置
       </a>
     </li>
     <li className="list-group-item">
       <a className="animated animated-short fadeInUp">
-        <Icon type="ring" /> 通知 
+        <Icon type="ring" /> 通知
       </a>
     </li>
     <li className="list-group-item dropdown-footer">
       <Link to="/sign/login">
-        <Icon type="poweroff" /> 退出 
+        <Icon type="poweroff" /> 退出
       </Link>
     </li>
   </ul>
-)
+);
 
 export default NavBar;

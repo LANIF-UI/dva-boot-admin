@@ -4,10 +4,11 @@
 .sidebar-left {
   background-color: #001529;
   user-select: none;
+  position: relative;
+  z-index: 2;
+  
   &.sidebar-left-sm {
     .ant-menu {
-      transition: transform 0.3s ease;
-      transform: translate3d(0, 0 ,0);
       &.ant-menu-inline-collapsed {
         width: 60px;
         > .ant-menu-submenu .ant-menu-submenu-title,.ant-menu-item {
@@ -163,19 +164,26 @@
   }
 }
 
+// 左抽屉
+.left-sidebar-drawer {
+  .ant-drawer-close-x {
+    display: none;
+  }
+  .ant-drawer-body {
+    padding: 0px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  .sidebar-left {
+    min-height: 100vh;
+  }
+}
+
 // 右侧边栏
 .sidebar-right {
   user-select: none;
   &.ant-layout-sider {
     background: #f8f8f8;
     border-left: 1px solid #ddd;
-  }
-}
-
-.ant-menu-submenu-popup.ant-menu-darkgrey,
-.ant-menu.ant-menu-darkgrey {
-  .ant-menu-item-selected {
-    background-color: #30363e;
-    box-shadow: 4px 0px 0px 0px @primary-color inset;
   }
 }

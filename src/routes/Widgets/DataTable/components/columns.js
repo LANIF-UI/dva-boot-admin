@@ -8,17 +8,17 @@ export const columns1 = [
   {
     title: '名称',
     name: 'name',
-    tableItem: {},
+    tableItem: {}
   },
   {
     title: '年龄',
     name: 'age',
-    tableItem: {},
+    tableItem: {}
   },
   {
     title: '地址',
     name: 'address',
-    tableItem: {},
+    tableItem: {}
   },
   {
     title: '操作',
@@ -29,7 +29,7 @@ export const columns1 = [
           <Button tooltip="修改">
             <Icon type="edit" />
           </Button>
-        <Button tooltip="删除">
+          <Button tooltip="删除">
             <Icon type="trash" />
           </Button>
         </DataTable.Oper>
@@ -42,12 +42,12 @@ export const columns2 = [
   {
     title: '名称',
     name: 'name',
-    tableItem: {},
+    tableItem: {}
   },
   {
     title: '年龄',
     name: 'age',
-    tableItem: {},
+    tableItem: {}
   },
   {
     title: '地址',
@@ -55,7 +55,7 @@ export const columns2 = [
     tableItem: {
       width: 200,
       render: text => <Tip>{text + text + text + text + text + text}</Tip>
-    },
+    }
   }
 ];
 
@@ -64,10 +64,30 @@ export const columns3 = [
     title: '角色',
     name: 'role',
     dict: [
-      {code: '1', codeName: '管理员'},
-      {code: '2', codeName: '游客'},
-      {code: '3', codeName: '作者'},
+      { code: '1', codeName: '管理员' },
+      { code: '2', codeName: '游客' },
+      { code: '3', codeName: '作者' }
     ],
-    tableItem: {},
+    tableItem: {}
+  }
+];
+
+export const columns4 = [
+  {
+    title: '名称',
+    name: 'name',
+    tableItem: {}
   },
-]
+  {
+    title: '年龄',
+    name: 'age',
+    tableItem: {
+      sorter: true
+    }
+  },
+  {
+    title: '地址',
+    name: 'address',
+    tableItem: {}
+  }
+];

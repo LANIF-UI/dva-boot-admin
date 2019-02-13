@@ -2,7 +2,7 @@ import { dynamicWrapper, createRoute } from '@/utils/core';
 
 const routesConfig = app => ({
   path: '/animations',
-  title: 'DBAdmin - CSSAnimate page',
+  title: '动画',
   component: dynamicWrapper(app, [], () => import('./components'))
 });
 

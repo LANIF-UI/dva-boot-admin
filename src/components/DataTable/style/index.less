@@ -20,10 +20,6 @@
       }
     }
   }
-  .ant-table-small {
-    border: none;
-    border-radius: 0px;
-  }
   .ant-table-small .ant-table-tbody > tr > td {
     padding: 3px 8px;
     height: 35px;
@@ -31,6 +27,10 @@
   .ant-table-small .ant-table-thead > tr > th {
     font-weight: 700;
     color: #666;
+    // 表头不换行
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
   }
   .ant-table-footer {
     padding: 8px;
@@ -49,7 +49,6 @@
     button {
       border: none;
       background-color: transparent;
-      font-size: 20px;
       height: 20px;
       color: @primary-color;
       padding: 0px 5px !important; // button 为 loading 时 新增
@@ -57,6 +56,7 @@
       vertical-align: middle;
       overflow: hidden;
       > i {
+        font-size: 20px;
         vertical-align: top;
         margin-left: 0 !important; // button 为 loading 时 新增
         &.anticon-spin + .anticon {

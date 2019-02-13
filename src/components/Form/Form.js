@@ -1,21 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Form, Row, Col, Button } from 'antd';
+import { Form, Row, Col, Button, Divider } from 'antd';
 import cx from 'classnames';
 import objectAssign from 'object-assign';
-import InputForm from './InputForm';
-import SelectForm from './SelectForm';
-import DateForm from './DateForm';
-import CascadeForm from './CascadeForm';
-import TreeSelectForm from './TreeSelectForm';
-import CustomForm from './CustomForm';
-import PasswordForm from './PasswordForm';
-import InputNumber from './InputNumberForm';
-import TransferForm from './TransferForm';
-import EditorForm from './EditorForm';
-import TransferTreeForm from './TransferTreeForm';
-import TableForm from './TableForm';
 import $$ from 'cmn-utils';
+import omit from 'object.omit';
+import Password from './model/password';
 import './style/index.less';
 
 const createForm = Form.create;
@@ -29,7 +19,7 @@ PlainComp.propTypes = {
 };
 
 /**
- * 搜索条
+ * 表单组件
  */
 class FormComp extends React.Component {
   static propTypes = {
@@ -86,6 +76,7 @@ class FormComp extends React.Component {
 
     /** antd formItemLayout */
     formItemLayout: PropTypes.object,
+    layout: PropTypes.object, // 同formItemLayout
 
     /**
      * 是否是提交中状态
@@ -118,7 +109,7 @@ class FormComp extends React.Component {
   // 内联元素默认宽
   width = {
     date: 100,
-    monthDate: 100,
+    month: 100,
     'date~': 280,
     datetime: 140,
     select: 100,
@@ -155,6 +146,7 @@ class FormComp extends React.Component {
       rows,
       cols,
       formItemLayout: _formItemLayout,
+      layout,
       appendTo,
       columns,
       record,
@@ -172,11 +164,11 @@ class FormComp extends React.Component {
     let classname = cx(prefixCls, className, {
       'form-inline': type === 'inline',
       'form-grid': type === 'grid',
-      'preview': preview,
+      preview: preview
     });
 
-    let colopts = type === 'grid' ? objectAssign(this.cols, cols) : {};
-    const rowopts = type === 'grid' ? objectAssign(this.rows, rows) : {};
+    const colopts = type === 'grid' ? cols || this.cols : {};
+    const rowopts = type === 'grid' ? rows || this.rows : {};
 
     let ComponentRow = type === 'inline' ? PlainComp : Row;
     let ComponentCol = type === 'inline' ? PlainComp : Col;
@@ -203,17 +195,6 @@ class FormComp extends React.Component {
       >
         <ComponentRow className="row-item" {...rowopts}>
           {formFields.map((field, i) => {
-            let { placeholder, width, ...otherField } = objectAssign(
-              {
-                name: field.name,
-                title: field.title,
-                placeholder: field.formItem.placeholder || field.title,
-                record,
-                preview
-              },
-              field.formItem
-            );
-
             // 传入个性化的列大小，改变这个值可以改变每行元素的个数
             let col = { ...colopts };
             if (type === 'grid' && field.formItem.col) {
@@ -222,301 +203,98 @@ class FormComp extends React.Component {
               col = {};
             }
 
-            let formItemLayout = { ..._formItemLayout };
-            if (type === 'grid' && field.formItem.formItemLayout) {
-              formItemLayout = { ...formItemLayout, ...field.formItem.formItemLayout };
+            let formItemLayout = { ..._formItemLayout, ...layout };
+            if (
+              type === 'grid' &&
+              (field.formItem.formItemLayout || field.formItem.layout)
+            ) {
+              formItemLayout = {
+                ...formItemLayout,
+                ...field.formItem.formItemLayout,
+                ...field.formItem.layout
+              };
             } else if (type !== 'grid') {
               formItemLayout = {};
             }
 
-            switch (field.formItem.type) {
-              case 'date~':
-              case 'datetime':
-              case 'date':
-              case 'monthDate':
-              case 'time':
-                const dateProps = {
-                  form: form,
-                  type: field.formItem.type,
-                  style:
-                    type === 'inline'
-                      ? { width: width || this.width[field.formItem.type] }
-                      : {},
-                  format: field.formItem.format,
-                  ...otherField
-                };
-                if (field.formItem.placeholder) {
-                  dateProps.placeholder = field.formItem.placeholder;
-                }
-                if (getPopupContainer) {
-                  dateProps.getCalendarContainer = getPopupContainer;
-                }
+            const fieldType = field.formItem.type || 'input';
+
+            const formProps = {
+              form,
+              name: field.name,
+              title: field.title,
+              record,
+              preview,
+              ...field.formItem
+            };
+
+            if (type === 'inline') {
+              formProps.style = {
+                width: formProps.width || this.width[fieldType]
+              };
+            }
+
+            if (getPopupContainer) {
+              formProps.getPopupContainer = getPopupContainer;
+            }
+
+            if (field.dict) {
+              formProps.dict = field.dict;
+            }
+
+            let FieldComp;
+            switch (fieldType) {
+              case 'date~': // 日期范围
+              case 'datetime': // 日期时间
+              case 'date': // 日期
+              case 'month': // 月
+              case 'time': // 时间
+                FieldComp = require(`./model/date`).default(formProps);
+                break;
+              case 'input': // 输入框
+              case 'textarea': // 多行文本
+                FieldComp = require(`./model/input`).default(formProps);
+                break;
+              case 'hidden': // 隐藏域
                 return (
-                  <ComponentCol key={`col-${i}`} className="col-item" {...col}>
-                    <ComponentItem
-                      {...formItemLayout}
-                      label={field.title}
-                      className="col-item-content"
-                    >
-                      {DateForm(dateProps)}
-                    </ComponentItem>
-                  </ComponentCol>
+                  <span key={`col-${i}`}>
+                    {require(`./model/input`).default(formProps)}
+                  </span>
                 );
-              case 'cascade':
-              case 'cascader':
-                const cascadeProps = {
-                  form: form,
-                  allowClear: true,
-                  style:
-                    type === 'inline'
-                      ? { width: width || this.width[field.formItem.type] }
-                      : {},
-                  placeholder: `请选择${placeholder}`,
-                  ...otherField
-                };
-                if (getPopupContainer) {
-                  cascadeProps.getPopupContainer = getPopupContainer;
-                }
+              case 'line': // 分隔线
+                const lineProps = omit(formProps, 'type');
                 return (
-                  <ComponentCol key={`col-${i}`} className="col-item" {...col}>
-                    <ComponentItem
-                      {...formItemLayout}
-                      label={field.title}
-                      className="col-item-content"
-                    >
-                      {CascadeForm(cascadeProps)}
-                    </ComponentItem>
-                  </ComponentCol>
+                  <Divider key={`col-${i}`} {...lineProps}>
+                    {formProps.title}
+                  </Divider>
                 );
-              case 'select':
-                const selectProps = {
-                  form: form,
-                  dict: field.dict,
-                  allowClear: true,
-                  style:
-                    type === 'inline'
-                      ? { width: width || this.width[field.formItem.type] }
-                      : {},
-                  placeholder: `请选择${placeholder}`,
-                  ...otherField
-                };
-                if (getPopupContainer) {
-                  selectProps.getPopupContainer = getPopupContainer;
-                }
+              case 'password': // 密码
                 return (
-                  <ComponentCol key={`col-${i}`} className="col-item" {...col}>
-                    <ComponentItem
-                      {...formItemLayout}
-                      label={field.title}
-                      className="col-item-content"
-                    >
-                      {SelectForm(selectProps)}
-                    </ComponentItem>
-                  </ComponentCol>
-                );
-              case 'treeSelect':
-                const treeSelectProps = {
-                  form: form,
-                  allowClear: true,
-                  style:
-                    type === 'inline'
-                      ? { width: width || this.width[field.formItem.type] }
-                      : {},
-                  placeholder: `请选择${placeholder}`,
-                  ...otherField
-                };
-                if (getPopupContainer) {
-                  treeSelectProps.getPopupContainer = getPopupContainer;
-                }
-                return (
-                  <ComponentCol key={`col-${i}`} className="col-item" {...col}>
-                    <ComponentItem
-                      {...formItemLayout}
-                      label={field.title}
-                      className="col-item-content"
-                    >
-                      {TreeSelectForm(treeSelectProps)}
-                    </ComponentItem>
-                  </ComponentCol>
-                );
-              case 'transfer':
-                return (
-                  <ComponentCol key={`col-${i}`} className="col-item" {...col}>
-                    <ComponentItem
-                      {...formItemLayout}
-                      label={field.title}
-                      className="col-item-content"
-                    >
-                      {TransferForm({
-                        form: form,
-                        style:
-                          type === 'inline'
-                            ? {
-                                width: width || this.width[field.formItem.type]
-                              }
-                            : {},
-                        ...otherField
-                      })}
-                    </ComponentItem>
-                  </ComponentCol>
-                );
-              case 'transferTree':
-                return (
-                  <ComponentCol key={`col-${i}`} className="col-item" {...col}>
-                    <ComponentItem
-                      {...formItemLayout}
-                      label={field.title}
-                      className="col-item-content"
-                    >
-                      {TransferTreeForm({
-                        form: form,
-                        style:
-                          type === 'inline'
-                            ? {
-                                width: width || this.width[field.formItem.type]
-                              }
-                            : {},
-                        ...otherField
-                      })}
-                    </ComponentItem>
-                  </ComponentCol>
-                );
-              case 'table':
-                return (
-                  <ComponentCol key={`col-${i}`} className="col-item" {...col}>
-                    <ComponentItem
-                      {...formItemLayout}
-                      label={field.title}
-                      className="col-item-content"
-                    >
-                      {TableForm({
-                        form: form,
-                        style:
-                          type === 'inline'
-                            ? {
-                                width: width || this.width[field.formItem.type]
-                              }
-                            : {},
-                        ...otherField
-                      })}
-                    </ComponentItem>
-                  </ComponentCol>
-                );
-              case 'editor':
-                return (
-                  <ComponentCol key={`col-${i}`} className="col-item" {...col}>
-                    <ComponentItem
-                      {...formItemLayout}
-                      label={field.title}
-                      className="col-item-content"
-                    >
-                      {EditorForm({
-                        form: form,
-                        style:
-                          type === 'inline'
-                            ? {
-                                width: width || this.width[field.formItem.type]
-                              }
-                            : {},
-                        ...otherField
-                      })}
-                    </ComponentItem>
-                  </ComponentCol>
-                );
-              case 'custom':
-                return (
-                  <ComponentCol key={`col-${i}`} className="col-item" {...col}>
-                    <ComponentItem
-                      {...formItemLayout}
-                      label={field.title}
-                      className="col-item-content"
-                    >
-                      {CustomForm({
-                        form: form,
-                        render: field.formItem.render,
-                        style:
-                          type === 'inline'
-                            ? {
-                                width: width || this.width[field.formItem.type]
-                              }
-                            : {},
-                        ...otherField
-                      })}
-                    </ComponentItem>
-                  </ComponentCol>
-                );
-              case 'hidden':
-                return (
-                  <InputForm
+                  <Password
                     key={`col-${i}`}
-                    form={form}
-                    type="hidden"
-                    {...otherField}
-                  />
-                );
-              case 'password':
-                return (
-                  <PasswordForm
-                    key={`col-${i}`}
-                    form={form}
-                    type={type}
-                    style={
-                      type === 'inline'
-                        ? { width: width || this.width.default }
-                        : {}
-                    }
-                    placeholder={`请填写${placeholder}`}
-                    repeat={field.formItem.repeat}
                     formItemLayout={formItemLayout}
                     col={col}
-                    {...otherField}
+                    {...formProps}
                   />
                 );
-              case 'number':
-                return (
-                  <ComponentCol key={`col-${i}`} className="col-item" {...col}>
-                    <ComponentItem
-                      {...formItemLayout}
-                      label={field.title}
-                      className="col-item-content"
-                    >
-                      {InputNumber({
-                        form,
-                        style:
-                          type === 'inline'
-                            ? { width: width || this.width.default }
-                            : {},
-                        placeholder: `请输入${placeholder}`,
-                        maxLength: field.formItem.maxLength || '100',
-                        ...otherField
-                      })}
-                    </ComponentItem>
-                  </ComponentCol>
-                );
               default:
-                return (
-                  <ComponentCol key={`col-${i}`} className="col-item" {...col}>
-                    <ComponentItem
-                      {...formItemLayout}
-                      label={field.title}
-                      className="col-item-content"
-                    >
-                      {InputForm({
-                        form,
-                        type: field.formItem.type,
-                        style:
-                          type === 'inline'
-                            ? { width: width || this.width.default }
-                            : {},
-                        placeholder: `请输入${placeholder}`,
-                        maxLength: field.formItem.maxLength || '100',
-                        autoComplete: 'off',
-                        ...otherField
-                      })}
-                    </ComponentItem>
-                  </ComponentCol>
+                // 通用
+                FieldComp = require(`./model/${fieldType.toLowerCase()}`).default(
+                  formProps
                 );
             }
+
+            return (
+              <ComponentCol key={`col-${i}`} className="col-item" {...col}>
+                <ComponentItem
+                  {...formItemLayout}
+                  label={field.title}
+                  className="col-item-content"
+                >
+                  {FieldComp}
+                </ComponentItem>
+              </ComponentCol>
+            );
           })}
           {children}
           {footer === undefined ? (
@@ -543,6 +321,6 @@ class FormComp extends React.Component {
   }
 }
 
-export const Item = Form.item;
+export const Item = Form.Item;
 
 export default createForm()(FormComp);

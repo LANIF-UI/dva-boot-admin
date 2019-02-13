@@ -13,6 +13,9 @@ export default ({ theme, onChange }) => (
     <Checkbox className="fixedSidebar" value="fixedSidebar">
       固定边栏
     </Checkbox>
+    <Checkbox className="tabLayout" value="tabLayout">
+      标签模式
+    </Checkbox>
     <Checkbox className="fixedBreadcrumbs" value="fixedBreadcrumbs">
       固定面包屑
     </Checkbox>

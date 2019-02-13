@@ -18,7 +18,8 @@ import {
   columns8,
   columns9,
   createColumns10,
-  createColumns11
+  createColumns11,
+  columns12
 } from './columns';
 const { Content } = Layout;
 
@@ -26,23 +27,6 @@ const { Content } = Layout;
   form
 }))
 export default class extends BaseComponent {
-  state = {
-    pageData: PageHelper.create()
-  };
-
-  componentDidMount() {
-    const { pageData } = this.state;
-    const pageInfo = pageData.startPage(1, 10);
-
-    $$.post('/datatable/getList', PageHelper.requestFormat(pageInfo)).then(resp => {
-      const data = PageHelper.responseFormat(resp);
-      const newPageData = Object.assign(pageData, data);
-      this.setState({
-        pageData: newPageData
-      });
-    });
-  }
-
   onSubmit(values) {
     console.log(values);
   }
@@ -52,6 +36,11 @@ export default class extends BaseComponent {
     return new Promise(resolve => {
       this.props.dispatch({
         type: 'form/@request',
+        payload: {
+          valueField: 'treeData',
+          url: '/tree/getAsyncTreeSelect',
+          data: treeNode.props.eventKey
+        },
         afterResponse: resp => {
           const loop = data => {
             data.forEach(item => {
@@ -65,25 +54,29 @@ export default class extends BaseComponent {
           loop(treeData);
           resolve();
           return treeData;
-        },
-        payload: {
-          valueField: 'treeData',
-          url: '/tree/getAsyncTreeSelect',
-          data: treeNode.props.eventKey
         }
       });
     });
   };
 
-  onLoadTableData = ({ pageNum, pageSize }) => {
-    const { pageData } = this.state;
-    const pageInfo = pageData.jumpPage(pageNum, pageSize);
+  onLoadTableData = pageInfo => {
+    return $$.post('/datatable/getList', PageHelper.requestFormat(pageInfo))
+      .then(resp => {
+        return PageHelper.responseFormat(resp);
+      })
+      .catch(e => console.error(e));
+  };
 
-    return $$.post('/datatable/getList', PageHelper.requestFormat(pageInfo)).then(resp => {
-      const data = PageHelper.responseFormat(resp);
-      return Object.assign(pageData, data);
+  onLoadAutoCompleteData = value => {
+    return new Promise((resolve, reject) => {
+      $$.post('/form/autoComplete', value)
+        .then(resp => {
+          const { data } = resp;
+          resolve(data.list);
+        })
+        .catch(e => reject(e)); // reject stop loading
     });
-  }
+  };
 
   render() {
     const { treeData } = this.props.form;
@@ -94,18 +87,21 @@ export default class extends BaseComponent {
       roleName: '管理员'
     };
     const columns10 = createColumns10(this, treeData);
-    const columns11 = createColumns11(this, this.state.pageData);
+    const columns11 = createColumns11(this);
     return (
       <Layout className="full-layout page">
         <Content>
           <Panel title="说明">
             <h3>Form 用法</h3>
             <p>
-              Form通常结合<Link to="/column">Columns</Link>来使用，由Columns定义其数据结构，
-              支持多种类型数据(<code>
-                cascade，date，editor，text，textarea，password，select，transfer，transferTree，treeSelect，table,
-                custom(自定义)
-              </code>)， 扩展自antd的Form组件，可以使用其api。
+              Form通常结合
+              <Link to="/column">Columns</Link>
+              来使用，由Columns定义其数据结构， 支持多种类型数据(
+              <code>
+                cascade，date，editor，text，textarea，password，select，transfer，transferTree，treeSelect，table，
+                custom(自定义)，checkbox，radio，autoComplete，upload，line(分隔线)等
+              </code>
+              )， 扩展自antd的Form组件，可以使用其api。
             </p>
           </Panel>
           <Row gutter={20}>
@@ -167,13 +163,20 @@ export default class extends BaseComponent {
             <Col span={12}>
               <Panel title="自定义提交按钮">
                 <Form
-                  ref="form"
+                  ref={node => this.customBtnForm = node}
                   columns={columns5}
                   footer={
                     <Button
                       style={{ display: 'block', margin: '0 auto' }}
                       size="large"
-                      onClick={this.onCustomSubmit}
+                      onClick={e => {
+                        const form = this.customBtnForm;
+                        form.validateFields((err, values) => {
+                          if (!err) {
+                            console.log('自定义提交:', values)
+                          }
+                        });
+                      }}
                     >
                       注册
                     </Button>
@@ -189,7 +192,7 @@ export default class extends BaseComponent {
           </Row>
           <Row gutter={20}>
             <Col span={12}>
-              <Panel title="级联&下拉树">
+              <Panel title="级联&下拉树&自动完成">
                 <Form columns={columns10} onSubmit={this.onSubmit} />
               </Panel>
             </Col>
@@ -204,6 +207,9 @@ export default class extends BaseComponent {
             <Col span={12}>
               <Panel title="自定义类型">
                 <Form columns={columns9} onSubmit={this.onSubmit} />
+              </Panel>
+              <Panel title="单选&复选">
+                <Form columns={columns12} onSubmit={this.onSubmit} />
               </Panel>
             </Col>
             <Col span={12}>

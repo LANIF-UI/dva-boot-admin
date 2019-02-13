@@ -46,14 +46,14 @@ export default class Register extends Component {
     visible: false,
     help: '',
     prefix: '86',
-    registerSuccess: false,
+    registerSuccess: false
   };
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.register.status) {
       this.setState({
-        registerSuccess: true,
-      })
+        registerSuccess: true
+      });
     }
   }
 
@@ -173,7 +173,7 @@ export default class Register extends Component {
     const { count, prefix, help, visible, registerSuccess } = this.state;
 
     if (registerSuccess) {
-      return <Success />
+      return <Success />;
     }
     return (
       <Layout className="full-layout register-page login-page">

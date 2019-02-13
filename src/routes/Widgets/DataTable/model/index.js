@@ -6,6 +6,7 @@ export default modelEnhance({
 
   state: {
     pageData: PageHelper.create(),
+    pageDataSort: PageHelper.create(),
     deptTreeData: [],
     dataList: {
       list: []

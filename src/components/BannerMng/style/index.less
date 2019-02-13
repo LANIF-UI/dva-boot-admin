@@ -1,0 +1,106 @@
+.banner-view-mng {
+  border: 1px solid #ddd;
+  .banner-title {
+    height: 48px;
+    line-height: 48px;
+    padding: 0px 15px;
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #ddd;
+    .title {
+      float: left;
+      font-weight: bold;
+      i {
+        font-size: 16px;
+        font-weight: normal;
+        vertical-align: middle;
+      }
+    }
+    .btns {
+      float: right;
+    }
+  }
+  .banner-content {
+    background: #fff;
+    height: 100%;
+    min-height: 20px;
+    .notdata {
+      text-align: center;
+      padding: 10px;
+      img {
+        opacity: .6;
+        width: 80px;
+      }
+    }
+    .row {
+      display: flex;
+      align-items: top;
+      margin: 7px;
+    }
+    .preview {
+      flex: auto;
+      max-height: 124px;
+      overflow: hidden;
+      float: left;
+      width: 100%;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      margin-right: 7px;
+      transition: max-height 0.2s ease-in;
+
+      &:hover {
+        max-height: 220px;
+      }
+      img {
+        height: 100%;
+        border-radius: 4px;
+      }
+    }
+    .oper {
+      flex: none;
+      display: flex;
+      flex-direction: column;
+      float: right;
+      button {
+        border-radius: 0;
+        margin-top: -1px;
+        transition: none;
+        &:focus,
+        &:hover {
+          z-index: 2;
+        }
+      }
+      > li:first-child button {
+        border-radius: 4px 4px 0 0;
+      }
+      > li:last-child button {
+        border-radius: 0 0 4px 4px;
+      }
+    }
+  }
+
+  .banner-content {
+    .banner-form {
+      padding-top: 10px;
+      padding-bottom: 20px;
+      .ant-upload-select-picture-card i {
+        font-size: 28px;
+        margin-bottom: 4px;
+      }
+      .ant-upload-list-picture-card .ant-upload-list-item {
+        width: 200px;
+      }
+      .ant-upload-select-picture-card .ant-upload-text {
+        font-size: 14px;
+      }
+      .form-btns {
+        text-align: left;
+        margin-left: 12.4%;
+      }
+    }
+    .bannerform-footer {
+      button {
+        margin-right: 5px;
+      }
+    }
+  }
+}

@@ -70,8 +70,8 @@ export default class extends BaseComponent {
                   dataSource={dataSource}
                   loading={loading}
                   targetNodes={[
-                    { key: '110101', title: '东城区' },
-                    { key: '110102', title: '西城区' }
+                    { key: '341522', title: '霍邱县' },
+                    { key: '340506', title: '博望区' }
                   ]}
                   showSearch
                 />

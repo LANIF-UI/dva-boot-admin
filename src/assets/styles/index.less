@@ -11,6 +11,16 @@ body,
   background: #f0f2f5;
 }
 
+@media print {
+  .ant-checkbox-checked .ant-checkbox-inner {
+    background: transparent !important;
+    border-color: #333 !important;
+  }
+  .ant-checkbox-checked .ant-checkbox-inner:after {
+    border-color: #333 !important;
+  }
+}
+
 /* 滚动条样式 */
 ::-webkit-scrollbar {
   z-index: 30;
@@ -57,16 +67,15 @@ ol {
   list-style: none;
 }
 
-a,
-a:link {
+a {
   text-decoration: none;
-  color: #333;
-}
-a:active {
-  color: #2196f3;
-}
-a:hover {
-  text-decoration: none;
+  color: #666;
+  &:active {
+    color: @primary-7;
+  }
+  &:hover {
+    color: @primary-6;
+  }
 }
 
 code {
@@ -84,10 +93,12 @@ code {
     line-height: normal;
     padding: 0;
     background: #fff;
+    overflow: hidden;
   }
 
   .ant-layout-content {
     position: relative;
+    min-height: auto; // override antd min-height: 0;
     // overflow: auto;
   }
 
@@ -104,20 +115,6 @@ code {
   &.ant-layout {
     > .ant-layout-content {
       padding: 24px 24px 0px;
-    }
-  }
-  p {
-    a,
-    a:link {
-      text-decoration: none;
-      color: @primary-color;
-    }
-    a:active {
-      color: @primary-7;
-    }
-    a:hover {
-      color: @primary-5;
-      text-decoration: underline;
     }
   }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import EC from 'components/Charts/ECharts/EC';
-import cloneDeep from 'lodash.clonedeep';
+import cloneDeep from 'lodash/cloneDeep';
 import 'echarts/lib/chart/gauge';
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';

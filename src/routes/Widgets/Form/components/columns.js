@@ -98,6 +98,32 @@ export const columns3 = [
         }
       ]
     }
+  },
+  {
+    title: '用户图标',
+    name: 'avatar',
+    formItem: {
+      type: 'upload',
+      initialValue: ['https://avatars1.githubusercontent.com/u/34116960'],
+      rules: [
+        {
+          required: true,
+          message: '请选择用户头像'
+        }
+      ],
+      maxFileSize: 1000, // 最大限制 kb
+      fileTypes: ['.png', '.jpg', '.gif'], // 允许类型
+      max: 2
+    }
+  },
+  {
+    title: '马上传',
+    name: 'userFile',
+    formItem: {
+      type: 'upload',
+      action: 'https://httpbin.org/post', // 后台接口 例：/uploadFile 会走代理
+      fileName: 'file1' // 后台接收的名字
+    }
   }
 ];
 
@@ -296,11 +322,11 @@ export const columns9 = [
       type: 'custom',
       render: (record, form) => {
         const { getFieldDecorator } = form;
-        return getFieldDecorator('age', {
-          initialValue: record && record.age
-        })(
+        return (
           <div>
-            <InputNumber />
+            {getFieldDecorator('age', {
+              initialValue: record && record.age
+            })(<InputNumber />)}
             <Button size='small'>其它操作</Button>
           </div>
         );
@@ -347,27 +373,27 @@ export const createColumns10 = (self, treeData) => [
       treeData: [
         {
           value: 'zhejiang',
-          label: 'Zhejiang',
+          title: 'Zhejiang',
           children: [
             {
               value: 'hangzhou',
-              label: 'Hangzhou'
+              title: 'Hangzhou'
             }
           ]
         },
         {
           value: 'jiangsu',
-          label: 'Jiangsu',
+          title: 'Jiangsu',
           children: [
             {
               value: 'nanjing',
-              label: 'Nanjing'
+              title: 'Nanjing'
             }
           ]
         }
       ]
     }
-  }, 
+  },
   {
     title: 'asyncTreeSelect',
     name: 'key3',
@@ -376,6 +402,35 @@ export const createColumns10 = (self, treeData) => [
       treeData,
       loadData: self.onLoadData
     }
+  },
+  {
+    title: '分隔线',
+    formItem: {
+      type: 'line'
+    }
+  },
+  {
+    title: '自动完成',
+    name: 'name1',
+    formItem: {
+      type: 'autoComplete',
+      dataSource: ['111', '222', '333']
+    }
+  },
+  {
+    title: '自动完成(异步)',
+    name: 'name',
+    formItem: {
+      type: 'autoComplete',
+      loadData: self.onLoadAutoCompleteData,
+      valueField: 'name',
+      keyField: 'id',
+      renderItem: item => (
+        <div>
+          {item.name}/{item.age}岁/{item.city}
+        </div>
+      )
+    }
   }
 ];
 
@@ -383,19 +438,19 @@ const innerColumns = [
   {
     title: '名称',
     name: 'name',
-    tableItem: {},
+    tableItem: {}
   },
   {
     title: '年龄',
     name: 'age',
-    tableItem: {},
+    tableItem: {}
   },
   {
     title: '地址',
     name: 'address',
-    tableItem: {},
+    tableItem: {}
   }
-]
+];
 
 export const createColumns11 = (self, dataSource) => [
   {
@@ -404,17 +459,92 @@ export const createColumns11 = (self, dataSource) => [
     formItem: {}
   },
   {
-    title: '表格数据',
+    title: '表格(弹窗)',
     name: 'field1',
+    formItem: {
+      type: 'table',
+      rowKey: 'id',
+      dataSource,
+      columns: innerColumns,
+      onChange: (form, value, rows) => console.log('。。。:', value, rows),
+      loadData: self.onLoadTableData,
+      initialValue: [11, 3, 5]
+    }
+  },
+  {
+    title: '表格(弹窗),回显',
+    name: 'field2',
     formItem: {
       type: 'table',
       rowKey: 'id',
       titleKey: 'name',
       dataSource,
       columns: innerColumns,
-      onChange: (form, value) => console.log('。。。:', value),
+      onChange: (form, value, rows) => console.log('。。。:', value, rows),
       loadData: self.onLoadTableData,
-      initialValue: [11, 3, 5],
+      initialValue: [
+        // 初始值为对像数组时，可以用titleKey指定的字段回显
+        { id: 3, name: '张三' },
+        { id: 5, name: '赵四' },
+        { id: 11, name: '王五' }
+      ]
     }
   },
+  {
+    title: '表格(内联)',
+    name: 'field3',
+    formItem: {
+      type: 'table',
+      modal: false,
+      rowKey: 'id',
+      dataSource,
+      columns: innerColumns,
+      onChange: (form, value, rows) => console.log('。。。:', value, rows),
+      loadData: self.onLoadTableData,
+      initialValue: [11, 3, 5]
+    }
+  }
+];
+
+export const columns12 = [
+  {
+    title: '单选',
+    name: 'radio1',
+    dict: [
+      { code: '1', codeName: 'Hangzhou' },
+      { code: '2', codeName: 'Shanghai' },
+      { code: '3', codeName: 'Beijing' },
+      { code: '4', codeName: 'Chengdu' }
+    ],
+    formItem: {
+      type: 'radio'
+    }
+  },
+  {
+    title: '单选（样式）',
+    name: 'radio2',
+    dict: [
+      { code: '1', codeName: 'Hangzhou' },
+      { code: '2', codeName: 'Shanghai' },
+      { code: '3', codeName: 'Beijing' },
+      { code: '4', codeName: 'Chengdu' }
+    ],
+    formItem: {
+      type: 'radio',
+      buttonStyle: 'solid'
+    }
+  },
+  {
+    title: '复选',
+    name: 'radio3',
+    dict: [
+      { code: '1', codeName: 'Hangzhou' },
+      { code: '2', codeName: 'Shanghai' },
+      { code: '3', codeName: 'Beijing' },
+      { code: '4', codeName: 'Chengdu' }
+    ],
+    formItem: {
+      type: 'checkbox'
+    }
+  }
 ];

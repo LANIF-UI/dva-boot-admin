@@ -2,7 +2,7 @@ import { dynamicWrapper, createRoute } from '@/utils/core';
 
 const routesConfig = app => ({
   path: '/mask',
-  title: 'DBAdmin - Mask page',
+  title: '遮罩',
   component: dynamicWrapper(app, [], () => import('./components'))
 });
 

@@ -2,7 +2,7 @@ import {dynamicWrapper, createRoute} from '@/utils/core';
 
 const routesConfig = (app) => ({
   path: '/crud',
-  title: 'DBAdmin - Columns示例',
+  title: 'CRUD示例',
   component: dynamicWrapper(app, [import('./model')], () => import('./components'))
 });
 

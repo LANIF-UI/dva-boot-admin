@@ -137,7 +137,7 @@ export default class ListTree extends React.Component {
     if (info.selected && info.node.props.dataRef) {
       if (loadData && !info.node.props.dataRef.isLeaf) {
         return;
-      } else if (info.node.props.dataRef.children) {
+      } else if (info.node.props.dataRef.children && info.node.props.dataRef.children.length) {
         this.onExpand([info.node.props.eventKey], info);
         return;
       }

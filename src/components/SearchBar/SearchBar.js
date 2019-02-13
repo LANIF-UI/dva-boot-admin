@@ -2,17 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Form, Row, Col, Button, message } from 'antd';
 import cx from 'classnames';
-import objectAssign from 'object-assign';
 import $$ from 'cmn-utils';
-import {
-  InputForm,
-  SelectForm,
-  DateForm,
-  CascadeForm,
-  TreeSelectForm,
-  CustomForm,
-  InputNumberForm
-} from '../Form';
 import './style/index.less';
 const createForm = Form.create;
 
@@ -34,6 +24,10 @@ class SearchBar extends React.Component {
      * 详见帮助文档 column.js 用法
      */
     columns: PropTypes.array.isRequired,
+    /**
+     * 使用record的数据对表单进行赋值 {key:value, key1: value1}, 时间类型初始值需转成moment类型
+     */
+    record: PropTypes.object,
     /**
      * 搜索条类型 inline(行内)，grid(栅格)
      */
@@ -85,7 +79,7 @@ class SearchBar extends React.Component {
   // 内联元素默认宽
   width = {
     date: 100,
-    monthDate: 100,
+    month: 100,
     'date~': 280,
     datetime: 140,
     select: 100,
@@ -125,18 +119,19 @@ class SearchBar extends React.Component {
       className,
       prefixCls,
       type,
-      rows = this.rows,
-      cols = this.cols,
+      rows,
+      cols,
       columns,
       group,
       children,
       form,
       appendTo,
+      record,
       ...otherProps
     } = this.props;
 
-    const colopts = type === 'grid' ? cols : {};
-    const rowopts = type === 'grid' ? rows : {};
+    const colopts = type === 'grid' ? cols || this.cols : {};
+    const rowopts = type === 'grid' ? rows || this.rows : {};
 
     let ComponentRow = type === 'inline' ? PlainComp : Row;
     let ComponentCol = type === 'inline' ? PlainComp : Col;
@@ -180,238 +175,92 @@ class SearchBar extends React.Component {
         >
           <ComponentRow className="row-item" {...rowopts}>
             {searchFields.map((field, i) => {
-              let { placeholder, width, ...otherField } = objectAssign(
-                {
-                  name: field.name,
-                  title: field.title,
-                  placeholder: field.title
-                },
-                field.searchItem
-              );
+              let col = { ...colopts };
+              if (type === 'grid' && field.searchItem.col) {
+                col = field.searchItem.col;
+              } else if (type !== 'grid') {
+                col = {};
+              }
 
-              switch (field.searchItem.type) {
-                case 'date~':
-                case 'datetime':
-                case 'date':
-                case 'monthDate':
-                  const dateProps = {
-                    form,
-                    type: field.searchItem.type,
-                    style:
-                      type === 'inline'
-                        ? { width: width || this.width[field.searchItem.type] }
-                        : {},
-                    format: field.searchItem.format,
-                    placeholder: placeholder || undefined,
-                    ...otherField
-                  };
-                  if (getPopupContainer) {
-                    dateProps.getCalendarContainer = getPopupContainer;
-                  }
-                  return (
-                    <ComponentCol
-                      key={`col-${i}`}
-                      className="col-item"
-                      {...colopts}
-                    >
-                      <ComponentItem
-                        {...formItemLayout}
-                        label={field.title}
-                        className="col-item-content"
-                      >
-                        <DateForm {...dateProps} />
-                      </ComponentItem>
-                    </ComponentCol>
-                  );
-                case 'cascade':
-                case 'cascader':
-                  const cascadeProps = {
-                    form,
-                    allowClear: true,
-                    showSearch: true,
-                    style:
-                      type === 'inline'
-                        ? { width: width || this.width.default }
-                        : {},
+              const fieldType = field.searchItem.type || 'input';
 
-                    placeholder: placeholder || '请输入查询条件',
-                    ...otherField
+              const formProps = {
+                form,
+                name: field.name,
+                title: field.title,
+                record,
+                ...field.searchItem
+              };
+
+              if (type === 'inline') {
+                formProps.style = {
+                  width: formProps.width || this.width[fieldType]
+                };
+              }
+
+              if (getPopupContainer) {
+                formProps.getPopupContainer = getPopupContainer;
+              }
+
+              if (field.dict) {
+                formProps.dict = field.dict;
+              }
+
+              let FieldComp;
+              switch (fieldType) {
+                case 'date~': // 日期范围
+                case 'datetime': // 日期时间
+                case 'date': // 日期
+                case 'month': // 月
+                case 'time': // 时间
+                  FieldComp = require(`../Form/model/date`).default(formProps);
+                  break;
+                case 'input': // 输入框
+                case 'textarea': // 多行文本
+                  formProps.formFieldOptions = {
+                    rules: [
+                      {
+                        pattern: /^[^'%&<>=?*!]*$/,
+                        message: '查询条件中不能包含特殊字符'
+                      }
+                    ]
                   };
-                  if (getPopupContainer) {
-                    cascadeProps.getPopupContainer = getPopupContainer;
-                  }
+                  formProps.maxLength = field.searchItem.maxLength || 100;
+                  formProps.autoComplete = 'off';
+                  FieldComp = require(`../Form/model/input`).default(formProps);
+                  break;
+                case 'hidden': // 隐藏域
                   return (
-                    <ComponentCol
-                      key={`col-${i}`}
-                      className="col-item"
-                      {...colopts}
-                    >
-                      <ComponentItem
-                        {...formItemLayout}
-                        label={field.title}
-                        className="col-item-content"
-                      >
-                        <CascadeForm {...cascadeProps} />
-                      </ComponentItem>
-                    </ComponentCol>
+                    <span key={`col-${i}`}>
+                      {require(`../Form/model/input`).default(formProps)}
+                    </span>
                   );
                 case 'select':
-                  const selectProps = {
-                    form,
-                    allowClear: true,
-                    showSearch: true,
-                    dict: field.dict,
-                    style:
-                      type === 'inline'
-                        ? {
-                            width: width || this.width[field.searchItem.type]
-                          }
-                        : {},
-
-                    placeholder: placeholder || '请输入查询条件',
-                    ...otherField
-                  };
-                  if (getPopupContainer) {
-                    selectProps.getPopupContainer = getPopupContainer;
-                  }
-                  return (
-                    <ComponentCol
-                      key={`col-${i}`}
-                      className="col-item"
-                      {...colopts}
-                    >
-                      <ComponentItem
-                        {...formItemLayout}
-                        label={field.title}
-                        className="col-item-content"
-                      >
-                        <SelectForm {...selectProps} />
-                      </ComponentItem>
-                    </ComponentCol>
-                  );
+                  formProps.optionFilterProp = 'children';
+                // eslint-disable-next-line no-fallthrough
                 case 'treeSelect':
-                  const treeSelectProps = {
-                    form,
-                    allowClear: true,
-                    showSearch: true,
-                    style:
-                      type === 'inline'
-                        ? {
-                            width: width || this.width[field.searchItem.type]
-                          }
-                        : {},
-                    placeholder: placeholder || '请输入查询条件',
-                    ...otherField
-                  };
-                  if (getPopupContainer) {
-                    treeSelectProps.getPopupContainer = getPopupContainer;
-                  }
-                  return (
-                    <ComponentCol
-                      key={`col-${i}`}
-                      className="col-item"
-                      {...colopts}
-                    >
-                      <ComponentItem
-                        {...formItemLayout}
-                        label={field.title}
-                        className="col-item-content"
-                      >
-                        <TreeSelectForm {...treeSelectProps} />
-                      </ComponentItem>
-                    </ComponentCol>
-                  );
-                case 'custom':
-                  return (
-                    <ComponentCol
-                      key={`col-${i}`}
-                      className="col-item"
-                      {...colopts}
-                    >
-                      <ComponentItem
-                        {...formItemLayout}
-                        label={field.title}
-                        className="col-item-content"
-                      >
-                        <CustomForm
-                          form={form}
-                          render={field.searchItem.render}
-                          style={
-                            type === 'inline'
-                              ? {
-                                  width:
-                                    width || this.width[field.searchItem.type]
-                                }
-                              : {}
-                          }
-                          placeholder={placeholder || '请输入查询条件'}
-                          {...otherField}
-                        />
-                      </ComponentItem>
-                    </ComponentCol>
-                  );
-                case 'number':
-                  return (
-                    <ComponentCol
-                      key={`col-${i}`}
-                      className="col-item"
-                      {...colopts}
-                    >
-                      <ComponentItem
-                        {...formItemLayout}
-                        label={field.title}
-                        className="col-item-content"
-                      >
-                        <InputNumberForm
-                          form={form}
-                          style={
-                            type === 'inline'
-                              ? { width: width || this.width.default }
-                              : {}
-                          }
-                          placeholder={placeholder || '请输入查询条件'}
-                          maxLength={field.searchItem.maxLength || '100'}
-                          {...otherField}
-                        />
-                      </ComponentItem>
-                    </ComponentCol>
-                  );
+                case 'cascade':
+                  formProps.allowClear = true;
+                  formProps.showSearch = true;
+                // eslint-disable-next-line no-fallthrough
                 default:
-                  return (
-                    <ComponentCol
-                      key={`col-${i}`}
-                      className="col-item"
-                      {...colopts}
-                    >
-                      <ComponentItem
-                        {...formItemLayout}
-                        label={field.title}
-                        className="col-item-content"
-                      >
-                        <InputForm
-                          form={form}
-                          formFieldOptions={{
-                            rules: [
-                              {
-                                pattern: /^[^'_%&<>=?*!]*$/,
-                                message: '查询条件中不能包含特殊字符'
-                              }
-                            ]
-                          }}
-                          style={
-                            type === 'inline'
-                              ? { width: width || this.width.default }
-                              : {}
-                          }
-                          placeholder={placeholder || '请输入查询条件'}
-                          maxLength={field.searchItem.maxLength || '100'}
-                          autoComplete="off"
-                          {...otherField}
-                        />
-                      </ComponentItem>
-                    </ComponentCol>
+                  // 通用
+                  FieldComp = require(`../Form/model/${fieldType.toLowerCase()}`).default(
+                    formProps
                   );
               }
+
+              return (
+                <ComponentCol key={`col-${i}`} className="col-item" {...col}>
+                  <ComponentItem
+                    {...formItemLayout}
+                    label={field.title}
+                    className="col-item-content"
+                  >
+                    {FieldComp}
+                  </ComponentItem>
+                </ComponentCol>
+              );
             })}
             {children}
           </ComponentRow>

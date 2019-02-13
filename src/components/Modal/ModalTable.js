@@ -15,8 +15,13 @@ class ModalTable extends Component {
       value,
       dataItems,
       visible,
-      loading
+      loading,
+      selectedRows: [],
     };
+  }
+
+  componentWillMount() {
+    const { dataItems, visible } = this.props;
 
     if (visible) {
       this.onChange({
@@ -56,7 +61,7 @@ class ModalTable extends Component {
   }
 
   onSelect = (keys, rows) => {
-    this.setState({ value: keys });
+    this.setState({ value: keys, selectedRows: rows });
   };
 
   onSearch = (values, isReset) => {
@@ -96,10 +101,10 @@ class ModalTable extends Component {
   };
 
   onOk = () => {
-    const { value } = this.state;
+    const { value, selectedRows } = this.state;
     const onSubmit = this.props.onSubmit;
     if (onSubmit) {
-      onSubmit(value);
+      onSubmit(value, selectedRows);
     }
   };
 
@@ -131,6 +136,7 @@ class ModalTable extends Component {
       selectedRowKeys: value,
       selectType: selectType,
       showNum: true,
+      isScroll: true,
       onChange: ({ pageNum, pageSize }) => this.onChange({ pageNum, pageSize }),
       onSelect: (keys, rows) => this.onSelect(keys, rows)
     };
@@ -150,7 +156,6 @@ class ModalTable extends Component {
     );
 
     const modalProps = {
-      closable: false,
       className: classname,
       confirmLoading: loading,
       visible,

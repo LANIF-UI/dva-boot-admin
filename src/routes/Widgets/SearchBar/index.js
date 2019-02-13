@@ -2,7 +2,7 @@ import { dynamicWrapper, createRoute } from '@/utils/core';
 
 const routesConfig = app => ({
   path: '/searchBar',
-  title: 'DBAdmin - SearchBar page',
+  title: '搜索条',
   component: dynamicWrapper(app, [], () => import('./components'))
 });
 

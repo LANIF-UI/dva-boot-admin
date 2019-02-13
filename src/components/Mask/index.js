@@ -81,7 +81,6 @@ class Mask extends PureComponent {
             <Icon
               className={`${prefixCls}-close`}
               type="close"
-              antd
               onClick={this.onClick}
             />
           ) : null}

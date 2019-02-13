@@ -2,7 +2,7 @@ import { dynamicWrapper, createRoute } from '@/utils/core';
 
 const routesConfig = app => ({
   path: '/charts/ec',
-  title: 'DBAdmin - ECharts page',
+  title: 'ECharts',
   component: dynamicWrapper(app, [], () => import('./components'))
 });
 

@@ -7,7 +7,8 @@ import { LeftSideBar, RightSideBar } from 'components/SideBar';
 import TopBar from 'components/TopBar';
 import SkinToolbox from 'components/SkinToolbox';
 import pathToRegexp from 'path-to-regexp';
-import ElementQueries from 'css-element-queries/src/ElementQueries';
+import { enquireIsMobile } from '@/utils/enquireScreen';
+import TabsLayout from './TabsLayout';
 import './styles/basic.less';
 import $$ from 'cmn-utils';
 import cx from 'classnames';
@@ -16,7 +17,7 @@ const { Content, Header } = Layout;
 /**
  * 基本部局
  * 可设置多种皮肤 theme: [light, grey, primary, info, warning, danger, alert, system, success, dark]
- * 可设置多种布局 [header(固定头), sidebar(固定边栏), breadcrumb(固定面包蟹)]
+ * 可设置多种布局 [header(固定头), sidebar(固定边栏), breadcrumb(固定面包蟹), tabLayout(标签布局)]
  * @author weiq
  */
 @connect(({ global }) => ({ global }))
@@ -34,6 +35,7 @@ export default class BasicLayout extends React.PureComponent {
         'fixedSidebar',
         'fixedBreadcrumbs'
         // 'hidedBreadcrumbs',
+        // 'tabLayout',
       ];
     }
     this.state = {
@@ -44,7 +46,8 @@ export default class BasicLayout extends React.PureComponent {
       collapsedRightSide: true, // 右边栏开关
       theme, // 皮肤设置
       user,
-      currentMenu: {}
+      currentMenu: {},
+      isMobile: false
     };
 
     props.dispatch({
@@ -53,7 +56,14 @@ export default class BasicLayout extends React.PureComponent {
   }
 
   componentDidMount() {
-    ElementQueries.init();
+    this.unregisterEnquire = enquireIsMobile(ismobile => {
+      const { isMobile } = this.state;
+      if (isMobile !== ismobile) {
+        this.setState({
+          isMobile: ismobile
+        });
+      }
+    });
   }
 
   componentWillMount() {
@@ -76,12 +86,16 @@ export default class BasicLayout extends React.PureComponent {
     }
   }
 
+  componentWillUnmount() {
+    // 清理监听
+    this.unregisterEnquire();
+  }
+
   getCurrentMenu(props) {
     const {
       location: { pathname },
       global
-    } =
-      props || this.props;
+    } = props || this.props;
     const menu = this.getMeunMatchKeys(global.flatMenu, pathname)[0];
     return menu;
   }
@@ -173,7 +187,8 @@ export default class BasicLayout extends React.PureComponent {
       collapsedRightSide,
       theme,
       user,
-      currentMenu
+      currentMenu,
+      isMobile
     } = this.state;
     const { routerData, location, global } = this.props;
     const { menu, flatMenu } = global;
@@ -198,6 +213,7 @@ export default class BasicLayout extends React.PureComponent {
             toggleSidebarHeader={this.toggleSidebarHeader}
             theme={theme.navbar}
             user={user}
+            isMobile={isMobile}
           />
         </Header>
         <Layout>
@@ -213,23 +229,29 @@ export default class BasicLayout extends React.PureComponent {
             currentMenu={currentMenu}
             menu={menu}
             user={user}
+            isMobile={isMobile}
           />
           <Content>
-            <Layout className="full-layout">
-              <Header>
-                <TopBar
-                  expand={expandTopBar}
-                  toggleRightSide={this.toggleRightSide}
-                  collapsedRightSide={collapsedRightSide}
-                  onCollapse={this.onCollapseTopBar}
-                  currentMenu={currentMenu}
-                  theme={theme}
-                />
-              </Header>
-              <Content className="router-page">
-                <Switch>{childRoutes}</Switch>
-              </Content>
-            </Layout>
+            {theme.layout.indexOf('tabLayout') >= 0 ? (
+              <TabsLayout childRoutes={childRoutes} location={location} />
+            ) : (
+              <Layout className="full-layout">
+                <Header>
+                  <TopBar
+                    expand={expandTopBar}
+                    toggleRightSide={this.toggleRightSide}
+                    collapsedRightSide={collapsedRightSide}
+                    onCollapse={this.onCollapseTopBar}
+                    currentMenu={currentMenu}
+                    location={location}
+                    theme={theme}
+                  />
+                </Header>
+                <Content className="router-page">
+                  <Switch>{childRoutes}</Switch>
+                </Content>
+              </Layout>
+            )}
           </Content>
           <RightSideBar collapsed={collapsedRightSide} />
         </Layout>

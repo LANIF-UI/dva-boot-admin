@@ -6,7 +6,7 @@ import style from './index.module.less';
 const { Content } = Layout;
 
 @connect()
-export default class Blank extends BaseComponent {
+export default class extends BaseComponent {
   render() {
     return (
       <Layout className="full-layout page blank-page">

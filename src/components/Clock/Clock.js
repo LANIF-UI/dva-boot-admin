@@ -32,7 +32,7 @@ class Clock extends Component {
     this.state = this.formatClock(false);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.timer = setInterval(this.formatClock, 1000);
   }
 

@@ -1,0 +1,94 @@
+@import '~antd/lib/style/themes/default.less';
+@default-color: rgba(0, 0 ,0, 0.08);
+
+.ripple-btn {
+  position: relative;
+  display: inline-block;
+  padding: 8px 16px;
+  font-size: 14px;
+  min-width: 64px;
+  min-height: 36px;
+  box-sizing: border-box;
+  line-height: 1.5;
+  border-radius: 4px;
+  font-weight: 500;
+  overflow: hidden;
+  transition: background-color 250ms;
+  border: none;
+  > span {
+    user-select: none;
+    position: relative;
+    z-index: 1;
+  }
+  > .ripple-animate {
+    position: absolute;
+    z-index: 0;
+    border-radius: 50%;
+    transition: transform 700ms, opacity 700ms;
+    transition-timing-function: cubic-bezier(0.250, 0.460, 0.450, 0.940);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    transform: scale(0);
+    pointer-events: none;
+  }
+  color: #000;
+  background: transparent;
+}
+
+.ripple-btn {
+  &:not(.ghost) {
+    & > .ripple-animate {
+      background: rgba(0, 0, 0, 0.4);
+    }
+    color: #000;
+    background: #d5d5d5;
+    &.primary {
+      color: #fff;
+      background: @primary-color;
+      & > .ripple-animate {
+        background: rgba(255, 255, 255, .4);
+      }
+    }
+    &.danger {
+      color: #fff;
+      background: @error-color;
+      & > .ripple-animate {
+        background: rgba(255, 255, 255, .4);
+      }
+    }
+  }
+  &.ghost {
+    & > .ripple-animate {
+      background: rgba(0, 0, 0, 0.4);
+    }
+    color: #000;
+    background: transparent;
+    &:hover,
+    &:active {
+      background: rgba(0, 0, 0, 0.08);;
+    }
+    &.primary {
+      color: @primary-color;
+      background: transparent;
+      &:hover,
+      &:active {
+        background: fadeOut(@primary-color, 80%);
+      }
+      & > .ripple-animate {
+        background: fadeOut(@primary-color, 60%);
+      }
+    }
+    &.danger {
+      color: @error-color;
+      background: transparent;
+      &:hover,
+      &:active {
+        background: fadeOut(@error-color, 80%);
+      }
+      & > .ripple-animate {
+        background: fadeOut(@error-color, 60%);
+      }
+    }
+  }
+}

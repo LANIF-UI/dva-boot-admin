@@ -91,6 +91,14 @@ export default ({fetchMock, delay, mock, toSuccess, toError}) => {
               },
             ]
           },
+          {
+            name: '打印',
+            path: '/print',
+          },
+          {
+            name: 'Banner 管理',
+            path: '/banner',
+          },
         ],
       },
       {
@@ -98,6 +106,10 @@ export default ({fetchMock, delay, mock, toSuccess, toError}) => {
         icon: 'share-alt',
         path: '/ui',
         children: [
+          {
+            name: '按钮',
+            path: '/button',
+          },
           {
             name: '消息',
             path: '/alerts',
@@ -168,6 +180,10 @@ export default ({fetchMock, delay, mock, toSuccess, toError}) => {
           {
             name: '500',
             path: '/500',
+          },
+          {
+            name: '多级路由',
+            path: '/level-route/:sub?',
           },
         ],
       },
