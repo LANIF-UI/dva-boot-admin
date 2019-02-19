@@ -38,8 +38,10 @@
 - **封装了数据模模拟**，可以独立于后台开发前台功能
 - **封装了分页请求**，简化并规范了分页逻辑
 - **封装了fetch请求**，适应与后台多种交互请求, body参数 parameter参数 path参数，动态请求头，请求前后拦截
+- **路由按需加载**，首屏加载超快
 - **扩展了antd写了许多实用的UI**，通过一个配置生成即可生成，后台CRUD三件套
 - **按业务模块划分的目录结构**，开发独力功能时无需分心其它模块，做到最小耦合
+- 生产环境下打包，gzip后只有**2.09 MB**，只使用常用模块后不到**1 MB**
 - 一些常用的小部件用法
 - 许多精心设计的页面及交互场景
 - [dva-boot](https://github.com/LANIF-UI/dva-boot)脚手架封装的功能
@@ -85,9 +87,14 @@
 ``` javascript
 $ git clone https://github.com/LANIF-UI/dva-boot-admin.git
 $ cd dva-boot-admin
-// 使用yarn
+// 安装依赖
 $ yarn
+// 启动
 $ yarn start
+// 打包
+$ yarn build
+// 打包带图形化分析
+$ yarn build --analyze
 ```
 
 ## Compatibility

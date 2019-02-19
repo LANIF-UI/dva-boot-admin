@@ -13,7 +13,7 @@ const path = require('path');
 module.exports = override(
   addDecoratorsLegacy(),
   disableEsLint(),
-  process.env.BUNDLE_VISUALIZE === 1 && addBundleVisualizer(),
+  addBundleVisualizer({}, true),
   addWebpackAlias({
     '@': path.resolve(__dirname, 'src'),
     components: path.resolve(__dirname, 'src/components'),
@@ -32,5 +32,5 @@ module.exports = override(
   addLessLoader({
     localIdentName: '[local]--[hash:base64:8]',
     modifyVars: {}
-  }),
+  })
 );
