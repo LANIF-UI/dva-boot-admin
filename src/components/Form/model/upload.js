@@ -71,8 +71,8 @@ export default ({
     formFieldOptions.rules = [
       {
         validator: (rule, value, callback) => {
-          validatorFileSize(maxFileSize, value, callback, form);
-          validatorFileTypes(fileTypes, value, callback, form);
+          validatorFileSize(maxFileSize, value, callback);
+          validatorFileTypes(fileTypes, value, callback);
           callback();
         }
       },

@@ -70,7 +70,7 @@ class BaseComponent extends React.Component {
   handleUpdate() {
     /* 子类重写 */
   }
-  handleDelete() {
+  handleDelete(records) {
     /* 子类重写 */
   }
 }

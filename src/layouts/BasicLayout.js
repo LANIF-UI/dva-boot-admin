@@ -71,7 +71,6 @@ export default class BasicLayout extends React.PureComponent {
     const user = $$.getStore('user');
     if (!user) {
       this.props.dispatch(routerRedux.replace('/sign/login'));
-    } else {
     }
   }
 
