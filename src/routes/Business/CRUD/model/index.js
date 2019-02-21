@@ -54,7 +54,7 @@ export default modelEnhance({
       });
     },
     // 保存 之后查询分页
-    *save({ payload }, { call, put, select }) {
+    *save({ payload }, { call, put, select, take }) {
       const { values, success } = payload;
       const { pageData } = yield select(state => state.crud);
       yield put({
@@ -65,6 +65,8 @@ export default modelEnhance({
           data: values
         }
       });
+      // 等待@request结束
+      yield take('@request/@@end');
       yield put({
         type: 'getPageInfo',
         payload: { pageData }
