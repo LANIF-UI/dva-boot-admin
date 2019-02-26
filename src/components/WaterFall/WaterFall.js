@@ -6,6 +6,9 @@ import resizeMe from '@/decorator/resizeMe';
 import isEqual from 'react-fast-compare';
 import './style/index.less';
 
+/**
+ * 瀑布流组件
+ */
 @resizeMe({ refreshRate: 50 })
 class WaterFall extends PureComponent {
   static propTypes = {
