@@ -164,9 +164,10 @@ export default class BasicLayout extends React.PureComponent {
    * 切换右边栏
    */
   toggleRightSide = _ => {
+    const {collapsedLeftSide, collapsedRightSide} = this.state;
     this.setState({
-      collapsedLeftSide: this.state.collapsedRightSide,
-      collapsedRightSide: !this.state.collapsedRightSide
+      collapsedLeftSide: collapsedRightSide ? true :collapsedLeftSide,
+      collapsedRightSide: !collapsedRightSide
     });
   };
 
@@ -252,7 +253,11 @@ export default class BasicLayout extends React.PureComponent {
               </Layout>
             )}
           </Content>
-          <RightSideBar collapsed={collapsedRightSide} />
+          <RightSideBar
+            collapsed={collapsedRightSide}
+            isMobile={isMobile}
+            onCollapse={this.toggleRightSide}
+          />
         </Layout>
         <SkinToolbox onChangeTheme={this.onChangeTheme} theme={theme} />
       </Layout>

@@ -8,6 +8,7 @@ import { Menu, Layout, Switch, Select, Drawer } from 'antd';
 import { Link } from 'dva/router';
 import pathToRegexp from 'path-to-regexp';
 import Icon from '../Icon';
+import logoImg from 'assets/images/logo.png';
 import './style/index.less';
 const Option = Select.Option;
 const { Sider } = Layout;
@@ -62,6 +63,7 @@ class LeftSideBar extends PureComponent {
   getMenuItemPath = item => {
     const itemPath = this.conversionPath(item.path);
     const icon = getIcon(item.icon);
+    const { isMobile, onCollapse } = this.props;
     const { target, name } = item;
     // Is it a http link
     if (/^https?:\/\//.test(itemPath)) {
@@ -77,6 +79,7 @@ class LeftSideBar extends PureComponent {
         to={itemPath}
         target={target}
         replace={itemPath === this.props.location.pathname}
+        onClick={isMobile ? onCollapse : () => {}}
       >
         {icon}
         <span>{name}</span>
@@ -273,7 +276,18 @@ class LeftSideBar extends PureComponent {
         placement="left"
         onClose={onCollapse}
         width={230}
+        closable={false}
       >
+        <div className="navbar-branding">
+          <div className="navbar-brand">
+            <img src={logoImg} alt="logo" />
+            <b>LANIF</b>
+            Admin
+          </div>
+          <span className="toggle_sidemenu_l" onClick={onCollapse}>
+            <Icon type="lines" />
+          </span>
+        </div>
         {siderBar}
       </Drawer>
     ) : (
