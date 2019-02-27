@@ -17,17 +17,27 @@ export default ({fetchMock, delay, mock, toSuccess, toError}) => {
   // fetchMock.mock(/httpbin.org\/post/, {/* response */}, {/* options */});
 
   return {
-    // 一般用法
+    // 支持方法头
     'GET /api/getUserInfo': {
       name: '小雨',
       sex: '男',
       age: 18,
     },
-    // 省略 method, 模拟真实请求延迟效果
+    // 模拟真实请求延迟效果
     '/api/getUsers': delay([
       { name: 'jonn' },
       { name: 'weiq' },
     ]),
+    // Match regexp
+    'regexp:/api/aaa/.*': {},
+    // Match a url beginning with a string
+    'begin:http://www.site.com': {},
+    // Match a url ending with a string
+    'end:.jpg': {},
+    // Match a url using a glob pattern
+    'glob:http://*.*': {},
+    // Match a url that satisfies an express style path
+    'express:/user/:user': {},
     // 表格带分页, 写成函数形式可以使用请求参数，
     // 更真实的模拟后端数据处理业务
     '/api/userInfo/getList': (options) => {
