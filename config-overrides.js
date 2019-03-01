@@ -31,6 +31,7 @@ module.exports = override(
   }),
   addLessLoader({
     localIdentName: '[local]--[hash:base64:8]',
+    javascriptEnabled: true,
     modifyVars: {}
   })
 );
