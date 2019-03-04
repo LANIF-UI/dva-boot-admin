@@ -128,4 +128,4 @@ $ yarn build --analyze
 ![](https://ucarecdn.com/54014eec-406b-437f-9356-f466a1a868ab/7.jpg)
 ![](https://ucarecdn.com/4e8c9b75-11df-4108-8437-bdb2627e3ebc/8.jpg)
 ![](https://ucarecdn.com/7831ce59-f412-4109-a75c-2b9f86b78c43/10.jpg)
-![](https://ucarecdn.com/254df23e-2074-4169-bfa5-8061a5100892/mobile.gif)
+![](https://ucarecdn.com/4cbe9623-30ef-4410-9740-9e03c2f4a84e/mobile1.gif)
