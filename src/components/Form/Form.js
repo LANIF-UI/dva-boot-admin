@@ -219,7 +219,7 @@ class FormComp extends React.Component {
 
             const fieldType = field.formItem.type || 'input';
 
-            const formProps = {
+            let formProps = {
               form,
               name: field.name,
               title: field.title,
@@ -241,6 +241,9 @@ class FormComp extends React.Component {
             if (field.dict) {
               formProps.dict = field.dict;
             }
+
+            // 传入子组件前删除无用属性
+            formProps = omit(formProps, ['formItemLayout', 'layout', 'col']);
 
             let FieldComp;
             switch (fieldType) {

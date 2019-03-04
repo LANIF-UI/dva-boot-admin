@@ -73,8 +73,9 @@ export default class PasswordForm extends Component {
       }
     ];
 
+    // 如果有rules
     if (rules && rules.length) {
-      formFieldOptions.rules.concat(rules);
+      formFieldOptions.rules = formFieldOptions.rules.concat(rules);
     }
 
     let ComponentCol = type === 'inline' ? 'div' : Col;
