@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/dva-boot-admin/precache-manifest.e30111c2125ed35776a0751612a9ea10.js"
+  "/dva-boot-admin/precache-manifest.e4f5e43b28f69bc3224c757230bda310.js"
 );
 
 workbox.skipWaiting();
