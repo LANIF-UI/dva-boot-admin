@@ -3956,14 +3956,13 @@ fetch-jsonp@^1.1.3:
   version "1.1.3"
   resolved "http://registry.npm.taobao.org/fetch-jsonp/download/fetch-jsonp-1.1.3.tgz#9eb9e585ba08aaf700563538d17bbebbcd5a3db2"
 
-fetch-mock@^7.3.1:
-  version "7.3.1"
-  resolved "http://registry.npm.taobao.org/fetch-mock/download/fetch-mock-7.3.1.tgz#a3e28d8f141caaf68d78112354381a7303f87049"
+fetch-mock@^6.4.3:
+  version "6.5.2"
+  resolved "http://registry.npm.taobao.org/fetch-mock/download/fetch-mock-6.5.2.tgz#b3842b305c13ea0f81c85919cfaa7de387adfa3e"
   dependencies:
     babel-polyfill "^6.26.0"
     glob-to-regexp "^0.4.0"
     path-to-regexp "^2.2.1"
-    whatwg-url "^6.5.0"
 
 figgy-pudding@^3.5.1:
   version "3.5.1"
@@ -10230,7 +10229,7 @@ whatwg-mimetype@^2.1.0, whatwg-mimetype@^2.2.0:
   version "2.3.0"
   resolved "http://registry.npm.taobao.org/whatwg-mimetype/download/whatwg-mimetype-2.3.0.tgz#3d4b1e0312d2079879f826aff18dbeeca5960fbf"
 
-whatwg-url@^6.4.1, whatwg-url@^6.5.0:
+whatwg-url@^6.4.1:
   version "6.5.0"
   resolved "http://registry.npm.taobao.org/whatwg-url/download/whatwg-url-6.5.0.tgz#f2df02bff176fd65070df74ad5ccbb5a199965a8"
   dependencies:
