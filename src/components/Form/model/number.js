@@ -47,7 +47,7 @@ export default ({
 
   // 如果需要onChange
   if (typeof onChange === 'function') {
-    formFieldOptions.onChange = e => onChange(form, e.target.value, e); // form, value, event
+    formFieldOptions.onChange = value => onChange(form, value); // form, value, event
   }
 
   delete otherProps.render;
