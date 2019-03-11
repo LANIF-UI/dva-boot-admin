@@ -7,8 +7,8 @@ class Editor extends Component {
   constructor(props) {
     super();
     this.state = {
-      value: props.value,
-    }
+      value: props.value
+    };
   }
 
   componentWillReceiveProps(nextProps) {
@@ -18,14 +18,20 @@ class Editor extends Component {
       });
     }
   }
-  
+
   componentDidMount() {
     const { value, otherProps } = this.props;
-    const dom = this.refs.editor;
-    this.editor = new E(dom);
-    this.editor.customConfig = {...defaultConfig, onchange: this.onChange, ...otherProps};
+    this.editor = new E(this.editorDom);
+    this.editor.customConfig = {
+      ...defaultConfig,
+      onchange: this.onChange,
+      ...otherProps
+    };
     this.editor.create();
     this.editor.txt.html(value);
+  }
+  componentDidUpdate(prevProps, prevState) {
+    this.editor.txt.html(this.state.value);
   }
 
   onChange = html => {
@@ -34,11 +40,18 @@ class Editor extends Component {
 
     this.setState({
       value: html
-    })
-  }
+    });
+  };
 
   render() {
-    return <div className="antui-editor" ref="editor" />;
+    return (
+      <div
+        className="antui-editor"
+        ref={node => {
+          this.editorDom = node;
+        }}
+      />
+    );
   }
 }
 
