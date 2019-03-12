@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import E from 'wangeditor';
 import defaultConfig from './config';
 import './style/index.less';
 
-class Editor extends Component {
+class Editor extends PureComponent {
   constructor(props) {
     super();
     this.state = {
@@ -16,6 +16,7 @@ class Editor extends Component {
       this.setState({
         value: nextProps.value
       });
+      this.onChange(nextProps.value);
     }
   }
 
@@ -37,10 +38,6 @@ class Editor extends Component {
   onChange = html => {
     const { onChange } = this.props;
     if (onChange) onChange(html);
-
-    this.setState({
-      value: html
-    });
   };
 
   render() {

@@ -34,7 +34,7 @@ export default class extends BaseComponent {
                 <Button
                   type="primary"
                   onClick={e =>
-                    this.setState({ html: '<div>今天也要快乐啊！</div>' })
+                    this.setState({ newHtml: '<div>今天也要快乐啊！</div>' })
                   }
                 >
                   设置值
@@ -42,16 +42,14 @@ export default class extends BaseComponent {
                 <Button onClick={e => message.success(this.state.html)}>
                   获取值
                 </Button>
-                <Button onClick={e => this.setState({ html: '' })}>
+                <Button onClick={e => this.setState({ newHtml: '' })}>
                   清空值
                 </Button>
               </Button.Group>
             </p>
-            <Editor onChange={this.onChange} value={this.state.html} />
-            <p>
-              <b>HTML: </b>
-              {this.state.html}
-            </p>
+            <Editor onChange={this.onChange} value={this.state.newHtml} />
+            <b>HTML: </b>
+            {this.state.html}
           </Panel>
         </Content>
       </Layout>
