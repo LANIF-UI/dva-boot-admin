@@ -191,6 +191,11 @@ class DataTable extends Component {
             );
           };
         }
+        // 如果指定了type字段，则使用指定类型渲染这个列
+        if (item.type) {
+          item.render = (text, record) =>
+            require(`./model/${item.type.toLowerCase()}`).default(text, record, col);
+        }
         return {
           title: col.title,
           dataIndex: col.name,

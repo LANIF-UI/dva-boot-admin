@@ -91,3 +91,32 @@ export const columns4 = [
     tableItem: {}
   }
 ];
+
+export const columns5 = () => [
+  {
+    title: '名称',
+    name: 'name',
+    tableItem: {
+      width: 200,
+      type: 'input',
+      editing: true
+    }
+  },
+  {
+    title: '年龄',
+    name: 'age',
+    tableItem: {
+      width: 200,
+      type: 'input',
+      editing: (text, record) => {
+        if (text > 50) return true;
+        else return false;
+      }
+    }
+  },
+  {
+    title: '地址',
+    name: 'address',
+    tableItem: {}
+  }
+];

@@ -6,7 +6,7 @@ import BaseComponent from 'components/BaseComponent';
 import Panel from 'components/Panel';
 import SideLayout from 'components/SideLayout';
 import DataTable from 'components/DataTable';
-import { columns1, columns2, columns3, columns4 } from './columns';
+import { columns1, columns2, columns3, columns4, columns5 } from './columns';
 import './index.less';
 const { Content } = Layout;
 const Pagination = DataTable.Pagination;
@@ -151,6 +151,14 @@ export default class extends BaseComponent {
       isScroll: true
     };
 
+    const dataTableProps7 = {
+      loading,
+      columns: columns5(),
+      rowKey: 'id',
+      dataItems: dataList,
+      showNum: true
+    };
+
     return (
       <Layout className="full-layout page datatable-page">
         <Content>
@@ -224,6 +232,13 @@ export default class extends BaseComponent {
                 <div className="footer">
                   <Pagination {...dataTableProps6} />
                 </div>
+              </Panel>
+            </Col>
+          </Row>
+          <Row gutter={20}>
+            <Col span={12}>
+              <Panel title="列类型" height={500} scroll>
+                <DataTable pagination={{ pageSize: 20 }} {...dataTableProps7} />
               </Panel>
             </Col>
           </Row>
