@@ -5,7 +5,7 @@ import { Layout, Row, Col, Tree } from 'antd';
 import BaseComponent from 'components/BaseComponent';
 import Panel from 'components/Panel';
 import SideLayout from 'components/SideLayout';
-import DataTable from 'components/DataTable';
+import DataTable, { Editable } from 'components/DataTable';
 import { columns1, columns2, columns3, columns4, columns5 } from './columns';
 import './index.less';
 const { Content } = Layout;
@@ -17,6 +17,10 @@ const TreeNode = Tree.TreeNode;
   loading: loading.models.datatable
 }))
 export default class extends BaseComponent {
+  state = {
+    editingKey: null
+  };
+
   componentDidMount() {
     const { dispatch, datatable } = this.props;
     const { pageData, pageDataSort } = datatable;
@@ -87,6 +91,28 @@ export default class extends BaseComponent {
     });
   };
 
+  onEdit = record => {
+    this.setState({
+      editingKey: record.id
+    });
+  };
+
+  onCancelEdit = () => {
+    this.setState({ editingKey: null });
+  };
+
+  onSave = (record, form) => {
+    form.validateFields((err, values) => {
+      if (!err) {
+        console.log('save:', values, record);
+        this.onCancelEdit();
+      } else {
+        console.log(err)
+      }
+    });
+    
+  };
+
   render() {
     const { datatable, loading } = this.props;
     const { pageData, deptTreeData, dataList, pageDataSort } = datatable;
@@ -144,7 +170,7 @@ export default class extends BaseComponent {
           payload: {
             valueField: 'pageDataSort',
             url: '/datatable/getList',
-            pageInfo: pageDataSort.sortBy(sorter).jumpPage(pageNum, pageSize),
+            pageInfo: pageDataSort.sortBy(sorter).jumpPage(pageNum, pageSize)
           }
         });
       },
@@ -153,7 +179,7 @@ export default class extends BaseComponent {
 
     const dataTableProps7 = {
       loading,
-      columns: columns5(),
+      columns: columns5(this, this.state.editingKey),
       rowKey: 'id',
       dataItems: dataList,
       showNum: true
@@ -237,8 +263,8 @@ export default class extends BaseComponent {
           </Row>
           <Row gutter={20}>
             <Col span={12}>
-              <Panel title="列类型" height={500} scroll>
-                <DataTable pagination={{ pageSize: 20 }} {...dataTableProps7} />
+              <Panel title="可编辑的行" height={500} scroll>
+                <Editable pagination={{ pageSize: 20 }} {...dataTableProps7} />
               </Panel>
             </Col>
           </Row>

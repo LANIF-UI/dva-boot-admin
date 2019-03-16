@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Table, Pagination, Tooltip } from 'antd';
 import objectAssign from 'object-assign';
 import isEqual from 'react-fast-compare';
+import { EditableCell } from './Editable';
+import $$ from 'cmn-utils';
 import cx from 'classnames';
 import './style/index.less';
 
@@ -193,8 +195,20 @@ class DataTable extends Component {
         }
         // 如果指定了type字段，则使用指定类型渲染这个列
         if (item.type) {
-          item.render = (text, record) =>
-            require(`./model/${item.type.toLowerCase()}`).default(text, record, col);
+          item.render = (text, record, index) => {
+            if ($$.isFunction(item.editing) && item.editing(text, record)) {
+              return (
+                <EditableCell
+                  text={text}
+                  record={record}
+                  index={index}
+                  field={col}
+                />
+              );
+            } else {
+              return text;
+            }
+          };
         }
         return {
           title: col.title,

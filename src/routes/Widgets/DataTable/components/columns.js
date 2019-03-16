@@ -1,5 +1,5 @@
-import React from 'react';
-import DataTable from 'components/DataTable';
+import React, { Fragment } from 'react';
+import DataTable, { EditableOper } from 'components/DataTable';
 import Icon from 'components/Icon';
 import { Button } from 'antd';
 const Tip = DataTable.Tip;
@@ -92,31 +92,55 @@ export const columns4 = [
   }
 ];
 
-export const columns5 = () => [
+export const columns5 = (self, editingKey) => [
   {
     title: '名称',
     name: 'name',
     tableItem: {
-      width: 200,
       type: 'input',
-      editing: true
+      editing: (text, record) => record.id === editingKey,
+      rules: [{ required: true, message: '请输入名称！' }]
     }
   },
   {
     title: '年龄',
     name: 'age',
     tableItem: {
-      width: 200,
-      type: 'input',
-      editing: (text, record) => {
-        if (text > 50) return true;
-        else return false;
-      }
+      type: 'number',
+      editing: (text, record) => record.id === editingKey
     }
   },
   {
     title: '地址',
     name: 'address',
-    tableItem: {}
+    dict: [
+      { code: '1', codeName: '北京' },
+      { code: '2', codeName: '上海' },
+      { code: '3', codeName: '广州' }
+    ],
+    tableItem: {
+      type: 'select',
+      editing: (text, record) => record.id === editingKey
+    }
+  },
+  {
+    title: '操作',
+    tableItem: {
+      width: 180,
+      render: (text, record) => (
+        <EditableOper>
+          {form =>
+            record.id === editingKey ? (
+              <Fragment>
+                <a onClick={e => self.onSave(record, form)}>保存</a>
+                <a onClick={e => self.onCancelEdit()}>取消</a>
+              </Fragment>
+            ) : (
+              <a onClick={e => self.onEdit(record)}>修改</a>
+            )
+          }
+        </EditableOper>
+      )
+    }
   }
 ];
