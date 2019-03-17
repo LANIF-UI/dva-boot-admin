@@ -11,6 +11,15 @@ const Editable = Form.create()(({ form, ...props }) => (
   </EditableContext.Provider>
 ));
 
+/**
+ * 重新包装的Oper为了传递form到子组件
+ * 例如
+ *  <EditableOper>
+      {
+        form => <a onClick={e => onSave(form)}>保存</a>
+      }
+    </EditableOper>
+ */
 const EditableOper = props => (
   <EditableContext.Consumer>
     {form => <Oper>{props.children(form)}</Oper>}

@@ -111,12 +111,12 @@ export const columns5 = (self, editingKey) => [
     }
   },
   {
-    title: '地址',
-    name: 'address',
+    title: '角色',
+    name: 'role',
     dict: [
-      { code: '1', codeName: '北京' },
-      { code: '2', codeName: '上海' },
-      { code: '3', codeName: '广州' }
+      { code: '1', codeName: '员工' },
+      { code: '2', codeName: '经理' },
+      { code: '3', codeName: '老总' }
     ],
     tableItem: {
       type: 'select',

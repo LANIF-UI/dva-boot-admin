@@ -194,6 +194,7 @@ class DataTable extends Component {
           };
         }
         // 如果指定了type字段，则使用指定类型渲染这个列
+        const myRender = item.render;
         if (item.type) {
           item.render = (text, record, index) => {
             if ($$.isFunction(item.editing) && item.editing(text, record)) {
@@ -206,7 +207,9 @@ class DataTable extends Component {
                 />
               );
             } else {
-              return text;
+              return $$.isFunction(myRender)
+                ? myRender(text, record, index)
+                : text;
             }
           };
         }

@@ -105,12 +105,26 @@ export default class extends BaseComponent {
     form.validateFields((err, values) => {
       if (!err) {
         console.log('save:', values, record);
+        // 演示模拟改变数据
+        const { dataList } = this.props.datatable;
+        dataList.list = dataList.list.map(item => {
+          if (item.id === record.id) {
+            return { ...item, ...values };
+          } else {
+            return item;
+          }
+        });
+        this.props.dispatch({
+          type: 'datatable/@change',
+          payload: {
+            dataList
+          }
+        });
         this.onCancelEdit();
       } else {
-        console.log(err)
+        console.log(err);
       }
     });
-    
   };
 
   render() {
@@ -263,7 +277,7 @@ export default class extends BaseComponent {
           </Row>
           <Row gutter={20}>
             <Col span={12}>
-              <Panel title="可编辑的行" height={500} scroll>
+              <Panel title="可编辑的行，用法与Form相似" height={500} scroll>
                 <Editable pagination={{ pageSize: 20 }} {...dataTableProps7} />
               </Panel>
             </Col>
