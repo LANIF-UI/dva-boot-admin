@@ -35,9 +35,14 @@ const EditableOper = props => (
  * @param field.tableItem.editing [Function] 使用函数可以支持满足条件的指定单元格应用类型
  */
 class EditableCell extends React.Component {
-  componentWillUnmount() {
+  componentDidMount() {
     // 重置表单项，否则会带入值到下一行
-    this.form.resetFields();
+    const { record, field } = this.props;
+    if (record && record[field.name]) {
+      this.form.setFieldsValue({
+        [field.name]: record[field.name]
+      });
+    }
   }
 
   render() {
