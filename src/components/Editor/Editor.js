@@ -32,7 +32,9 @@ class Editor extends PureComponent {
     this.editor.txt.html(value);
   }
   componentDidUpdate(prevProps, prevState) {
-    this.editor.txt.html(this.state.value);
+    if ('value' in this.props) {
+      this.editor.txt.html(this.state.value || '');
+    }
   }
 
   onChange = html => {

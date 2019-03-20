@@ -26,8 +26,6 @@ class EditorControlled extends Component {
   }
 
   triggerChange = value => {
-    this.setState({ value });
-
     const onChange = this.props.onChange;
     if (onChange) {
       onChange(value);
