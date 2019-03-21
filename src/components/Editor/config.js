@@ -1,6 +1,6 @@
 export default {
   // debug: true, // 定义 debug 模式
-
+  zIndex: 1,
   // 下面两个配置，使用其中一个即可显示“上传图片”的tab。但是两者不要同时使用！！！
   uploadImgShowBase64: true,   // 使用 base64 保存图片
   // uploadImgServer: '/upload',  // 上传图片到服务器
