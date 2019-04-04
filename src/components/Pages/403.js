@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'dva/router';
 import { Layout, Row, Col } from 'antd';
 import Icon from '../Icon';
+import errorImg from './style/images/error403.svg';
 const { Content } = Layout;
 
 export default () => (
@@ -16,7 +17,7 @@ export default () => (
           </div>
         </Col>
         <Col span={8}>
-          <img src="https://gw.alipayobjects.com/zos/rmsportal/wZcnGqRDyhPOEYFcZDnb.svg" width="313" height="428" alt="error" />
+          <img src={errorImg} width="313" height="428" alt="error" />
         </Col>
       </Row>
       <Link to="/" className="backhome">
