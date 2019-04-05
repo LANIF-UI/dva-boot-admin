@@ -1,6 +1,7 @@
 import { createRoutes } from '@/utils/core';
 import BasicLayout from '@/layouts/BasicLayout';
 import UserLayout from '@/layouts/UserLayout';
+import Page403 from './Pages/403';
 import NotFound from './Pages/404';
 import Page500 from './Pages/500';
 import ScreenLock from './Widgets/ScreenLock';
@@ -80,6 +81,7 @@ const routesConfig = app => [
       ScreenLock(),
       Gallery(),
       Result(),
+      Page403(),
       Page500(),
       Print(),
       Banner(app),
