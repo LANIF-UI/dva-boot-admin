@@ -12,6 +12,7 @@ import { LocaleProvider } from 'antd';
 import zh_CN from 'antd/lib/locale-provider/zh_CN';
 import 'moment/locale/zh-cn';
 import { homepage } from '../package.json';
+import * as serviceWorker from './serviceWorker';
 
 // -> 初始化
 const app = dva({
@@ -56,3 +57,7 @@ export default {
   store: app._store,
   dispatch: app._store.dispatch
 };
+
+// 如果想可以离线使用，请使用register()代替unregister()。可能会带来一些问题，如缓存等
+// 相关资料，可以从 https://bit.ly/CRA-PWA 了解
+serviceWorker.unregister();
