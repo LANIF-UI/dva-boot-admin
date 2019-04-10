@@ -17,6 +17,7 @@ export default ({
   normalize,
   buttonStyle,
   getPopupContainer,
+  preview,
   ...otherProps
 }) => {
   const { getFieldDecorator } = form;
@@ -34,6 +35,16 @@ export default ({
     } else {
       formFieldOptions.initialValue = initval;
     }
+  }
+
+  // 预览视图
+  if (preview) {
+    const dictObj = dict.filter(item => item.code === initval)[0];
+    let text = '';
+    if (dictObj) {
+      text = dictObj.codeName;
+    }
+    return <div style={otherProps.style}>{text}</div>;
   }
 
   // 如果有rules
