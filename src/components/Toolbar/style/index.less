@@ -1,4 +1,4 @@
-@import "~antd/lib/style/themes/default.less";
+@import '~antd/lib/style/themes/default.less';
 
 @toolbar-box-prefix-cls: antui-toolbar-box;
 @toolbar-height: 48px;
@@ -12,40 +12,61 @@
   line-height: 1;
   font-size: 12px;
   border-bottom: 1px solid @border-color-base;
-  .left-btn-div{
+  .top-panel {
+    height: @toolbar-height;
+    overflow: hidden;
+  }
+
+  .left-btn-div {
     display: inline-block;
     height: @toolbar-height;
     padding-top: 8px;
     margin-left: 20px;
     vertical-align: middle;
-    button{
-      margin-right:0px;
+    position: relative;
+    z-index: 1;
+    button {
+      margin-right: 0px;
     }
   }
 
-  .toolbar-right {
-    float: right;
+  .toolbar-right,
+  .pulldown-handle-small {
+    position: absolute;
+    top: 8px;
+    right: 20px;
     height: @toolbar-height;
-    padding-top: 8px;
-    padding-right: 20px;
-    transition: transform .3s ease-out;
+    transition: transform 0.3s ease-out;
     transform: translateX(0);
   }
 
-  .toolbar-right-out {
-    transform: translateX(100%);
+  .pulldown-handle-small {
+    display: none;
   }
 
-  .pulldown-panel{
+  @media (max-width: 576px) {
+    .toolbar-right,
+    .pulldown-handle {
+      display: none;
+    }
+    .pulldown-handle-small {
+      display: block;
+    }
+  }
+
+  .toolbar-right-out {
+    transform: translateX(120%);
+  }
+
+  .pulldown-panel {
     max-height: 0;
-    transition: max-height .5s ease-out;
-    background: #FFF;
-    position: relative;
+    transition: max-height 0.5s ease-out;
+    background: #fff;
     // z-index: 7;
     &.open {
       max-height: 400px;
     }
-    .pulldown-handle{
+    .pulldown-handle {
       width: 50px;
       height: 10px;
       border: 1px solid @border-color-base;
@@ -53,27 +74,27 @@
       border-bottom: none;
       text-align: center;
       line-height: 10px;
-      transition: all .2s;
+      transition: all 0.2s;
       position: absolute;
       bottom: 0;
       left: 0;
       right: 0;
       margin: 0 auto;
       background: #fff;
-      box-shadow: 0px 8px 18px -3px #9E9E9E;
+      box-shadow: 0px 8px 18px -3px #9e9e9e;
       z-index: 2;
       overflow: hidden;
       i {
-        transform: scale(.7);
+        transform: scale(0.7);
         display: flex;
         justify-content: center;
       }
-      &:hover{
+      &:hover {
         width: 60px;
         height: 25px;
       }
     }
-    .pulldown-body{
+    .pulldown-body {
       margin-top: 0;
       position: relative;
       overflow: hidden;

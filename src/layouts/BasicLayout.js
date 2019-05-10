@@ -57,8 +57,12 @@ export default class BasicLayout extends React.PureComponent {
 
   componentDidMount() {
     this.unregisterEnquire = enquireIsMobile(ismobile => {
-      const { isMobile } = this.state;
+      const { isMobile, theme } = this.state;
       if (isMobile !== ismobile) {
+        // 如查是移动端则不固定侧边栏
+        if (ismobile && $$.isArray(theme.layout)) {
+          theme.layout = theme.layout.filter(item => item !== 'fixedSidebar');
+        }
         this.setState({
           isMobile: ismobile
         });
@@ -164,9 +168,9 @@ export default class BasicLayout extends React.PureComponent {
    * 切换右边栏
    */
   toggleRightSide = _ => {
-    const {collapsedLeftSide, collapsedRightSide} = this.state;
+    const { collapsedLeftSide, collapsedRightSide } = this.state;
     this.setState({
-      collapsedLeftSide: collapsedRightSide ? true :collapsedLeftSide,
+      collapsedLeftSide: collapsedRightSide ? true : collapsedLeftSide,
       collapsedRightSide: !collapsedRightSide
     });
   };
