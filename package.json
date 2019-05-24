@@ -51,7 +51,7 @@
     "prop-types": "^15.6.1",
     "react-app-rewired": "^2.1.0",
     "react-scripts": "^2.1.5",
-    "webpack-bundle-analyzer": "^3.0.4"
+    "webpack-bundle-analyzer": "^3.3.2"
   },
   "browserslist": [
     "> 1%",
