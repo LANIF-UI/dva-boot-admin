@@ -250,14 +250,14 @@ class DataTable extends Component {
     // 分页
     const paging = objectAssign(
       {
+        total: dataItems.total,
+        pageSize: dataItems.pageSize,
         showSizeChanger: true,
         showQuickJumper: true,
         showTotal: total => `共 ${total} 条`,
         onShowSizeChange: this.onShowSizeChange
       },
-      dataItems.pageSize && { pageSize: dataItems.pageSize },
       dataItems.pageNum && { current: dataItems.pageNum },
-      dataItems.total && { total: dataItems.total },
       pagination
     );
 

@@ -11,6 +11,16 @@ export default ({fetchMock, delay, mock, toSuccess, toError}) => {
       const paramMap = body.paramMap;
       const deptName = paramMap.deptName;
 
+      if (deptName == 'abcd') {
+        return toSuccess(mock({
+          'currentPage': currentPage,
+          'showCount': body.showCount,
+          'totalResult': 0,
+          'totalPage': 0,
+          dataList: [],
+        }), 400)
+      }
+
       return toSuccess(mock({
         'currentPage': currentPage,
         'showCount': body.showCount,
