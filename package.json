@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@antv/data-set": "^0.8.9",
-    "antd": "^3.19.3",
+    "antd": "^3.21.2",
     "bizcharts": "^3.1.5",
     "classnames": "^2.2.5",
     "cmn-utils": "^1.0.7",

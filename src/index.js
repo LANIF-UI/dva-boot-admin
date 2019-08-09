@@ -8,8 +8,8 @@ import request from 'cmn-utils/lib/request';
 import createRoutes from '@/routes';
 import 'assets/styles/index.less';
 import config from './config';
-import { LocaleProvider } from 'antd';
-import zh_CN from 'antd/lib/locale-provider/zh_CN';
+import { ConfigProvider } from 'antd';
+import zh_CN from 'antd/es/locale/zh_CN';
 import 'moment/locale/zh-cn';
 import { homepage } from '../package.json';
 import * as serviceWorker from './serviceWorker';
@@ -43,9 +43,9 @@ app.model(require('./models/global').default);
 
 // -> 初始化路由
 app.router(({ history, app }) => (
-  <LocaleProvider locale={zh_CN}>
+  <ConfigProvider locale={zh_CN}>
     <Router history={history}>{createRoutes(app)}</Router>
-  </LocaleProvider>
+  </ConfigProvider>
 ));
 
 // -> Start
