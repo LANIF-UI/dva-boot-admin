@@ -69,7 +69,7 @@ class AutoCompleteControlled extends Component {
   _handleSearch = value => {
     const { loadData } = this.props;
 
-    this.setState({ loading: true });
+    // this.setState({ loading: true }); // input suffix 属性当输入时会引起输入中断
     const promise = loadData(value);
     if (promise && promise.then) {
       promise
@@ -129,9 +129,10 @@ class AutoCompleteControlled extends Component {
     return (
       <AutoComplete
         value={value}
+        defaultActiveFirstOption={false}
         dataSource={this.renderOptions(dataSource)}
         onSelect={this.onSelect}
-        onSearch={this.onSearch}
+        onChange={this.onSearch}
         optionLabelProp={valueField}
         {...autoComponentProps}
         allowClear={false}
