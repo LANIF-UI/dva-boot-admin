@@ -31,6 +31,7 @@ import CSSAnimate from './UI/CSSAnimate';
 import Alerts from './UI/Alerts';
 import Button from './UI/Button';
 import CRUD from './Business/CRUD';
+import CRUDDetail from './Business/CRUD/routers/Detail';
 
 /**
  * 主路由配置
@@ -77,6 +78,7 @@ const routesConfig = app => [
       TransferTree(app),
       BaseComponent(),
       CRUD(app),
+      CRUDDetail(app),
       Coming(),
       ScreenLock(),
       Gallery(),

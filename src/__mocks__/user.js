@@ -194,7 +194,7 @@ export default ({fetchMock, delay, mock, toSuccess, toError}) => {
         children: [
           {
             name: 'CRUD',
-            path: '/crud',
+            path: '/crud/:detail?',
           }
         ],
       },

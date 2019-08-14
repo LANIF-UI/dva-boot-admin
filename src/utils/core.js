@@ -44,6 +44,7 @@ export const createRoute = (app, routesConfig) => {
     path,
     indexRoute,
     title,
+    exact,
     ...otherProps
   } = routesConfig(app);
   if (path && path !== '/') {
@@ -72,6 +73,9 @@ export const createRoute = (app, routesConfig) => {
     },
     path && {
       path: path
+    },
+    exact && {
+      exact: exact
     }
   );
 

@@ -2,6 +2,7 @@ import React from 'react';
 import DataTable from 'components/DataTable';
 import Icon from 'components/Icon';
 import Button from 'components/Button';
+import { Link } from 'dva/router';
 
 export default (self, employees) => [
   {
@@ -92,6 +93,11 @@ export default (self, employees) => [
           </Button>
           <Button tooltip="删除" onClick={e => self.onDelete(record)}>
             <Icon type="trash" />
+          </Button>
+          <Button tooltip="跳转到新路由">
+            <Link to={"/crud/detail?id=" + record.id}>
+              <Icon type="link" antd />
+            </Link>
           </Button>
         </DataTable.Oper>
       )
