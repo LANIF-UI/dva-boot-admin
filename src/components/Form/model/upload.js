@@ -1,7 +1,6 @@
 import React from 'react';
 import { Button } from 'antd';
 import Upload from '../../Upload';
-import omit from 'object.omit';
 import $$ from 'cmn-utils';
 /**
  * Upload元件, 可能需要自已处理反回值，如果后台需要FormData
@@ -26,8 +25,8 @@ export default ({
   max,
   maxFileSize, // 最大文件大小
   fileTypes, // 允许文件类型
-  action,    // 后台地址
-  fileName,  // 上传到后台的文件名
+  action, // 后台地址
+  fileName, // antd upload 的name属性,因为name被formItem使用,上传到后台的文件名
   getPopupContainer,
   ...otherProps
 }) => {
@@ -44,17 +43,7 @@ export default ({
     if ($$.isFunction(normalize)) {
       formFieldOptions.initialValue = normalize(initval);
     } else {
-      formFieldOptions.initialValue = $$.isArray(initval)
-        ? initval.map((item, index) => ({
-            uid: 'fs_' + index,
-            thumbUrl: item
-          }))
-        : [
-            {
-              uid: 'fs_0',
-              thumbUrl: record[name]
-            }
-          ];
+      formFieldOptions.initialValue = initval;
     }
   }
 
@@ -86,23 +75,23 @@ export default ({
   }
 
   let uploadProps = {
-    listType: 'picture',
     beforeUpload: file => false,
-  }
+    ...otherProps
+  };
 
   // 真接上传到后台
   if (action) {
-    uploadProps = omit(otherProps, ['beforeUpload']);
+    uploadProps = otherProps;
     uploadProps.action = action;
     uploadProps.name = fileName || 'file';
-  } 
+  }
 
   return getFieldDecorator(name, {
     valuePropName: 'fileList',
     getValueFromEvent: normFile,
     ...formFieldOptions
   })(
-    <Upload {...uploadProps} {...otherProps}>
+    <Upload {...uploadProps}>
       {renderUpload ? (
         renderUpload(form, record, isDisabled(max, form.getFieldValue(name)))
       ) : (
