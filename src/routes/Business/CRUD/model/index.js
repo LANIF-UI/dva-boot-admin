@@ -57,7 +57,8 @@ export default modelEnhance({
     *save({ payload }, { call, put, select, take }) {
       const { values, success } = payload;
       const { pageData } = yield select(state => state.crud);
-      yield put({
+      // put是非阻塞的 put.resolve是阻塞型的
+      yield put.resolve({
         type: '@request',
         payload: {
           notice: true,
@@ -65,8 +66,7 @@ export default modelEnhance({
           data: values
         }
       });
-      // 等待@request结束
-      yield take('@request/@@end');
+
       yield put({
         type: 'getPageInfo',
         payload: { pageData }
