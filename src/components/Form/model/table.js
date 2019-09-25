@@ -163,6 +163,7 @@ class TableControlled extends Component {
       placeholder,
       getPopupContainer,
       disabled,
+      pagination,
       ...otherProps
     } = this.props;
     const { dataSource, value, rows, loading, visible } = this.state;
@@ -182,7 +183,7 @@ class TableControlled extends Component {
     if (modal || disabled) {
       return (
         <div>
-          <div onClick={disabled ? () => {} : this.showModal}>
+          <div onClick={disabled ? () => { } : this.showModal}>
             <Select
               readOnly
               disabled={!!disabled}
@@ -199,10 +200,10 @@ class TableControlled extends Component {
                   </Option>
                 ))
               ) : (
-                <Option key="_selected" value="_selected">
-                  已选择{rows.length}项
+                  <Option key="_selected" value="_selected">
+                    已选择{rows.length}项
                 </Option>
-              )}
+                )}
             </Select>
           </div>
           <Modal
@@ -236,10 +237,11 @@ class TableControlled extends Component {
 
     return (
       <DataTable
-        pagination={{
-          showSizeChanger: false,
-          showQuickJumper: false
-        }}
+        pagination={pagination == null ?
+          {
+            showSizeChanger: false,
+            showQuickJumper: false
+          } : pagination}
         {...dataTableProps}
       />
     );
