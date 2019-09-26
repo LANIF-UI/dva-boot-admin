@@ -163,6 +163,7 @@ class TableControlled extends Component {
       placeholder,
       getPopupContainer,
       disabled,
+      pagination,
       ...otherProps
     } = this.props;
     const { dataSource, value, rows, loading, visible } = this.state;
@@ -177,7 +178,15 @@ class TableControlled extends Component {
       showNum: typeof showNum === 'undefined' ? true : showNum,
       isScroll: true,
       onChange: ({ pageNum, pageSize }) => this.onChange({ pageNum, pageSize }),
-      onSelect: (keys, rows) => this.onSelect(keys, rows)
+      onSelect: (keys, rows) => this.onSelect(keys, rows),
+      pagination:
+        pagination === false
+          ? false
+          : {
+              showSizeChanger: false,
+              showQuickJumper: false,
+              ...pagination
+            }
     };
     if (modal || disabled) {
       return (
@@ -211,38 +220,36 @@ class TableControlled extends Component {
             visible={visible}
             width={modal.width || 600}
             onCancel={this.hideModal}
-            footer={[
-              <Pagination
-                key="paging"
-                size="small"
-                showSizeChanger={false}
-                showQuickJumper={false}
-                {...dataTableProps}
-              />,
-              <Button key="back" onClick={this.hideModal}>
-                取消
-              </Button>,
-              <Button key="submit" type="primary" onClick={this.onSubmit}>
-                确定
-              </Button>
-            ]}
+            footer={
+              <>
+                <div className="left">
+                  {pagination === false ? null : (
+                    <Pagination
+                      key="paging"
+                      size="small"
+                      showSizeChanger={false}
+                      showQuickJumper={false}
+                      {...dataTableProps}
+                    />
+                  )}
+                </div>
+                <Button key="back" onClick={this.hideModal}>
+                  取消
+                </Button>
+                <Button key="submit" type="primary" onClick={this.onSubmit}>
+                  确定
+                </Button>
+              </>
+            }
             {...modal}
           >
-            <DataTable {...dataTableProps} />
+            <DataTable {...dataTableProps} pagination={false} />
           </Modal>
         </div>
       );
     }
 
-    return (
-      <DataTable
-        pagination={{
-          showSizeChanger: false,
-          showQuickJumper: false
-        }}
-        {...dataTableProps}
-      />
-    );
+    return <DataTable {...dataTableProps} />;
   }
 }
 

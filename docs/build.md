@@ -15,11 +15,15 @@ GENERATE_SOURCEMAP=false
 
 设置`package.json`中的`homepage`的值,如把项目发部到服务器的`dva-boot-admin`文件夹下为：
 ```json
-"homepage": "/dva-boot-admin"; // 跟据实际项目设置
+"homepage": "/dva-boot-admin"
 ```
 若发布到服务器的跟目录下为
-```js
-"homepage" = '/'; // 跟据实际项目设置
+```json
+"homepage": "/"
+```
+使用相对路径
+```json
+"homepage": "."
 ```
 配置错则有可能加载不到相关资源
 

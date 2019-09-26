@@ -17,7 +17,7 @@ import * as serviceWorker from './serviceWorker';
 // -> 初始化
 const app = dva({
   history: createHistory({
-    basename: homepage
+    basename: homepage.startsWith('/') ? homepage : ''
   })
 });
 
