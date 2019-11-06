@@ -8,7 +8,7 @@ export default {
   state: {
     loggedIn: false,
     message: '',
-    user: {},
+    user: {}
   },
 
   subscriptions: {
@@ -23,14 +23,20 @@ export default {
 
   effects: {
     *login({ payload }, { call, put }) {
-      const { status, message, data } = yield call(login, payload);
-      if (status) {
-        $$.setStore('user', data);
-        yield put(routerRedux.replace('/'));
-      } else {
+      try {
+        const { status, message, data } = yield call(login, payload);
+        if (status) {
+          $$.setStore('user', data);
+          yield put(routerRedux.replace('/'));
+        } else {
+          yield put({
+            type: 'loginError',
+            payload: { message }
+          });
+        }
+      } catch (e) {
         yield put({
-          type: 'loginError',
-          payload: { message }
+          type: 'loginError'
         });
       }
     },
@@ -52,6 +58,6 @@ export default {
         loggedIn: false,
         message: payload.message
       };
-    },
+    }
   }
 };
