@@ -9,10 +9,10 @@ const { Content } = Layout;
 export default class extends BaseComponent {
   state = {
     dataSource: [
-      {title: '1', link: '/abc', file: 'https://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-599347.jpg'},
-      {title: '2', link: '/abd', file: 'https://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-255412.jpg'},
-      {title: '3', link: '/abe', file: 'https://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-94129.jpg'},
-      {title: '4', link: '/abf', file: 'https://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-205394.jpg'}
+      {title: '1', link: '/abc', file: 'https://files.vlad.studio/sequoia/joy/merry_xmas_moon/thumbs/1024x1024.jpg'},
+      {title: '2', link: '/abd', file: 'https://files.vlad.studio/sequoia/joy/autumn_gradient/thumbs/1024x1024.jpg'},
+      {title: '3', link: '/abe', file: 'https://files.vlad.studio/sequoia/joy/tinyliving/thumbs/1024x1024.jpg'},
+      {title: '4', link: '/abf', file: 'https://files.vlad.studio/sequoia/joy/little_quetzal/thumbs/1024x1024.jpg'}
     ]
   }
 

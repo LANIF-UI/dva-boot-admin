@@ -54,6 +54,14 @@ const columns = [
       listType: 'picture-card',
       max: 1,
       fileTypes: ['.png', '.jpg', '.gif'],
+      normalize: value => {
+        return [
+          {
+            uid: -1,
+            thumbUrl: value
+          }
+        ];
+      },
       rules: [
         {
           required: true,
