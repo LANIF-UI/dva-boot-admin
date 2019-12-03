@@ -144,3 +144,41 @@ export const columns5 = (self, editingKey) => [
     }
   }
 ];
+
+export const columns6 = [
+  {
+    title: '名称',
+    name: 'name',
+    tableItem: {
+      width: 120,
+      fixed: 'left'
+    }
+  },
+  {
+    title: '年龄',
+    name: 'age',
+    tableItem: {}
+  },
+  {
+    title: '地址',
+    name: 'address',
+    tableItem: {}
+  },
+  {
+    title: '操作',
+    tableItem: {
+      width: 100,
+      fixed: 'right',
+      render: (text, record) => (
+        <DataTable.Oper>
+          <Button tooltip="修改">
+            <Icon type="edit" />
+          </Button>
+          <Button tooltip="删除">
+            <Icon type="trash" />
+          </Button>
+        </DataTable.Oper>
+      )
+    }
+  }
+];

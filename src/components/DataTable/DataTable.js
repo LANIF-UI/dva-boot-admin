@@ -45,9 +45,9 @@ class DataTable extends Component {
      */
     selectedRowKeys: PropTypes.array,
     /**
-     * 是否带滚动条
+     * 是否带滚动条,或者当作scroll参数
      */
-    isScroll: PropTypes.bool,
+    isScroll: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
     /**
      * 是否增加表格内分页
      */
@@ -170,6 +170,7 @@ class DataTable extends Component {
     });
 
     let colRowKey = '';
+    let hasLeftFixedCol = false; // 是否有左侧的固定列
     // 默认宽度
     let cols = columns
       .filter(col => {
@@ -192,6 +193,10 @@ class DataTable extends Component {
                 .map(dic => dic.codeName)[0]
             );
           };
+        }
+        // 是否有左侧固定列
+        if (item.fixed === true || item.fixed === 'left') {
+          hasLeftFixedCol = true;
         }
         // 如果指定了type字段，则使用指定类型渲染这个列
         const myRender = item.render;
@@ -235,6 +240,7 @@ class DataTable extends Component {
         title: '序号',
         width: 50,
         dataIndex: '_num',
+        ...(hasLeftFixedCol && { fixed: 'left' }),
         render(text, record, index) {
           const { pageNum, pageSize } = dataItems;
           if (pageNum && pageSize) {
@@ -282,7 +288,7 @@ class DataTable extends Component {
                 })
               : () => {}
           }
-          scroll={isScroll ? objectAssign({ x: true }) : {}}
+          scroll={isScroll ? objectAssign({ x: true }, isScroll) : {}}
           bodyStyle={{ overflowX: 'auto' }}
           columns={cols}
           pagination={pagination ? paging : false}

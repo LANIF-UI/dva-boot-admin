@@ -6,7 +6,14 @@ import BaseComponent from 'components/BaseComponent';
 import Panel from 'components/Panel';
 import SideLayout from 'components/SideLayout';
 import DataTable, { Editable } from 'components/DataTable';
-import { columns1, columns2, columns3, columns4, columns5 } from './columns';
+import {
+  columns1,
+  columns2,
+  columns3,
+  columns4,
+  columns5,
+  columns6
+} from './columns';
 import './index.less';
 const { Content } = Layout;
 const Pagination = DataTable.Pagination;
@@ -195,7 +202,19 @@ export default class extends BaseComponent {
       loading,
       columns: columns5(this, this.state.editingKey),
       rowKey: 'id',
-      dataItems: dataList,
+      dataItems: pageData,
+      showNum: true
+    };
+
+    const lessData = {
+      list: dataList.list.filter((item, index) => index < 6) // 取前6条
+    };
+    const dataTableProps8 = {
+      loading,
+      columns: columns6,
+      isScroll: { x: 666 }, // 需要设一个宽
+      rowKey: 'id',
+      dataItems: lessData,
       showNum: true
     };
 
@@ -279,6 +298,17 @@ export default class extends BaseComponent {
             <Col span={12}>
               <Panel title="可编辑的行，用法与Form相似" height={500} scroll>
                 <Editable pagination={{ pageSize: 20 }} {...dataTableProps7} />
+              </Panel>
+            </Col>
+            <Col span={12}>
+              <Panel title="固定列" height={500} scroll>
+                <p>0.antd 3.24.0之前版本，对固定支持有问题，需升级</p>
+                <p>
+                  1.需要给表格设置 isScroll 相当于antd的scroll, 例如: {`isScroll: { x: 666 }`}，不可以
+                  isScroll: true，否则右侧固定会有空白
+                </p>
+                <p>2.columns里，固定的列最好也设置宽</p>
+                <DataTable {...dataTableProps8} />
               </Panel>
             </Col>
           </Row>
