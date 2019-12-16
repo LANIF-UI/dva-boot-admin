@@ -227,6 +227,7 @@ class DataTable extends Component {
       // 保存rowkey在record
       .concat({
         dataIndex: '_rowkey',
+        className: 'hide-column',
         width: 0,
         render(text, record, index) {
           record.rowKey = record[rowKey || colRowKey];
