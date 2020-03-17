@@ -6,6 +6,7 @@ export default modelEnhance({
   state: {
     dataSource: [],
     asyncDataSource: [],
+    customAsyncDataSource: [],
   },
 
   subscriptions: {
@@ -21,6 +22,9 @@ export default modelEnhance({
             }, {
               valueField: 'asyncDataSource',
               url: '/tree/getAsyncData',
+            }, {
+              valueField: 'customAsyncDataSource',
+              url: '/tree/getCustomAsyncData',
             }]
           });
         }

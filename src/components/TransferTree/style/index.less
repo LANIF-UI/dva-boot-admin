@@ -20,7 +20,7 @@
       border-radius: 4px 4px 0 0;
       background: #f9f9f9;
       color: rgba(0, 0, 0, 0.65);
-      border-bottom: 2px solid tint(@primary-color);
+      border-bottom: 1px solid tint(@primary-color);
       overflow: hidden;
       position: absolute;
       top: 0;
@@ -76,10 +76,35 @@
 
         .ant-tree li .ant-tree-node-content-wrapper {
           width: ~'calc(100% - 24px)';
+          height: 32px;
+          line-height: 32px;
+          &:hover,
+          &.ant-tree-node-selected {
+            background-color: transparent;
+            &::before {
+              content: '';
+              position: absolute;
+              left: 0;
+              right: 0;
+              background: #e6edfb;
+              height: 32px;
+              z-index: 0;
+            }
+            .ant-tree-title {
+              position: relative;
+              z-index: 1;
+            }
+          }
         }
-
+        .ant-tree li {
+          padding: 0;
+        }
         .ant-tree li > span {
           vertical-align: middle;
+          &.ant-tree-switcher {
+            position: relative;
+            z-index: 1;
+          }
         }
 
         &-not-found {
@@ -98,7 +123,7 @@
           transition: all 0.3s ease;
           &:hover {
             cursor: pointer;
-            background-color: #e6f7ff;
+            background-color: #e6edfb;
           }
           .list-comp-clear-item{
             position: absolute;

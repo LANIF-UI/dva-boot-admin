@@ -21,6 +21,7 @@ export default class List extends React.Component {
     style: PropTypes.object,
     render: PropTypes.func,
     onDeleteItem: PropTypes.func,
+    max: PropTypes.number,
   };
 
   constructor(props) {
@@ -67,14 +68,14 @@ export default class List extends React.Component {
       >
         <span className="list-comp-item-body">{render ? render(item) : item.title}</span>
         <a className={`list-comp-clear-item`} onClick={(e) => this.handleDeleteItem(e, [item])}>
-          <Icon type="cross" />
+          <Icon type="close" />
         </a>
       </li>
     );
   }
 
   render() {
-    const { prefixCls, notFoundContent, style } = this.props;
+    const { prefixCls, notFoundContent, style, max } = this.props;
 
     const listCls = classNames({
       [prefixCls]: true
@@ -87,11 +88,11 @@ export default class List extends React.Component {
         <div className={`${prefixCls}-header`}>
           <span className={`${prefixCls}-header-selected`}>
             <span>
-              {this.state.dataSource.length} {unit}
+              {this.state.dataSource.length} {max ? ` / ${max}` : ''} {unit}
             </span>
             <span className={`${prefixCls}-header-title`}>
               <a className={`${prefixCls}-clear-all`} onClick={(e) => this.handleDeleteItem(e)}>
-                删除所有
+                清空列表
               </a>
             </span>
           </span>

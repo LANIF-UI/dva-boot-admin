@@ -32,7 +32,7 @@ export default class ListTree extends React.Component {
     notFoundContent: PropTypes.string,
     filter: PropTypes.string,
     handleFilter: PropTypes.func,
-    treeRender: PropTypes.func,
+    render: PropTypes.func,
     loading: PropTypes.bool,
     flatTreeData: PropTypes.array
   };
@@ -40,7 +40,7 @@ export default class ListTree extends React.Component {
   state = {
     expandedKeys: [],
     autoExpandParent: true,
-    searchList: [],
+    searchList: []
   };
 
   handleFilter = value => {
@@ -54,13 +54,13 @@ export default class ListTree extends React.Component {
   };
 
   renderTreeNodes = data => {
-    const { treeKey, treeTitleKey } = this.props;
+    const { treeKey, treeTitleKey, render } = this.props;
 
     return data.map(item => {
       const treeProps = {
         ...item,
         key: item[treeKey],
-        title: item[treeTitleKey],
+        title: render ? render(item) : item[treeTitleKey],
         dataRef: item
       };
 
@@ -95,19 +95,22 @@ export default class ListTree extends React.Component {
     }
   };
 
-  renderSearchItem = searchList =>
-    searchList.map((item, index) => (
+  renderSearchItem = searchList => {
+    const { render } = this.props;
+
+    return searchList.map((item, index) => (
       <li
         className="list-comp-item"
         title={item[this.props.treeTitleKey]}
         key={item[this.props.treeKey]}
-        onClick={() => this.handleSelect(item)}
+        onClick={() => this.handleSelect({ ...item, dataRef: item })}
       >
         <span className="list-comp-item-body">
-          {item[this.props.treeTitleKey]}
+          {render ? render(item) : item[this.props.treeTitleKey]}
         </span>
       </li>
     ));
+  };
 
   handleSelect = selectedItem => {
     const { selectedKeys, selectedNodes, treeKey } = this.props;
@@ -132,16 +135,28 @@ export default class ListTree extends React.Component {
       selectedKeys,
       loadData,
       onTreeSelected,
-      treeKey
+      treeKey,
+      treeTitleKey
     } = this.props;
     if (info.selected && info.node.props.dataRef) {
       if (loadData && !info.node.props.dataRef.isLeaf) {
         return;
-      } else if (info.node.props.dataRef.children && info.node.props.dataRef.children.length) {
+      } else if (
+        info.node.props.dataRef.children &&
+        info.node.props.dataRef.children.length
+      ) {
         this.onExpand([info.node.props.eventKey], info);
         return;
       }
     }
+
+    let targetNodes = info.selectedNodes.map(node => ({
+      [treeKey]: node[treeKey],
+      [treeTitleKey]: node[treeTitleKey],
+      // ...node.props,
+      ...node.props.dataRef
+    }));
+
     // 如果是异步数据需要与老数据进行拼合及去重
     if (loadData) {
       let _selectedNodes = selectedNodes ? [...selectedNodes] : [];
@@ -153,22 +168,22 @@ export default class ListTree extends React.Component {
       }
       const newNodes = selectedKeys
         ? _selectedNodes.concat(
-            info.selectedNodes.filter(
-              item => selectedKeys.indexOf(item[treeKey]) < 0
-            )
+            targetNodes.filter(item => selectedKeys.indexOf(item[treeKey]) < 0)
           )
-        : info.selectedNodes;
+        : targetNodes;
       onTreeSelected(newNodes);
     } else {
-      onTreeSelected(info.selectedNodes);
+      onTreeSelected(targetNodes);
     }
   };
 
   onExpand = (expandedKeys, info) => {
     if (info.event && info.node.props.children) {
-      let concatKeys = [expandedKeys, this.state.expandedKeys].reduce(
-        (prev, next) =>
-          prev.filter(item => next.indexOf(item) === -1).concat(next)
+      let concatKeys = [
+        expandedKeys,
+        this.state.expandedKeys
+      ].reduce((prev, next) =>
+        prev.filter(item => next.indexOf(item) === -1).concat(next)
       );
 
       if (

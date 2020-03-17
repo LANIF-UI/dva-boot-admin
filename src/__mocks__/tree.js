@@ -73,6 +73,44 @@ export default ({fetchMock, delay, mock, toSuccess, toError}) => {
         }
       ], 400)
     },
+    // 自定义样式异步树
+    '/api/tree/getCustomAsyncData': (options) => {
+      let key = '0';
+      if (options.body) {
+        key = JSON.parse(options.body);
+      }
+      return toSuccess(mock([
+        {
+          title: '@city(true)',
+          key: '0' + key,
+        },
+        {
+          title: '@cname',
+          key: '1' + key,
+          isLeaf: true,
+          gender: Math.random() > 0.5 ? 1 : 0
+        },
+        {
+          title: '@cname',
+          key: '2' + key,
+          isLeaf: true,
+          gender: Math.random() > 0.5 ? 1 : 0
+        }
+      ]), 400)
+    },
+    '/api/tree/getCustomAsyncSearchData': (options) => {
+      let title = '0';
+      if (options.body) {
+        const data = JSON.parse(options.body);
+        title = data.search;
+      }
+      return toSuccess([
+        {
+          title: `子节点2${title}`,
+          key: `2${title}`,
+        }
+      ], 400)
+    },
     // 异步select tree
     '/api/tree/getAsyncTreeSelect': (options) => {
       let key = '0';

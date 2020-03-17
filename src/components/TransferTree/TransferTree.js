@@ -40,6 +40,7 @@ export default class TransferTree extends React.Component {
     loadData: PropTypes.func,
     loading: PropTypes.bool,
     asyncSearch: PropTypes.func,
+    max: PropTypes.number
   };
 
   constructor(props) {
@@ -80,7 +81,7 @@ export default class TransferTree extends React.Component {
         this.setState({
           targetNodes: targetNodes,
           selectedKeys: targetNodes.map(node => node[nextProps.treeKey])
-        })
+        });
       }
       if (dataSource) {
         this.setState({
@@ -125,21 +126,23 @@ export default class TransferTree extends React.Component {
   };
 
   onTreeSelected = selectedNodes => {
-    const { treeKey, treeTitleKey } = this.props;
-    let targetNodes = selectedNodes.map(node => ({
-      [treeKey]: node[treeKey],
-      [treeTitleKey]: node[treeTitleKey],
-      ...node.props
-    }));
+    const { treeKey, max } = this.props;
 
-    const targetKeys = targetNodes.map(node => node[treeKey]);
+    if (max && selectedNodes.length > max) {
+      console.error('error, selected number > max');
+      const {targetKeys, targetNodes} = this.state;
+      this.props.onChange && this.props.onChange(targetKeys, targetNodes, 'OutOfMaxSize');
+      return;
+    }
+
+    const targetKeys = selectedNodes.map(node => node[treeKey]);
 
     this.setState({
       selectedKeys: targetKeys,
-      targetNodes: targetNodes
+      targetNodes: selectedNodes
     });
 
-    this.props.onChange && this.props.onChange(targetKeys, targetNodes);
+    this.props.onChange && this.props.onChange(targetKeys, selectedNodes);
   };
 
   render() {
@@ -158,9 +161,16 @@ export default class TransferTree extends React.Component {
       treeRender,
       loadData,
       loading,
-      asyncSearch
+      asyncSearch,
+      max
     } = this.props;
-    const { leftFilter, rightFilter, selectedKeys, targetNodes, dataSource } = this.state;
+    const {
+      leftFilter,
+      rightFilter,
+      selectedKeys,
+      targetNodes,
+      dataSource
+    } = this.state;
 
     const cls = classNames({
       [className]: !!className,
@@ -179,7 +189,7 @@ export default class TransferTree extends React.Component {
           selectedNodes={targetNodes}
           treeKey={treeKey}
           treeTitleKey={treeTitleKey}
-          treeRender={treeRender}
+          render={treeRender}
           style={listStyle}
           filter={leftFilter}
           handleFilter={this.handleLeftFilter}
@@ -202,6 +212,7 @@ export default class TransferTree extends React.Component {
           render={listRender}
           notFoundContent={notFoundContent}
           prefixCls={`${prefixCls}-list`}
+          max={max}
         />
       </div>
     );
