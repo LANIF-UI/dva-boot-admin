@@ -1,5 +1,5 @@
 import { createRoutes } from '@/utils/core';
-import CardLayout from '@/layouts/CardLayout';
+import BasicLayout from '@/layouts/BasicLayout';
 import UserLayout from '@/layouts/UserLayout';
 import Page403 from './Pages/403';
 import NotFound from './Pages/404';
@@ -58,7 +58,7 @@ const routesConfig = app => [
   {
     path: '/',
     title: '系统中心',
-    component: CardLayout,
+    component: BasicLayout,
     indexRoute: '/dashboard',
     childRoutes: [
       Dashboard(app),

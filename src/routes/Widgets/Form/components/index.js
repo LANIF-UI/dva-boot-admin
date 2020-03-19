@@ -78,23 +78,6 @@ export default class extends BaseComponent {
     });
   };
 
-  state = {
-    record2: {
-      field3: [1, 5]
-    }
-  }
-
-  componentDidMount() {
-    setInterval(() => {
-      this.setState({
-        record2: {
-          field3: [1, 2, Math.ceil(Math.random()*10)]
-        }
-      })
-    }, 3000)
-  }
-  
-
   render() {
     const { treeData } = this.props.form;
 
@@ -103,7 +86,6 @@ export default class extends BaseComponent {
       roleType: '2', // 类型不能错，不能是数字的2
       roleName: '管理员'
     };
-    
     const columns10 = createColumns10(this, treeData);
     const columns11 = createColumns11(this);
     return (
@@ -232,7 +214,7 @@ export default class extends BaseComponent {
             </Col>
             <Col span={12}>
               <Panel title="Table类型，用于大数据量选择">
-                <Form columns={columns11} record={this.state.record2} onSubmit={this.onSubmit} />
+                <Form columns={columns11} onSubmit={this.onSubmit} />
               </Panel>
             </Col>
           </Row>
