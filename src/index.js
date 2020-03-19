@@ -1,9 +1,7 @@
 import React from 'react';
-import dva from 'dva';
-import dynamic from 'dva/dynamic';
+import dva, { dynamic, router } from 'dva';
 import createLoading from 'dva-loading';
-import { Router } from 'dva/router';
-import createHistory from 'history/createHashHistory';
+import { createHashHistory } from 'history';
 import request from 'cmn-utils/lib/request';
 import createRoutes from '@/routes';
 import 'assets/styles/index.less';
@@ -14,9 +12,11 @@ import 'moment/locale/zh-cn';
 import { homepage } from '../package.json';
 import * as serviceWorker from './serviceWorker';
 
+const { Router } = router;
+
 // -> 初始化
 const app = dva({
-  history: createHistory({
+  history: createHashHistory({
     basename: homepage.startsWith('/') ? homepage : ''
   })
 });

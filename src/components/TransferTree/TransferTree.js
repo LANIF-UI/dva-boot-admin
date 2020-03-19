@@ -71,25 +71,24 @@ export default class TransferTree extends React.Component {
     return data;
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { targetNodes, dataSource } = nextProps;
+  componentDidUpdate(prevProps, prevState) {
     if (
-      nextProps.targetNodes !== this.props.targetNodes ||
-      nextProps.dataSource !== this.props.dataSource
+      this.props.targetNodes !== prevProps.targetNodes ||
+      this.props.dataSource !== prevProps.dataSource
     ) {
-      if (targetNodes) {
+      if (this.props.targetNodes) {
         this.setState({
-          targetNodes: targetNodes,
-          selectedKeys: targetNodes.map(node => node[nextProps.treeKey])
+          targetNodes: this.props.targetNodes,
+          selectedKeys: this.props.targetNodes.map(node => node[this.props.treeKey])
         });
       }
-      if (dataSource) {
+      if (this.props.dataSource) {
         this.setState({
-          dataSource: dataSource
+          dataSource: this.props.dataSource
         });
       }
-      if (nextProps.showSearch) {
-        this.flatTreeData = this.getFlatTreeData(dataSource);
+      if (this.props.showSearch) {
+        this.flatTreeData = this.getFlatTreeData(this.props.dataSource);
       }
     }
   }
@@ -130,8 +129,9 @@ export default class TransferTree extends React.Component {
 
     if (max && selectedNodes.length > max) {
       console.error('error, selected number > max');
-      const {targetKeys, targetNodes} = this.state;
-      this.props.onChange && this.props.onChange(targetKeys, targetNodes, 'OutOfMaxSize');
+      const { targetKeys, targetNodes } = this.state;
+      this.props.onChange &&
+        this.props.onChange(targetKeys, targetNodes, 'OutOfMaxSize');
       return;
     }
 

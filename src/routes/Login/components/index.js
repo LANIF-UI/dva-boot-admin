@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { connect } from 'dva';
-import { Link } from 'dva/router';
+import { connect, router } from 'dva';
 import { Form, Layout, Button, Icon, Input, Checkbox, Spin } from 'antd';
 import logoImg from 'assets/images/logo1.png';
 import './index.less';
+const { Link } = router;
 const { Content } = Layout;
 const FormItem = Form.Item;
 

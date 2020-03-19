@@ -1,6 +1,5 @@
 import React from 'react';
-import { connect } from 'dva';
-import { Link } from 'dva/router';
+import { connect, router } from 'dva';
 import { Layout, Row, Col, Tree } from 'antd';
 import BaseComponent from 'components/BaseComponent';
 import Panel from 'components/Panel';
@@ -15,6 +14,7 @@ import {
   columns6
 } from './columns';
 import './index.less';
+const { Link } = router;
 const { Content } = Layout;
 const Pagination = DataTable.Pagination;
 const TreeNode = Tree.TreeNode;

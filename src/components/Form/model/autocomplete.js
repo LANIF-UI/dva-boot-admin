@@ -29,15 +29,15 @@ class AutoCompleteControlled extends Component {
     this.handleSearch = loadData ? $$.debounce(this._handleSearch, 500) : null;
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { dataSource, value, loadData } = nextProps;
+  componentDidUpdate(prevProps, prevState) {
+    const { loadData } = this.props;
     if (
-      !isEqual(this.props.dataSource, dataSource) ||
-      !isEqual(this.props.value, value)
+      !isEqual(this.props.dataSource, prevProps.dataSource) ||
+      !isEqual(this.props.value, prevProps.value)
     ) {
-      const newState = { value };
-      if (!loadData && dataSource) {
-        newState.dataSource = value ? dataSource : [];
+      const newState = { value: this.props.value };
+      if (!loadData && this.props.dataSource) {
+        newState.dataSource = this.props.value ? this.props.dataSource : [];
       }
 
       this.setState(newState);
@@ -58,9 +58,9 @@ class AutoCompleteControlled extends Component {
     } else {
       this.setState({
         value
-      })
+      });
     }
-    
+
     if (loadData) {
       this.handleSearch(value);
     }
@@ -200,7 +200,8 @@ export default ({
     props.getPopupContainer = getPopupContainer;
   }
 
-  return getFieldDecorator(name, formFieldOptions)(
-    <AutoCompleteControlled dataSource={dataSource} {...props} />
-  );
+  return getFieldDecorator(
+    name,
+    formFieldOptions
+  )(<AutoCompleteControlled dataSource={dataSource} {...props} />);
 };

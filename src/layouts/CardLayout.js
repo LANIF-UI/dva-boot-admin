@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'dva';
 import { Layout, Menu } from 'antd';
-import { Switch, routerRedux, Link } from 'dva/router';
+import { router, routerRedux } from 'dva';
 import pathToRegexp from 'path-to-regexp';
 import ElementQueries from 'css-element-queries/src/ElementQueries';
 import './styles/basic.less';
@@ -9,7 +9,9 @@ import $$ from 'cmn-utils';
 import cx from 'classnames';
 import SkinToolbox from 'components/SkinToolbox';
 import Icon from 'components/Icon';
+import isEqual from 'react-fast-compare';
 import './styles/card.less';
+const { Switch, Link } = router;
 const { Content, Header } = Layout;
 const SubMenu = Menu.SubMenu;
 
@@ -37,7 +39,9 @@ export default class CardLayout extends React.PureComponent {
     this.state = {
       theme, // 皮肤设置
       user,
-      currentMenu: {}
+      currentMenu: {},
+      pathname: null,
+      flatMenu: [],
     };
 
     props.dispatch({
@@ -46,39 +50,40 @@ export default class CardLayout extends React.PureComponent {
   }
 
   componentDidMount() {
+    this.checkLoginState();
+
     ElementQueries.init();
   }
 
-  componentWillMount() {
-    // 检查有户是否登录
+  // 检查有户是否登录
+  checkLoginState() {
     const user = $$.getStore('user');
     if (!user) {
       this.props.dispatch(routerRedux.replace('/sign/login'));
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (
-      nextProps.location.pathname !== this.props.location.pathname ||
-      nextProps.global.flatMenu !== this.props.global.flatMenu
-    ) {
-      this.setState({
-        currentMenu: this.getCurrentMenu(nextProps) || {}
-      });
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (!isEqual(nextProps.location.pathname, prevState.pathname) || !isEqual(nextProps.global.flatMenu, prevState.flatMenu)) {
+      return {
+        currentMenu: CardLayout.getCurrentMenu(nextProps) || {},
+        pathname: nextProps.location.pathname,
+        flatMenu: nextProps.global.flatMenu
+      };
     }
+    return null;
   }
 
-  getCurrentMenu(props) {
+  static getCurrentMenu(props) {
     const {
       location: { pathname },
       global
-    } =
-      props || this.props;
-    const menu = this.getMeunMatchKeys(global.flatMenu, pathname)[0];
+    } = props;
+    const menu = CardLayout.getMeunMatchKeys(global.flatMenu, pathname)[0];
     return menu;
   }
 
-  getMeunMatchKeys = (flatMenu, path) => {
+  static getMeunMatchKeys = (flatMenu, path) => {
     return flatMenu.filter(item => {
       return pathToRegexp(item.path).test(path);
     });
@@ -165,7 +170,7 @@ export default class CardLayout extends React.PureComponent {
     if (path && path.indexOf('http') === 0) {
       return path;
     } else {
-      return `/${path || ''}`.replace(/\/+/g, '/');
+      return `/${path || ''}`.replace(/\/+/g, '/').replace(/\/:\w+\??/, '');
     }
   };
 
@@ -176,7 +181,7 @@ export default class CardLayout extends React.PureComponent {
       global
     } = this.props;
 
-    const selectMenu = this.getMeunMatchKeys(global.flatMenu, pathname)[0];
+    const selectMenu = CardLayout.getMeunMatchKeys(global.flatMenu, pathname)[0];
     return selectMenu ? [selectMenu.path] : [];
   };
 

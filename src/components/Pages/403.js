@@ -1,8 +1,9 @@
 import React from 'react';
-import { Link } from 'dva/router';
+import { router } from 'dva';
 import { Layout, Row, Col } from 'antd';
 import Icon from '../Icon';
 import errorImg from './style/images/error403.svg';
+const { Link } = router;
 const { Content } = Layout;
 
 export default () => (

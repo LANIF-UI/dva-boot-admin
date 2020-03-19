@@ -30,9 +30,9 @@ class TransferTreeControlled extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.value !== nextProps.value) {
-      this.setState({ value: nextProps.value });
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.value !== prevProps.value) {
+      this.setState({ value: this.props.value });
     }
   }
 

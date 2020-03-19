@@ -18,10 +18,9 @@ class EditorControlled extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { value } = nextProps;
-    if (this.props.value !== value) {
-      this.setState({ value });
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.value !== prevProps.value) {
+      this.setState({ value: this.props.value });
     }
   }
 

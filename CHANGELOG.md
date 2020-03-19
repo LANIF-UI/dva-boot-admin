@@ -1,6 +1,33 @@
 Changelog
 =========
 
+3.0.0
+-----
+框架整体升级，现已正式适配Antd 4.0 & CRA 3.0
+
+### Features & Improvements
+* 升级**react**到16.13.0
+* 升级**react-scripts**到3.4.0
+* 升级**react-app-rewired**到2.1.5
+* 升级**dva**到2.6.0
+* 升级**cmn-utils**到1.0.10
+* 重写了不建议用的[生命周期函数](https://zh-hans.reactjs.org/docs/react-component.html)
+* 优化了富文本，表格等组件
+* 修改了一些bug
+
+2.1.0
+-----
+重要更新 :tada: :tada: :tada: 
+
+### Features & Improvements
+* 升级**create-react-app**到最新v2版本
+* 使用**customize-cra**覆盖cra默认配置
+* 兼容**ie10**及以上浏览器
+* 重新优化的`Form`&`ScarchBar`，更易于扩展
+* `Form`增加`upload`类型
+* `modelEnhance`增加`@change`类型
+* 增加`Coming Page`示例
+
 2.0.0
 -----
 重要更新 :tada: :tada: :tada: 

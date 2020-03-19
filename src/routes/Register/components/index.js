@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'dva';
-import { Link } from 'dva/router';
+import { connect, router } from 'dva';
 import {
   Form,
   Input,
@@ -16,6 +15,7 @@ import './index.less';
 import '../../Login/components/index.less';
 import logoImg from 'assets/images/logo1.png';
 import Success from './Success';
+const { Link } = router;
 const { Content } = Layout;
 
 const FormItem = Form.Item;
@@ -49,12 +49,13 @@ export default class Register extends Component {
     registerSuccess: false
   };
 
-  componentWillReceiveProps(nextProps) {
+  static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.register.status) {
-      this.setState({
+      return {
         registerSuccess: true
-      });
+      };
     }
+    return null;
   }
 
   componentWillUnmount() {

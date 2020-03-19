@@ -2,7 +2,8 @@ import React from 'react';
 import DataTable from 'components/DataTable';
 import Icon from 'components/Icon';
 import Button from 'components/Button';
-import { Link } from 'dva/router';
+import { router } from 'dva';
+const { Link } = router;
 
 export default (self, employees) => [
   {

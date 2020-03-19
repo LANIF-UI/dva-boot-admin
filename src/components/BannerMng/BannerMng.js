@@ -117,13 +117,13 @@ class BannerMng extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { dataSource } = nextProps;
-    if (!isEqual(this.props.dataSource, dataSource)) {
-      this.setState({
-        dataSource
-      });
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.dataSource && !isEqual(prevState.dataSource, nextProps.dataSource)) {
+      return {
+        dataSource: nextProps.dataSource
+      }
     }
+    return null;
   }
 
   onEditBanner = (item, editKey) => {

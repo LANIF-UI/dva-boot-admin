@@ -1,7 +1,6 @@
 import React from 'react';
-import { connect } from 'dva';
+import { connect, router, routerRedux } from 'dva';
 import { Layout } from 'antd';
-import { Switch, routerRedux } from 'dva/router';
 import NavBar from 'components/NavBar';
 import { LeftSideBar, RightSideBar } from 'components/SideBar';
 import TopBar from 'components/TopBar';
@@ -9,9 +8,11 @@ import SkinToolbox from 'components/SkinToolbox';
 import pathToRegexp from 'path-to-regexp';
 import { enquireIsMobile } from '@/utils/enquireScreen';
 import TabsLayout from './TabsLayout';
-import './styles/basic.less';
 import $$ from 'cmn-utils';
 import cx from 'classnames';
+import isEqual from 'react-fast-compare';
+import './styles/basic.less';
+const { Switch } = router;
 const { Content, Header } = Layout;
 
 /**
@@ -56,6 +57,8 @@ export default class BasicLayout extends React.PureComponent {
   }
 
   componentDidMount() {
+    this.checkLoginState();
+
     this.unregisterEnquire = enquireIsMobile(ismobile => {
       const { isMobile, theme } = this.state;
       if (isMobile !== ismobile) {
@@ -69,22 +72,28 @@ export default class BasicLayout extends React.PureComponent {
       }
     });
   }
-
-  componentWillMount() {
-    // 检查有户是否登录
+  
+  // 检查有户是否登录
+  checkLoginState() {
     const user = $$.getStore('user');
     if (!user) {
       this.props.dispatch(routerRedux.replace('/sign/login'));
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentDidUpdate(prevProps, prevState) {
     if (
-      nextProps.location.pathname !== this.props.location.pathname ||
-      nextProps.global.flatMenu !== this.props.global.flatMenu
+      !isEqual(
+        this.props.location.pathname,
+        prevProps.location.pathname
+      ) || 
+      !isEqual(
+        this.props.global.flatMenu,
+        prevProps.global.flatMenu
+      ) 
     ) {
       this.setState({
-        currentMenu: this.getCurrentMenu(nextProps) || {}
+        currentMenu: this.getCurrentMenu(this.props) || {}
       });
     }
   }

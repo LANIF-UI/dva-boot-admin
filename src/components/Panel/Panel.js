@@ -3,6 +3,7 @@ import Icon from '../Icon';
 import cx from 'classnames';
 import CSSAnimate from '../CSSAnimate';
 import { Popconfirm, Modal } from 'antd';
+import isEqual from 'react-fast-compare';
 import './style/index.less';
 const confirm = Modal.confirm;
 const noop = _ => {};
@@ -24,16 +25,23 @@ class Panel extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    const st = {};
-    if ('collapse' in nextProps) {
-      st.collapse = true;
-    } else if ('expand' in nextProps) {
-      st.expand = true;
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (
+      'collapse' in nextProps &&
+      !isEqual(nextProps.collapse, prevState.collapse)
+    ) {
+      return {
+        collapse: !!nextProps.collapse
+      };
     }
-    if (Object.keys(st).length) {
-      this.setState(st);
+
+    if ('expand' in nextProps && !isEqual(nextProps.expand, prevState.expand)) {
+      return {
+        expand: !!nextProps.expand
+      };
     }
+
+    return null;
   }
 
   onExpand = expand => e => {
@@ -104,7 +112,7 @@ class Panel extends Component {
       children,
       header,
       cover,
-      scroll,
+      scroll
     } = this.props;
 
     const classnames = cx(prefix, className, {

@@ -1,6 +1,5 @@
 import React from 'react';
-import { connect } from 'dva';
-import { Link } from 'dva/router';
+import { connect, router } from 'dva';
 import { Layout, Row, Col } from 'antd';
 import BaseComponent from 'components/BaseComponent';
 import Panel from 'components/Panel';
@@ -13,6 +12,7 @@ import {
   columns5,
   columns6
 } from './columns';
+const { Link } = router;
 const { Content } = Layout;
 
 @connect()

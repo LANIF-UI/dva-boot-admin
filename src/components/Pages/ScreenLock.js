@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
 import { Layout, Button } from 'antd';
 import PatternLock from '../PatternLock';
 import Clock from '../Clock';
@@ -7,24 +6,23 @@ import Mask from '../Mask';
 import logoImg from 'assets/images/logo-r.png';
 import pattern from 'assets/images/pattern.png';
 import CSSAnimate from '../CSSAnimate';
+import { router } from 'dva';
 const { Content } = Layout;
+const { withRouter } = router;
 
 /**
  * 锁屏界面
  */
+@withRouter
 class ScreenLock extends PureComponent {
   state = {
     showPattern: false,
     patternError: null
   };
 
-  static contextTypes = {
-    router: PropTypes.object
-  };
-
   onChange = lock => {
     if (lock) {
-      this.context.router.history.replace('/dashboard');
+      this.props.history.replace('/dashboard');
     } else {
       this.setState({
         patternError: true

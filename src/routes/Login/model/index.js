@@ -1,4 +1,4 @@
-import { routerRedux } from 'dva/router';
+import { routerRedux } from 'dva';
 import { login } from '../service';
 import $$ from 'cmn-utils';
 
@@ -35,6 +35,7 @@ export default {
           });
         }
       } catch (e) {
+        console.log(e)
         yield put({
           type: 'loginError'
         });

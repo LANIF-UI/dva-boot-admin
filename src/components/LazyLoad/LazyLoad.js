@@ -23,7 +23,7 @@ class LazyLoad extends Component {
     prefixCls: 'antui-lazyload'
   };
 
-  componentWillUpdate(nextProps) {
+  componentDidUpdate(prevProps, prevState) {
     let propsChanged = false;
     for (let propName of [
       'src',
@@ -39,8 +39,8 @@ class LazyLoad extends Component {
           : this.props[propName];
       let nextProp =
         propName === 'dataSrcSet'
-          ? this.handleSrcSet(nextProps[propName])
-          : nextProps[propName];
+          ? this.handleSrcSet(this.props[propName])
+          : this.props[propName];
       if (prop !== nextProp) {
         propsChanged = true;
         break;

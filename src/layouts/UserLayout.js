@@ -2,7 +2,8 @@ import './styles/user.less';
 import React from 'react';
 import { connect } from 'dva';
 import { Layout } from 'antd';
-import { Switch } from 'dva/router';
+import { router } from 'dva';
+const { Switch } = router;
 const { Content } = Layout;
 
 @connect()

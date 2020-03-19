@@ -1,10 +1,10 @@
 import React from 'react';
-import dynamic from 'dva/dynamic';
-import { Route, Switch, Redirect } from 'dva/router';
+import { dynamic, router } from 'dva';
 import DocumentTitle from 'react-document-title';
 import assign from 'object-assign';
 import $$ from 'cmn-utils';
 import config from '@/config';
+const { Route, Switch, Redirect } = router;
 
 /**
  * 生成动态组件
@@ -25,11 +25,16 @@ export const dynamicWrapper = (app, models, component) =>
  * @param {*} routesConfig
  */
 export const createRoutes = (app, routesConfig) => {
-  return (
-    <Switch>
-      {routesConfig(app).map(config => createRoute(app, () => config))}
-    </Switch>
-  );
+  const routes = routesConfig(app)
+    .map(config => createRoute(app, () => config))
+    .reduce((p, n) => {
+      if (n.length) {
+        return [...p, ...n];
+      } else {
+        return p.concat(n);
+      }
+    }, []);
+  return <Switch>{routes}</Switch>;
 };
 // 路由映射表
 window.dva_router_pathMap = {};

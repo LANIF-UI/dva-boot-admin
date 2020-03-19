@@ -1,7 +1,8 @@
 import React from 'react';
-import { Link } from 'dva/router';
+import { router } from 'dva';
 import { Layout } from 'antd';
 import Icon from '../Icon';
+const { Link } = router;
 const { Content } = Layout;
 
 export default () => (

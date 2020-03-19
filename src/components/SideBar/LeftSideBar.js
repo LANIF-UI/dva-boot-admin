@@ -5,11 +5,13 @@
 import React, { PureComponent } from 'react';
 import cx from 'classnames';
 import { Menu, Layout, Switch, Select, Drawer } from 'antd';
-import { Link } from 'dva/router';
+import { router } from 'dva';
 import pathToRegexp from 'path-to-regexp';
 import Icon from '../Icon';
+import isEqual from 'react-fast-compare';
 import logoImg from 'assets/images/logo.png';
 import './style/index.less';
+const { Link } = router;
 const Option = Select.Option;
 const { Sider } = Layout;
 const SubMenu = Menu.SubMenu;
@@ -47,10 +49,15 @@ class LeftSideBar extends PureComponent {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    if ('currentMenu' in nextProps) {
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      !isEqual(
+        this.props.currentMenu.parentPath,
+        prevProps.currentMenu.parentPath
+      )
+    ) {
       this.setState({
-        openKeys: nextProps.currentMenu.parentPath || []
+        openKeys: this.props.currentMenu.parentPath || []
       });
     }
   }

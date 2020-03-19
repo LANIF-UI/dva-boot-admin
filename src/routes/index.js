@@ -1,5 +1,5 @@
 import { createRoutes } from '@/utils/core';
-import BasicLayout from '@/layouts/BasicLayout';
+import CardLayout from '@/layouts/CardLayout';
 import UserLayout from '@/layouts/UserLayout';
 import Page403 from './Pages/403';
 import NotFound from './Pages/404';
@@ -30,6 +30,7 @@ import Editor from './UI/Editor';
 import CSSAnimate from './UI/CSSAnimate';
 import Alerts from './UI/Alerts';
 import Button from './UI/Button';
+import Modal from './UI/Modal';
 import CRUD from './Business/CRUD';
 import CRUDDetail from './Business/CRUD/routers/Detail';
 
@@ -57,7 +58,7 @@ const routesConfig = app => [
   {
     path: '/',
     title: '系统中心',
-    component: BasicLayout,
+    component: CardLayout,
     indexRoute: '/dashboard',
     childRoutes: [
       Dashboard(app),
@@ -73,6 +74,7 @@ const routesConfig = app => [
       CSSAnimate(),
       Alerts(),
       Button(),
+      Modal(),
       DataTable(app),
       Form(app),
       TransferTree(app),

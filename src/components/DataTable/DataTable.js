@@ -67,39 +67,39 @@ class DataTable extends Component {
     alternateColor: true
   };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      selectedRowKeys: props.selectedRowKeys,
-      selectedRows: this.getSelectedRows(props.selectedRowKeys),
-      tableHeight: null
-    };
+  state = {
+    selectedRowKeys: [],
+    selectedRows: [],
+    tableHeight: null
   }
 
   // 将值转成对像数组
-  getSelectedRows(value, oldValue = []) {
-    const { rowKey } = this.props;
+  static getSelectedRows(value, oldValue = [], rowKey) {
     if (value) {
       return value.map(item => {
-        const oldv = oldValue.filter(jtem => jtem[rowKey] === item)[0];
-        return typeof item === 'object' ? item : oldv || { [rowKey]: item };
+        if (typeof item === 'object') {
+          return item;
+        } else {
+          const oldv = oldValue.filter(jtem => jtem[rowKey] === item)[0];
+          return oldv || { [rowKey]: item }
+        }
       });
     }
     return [];
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { selectedRows } = this.state;
-    const newState = {};
-    if (!isEqual(this.props.selectedRowKeys, nextProps.selectedRowKeys)) {
-      newState.selectedRowKeys = nextProps.selectedRowKeys;
-      newState.selectedRows = this.getSelectedRows(
-        nextProps.selectedRowKeys,
-        selectedRows
-      );
-      this.setState(newState);
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (!isEqual(prevState.selectedRowKeys, nextProps.selectedRowKeys)) {
+      return {
+        selectedRowKeys: nextProps.selectedRowKeys,
+        selectedRows: DataTable.getSelectedRows(
+          nextProps.selectedRowKeys,
+          prevState.selectedRows,
+          nextProps.rowKey
+        )
+      };
     }
+    return null;
   }
 
   tableOnRow = (record, index) => {

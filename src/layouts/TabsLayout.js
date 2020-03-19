@@ -1,10 +1,9 @@
 import './styles/tabs.less';
 import React from 'react';
 import { Layout, Tabs, Dropdown, Button, Menu, Icon } from 'antd';
-import BaseComponent from 'components/BaseComponent';
-import { Switch, Route } from 'dva/router';
+import { router } from 'dva';
 import NotFound from 'components/Pages/404';
-
+const { Switch, Route, withRouter } = router;
 const { Content } = Layout;
 const TabPane = Tabs.TabPane;
 
@@ -13,7 +12,8 @@ function getTitle(pathName) {
   return <div className="tab-title">{map ? map.title : 'Tag'}</div>;
 }
 
-export default class TabsLayout extends BaseComponent {
+@withRouter
+export default class TabsLayout extends React.PureComponent {
   constructor(props) {
     const {
       location: { pathname }
@@ -21,12 +21,10 @@ export default class TabsLayout extends BaseComponent {
     super(props);
     this.state = this.setCurPanes(pathname, []);
   }
-
-  componentWillReceiveProps(nextProps) {
-    const {
-      location: { pathname }
-    } = this.props;
-    const nextpathname = nextProps.location.pathname;
+  
+  componentDidUpdate(prevProps, prevState) {
+    const pathname = prevProps.location.pathname;
+    const nextpathname = this.props.location.pathname;
     if (pathname !== nextpathname) {
       const newState = this.setCurPanes(nextpathname);
       this.setState(newState);
@@ -70,7 +68,7 @@ export default class TabsLayout extends BaseComponent {
   };
 
   onChange = activeKey => {
-    this.history.push(activeKey);
+    this.props.history.push(activeKey);
   };
 
   onRemove = targetKey => {

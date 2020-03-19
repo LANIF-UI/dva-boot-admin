@@ -18,19 +18,17 @@ class ModalForm extends Component {
     className: PropTypes.string
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      visible: this.props.visible
-    };
-  }
+  state = {
+    visible: false
+  };
 
-  componentWillReceiveProps(nextProps) {
-    if ('visible' in nextProps) {
-      this.setState({
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.visible !== prevState.visible) {
+      return {
         visible: nextProps.visible
-      });
+      };
     }
+    return null;
   }
 
   closeModal = () => {

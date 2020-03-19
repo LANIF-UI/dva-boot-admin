@@ -53,12 +53,12 @@ class TableControlled extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { dataSource, value, loadData } = nextProps;
+  componentDidUpdate(prevProps, prevState) {
+    const { dataSource, value, loadData } = this.props;
     const { rows } = this.state;
     if (
-      !isEqual(this.props.dataSource, dataSource) ||
-      !isEqual(this.props.value, value)
+      !isEqual(prevProps.dataSource, dataSource) ||
+      !isEqual(prevProps.value, value)
     ) {
       const _value = this.getKeys(value);
       const newState = {

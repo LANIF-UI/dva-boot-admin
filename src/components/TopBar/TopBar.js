@@ -1,29 +1,33 @@
 import React, { Component } from 'react';
 import { Breadcrumb, Row, Col } from 'antd';
-import { Link } from 'dva/router';
+import { router } from 'dva';
 import Icon from '../Icon';
 import cx from 'classnames';
 import CSSAnimate from '../CSSAnimate';
 import Mask from '../Mask';
+import isEqual from 'react-fast-compare';
 import './style/index.less';
+const { Link } = router;
 
 class TopBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentRoute: this.getRouteLevel(props.location.pathname) || []
+      currentRoute: TopBar.getRouteLevel(props.location.pathname) || []
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    const currentRoute = this.getRouteLevel(nextProps.location.pathname);
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (!isEqual(nextProps.currentRoute, prevState.currentRoute)) {
+      return {
+        currentRoute: TopBar.getRouteLevel(nextProps.location.pathname),
+      };
+    }
 
-    this.setState({
-      currentRoute
-    });
+    return null;
   }
 
-  getRouteLevel = pathName => {
+  static getRouteLevel = pathName => {
     const orderPaths = [];
     pathName.split('/').reduce((prev, next) => {
       const path = [prev, next].join('/');

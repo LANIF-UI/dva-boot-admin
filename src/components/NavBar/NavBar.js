@@ -1,11 +1,12 @@
 import React, { PureComponent } from 'react';
 import Icon from '../Icon';
 import { Popover, Badge, Avatar } from 'antd';
-import { Link } from 'dva/router';
+import { router } from 'dva';
 import cx from 'classnames';
 import './style/index.less';
 import logoImg from 'assets/images/logo.png';
 import SearchBox from './SearchBox';
+const { Link } = router;
 
 /**
  * 其本本局头部区域
