@@ -20,7 +20,7 @@ class TopBar extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     if (!isEqual(nextProps.currentRoute, prevState.currentRoute)) {
       return {
-        currentRoute: TopBar.getRouteLevel(nextProps.location.pathname),
+        currentRoute: TopBar.getRouteLevel(nextProps.location.pathname)
       };
     }
 
@@ -128,7 +128,9 @@ class TopBar extends Component {
           {currentRoute.length ? (
             <Breadcrumb>
               <Breadcrumb.Item className="first">
-                {currentRoute[currentRoute.length - 1].title}
+                <CSSAnimate className="inline-block" type="flipInX">
+                  {currentRoute[currentRoute.length - 1].title}
+                </CSSAnimate>
               </Breadcrumb.Item>
               <Breadcrumb.Item className="icon">
                 <Icon type="home" />
@@ -139,7 +141,9 @@ class TopBar extends Component {
               {currentRoute.map((item, index) => (
                 <Breadcrumb.Item key={index}>
                   {index === currentRoute.length - 1 ? (
-                    item.title
+                    <CSSAnimate className="inline-block" type="flipInX">
+                      {item.title}
+                    </CSSAnimate>
                   ) : (
                     <Link to={item.path}>{item.title}</Link>
                   )}

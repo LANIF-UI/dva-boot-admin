@@ -6,12 +6,16 @@ import cx from 'classnames';
 import omit from 'object.omit';
 
 class CSSAnimate extends PureComponent {
+  static defaultProps = {
+    component: 'div'
+  };
   static propTypes = {
     type: PropTypes.string, // 动画名称
     callback: PropTypes.func, // 动画结束的回调函数
     duration: PropTypes.number, // 动画持续时间
     delay: PropTypes.number, // 动画延时
-  }
+    component: PropTypes.string // 容器
+  };
 
   componentDidMount() {
     const { type, callback } = this.props;
@@ -28,18 +32,24 @@ class CSSAnimate extends PureComponent {
 
     if (isCssAnimationSupported && type) {
       cssAnimate(node, type, callback);
-    } else if (!isCssAnimationSupported){
+    } else if (!isCssAnimationSupported) {
       console.warn('不支持css动画');
     }
-  }
+  };
 
   render() {
-    const { className, children, delay, duration, style, ...otherProps } = this.props;
-    const classnames = cx(
-      'animated',
-      className
-    );
-    const _style = {...style};
+    const {
+      className,
+      children,
+      delay,
+      duration,
+      style,
+      component,
+      ...otherProps
+    } = this.props;
+    const Component = component;
+    const classnames = cx('animated', className);
+    const _style = { ...style };
     if (duration) {
       _style.animationDuration = duration + 'ms';
       _style.WebkitAnimationDuration = duration + 'ms';
@@ -50,12 +60,17 @@ class CSSAnimate extends PureComponent {
       _style.WebkitAnimationDelay = delay + 'ms';
     }
 
-    const divProps = omit(otherProps, ['type', 'callback', 'delay', 'duration']);
-    
+    const divProps = omit(otherProps, [
+      'type',
+      'callback',
+      'delay',
+      'duration'
+    ]);
+
     return (
-      <div className={classnames} {...divProps} style={_style}>
+      <Component className={classnames} {...divProps} style={_style}>
         {children}
-      </div>
+      </Component>
     );
   }
 }
