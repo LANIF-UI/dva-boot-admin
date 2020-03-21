@@ -43,7 +43,7 @@ export default class Search extends React.PureComponent {
     const icon =
       this.state.value && this.state.value.length > 0 ? (
         <a className={`${prefixCls}-action`} onClick={this.handleClear}>
-          <Icon type="cross-circle" />
+          <Icon type="close-circle" theme="filled" />
         </a>
       ) : (
         <span className={`${prefixCls}-action`}>
