@@ -32,9 +32,9 @@
     "object.omit": "^3.0.0",
     "path-to-regexp": "^2.2.1",
     "react": "^16.13.0",
-    "react-document-title": "^2.0.3",
     "react-dom": "^16.13.0",
     "react-fast-compare": "^3.0.1",
+    "react-transition-group": "^4.3.0",
     "wangeditor": "^3.1.1"
   },
   "devDependencies": {

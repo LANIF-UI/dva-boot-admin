@@ -1,7 +1,5 @@
 import React from 'react';
 import { dynamic, router } from 'dva';
-import DocumentTitle from 'react-document-title';
-import assign from 'object-assign';
 import $$ from 'cmn-utils';
 import config from '@/config';
 const { Route, Switch, Redirect } = router;
@@ -52,6 +50,7 @@ export const createRoute = (app, routesConfig) => {
     exact,
     ...otherProps
   } = routesConfig(app);
+
   if (path && path !== '/') {
     window.dva_router_pathMap[path] = { path, title, ...otherProps };
     // 为子路由增加parentPath
@@ -63,33 +62,33 @@ export const createRoute = (app, routesConfig) => {
       });
     }
   }
-  const routeProps = assign(
-    {
-      key: path || $$.randomStr(4),
-      render: props => (
-        <DocumentTitle
-          title={
-            config.htmlTitle ? config.htmlTitle.replace(/{.*}/gi, title) : title
-          }
-        >
-          <Comp routerData={otherProps} {...props} />
-        </DocumentTitle>
-      )
-    },
-    path && {
-      path: path
-    },
-    exact && {
-      exact: exact
-    }
-  );
 
-  if (indexRoute) {
-    return [
-      <Redirect key={path + '_redirect'} exact from={path} to={indexRoute} />,
-      <Route {...routeProps} />
-    ];
+  // 把Redirect放到第一个
+  if (indexRoute && $$.isArray(otherProps.childRoutes)) {
+    otherProps.childRoutes.unshift(
+      <Redirect key={path + '_redirect'} exact from={path} to={indexRoute} />
+    );
   }
 
-  return <Route {...routeProps} />;
+  const routeProps = {
+    key: path || $$.randomStr(4),
+    render: props => {
+      // 此处可以做路由权限判断
+      setDocumentTitle(title);
+      return <Comp routerData={otherProps} {...props} />
+    }
+  };
+
+  return <Route path={path} exact={!!exact} {...routeProps} />;
 };
+
+/**
+ * 设置页面title
+ * @param {*} title 
+ */
+function setDocumentTitle(title) {
+  const documentTitle = config.htmlTitle ? config.htmlTitle.replace(/{.*}/gi, title) : title
+  if (documentTitle !== document.title) {
+    document.title = documentTitle;
+  }
+}

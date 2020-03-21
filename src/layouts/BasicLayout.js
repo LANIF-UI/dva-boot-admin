@@ -11,6 +11,8 @@ import TabsLayout from './TabsLayout';
 import $$ from 'cmn-utils';
 import cx from 'classnames';
 import isEqual from 'react-fast-compare';
+import { SwitchTransition, CSSTransition } from 'react-transition-group';
+import 'assets/styles/transition.less';
 import './styles/basic.less';
 const { Switch } = router;
 const { Content, Header } = Layout;
@@ -72,7 +74,7 @@ export default class BasicLayout extends React.PureComponent {
       }
     });
   }
-  
+
   // 检查有户是否登录
   checkLoginState() {
     const user = $$.getStore('user');
@@ -83,14 +85,8 @@ export default class BasicLayout extends React.PureComponent {
 
   componentDidUpdate(prevProps, prevState) {
     if (
-      !isEqual(
-        this.props.location.pathname,
-        prevProps.location.pathname
-      ) || 
-      !isEqual(
-        this.props.global.flatMenu,
-        prevProps.global.flatMenu
-      ) 
+      !isEqual(this.props.location.pathname, prevProps.location.pathname) ||
+      !isEqual(this.props.global.flatMenu, prevProps.global.flatMenu)
     ) {
       this.setState({
         currentMenu: this.getCurrentMenu(this.props) || {}
@@ -260,8 +256,20 @@ export default class BasicLayout extends React.PureComponent {
                     theme={theme}
                   />
                 </Header>
-                <Content className="router-page">
-                  <Switch>{childRoutes}</Switch>
+                <Content style={{ overflow: 'hidden' }}>
+                  <SwitchTransition>
+                    <CSSTransition
+                      key={location.pathname}
+                      classNames="fade"
+                      timeout={500}
+                    >
+                      <Layout className="full-layout">
+                        <Content className="router-page">
+                          <Switch location={location}>{childRoutes}</Switch>
+                        </Content>
+                      </Layout>
+                    </CSSTransition>
+                  </SwitchTransition>
                 </Content>
               </Layout>
             )}
