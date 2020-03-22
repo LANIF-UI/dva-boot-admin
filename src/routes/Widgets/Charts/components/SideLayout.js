@@ -23,12 +23,12 @@ class SideLayout extends Component {
             <h3>{title}</h3>
             <ul className="icon-list">
               <li>
-                <Icon type="exclamation-circle" antd />
+                <Icon type="ExclamationCircleOutlined" antd />
                 <b>作者：</b>{author}
               </li>
               <li>
                 <p>
-                  <Icon type="exclamation-circle" antd />
+                  <Icon type="ExclamationCircleOutlined" antd />
                   <b>网站：</b>
                   <a href={site}>
                     {site}

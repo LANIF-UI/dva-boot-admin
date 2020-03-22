@@ -40,6 +40,8 @@ export default ({
         formFieldOptions.initialValue = moment.isMoment(initval) ? initval : moment(initval);
       }
     }
+  } else {
+    formFieldOptions.initialValue = null;
   }
 
   // 如果有rules

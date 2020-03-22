@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
+import { PrinterOutlined } from '@ant-design/icons';
 import { Layout, Row, Col, Button } from 'antd';
 import BaseComponent from 'components/BaseComponent';
 import Panel from 'components/Panel';
@@ -112,7 +113,7 @@ export default class Blank extends BaseComponent {
                 <div>{comps}</div>
                 <br />
                 <Print
-                  trigger={<Button icon="printer">打印</Button>}
+                  trigger={<Button icon={<PrinterOutlined />}>打印</Button>}
                   content={comps}
                 />
               </Panel>
@@ -120,7 +121,7 @@ export default class Blank extends BaseComponent {
                 <div>点击按钮打印一份报表</div>
                 <br />
                 <Print
-                  trigger={<Button icon="printer">打印</Button>}
+                  trigger={<Button icon={<PrinterOutlined />}>打印</Button>}
                   content={<Report />}
                 />
               </Panel>
@@ -128,7 +129,7 @@ export default class Blank extends BaseComponent {
                 <div>打印 EMOJI</div>
                 <br />
                 <Print
-                  trigger={<Button icon="printer">打印</Button>}
+                  trigger={<Button icon={<PrinterOutlined />}>打印</Button>}
                   content={<Dynamic />}
                 />
               </Panel>
@@ -139,7 +140,7 @@ export default class Blank extends BaseComponent {
                 <br />
                 {element1 ? (
                   <Print
-                    trigger={<Button icon="printer">打印</Button>}
+                    trigger={<Button icon={<PrinterOutlined />}>打印</Button>}
                     content={element1}
                   />
                 ) : null}
@@ -152,7 +153,7 @@ export default class Blank extends BaseComponent {
                 {element2 ? (
                   <Print
                     canvas
-                    trigger={<Button icon="printer">打印</Button>}
+                    trigger={<Button icon={<PrinterOutlined />}>打印</Button>}
                     content={element2}
                   />
                 ) : null}

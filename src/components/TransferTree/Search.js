@@ -1,5 +1,6 @@
 import React from 'react';
-import { Input, Icon } from 'antd';
+import { CloseCircleFilled, SearchOutlined } from '@ant-design/icons';
+import { Input } from 'antd';
 import $$ from 'cmn-utils';
 
 export default class Search extends React.PureComponent {
@@ -43,11 +44,11 @@ export default class Search extends React.PureComponent {
     const icon =
       this.state.value && this.state.value.length > 0 ? (
         <a className={`${prefixCls}-action`} onClick={this.handleClear}>
-          <Icon type="close-circle" theme="filled" />
+          <CloseCircleFilled />
         </a>
       ) : (
         <span className={`${prefixCls}-action`}>
-          <Icon type="search" />
+          <SearchOutlined />
         </span>
       );
     return (

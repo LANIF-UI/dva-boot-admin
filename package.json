@@ -16,8 +16,10 @@
     "gh-pages": "react-app-rewired build && gh-pages -d build"
   },
   "dependencies": {
+    "@ant-design/compatible": "^1.0.1",
+    "@ant-design/icons": "^4.0.3",
     "@antv/data-set": "^0.8.9",
-    "antd": "^3.24.0",
+    "antd": "^4.0.3",
     "bizcharts": "^3.1.5",
     "classnames": "^2.2.5",
     "cmn-utils": "^1.0.10",

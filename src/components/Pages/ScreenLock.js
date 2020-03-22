@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { QuestionCircleOutlined } from '@ant-design/icons';
 import { Layout, Button } from 'antd';
 import PatternLock from '../PatternLock';
 import Clock from '../Clock';
@@ -62,7 +63,7 @@ class ScreenLock extends PureComponent {
             <div className="patter-tip">
               <Button
                 type="primary"
-                icon="question-circle"
+                icon={<QuestionCircleOutlined />}
                 onClick={this.togglePattern}
               >
                 图案提示

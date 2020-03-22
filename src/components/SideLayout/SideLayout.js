@@ -54,7 +54,7 @@ class SideLayout extends Component {
           width={width}
         >
           <a className="side-handle" onClick={this.toggle} title={openSide ? '收起' : '展开'}>
-            <Icon antd type={openSide ? 'caret-left' : 'caret-right'} />
+            <Icon antd type={openSide ? 'CaretLeftOutlined' : 'CaretRightOutlined'} />
           </a>
           <div
             className="side-body"
@@ -62,7 +62,7 @@ class SideLayout extends Component {
           >
             <div className="side-panel">
               <div className="panel-header">
-                <Icon antd type="folder" />
+                <Icon antd type="FolderOutlined" />
                 &nbsp;
                 <strong>{title}</strong>
               </div>

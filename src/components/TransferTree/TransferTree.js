@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import List from './List';
 import ListTree from './ListTree';
-import { Icon } from 'antd';
+import { RightOutlined } from '@ant-design/icons';
 import classNames from 'classnames';
 import './style/index.less';
 
@@ -202,7 +202,7 @@ export default class TransferTree extends React.Component {
           loading={loading}
         />
         <div className={`${prefixCls}-operation`}>
-          <Icon type="right" />
+          <RightOutlined />
         </div>
         <List
           filter={rightFilter}

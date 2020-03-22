@@ -1,5 +1,6 @@
 import React from 'react';
-import { Form } from 'antd';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
 import omit from 'object.omit';
 import DataTable, { Oper } from './DataTable';
 
@@ -70,7 +71,7 @@ class EditableCell extends React.Component {
           }
           formProps = omit(formProps, ['editing', 'render']);
           return (
-            <Form.Item help={false}>
+            <Form.Item help={false} className="editable-form-item">
               {require(`../Form/model/${type.toLowerCase()}`).default(
                 formProps
               )}

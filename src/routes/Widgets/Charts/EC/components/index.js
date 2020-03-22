@@ -13,38 +13,38 @@ export default class extends BaseComponent {
     chartTypes: [
       {
         title: '折线图 / Line',
-        icon: 'line-chart',
+        icon: 'LineChartOutlined',
         key: 'Line',
         components: ['./Line']
       },
       {
         title: '柱状图 / Bar',
-        icon: 'bar-chart',
+        icon: 'BarChartOutlined',
         key: 'Bar',
         components: ['./Bar']
       },
       {
         title: '饼图 / Pie',
-        icon: 'pie-chart',
+        icon: 'PieChartOutlined',
         key: 'Pie',
         components: ['./Pie']
       },
       {
         title: '点图 / Scatter',
-        icon: 'dot-chart',
+        icon: 'DotChartOutlined',
         key: 'Scatter',
         components: ['./Scatter']
       },
-      { title: '地图 / Map', icon: 'global', key: 'Map', components: ['./Map'] },
+      { title: '地图 / Map', icon: 'GlobalOutlined', key: 'Map', components: ['./Map'] },
       {
         title: '雷达图 / Radar',
-        icon: 'trademark',
+        icon: 'RadarChartOutlined',
         key: 'Radar',
         components: ['./Radar']
       },
       {
         title: '仪表盘 / Gauge',
-        icon: 'dashboard',
+        icon: 'DashboardOutlined',
         key: 'Gauge',
         components: ['./Gauge']
       }
@@ -65,7 +65,7 @@ export default class extends BaseComponent {
         dataSource={chartTypes}
         renderItem={item => (
           <List.Item
-            actions={[<Icon type="ellipsis" antd />]}
+            actions={[<Icon type="EllipsisOutlined" antd />]}
             onClick={e => this.onSelect(item.key)}
           >
             <Icon type={item.icon} antd />

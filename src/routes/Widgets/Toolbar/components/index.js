@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'dva';
-import { Layout, Button, Icon } from 'antd';
+import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
+import { Layout, Button } from 'antd';
 import BaseComponent from 'components/BaseComponent';
 import Panel from 'components/Panel';
 import Toolbar from 'components/Toolbar';
@@ -32,8 +33,8 @@ export default class extends BaseComponent {
               className="toolbar-demo"
               appendLeft={
                 <Button.Group>
-                  <Button type="primary"><Icon type="plus" />新增</Button>
-                  <Button><Icon type="delete" />删除</Button>
+                  <Button type="primary"><PlusOutlined />新增</Button>
+                  <Button><DeleteOutlined />删除</Button>
                 </Button.Group>
               }
             />
@@ -43,8 +44,8 @@ export default class extends BaseComponent {
               className="toolbar-demo"
               appendLeft={
                 <Button.Group>
-                  <Button type="primary"><Icon type="plus" />新增</Button>
-                  <Button><Icon type="delete" />删除</Button>
+                  <Button type="primary"><PlusOutlined />新增</Button>
+                  <Button><DeleteOutlined />删除</Button>
                 </Button.Group>
               }
             >
@@ -56,8 +57,8 @@ export default class extends BaseComponent {
               className="toolbar-demo"
               appendLeft={
                 <Button.Group>
-                  <Button type="primary"><Icon type="plus" />新增</Button>
-                  <Button><Icon type="delete" />删除</Button>
+                  <Button type="primary"><PlusOutlined />新增</Button>
+                  <Button><DeleteOutlined />删除</Button>
                 </Button.Group>
               }
               pullDown={

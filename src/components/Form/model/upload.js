@@ -1,4 +1,5 @@
 import React from 'react';
+import Icon from 'components/Icon';
 import { Button } from 'antd';
 import Upload from '../../Upload';
 import $$ from 'cmn-utils';
@@ -21,7 +22,7 @@ export default ({
   type,
   preview,
   renderUpload,
-  btnIcon = 'upload',
+  btnIcon = 'UploadOutlined',
   max,
   maxFileSize, // 最大文件大小
   fileTypes, // 允许文件类型
@@ -96,7 +97,7 @@ export default ({
         renderUpload(form, record, isDisabled(max, form.getFieldValue(name)))
       ) : (
         <Button
-          icon={btnIcon}
+          icon={<Icon type={btnIcon} antd/>}
           disabled={isDisabled(max, form.getFieldValue(name))}
         >
           点击上传

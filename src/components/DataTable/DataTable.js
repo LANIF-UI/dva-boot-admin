@@ -67,39 +67,42 @@ class DataTable extends Component {
     alternateColor: true
   };
 
-  state = {
-    selectedRowKeys: [],
-    selectedRows: [],
-    tableHeight: null
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      selectedRowKeys: props.selectedRowKeys,
+      selectedRows: this.getSelectedRows(props.selectedRowKeys),
+      tableHeight: null
+    };
   }
 
   // 将值转成对像数组
-  static getSelectedRows(value, oldValue = [], rowKey) {
+  getSelectedRows(value, oldValue = [], rowKey) {
     if (value) {
       return value.map(item => {
         if (typeof item === 'object') {
           return item;
         } else {
           const oldv = oldValue.filter(jtem => jtem[rowKey] === item)[0];
-          return oldv || { [rowKey]: item }
+          return oldv || { [rowKey]: item };
         }
       });
     }
     return [];
   }
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (!isEqual(prevState.selectedRowKeys, nextProps.selectedRowKeys)) {
-      return {
-        selectedRowKeys: nextProps.selectedRowKeys,
-        selectedRows: DataTable.getSelectedRows(
-          nextProps.selectedRowKeys,
+  componentDidUpdate(prevProps, prevState) {
+    if (!isEqual(prevProps.selectedRowKeys, this.props.selectedRowKeys)) {
+      this.setState({
+        selectedRowKeys: this.props.selectedRowKeys,
+        selectedRows: this.getSelectedRows(
+          this.props.selectedRowKeys,
           prevState.selectedRows,
-          nextProps.rowKey
+          this.props.rowKey
         )
-      };
+      });
     }
-    return null;
   }
 
   tableOnRow = (record, index) => {
@@ -117,7 +120,7 @@ class DataTable extends Component {
       rows.push(record);
     }
 
-    this.onSelectChange(keys, rows);
+    this.onSelectChange([...keys], [...rows]);
   };
 
   onSelectChange = (selectedRowKeys, selectedRows) => {
@@ -224,16 +227,6 @@ class DataTable extends Component {
           ...item
         };
       })
-      // 保存rowkey在record
-      .concat({
-        dataIndex: '_rowkey',
-        className: 'hide-column',
-        width: 0,
-        render(text, record, index) {
-          record.rowKey = record[rowKey || colRowKey];
-          return <div style={{ display: 'none' }}>{record.rowKey}</div>;
-        }
-      });
 
     // 显示行号
     if (showNum) {
@@ -289,7 +282,7 @@ class DataTable extends Component {
                 })
               : () => {}
           }
-          scroll={isScroll ? objectAssign({ x: true }, isScroll) : {}}
+          scroll={isScroll ? objectAssign({ x: '100%' }, isScroll) : {}}
           bodyStyle={{ overflowX: 'auto' }}
           columns={cols}
           pagination={pagination ? paging : false}

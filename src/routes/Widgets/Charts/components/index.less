@@ -9,7 +9,7 @@
         li:first-child {
           margin-bottom: 10px;
         }
-        i {
+        .antui-icon {
           color: #f6bb42;
           margin-right: 10px;
         }
@@ -19,18 +19,14 @@
       .ant-list-item {
         padding-left: 28px;
         color: #999;
-        transition: .3s;
+        transition: 0.3s;
         cursor: pointer;
         &:hover {
           background-color: #eeeeee;
           color: #666;
         }
-        .ant-list-item-content {
-          display: flex;
-          align-items: center;
-          > i {
-            margin-right: 10px;
-          }
+        > .antui-icon {
+          margin-right: 10px;
         }
       }
     }

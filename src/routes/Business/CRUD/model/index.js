@@ -84,7 +84,7 @@ export default modelEnhance({
         payload: {
           notice: true,
           url: '/crud/bathDelete',
-          data: records.map(item => item.rowKey)
+          data: records.map(item => item.id)
         }
       });
       yield put({

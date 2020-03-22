@@ -137,7 +137,7 @@ class NavBar extends PureComponent {
         <ul className="nav navbar-nav navbar-right clearfix">
           <li>
             <a href="https://github.com/LANIF-UI/dva-boot-admin">
-              <Icon type="github" antd />
+              <Icon type="GithubOutlined" antd />
             </a>
           </li>
           <li className="dropdown">

@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
+import { BulbOutlined } from '@ant-design/icons';
 import { Layout, Button } from 'antd';
 import BaseComponent from 'components/BaseComponent';
 import Panel from 'components/Panel';
@@ -25,7 +26,7 @@ export default class extends BaseComponent {
               </a>
             </p>
             <Button
-              icon="bulb"
+              icon={<BulbOutlined />}
               type="primary"
               onClick={_ => this.history.push('/crud')}
             >

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Input, Form, Col } from 'antd';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Input, Col } from 'antd';
 /**
  * 密码控件
  */
@@ -81,7 +83,7 @@ export default class PasswordForm extends Component {
     let ComponentCol = type === 'inline' ? 'div' : Col;
 
     return (
-      <div className="col-item col-item-password-wrap">
+      <>
         <ComponentCol className="col-item col-item-password" {...col}>
           <Form.Item
             {...formItemLayout}
@@ -125,7 +127,7 @@ export default class PasswordForm extends Component {
             </Form.Item>
           </ComponentCol>
         ) : null}
-      </div>
+      </>
     );
   }
 }

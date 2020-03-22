@@ -1,16 +1,8 @@
 import React, { Component } from 'react';
 import { connect, router } from 'dva';
-import {
-  Form,
-  Input,
-  Button,
-  Select,
-  Row,
-  Col,
-  Popover,
-  Progress,
-  Layout
-} from 'antd';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Input, Button, Select, Row, Col, Popover, Progress, Layout } from 'antd';
 import './index.less';
 import '../../Login/components/index.less';
 import logoImg from 'assets/images/logo1.png';

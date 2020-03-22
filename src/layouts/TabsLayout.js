@@ -1,6 +1,7 @@
 import './styles/tabs.less';
 import React from 'react';
-import { Layout, Tabs, Dropdown, Button, Menu, Icon } from 'antd';
+import { DownOutlined } from '@ant-design/icons';
+import { Layout, Tabs, Dropdown, Button, Menu } from 'antd';
 import { router } from 'dva';
 import NotFound from 'components/Pages/404';
 const { Switch, Route, withRouter } = router;
@@ -141,7 +142,7 @@ export default class TabsLayout extends React.PureComponent {
                   >
                     <Button type="primary" ghost>
                       操作
-                      <Icon type="down" />
+                      <DownOutlined />
                     </Button>
                   </Dropdown>
                 }

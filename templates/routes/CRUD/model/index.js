@@ -79,7 +79,7 @@ export default modelEnhance({
         payload: {
           notice: true,
           url: '<%=api_2 %>',
-          data: records.map(item => item.rowKey)
+          data: records.map(item => item.id)
         }
       });
       yield put({

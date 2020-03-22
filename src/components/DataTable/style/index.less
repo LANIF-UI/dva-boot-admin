@@ -15,17 +15,24 @@
       tr:nth-child(even) {
         background: #fff;
       }
-      tr:hover {
-        background: rgba(45, 183, 245, 0.2);
+      tr.ant-table-row:hover > td {
+        background: #e6f7ff;
       }
+    }
+  }
+  .ant-table-fixed-column {
+    tr:nth-child(odd) .ant-table-cell{
+      background: #f6f6f6;
+    }
+    tr:nth-child(even) .ant-table-cell{
+      background: #fff;
     }
   }
   .ant-table-small .ant-table-tbody > tr > td {
     padding: 3px 8px;
     height: 35px;
   }
-  .ant-table-small .ant-table-thead > tr > th {
-    background: #fff !important;
+  .ant-table-small thead > tr > th {
     font-weight: 700;
     color: #666;
     // 表头不换行
@@ -36,7 +43,7 @@
   .ant-table-footer {
     padding: 8px;
   }
-  .ant-table-tbody > tr.ant-table-row-selected td {
+  .ant-table-tbody > tr.ant-table-row-selected td.ant-table-cell {
     background: #fffde7;
   }
   .ant-table-tbody > tr {
@@ -90,7 +97,7 @@
       }
     }
   }
-  .ant-form-item {
+  .editable-form-item {
     margin-bottom: 0;
     position: relative;
     left: -12px;

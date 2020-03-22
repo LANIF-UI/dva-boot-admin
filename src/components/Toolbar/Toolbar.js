@@ -1,5 +1,6 @@
 import React from 'react';
-import { Icon, Button } from 'antd';
+import Icon from '../Icon';
+import { Button } from 'antd';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import './style/index.less';
@@ -67,7 +68,8 @@ export default class Toolbar extends React.Component {
               {pullDown ? (
                 <Button onClick={e => this.togglePullDown(e)}>
                   <Icon
-                    type={this.state.openPullDown ? 'caret-up' : 'caret-down'}
+                    type={this.state.openPullDown ? 'CaretUpOutlined' : 'CaretDownOutlined'}
+                    antd
                   />
                   {this.state.openPullDown ? '收起' : '展开'}
                 </Button>
@@ -86,7 +88,8 @@ export default class Toolbar extends React.Component {
                 onClick={e => this.togglePullDown(e)}
               >
                 <Icon
-                  type={this.state.openPullDown ? 'caret-up' : 'caret-down'}
+                  type={this.state.openPullDown ? 'CaretUpOutlined' : 'CaretDownOutlined'}
+                  antd
                 />
                 {this.state.openPullDown ? '收起' : '展开'}
               </span>

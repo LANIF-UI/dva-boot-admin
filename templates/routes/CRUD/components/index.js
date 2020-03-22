@@ -33,7 +33,7 @@ export default class extends BaseComponent {
           // 如果操作成功，在已选择的行中，排除删除的行
           this.setState({
             rows: rows.filter(
-              item => !records.some(jtem => jtem.rowKey === item.rowKey)
+              item => !records.some(jtem => jtem.id === item.id)
             )
           });
         }
@@ -67,7 +67,7 @@ export default class extends BaseComponent {
       selectType: 'checkbox',
       showNum: true,
       isScroll: true,
-      selectedRowKeys: rows.map(item => item.rowKey),
+      selectedRowKeys: rows.map(item => item.id),
       onChange: ({ pageNum, pageSize }) => {
         dispatch({
           type: '<%=namespace %>/getPageInfo',

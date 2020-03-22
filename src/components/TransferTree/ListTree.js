@@ -154,7 +154,7 @@ export default class ListTree extends React.Component {
       [treeKey]: node[treeKey],
       [treeTitleKey]: node[treeTitleKey],
       // ...node.props,
-      ...node.props.dataRef
+      ...node.dataRef
     }));
 
     // 如果是异步数据需要与老数据进行拼合及去重

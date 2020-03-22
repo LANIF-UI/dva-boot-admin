@@ -1,5 +1,6 @@
 import React from 'react';
-import { Input, Icon } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
+import { Input } from 'antd';
 
 export const columns1 = [
   {
@@ -205,7 +206,7 @@ export const columns6 = [
           rules: [{ required: true, message: '请输入用户名!' }]
         })(
           <Input
-            prefix={<Icon type="user" style={{ fontSize: 13 }} />}
+            prefix={<UserOutlined style={{ fontSize: 13 }} />}
             placeholder="用户名"
           />
         );

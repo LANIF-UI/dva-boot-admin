@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { AutoComplete, Input, Icon } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
+import { AutoComplete, Input } from 'antd';
 import $$ from 'cmn-utils';
 import omit from 'object.omit';
 import isEqual from 'react-fast-compare';
@@ -140,7 +141,7 @@ class AutoCompleteControlled extends Component {
         <Input
           suffix={
             loading ? (
-              <Icon className="auto-complete-loading" type="loading" />
+              <LoadingOutlined className="auto-complete-loading" />
             ) : null
           }
         />

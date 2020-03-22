@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect, router } from 'dva';
-import { Form, Layout, Button, Icon, Input, Checkbox, Spin } from 'antd';
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Layout, Button, Input, Checkbox, Spin } from 'antd';
 import logoImg from 'assets/images/logo1.png';
 import './index.less';
 const { Link } = router;
@@ -46,7 +49,7 @@ class Login extends Component {
                 })(
                   <Input
                     size="large"
-                    prefix={<Icon type="user" />}
+                    prefix={<UserOutlined />}
                     placeholder="用户名"
                   />
                 )}
@@ -58,7 +61,7 @@ class Login extends Component {
                 })(
                   <Input
                     size="large"
-                    prefix={<Icon type="lock" />}
+                    prefix={<LockOutlined />}
                     type="password"
                     placeholder="密码"
                   />

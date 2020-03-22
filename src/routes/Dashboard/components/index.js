@@ -31,7 +31,7 @@ export default class Dashboard extends BaseComponent {
           <Row gutter={20}>
             <Col md={6}>
               <Panel className="qq" header={false} cover>
-                <Icon type="qq" antd />
+                <Icon type="QqOutlined" antd />
                 <h2>
                   <b>523</b>
                 </h2>
@@ -40,7 +40,7 @@ export default class Dashboard extends BaseComponent {
             </Col>
             <Col md={6}>
               <Panel className="wechat" header={false} cover>
-                <Icon type="wechat" antd />
+                <Icon type="WechatOutlined" antd />
                 <h2>
                   <b>99+</b>
                 </h2>
@@ -49,7 +49,7 @@ export default class Dashboard extends BaseComponent {
             </Col>
             <Col md={6}>
               <Panel className="skype" header={false} cover>
-                <Icon type="skype" antd />
+                <Icon type="SkypeOutlined" antd />
                 <h2>
                   <b>2</b>
                 </h2>
@@ -58,9 +58,9 @@ export default class Dashboard extends BaseComponent {
             </Col>
             <Col md={6}>
               <Panel className="github" header={false} cover>
-                <Icon type="github" antd />
+                <Icon type="GithubOutlined" antd />
                 <h2>
-                  <b>999</b>
+                  <b>1k+</b>
                 </h2>
                 <h5 className="text-muted">github</h5>
               </Panel>

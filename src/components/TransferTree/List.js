@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Icon } from 'antd';
+import { CloseOutlined } from '@ant-design/icons';
 import classNames from 'classnames';
 import isEqual from 'react-fast-compare';
 
@@ -63,7 +63,7 @@ export default class List extends React.Component {
           className={`list-comp-clear-item`}
           onClick={e => this.handleDeleteItem(e, [item])}
         >
-          <Icon type="close" />
+          <CloseOutlined />
         </a>
       </li>
     );

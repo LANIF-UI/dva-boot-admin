@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Form, Row, Col, Button, Divider } from 'antd';
+import { CheckOutlined, ReloadOutlined } from '@ant-design/icons';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Row, Col, Button, Divider } from 'antd';
 import cx from 'classnames';
 import objectAssign from 'object-assign';
 import $$ from 'cmn-utils';
@@ -306,12 +309,12 @@ class FormComp extends React.Component {
                 title="提交"
                 type="primary"
                 htmlType="submit"
-                icon="check"
+                icon={<CheckOutlined />}
                 loading={loading}
               >
                 提交
               </Button>
-              <Button title="重置" onClick={e => this.onReset()} icon="reload">
+              <Button title="重置" onClick={e => this.onReset()} icon={<ReloadOutlined />}>
                 重置
               </Button>
             </ComponentCol>

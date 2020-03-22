@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Form, Row, Col, Button, message } from 'antd';
+import { ReloadOutlined, SearchOutlined } from '@ant-design/icons';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Row, Col, Button, message } from 'antd';
 import cx from 'classnames';
 import $$ from 'cmn-utils';
 import './style/index.less';
@@ -270,11 +273,11 @@ class SearchBar extends React.Component {
               type={type === 'grid' ? 'primary' : 'default'}
               onClick={e => this.searchForm()}
               htmlType="submit"
-              icon="search"
+              icon={<SearchOutlined />}
             >
               查询
             </Button>
-            <Button title="重置" onClick={e => this.resetForm()} icon="reload">
+            <Button title="重置" onClick={e => this.resetForm()} icon={<ReloadOutlined />}>
               重置
             </Button>
           </ComponentBtnGroup>

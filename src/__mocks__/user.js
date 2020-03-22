@@ -41,12 +41,12 @@ export default ({fetchMock, delay, mock, toSuccess, toError}) => {
     '/api/user/menu': options => toSuccess([
       {
         name: '仪表盘',
-        icon: 'dashboard',
+        icon: 'DashboardOutlined',
         path: '/dashboard',
       },
       {
         name: '组件',
-        icon: 'desktop',
+        icon: 'DesktopOutlined',
         path: '/component',
         children: [
           {
@@ -103,7 +103,7 @@ export default ({fetchMock, delay, mock, toSuccess, toError}) => {
       },
       {
         name: 'UI元素',
-        icon: 'share-alt',
+        icon: 'ShareAltOutlined',
         path: '/ui',
         children: [
           {
@@ -138,7 +138,7 @@ export default ({fetchMock, delay, mock, toSuccess, toError}) => {
       },
       {
         name: '页面',
-        icon: 'book',
+        icon: 'BookOutlined',
         path: '/page',
         children: [
           {
@@ -189,7 +189,7 @@ export default ({fetchMock, delay, mock, toSuccess, toError}) => {
       },
       {
         name: '通用场景',
-        icon: 'bulb',
+        icon: 'BulbOutlined',
         path: '/business',
         children: [
           {

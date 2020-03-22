@@ -1,5 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+
+import {
+  CaretDownOutlined,
+  CaretUpOutlined,
+  CloseOutlined,
+  EditOutlined,
+  PlusOutlined,
+  RollbackOutlined,
+} from '@ant-design/icons';
+
 import { Button, message } from 'antd';
 import Form from './Form';
 import Icon from 'components/Icon';
@@ -211,11 +221,11 @@ class BannerMng extends Component {
           </div>
           <div className="btns">
             {!isAdd && !isEdit ? (
-              <Button icon="plus" type="primary" onClick={this.onAddBanner}>
+              <Button icon={<PlusOutlined />} type="primary" onClick={this.onAddBanner}>
                 新增
               </Button>
             ) : (
-              <Button icon="rollback" onClick={this.onCancel}>
+              <Button icon={<RollbackOutlined />} onClick={this.onCancel}>
                 返回
               </Button>
             )}
@@ -245,7 +255,7 @@ class BannerMng extends Component {
                 <ul className="oper">
                   <li className="top">
                     <Button
-                      icon="caret-up"
+                      icon={<CaretUpOutlined />}
                       title="上移"
                       disabled={i === 0}
                       onClick={e => this.onChange('up', item, i)}
@@ -253,7 +263,7 @@ class BannerMng extends Component {
                   </li>
                   <li className="bottom">
                     <Button
-                      icon="caret-down"
+                      icon={<CaretDownOutlined />}
                       title="下移"
                       disabled={i === dataSource.length - 1}
                       onClick={e => this.onChange('down', item, i)}
@@ -261,14 +271,14 @@ class BannerMng extends Component {
                   </li>
                   <li className="edit">
                     <Button
-                      icon="edit"
+                      icon={<EditOutlined />}
                       title="修改"
                       onClick={e => this.onEditBanner(item, 'edit_' + i)}
                     />
                   </li>
                   <li className="remove">
                     <Button
-                      icon="close"
+                      icon={<CloseOutlined />}
                       title="删除"
                       onClick={e => this.onChange('delete', item, i)}
                     />
