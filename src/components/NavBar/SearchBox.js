@@ -14,7 +14,7 @@ class SearchBox extends PureComponent {
       <Mask visible={visible} onClose={onClose} className="search-box" closable>
         <div className="search-box-input">
           <input ref="input" type="text" placeholder="搜索..." />
-          <a className="search-box-btn"><Icon type="search" antd /></a>
+          <a className="search-box-btn"><Icon type="SearchOutlined" antd /></a>
         </div>
         <div className="search-box-content">
           <RadioGroup name="radiogroup" defaultValue={1}>

@@ -97,7 +97,7 @@ export default (self, employees) => [
           </Button>
           <Button tooltip="跳转到新路由">
             <Link to={"/crud/detail?id=" + record.id}>
-              <Icon type="link" antd />
+              <Icon type="LinkOutlined" antd />
             </Link>
           </Button>
         </DataTable.Oper>

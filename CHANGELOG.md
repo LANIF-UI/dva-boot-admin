@@ -6,13 +6,14 @@ Changelog
 框架整体升级，现已正式适配Antd 4.0 & CRA 3.0
 
 ### Features & Improvements
-* 升级**react**到16.13.0
-* 升级**react-scripts**到3.4.0
-* 升级**react-app-rewired**到2.1.5
-* 升级**dva**到2.6.0
-* 升级**cmn-utils**到1.0.10
-* 重写了不建议用的[生命周期函数](https://zh-hans.reactjs.org/docs/react-component.html)
-* 优化了富文本，表格等组件
+* 升级**react**到 ^16.13.0 (重写了不建议用的[生命周期函数](https://zh-hans.reactjs.org/docs/react-component.html))
+* 升级**react-scripts**到 ^3.4.0
+* 升级**react-app-rewired**到 ^2.1.5 (支持react-scripts v3)
+* 升级**antd**到 ^4.0.3 (按4.0写法重写了不兼容的组件)
+* 升级**dva**到 ^2.6.0
+* 升级**cmn-utils**到 ^1.0.10 
+* 优化了`Edirot,DataTable,TransferTree,Icon,...`等组件
+* 加入了一些动画,如路由转场
 * 修改了一些bug
 
 2.1.0

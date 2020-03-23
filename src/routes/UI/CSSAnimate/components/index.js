@@ -38,12 +38,12 @@ export default class extends BaseComponent {
             <h3>Animations.CSS</h3>
             <ul className="icon-list">
               <li>
-                <Icon type="exclamation-circle" antd />
+                <Icon type="ExclamationCircleOutlined" antd />
                 <b>作者：</b> Daniel Eden.
               </li>
               <li>
                 <p>
-                  <Icon type="exclamation-circle" antd />
+                  <Icon type="ExclamationCircleOutlined" antd />
                   <b>网站：</b>
                   <a href="http://daneden.github.io/animate.css/">
                     www.github.com/animate
