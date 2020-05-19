@@ -37,11 +37,12 @@ export default {
       } catch (e) {
         console.log(e)
         yield put({
-          type: 'loginError'
+          type: 'loginError',
+          payload: { message: e.message }
         });
       }
     },
-    *logout(_, { put }) {}
+    *logout(_, { put }) { }
   },
 
   reducers: {

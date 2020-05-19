@@ -1,18 +1,12 @@
 import React, { Component } from 'react';
 import { connect, router } from 'dva';
-import { Form } from '@ant-design/compatible';
-import '@ant-design/compatible/assets/index.css';
-import { Input, Button, Select, Row, Col, Popover, Progress, Layout } from 'antd';
+import { Input, Button, Select, Row, Col, Popover, Progress, Layout, Form } from 'antd';
 import './index.less';
 import '../../Login/components/index.less';
 import logoImg from 'assets/images/logo1.png';
 import Success from './Success';
 const { Link } = router;
 const { Content } = Layout;
-
-const FormItem = Form.Item;
-const { Option } = Select;
-const InputGroup = Input.Group;
 
 const passwordStatusMap = {
   ok: <div style={{ color: '#52c41a' }}>强度：强</div>,
@@ -30,7 +24,6 @@ const passwordProgressMap = {
   register,
   submitting: loading.effects['register/submit']
 }))
-@Form.create()
 export default class Register extends Component {
   state = {
     count: 0,
@@ -67,8 +60,10 @@ export default class Register extends Component {
   };
 
   getPasswordStatus = () => {
-    const { form } = this.props;
-    const value = form.getFieldValue('password');
+    if (!this.form) {
+      return;
+    }
+    const value = this.form.getFieldValue('password');
     if (value && value.length > 9) {
       return 'ok';
     }
@@ -78,45 +73,34 @@ export default class Register extends Component {
     return 'poor';
   };
 
-  handleSubmit = e => {
-    e.preventDefault();
-    const { form, dispatch } = this.props;
-    form.validateFields({ force: true }, (err, values) => {
-      const { prefix } = this.state;
-      if (!err) {
-        dispatch({
-          type: 'register/submit',
-          payload: {
-            ...values,
-            prefix
-          }
-        });
+  handleSubmit = values => {
+    const { dispatch } = this.props;
+    const { prefix } = this.state;
+
+    dispatch({
+      type: 'register/submit',
+      payload: {
+        ...values,
+        prefix
       }
     });
   };
 
-  handleConfirmBlur = e => {
-    const { value } = e.target;
-    const { confirmDirty } = this.state;
-    this.setState({ confirmDirty: confirmDirty || !!value });
-  };
-
-  checkConfirm = (rule, value, callback) => {
-    const { form } = this.props;
-    if (value && value !== form.getFieldValue('password')) {
-      callback('两次输入的密码不匹配!');
+  checkConfirm = (rule, value) => {
+    if (value && value !== this.form.getFieldValue('password')) {
+      this.setState({ confirmDirty: value });
+      return Promise.reject('两次输入的密码不匹配!');
     } else {
-      callback();
+      return Promise.resolve();
     }
   };
 
-  checkPassword = (rule, value, callback) => {
+  checkPassword = (rule, value) => {
     if (!value) {
       this.setState({
-        help: '请输入密码！',
         visible: !!value
       });
-      callback('error');
+      return Promise.reject('请输入密码！');
     } else {
       this.setState({
         help: ''
@@ -128,13 +112,12 @@ export default class Register extends Component {
         });
       }
       if (value.length < 6) {
-        callback('error');
+        return Promise.reject('');
       } else {
-        const { form } = this.props;
         if (value && confirmDirty) {
-          form.validateFields(['confirm'], { force: true });
+          this.form.validateFields(['confirm'], { force: true });
         }
-        callback();
+        return Promise.resolve();
       }
     }
   };
@@ -146,8 +129,10 @@ export default class Register extends Component {
   };
 
   renderPasswordProgress = () => {
-    const { form } = this.props;
-    const value = form.getFieldValue('password');
+    if (!this.form) {
+      return;
+    }
+    const value = this.form.getFieldValue('password');
     const passwordStatus = this.getPasswordStatus();
     return value && value.length ? (
       <Progress
@@ -161,8 +146,7 @@ export default class Register extends Component {
   };
 
   render() {
-    const { form, submitting } = this.props;
-    const { getFieldDecorator } = form;
+    const { submitting } = this.props;
     const { count, prefix, help, visible, registerSuccess } = this.state;
 
     if (registerSuccess) {
@@ -171,27 +155,25 @@ export default class Register extends Component {
     return (
       <Layout className="full-layout register-page login-page">
         <Content>
-          <Form onSubmit={this.handleSubmit} className="login-form">
+          <Form ref={node => this.form = node} onSubmit={this.handleSubmit} className="login-form">
             <div className="user-img">
               <img src={logoImg} alt="logo" />
               <b>LANIF</b>
               <span>Admin</span>
             </div>
-            <FormItem>
-              {getFieldDecorator('mail', {
-                rules: [
-                  {
-                    required: true,
-                    message: '请输入邮箱地址！'
-                  },
-                  {
-                    type: 'email',
-                    message: '邮箱地址格式错误！'
-                  }
-                ]
-              })(<Input size="large" placeholder="邮箱" />)}
-            </FormItem>
-            <FormItem help={help}>
+            <Form.Item name="mail" rules={[
+              {
+                required: true,
+                message: '请输入邮箱地址！'
+              },
+              {
+                type: 'email',
+                message: '邮箱地址格式错误！'
+              }
+            ]}>
+              <Input size="large" placeholder="邮箱" />
+            </Form.Item>
+            <Form.Item>
               <Popover
                 content={
                   <div style={{ padding: '4px 0' }}>
@@ -206,76 +188,70 @@ export default class Register extends Component {
                 placement="right"
                 visible={visible}
               >
-                {getFieldDecorator('password', {
-                  rules: [
-                    {
-                      validator: this.checkPassword
-                    }
-                  ]
-                })(
+                <Form.Item name="password" help={help} noStyle rules={[
+                  {
+                    validator: this.checkPassword
+                  }
+                ]}>
                   <Input
                     size="large"
                     type="password"
                     placeholder="至少6位密码，区分大小写"
                   />
-                )}
+                </Form.Item>
               </Popover>
-            </FormItem>
-            <FormItem>
-              {getFieldDecorator('confirm', {
-                rules: [
-                  {
-                    required: true,
-                    message: '请确认密码！'
-                  },
-                  {
-                    validator: this.checkConfirm
-                  }
-                ]
-              })(<Input size="large" type="password" placeholder="确认密码" />)}
-            </FormItem>
-            <FormItem>
-              <InputGroup compact>
+            </Form.Item>
+            <Form.Item name="confirm" rules={[
+              {
+                required: true,
+                message: '请确认密码！'
+              },
+              {
+                validator: this.checkConfirm
+              }
+            ]}>
+              <Input size="large" type="password" placeholder="确认密码" />
+            </Form.Item>
+            <Form.Item>
+              <Input.Group compact>
                 <Select
                   size="large"
                   value={prefix}
                   onChange={this.changePrefix}
                   style={{ width: '20%' }}
                 >
-                  <Option value="86">+86</Option>
-                  <Option value="87">+87</Option>
+                  <Select.Option value="86">+86</Select.Option>
+                  <Select.Option value="87">+87</Select.Option>
                 </Select>
-                {getFieldDecorator('mobile', {
-                  rules: [
-                    {
-                      required: true,
-                      message: '请输入手机号！'
-                    },
-                    {
-                      pattern: /^1\d{10}$/,
-                      message: '手机号格式错误！'
-                    }
-                  ]
-                })(
+                <Form.Item noStyle name="mobile" rules={[
+                  {
+                    required: true,
+                    message: '请输入手机号！'
+                  },
+                  {
+                    pattern: /^1\d{10}$/,
+                    message: '手机号格式错误！'
+                  }
+                ]}>
                   <Input
                     size="large"
                     style={{ width: '80%' }}
                     placeholder="11位手机号"
                   />
-                )}
-              </InputGroup>
-            </FormItem>
-            <FormItem>
+                </Form.Item>
+              </Input.Group>
+            </Form.Item>
+            <Form.Item>
               <Row gutter={8}>
                 <Col span={16}>
-                  {getFieldDecorator('captcha', {
-                    rules: [
-                      {
-                        required: true,
-                        message: '请输入验证码！'
-                      }
-                    ]
-                  })(<Input size="large" placeholder="验证码" />)}
+                  <Form.Item name="captcha" rules={[
+                    {
+                      required: true,
+                      message: '请输入验证码！'
+                    }
+                  ]}>
+                    <Input size="large" placeholder="验证码" />
+                  </Form.Item>
                 </Col>
                 <Col span={8}>
                   <Button
@@ -288,8 +264,8 @@ export default class Register extends Component {
                   </Button>
                 </Col>
               </Row>
-            </FormItem>
-            <FormItem>
+            </Form.Item>
+            <Form.Item>
               <Button
                 size="large"
                 loading={submitting}
@@ -302,7 +278,7 @@ export default class Register extends Component {
               <Link className="fr" to="/sign/login">
                 使用已有账户登录
               </Link>
-            </FormItem>
+            </Form.Item>
           </Form>
         </Content>
       </Layout>
