@@ -108,14 +108,14 @@ export default ({
 };
 
 const validatorFileSize = (maxFileSize, value, callback) => {
-  if (value.some(item => item.size > maxFileSize * 1024)) {
+  if (value && value.some(item => item.size > maxFileSize * 1024)) {
     callback(new Error(`请上传文件大小在${maxFileSize}K以内的图片`));
     return;
   }
 };
 
 const validatorFileTypes = (fileTypes, value, callback) => {
-  if ($$.isArray(fileTypes) && fileTypes.length > 0) {
+  if (value && $$.isArray(fileTypes) && fileTypes.length > 0) {
     if (
       value.some(
         item =>
