@@ -33,6 +33,7 @@ import Button from './UI/Button';
 import Modal from './UI/Modal';
 import CRUD from './Business/CRUD';
 import CRUDDetail from './Business/CRUD/routers/Detail';
+import Image from './UI/Image';
 
 /**
  * 主路由配置
@@ -90,6 +91,7 @@ const routesConfig = app => [
       Print(),
       Banner(app),
       LevelRoute(app),
+      Image(),
       NotFound()
     ]
   }

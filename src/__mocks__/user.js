@@ -111,6 +111,10 @@ export default ({fetchMock, delay, mock, toSuccess, toError}) => {
             path: '/button',
           },
           {
+            name: '图片',
+            path: '/image',
+          },
+          {
             name: '消息',
             path: '/alerts',
           },
