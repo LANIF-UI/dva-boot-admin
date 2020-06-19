@@ -18,10 +18,11 @@ export default class extends BaseComponent {
           <Panel title="图片预览">
             <Image
               style={{ width: 200 }}
-              src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"
+              src="https://www.foodiesfeed.com/wp-content/uploads/2015/09/summer-juicy-beef-burger.jpg"
               previewList={[
-                'https://images.pexels.com/photos/320014/pexels-photo-320014.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=600',
-                'https://images.pexels.com/photos/39493/animals-cat-girl-happiness-39493.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=600'
+                'https://www.foodiesfeed.com/wp-content/uploads/2019/04/mae-mu-pancakes.jpg',
+                'https://www.foodiesfeed.com/wp-content/uploads/2017/05/juicy-burger-in-a-vibrant-interior.jpg',
+                'https://www.foodiesfeed.com/wp-content/uploads/2019/06/top-view-for-box-of-2-burgers-home-made.jpg'
               ]}
             />
           </Panel>
