@@ -46,7 +46,7 @@ class ImageViewer extends React.Component {
         deg: 0,
         offsetX: 0,
         offsetY: 0,
-        enableTransition: false
+        enableTransition: true
       }
     }
   }
@@ -137,11 +137,15 @@ class ImageViewer extends React.Component {
 
   imgStyle = () => {
     const { scale, deg, offsetX, offsetY, enableTransition } = this.state.transform;
+    const { loading } = this.state;
     const style = {
       transform: `scale(${scale}) rotate(${deg}deg) translateZ(0)`,
-      transition: enableTransition ? 'transform .3s ease-out' : '',
+      transition: enableTransition ? 'all .3s ease-out' : '',
+      filter: `blur(${loading ? '16px' : '0'})`,
       marginLeft: `${offsetX}px`,
-      marginTop: `${offsetY}px`
+      marginTop: `${offsetY}px`,
+      maxWidth: '1000%',
+      maxHeight: '1000%'
     };
     if (this.state.mode === Mode.CONTAIN) {
       style.maxWidth = style.maxHeight = '100%';
@@ -222,7 +226,7 @@ class ImageViewer extends React.Component {
         deg: 0,
         offsetX: 0,
         offsetY: 0,
-        enableTransition: false
+        enableTransition: true
       }
     })
   }
@@ -236,7 +240,7 @@ class ImageViewer extends React.Component {
         deg: 0,
         offsetX: 0,
         offsetY: 0,
-        enableTransition: false
+        enableTransition: true
       }
     })
   }

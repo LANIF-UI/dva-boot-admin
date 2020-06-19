@@ -20,9 +20,9 @@ export default class extends BaseComponent {
               style={{ width: 200 }}
               src="https://www.foodiesfeed.com/wp-content/uploads/2015/09/summer-juicy-beef-burger.jpg"
               previewList={[
-                'https://www.foodiesfeed.com/wp-content/uploads/2019/04/mae-mu-pancakes.jpg',
                 'https://www.foodiesfeed.com/wp-content/uploads/2017/05/juicy-burger-in-a-vibrant-interior.jpg',
-                'https://www.foodiesfeed.com/wp-content/uploads/2019/06/top-view-for-box-of-2-burgers-home-made.jpg'
+                'https://www.foodiesfeed.com/wp-content/uploads/2019/06/top-view-for-box-of-2-burgers-home-made.jpg',
+                'https://www.foodiesfeed.com/wp-content/uploads/2019/04/mae-mu-pancakes.jpg'
               ]}
             />
           </Panel>
