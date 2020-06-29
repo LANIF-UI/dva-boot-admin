@@ -20,7 +20,7 @@
     "@ant-design/icons": "^4.0.3",
     "@antv/data-set": "^0.8.9",
     "antd": "^4.0.3",
-    "bizcharts": "^3.1.5",
+    "bizcharts": "^3.5.9",
     "classnames": "^2.2.5",
     "cmn-utils": "^1.0.10",
     "css-animation": "^1.5.0",
