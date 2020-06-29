@@ -1,0 +1,1 @@
+{"version":3,"sources":["routes/Business/CRUD/routers/Detail/model/index.js"],"names":["modelEnhance","namespace"],"mappings":"0HAAA,oBAEeA,sBAAa,CAC1BC,UAAW","file":"static/js/45.2ac5d03e.chunk.js","sourcesContent":["import modelEnhance from '@/utils/modelEnhance';\r\n\r\nexport default modelEnhance({\r\n  namespace: 'crudDetail',\r\n});"],"sourceRoot":""}

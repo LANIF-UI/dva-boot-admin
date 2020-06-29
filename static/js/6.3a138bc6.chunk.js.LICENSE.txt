@@ -1,0 +1,30 @@
+/*
+      object-assign
+      (c) Sindre Sorhus
+      @license MIT
+      */
+
+/*!
+      * EventEmitter v5.1.0 - git.io/ee
+      * Unlicense - http://unlicense.org/
+      * Oliver Caldwell - http://oli.me.uk/
+      * @preserve
+      */
+
+/**
+        * @license
+        * Lodash <https://lodash.com/>
+        * Copyright JS Foundation and other contributors <https://js.foundation/>
+        * Released under MIT license <https://lodash.com/license>
+        * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+        * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+        */
+
+/** @license React v16.13.1
+       * react-is.development.js
+       *
+       * Copyright (c) Facebook, Inc. and its affiliates.
+       *
+       * This source code is licensed under the MIT license found in the
+       * LICENSE file in the root directory of this source tree.
+       */

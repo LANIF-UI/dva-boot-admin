@@ -1,0 +1,1 @@
+{"version":3,"sources":["routes/Widgets/LevelRoute/routes/SubRoute/model/index.js"],"names":["modelEnhance","namespace"],"mappings":"0HAAA,oBAEeA,sBAAa,CAC1BC,UAAW","file":"static/js/52.8437141d.chunk.js","sourcesContent":["import modelEnhance from '@/utils/modelEnhance';\r\n\r\nexport default modelEnhance({\r\n  namespace: 'subRoute',\r\n});"],"sourceRoot":""}

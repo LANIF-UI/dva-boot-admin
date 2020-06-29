@@ -1,0 +1,2 @@
+(this["webpackJsonpdva-boot-admin"]=this["webpackJsonpdva-boot-admin"]||[]).push([[50],{1931:function(t,e,a){"use strict";a.r(e);var s=a(262);e.default=Object(s.a)({namespace:"form",state:{treeData:[]},subscriptions:{setup:function(t){var e=t.dispatch;t.history.listen((function(t){"/form"===t.pathname&&e({type:"@request",afterResponse:function(t){return t.data},payload:{valueField:"treeData",url:"/tree/getAsyncTreeSelect"}})}))}}})}}]);
+//# sourceMappingURL=50.0784d136.chunk.js.map

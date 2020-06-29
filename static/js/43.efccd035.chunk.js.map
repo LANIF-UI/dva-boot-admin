@@ -1,0 +1,1 @@
+{"version":3,"sources":["routes/Blank/model/index.js"],"names":["modelEnhance","namespace"],"mappings":"0HAAA,oBAEeA,sBAAa,CAC1BC,UAAW","file":"static/js/43.efccd035.chunk.js","sourcesContent":["import modelEnhance from '@/utils/modelEnhance';\r\n\r\nexport default modelEnhance({\r\n  namespace: 'blank',\r\n});"],"sourceRoot":""}

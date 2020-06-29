@@ -1,0 +1,2 @@
+(this["webpackJsonpdva-boot-admin"]=this["webpackJsonpdva-boot-admin"]||[]).push([[49],{1930:function(a,t,e){"use strict";e.r(t);var s=e(262),p=e(135);t.default=Object(s.a)({namespace:"datatable",state:{pageData:p.a.create(),pageDataSort:p.a.create(),deptTreeData:[],dataList:{list:[]}}})}}]);
+//# sourceMappingURL=49.c69960d2.chunk.js.map
