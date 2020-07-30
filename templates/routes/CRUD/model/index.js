@@ -7,7 +7,7 @@ import PageHelper from '@/utils/pageHelper';
  */
 let LOADED = false;
 export default modelEnhance({
-  namespace: '<%=namespace %>',
+  namespace: '<%=name %>',
 
   state: {
     pageData: PageHelper.create(),
@@ -17,7 +17,7 @@ export default modelEnhance({
   subscriptions: {
     setup({ dispatch, history }) {
       history.listen(({ pathname }) => {
-        if (pathname === '/<%=namespace %>' && !LOADED) {
+        if (pathname === '/<%=name %>' && !LOADED) {
           LOADED = true;
           dispatch({
             type: 'init'
@@ -30,7 +30,7 @@ export default modelEnhance({
   effects: {
     // 进入页面加载
     *init({ payload }, { call, put, select }) {
-      const { pageData } = yield select(state => state.<%=namespace %>);
+      const { pageData } = yield select(state => state.<%=name %>);
       yield put({
         type: 'getPageInfo',
         payload: {
@@ -53,7 +53,7 @@ export default modelEnhance({
     // 保存 之后查询分页
     *save({ payload }, { call, put, select }) {
       const { values, success } = payload;
-      const { pageData } = yield select(state => state.<%=namespace %>);
+      const { pageData } = yield select(state => state.<%=name %>);
       yield put({
         type: '@request',
         payload: {
@@ -73,7 +73,7 @@ export default modelEnhance({
     // 删除 之后查询分页
     *remove({ payload }, { call, put, select }) {
       const { records, success } = payload;
-      const { pageData } = yield select(state => state.<%=namespace %>);
+      const { pageData } = yield select(state => state.<%=name %>);
       yield put({
         type: '@request',
         payload: {

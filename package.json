@@ -55,6 +55,24 @@
     "react-scripts": "^3.4.0",
     "webpack-bundle-analyzer": "^3.3.2"
   },
+  "create-template": {
+    "ignoreScript": [
+      "gh-pages"
+    ],
+    "ignoreDevDependencies": [
+      "gh-pages"
+    ],
+    "ignore": [
+      ".git",
+      "CHANGELOG.md",
+      "LICENSE",
+      "README.*.md"
+    ],
+    "route": {
+      "nameCase": "pascal",
+      "importStyle": "func"
+    }
+  },
   "browserslist": [
     "> 1%",
     "last 2 versions",

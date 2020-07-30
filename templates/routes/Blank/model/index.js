@@ -1,7 +1,7 @@
 import modelEnhance from '@/utils/modelEnhance';
 
 export default modelEnhance({
-  namespace: '<%=namespace %>',
+  namespace: '<%=name %>',
 
   state: {},
 

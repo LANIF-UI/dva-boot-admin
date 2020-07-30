@@ -11,9 +11,9 @@ import './index.less';
 const { Content, Header, Footer } = Layout;
 const Pagination = DataTable.Pagination;
 
-@connect(({ <%=namespace %>, loading }) => ({
-  <%=namespace %>,
-  loading: loading.models.<%=namespace %>
+@connect(({ <%=name %>, loading }) => ({
+  <%=name %>,
+  loading: loading.models.<%=name %>
 }))
 export default class extends BaseComponent {
   state = {
@@ -26,7 +26,7 @@ export default class extends BaseComponent {
     const { rows } = this.state;
 
     this.props.dispatch({
-      type: '<%=namespace %>/remove',
+      type: '<%=name %>/remove',
       payload: {
         records,
         success: () => {
@@ -42,8 +42,8 @@ export default class extends BaseComponent {
   };
 
   render() {
-    const { <%=namespace %>, loading, dispatch } = this.props;
-    const { pageData, employees } = <%=namespace %>;
+    const { <%=name %>, loading, dispatch } = this.props;
+    const { pageData, employees } = <%=name %>;
     const columns = createColumns(this);
     const { rows, record, visible } = this.state;
 
@@ -51,7 +51,7 @@ export default class extends BaseComponent {
       columns,
       onSearch: values => {
         dispatch({
-          type: '<%=namespace %>/getPageInfo',
+          type: '<%=name %>/getPageInfo',
           payload: {
             pageData: pageData.filter(values).jumpPage(1, 10)
           }
@@ -70,7 +70,7 @@ export default class extends BaseComponent {
       selectedRowKeys: rows.map(item => item.id),
       onChange: ({ pageNum, pageSize }) => {
         dispatch({
-          type: '<%=namespace %>/getPageInfo',
+          type: '<%=name %>/getPageInfo',
           payload: {
             pageData: pageData.jumpPage(pageNum, pageSize)
           }
@@ -97,7 +97,7 @@ export default class extends BaseComponent {
       // 可以使用主键或是否有record来区分状态
       onSubmit: values => {
         dispatch({
-          type: '<%=namespace %>/save',
+          type: '<%=name %>/save',
           payload: {
             values,
             success: () => {
@@ -112,7 +112,7 @@ export default class extends BaseComponent {
     };
 
     return (
-      <Layout className="full-layout <%=namespace %>-page">
+      <Layout className="full-layout <%=name %>-page">
         <Header>
           <Toolbar
             appendLeft={
