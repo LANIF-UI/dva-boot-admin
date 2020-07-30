@@ -51,7 +51,7 @@
 - 许多精心设计的页面及交互场景
 - [dva-boot](https://github.com/LANIF-UI/dva-boot)脚手架封装的功能
 - 全局异常处理，全局请求拦截，**公共配置提取**
-- **代码自动配置工具**[dva-boot-desktop](https://github.com/LANIF-UI/dva-boot-desktop)，即将到来:tada:
+- **代码自动配置工具**[boot-template-cli](https://github.com/weiq/boot-template-cli)
 
 ## 工程结构
 ```

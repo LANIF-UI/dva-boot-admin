@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
+import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 import { Layout, Button } from 'antd';
 import BaseComponent from 'components/BaseComponent';
 import Toolbar from 'components/Toolbar';
@@ -117,13 +118,13 @@ export default class extends BaseComponent {
           <Toolbar
             appendLeft={
               <Button.Group>
-                <Button type="primary" icon="plus" onClick={this.onAdd}>
+                <Button type="primary" icon={<PlusOutlined />} onClick={this.onAdd}>
                   新增
                 </Button>
                 <Button
                   disabled={!rows.length}
                   onClick={e => this.onDelete(rows)}
-                  icon="delete"
+                  icon={<DeleteOutlined />}
                 >
                   删除
                 </Button>
