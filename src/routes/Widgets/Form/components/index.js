@@ -18,32 +18,37 @@ import {
   columns9,
   createColumns10,
   createColumns11,
-  columns12
+  columns12,
+  columns13Fun,
 } from './columns';
 const { Link } = router;
 const { Content } = Layout;
 
 @connect(({ form }) => ({
-  form
+  form,
 }))
 export default class extends BaseComponent {
+  state = {
+    columns13: columns13Fun(),
+  };
+
   onSubmit(values) {
     console.log(values);
   }
 
-  onLoadData = treeNode => {
+  onLoadData = (treeNode) => {
     const treeData = [...this.props.form.treeData];
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       this.props.dispatch({
         type: 'form/@request',
         payload: {
           valueField: 'treeData',
           url: '/tree/getAsyncTreeSelect',
-          data: treeNode.props.eventKey
+          data: treeNode.props.eventKey,
         },
-        afterResponse: resp => {
-          const loop = data => {
-            data.forEach(item => {
+        afterResponse: (resp) => {
+          const loop = (data) => {
+            data.forEach((item) => {
               if (item.children) {
                 loop(item.children);
               } else if (treeNode.props.eventKey === item.key) {
@@ -54,27 +59,27 @@ export default class extends BaseComponent {
           loop(treeData);
           resolve();
           return treeData;
-        }
+        },
       });
     });
   };
 
-  onLoadTableData = pageInfo => {
+  onLoadTableData = (pageInfo) => {
     return $$.post('/datatable/getList', PageHelper.requestFormat(pageInfo))
-      .then(resp => {
+      .then((resp) => {
         return PageHelper.responseFormat(resp);
       })
-      .catch(e => console.error(e));
+      .catch((e) => console.error(e));
   };
 
-  onLoadAutoCompleteData = value => {
+  onLoadAutoCompleteData = (value) => {
     return new Promise((resolve, reject) => {
       $$.post('/form/autoComplete', value)
-        .then(resp => {
+        .then((resp) => {
           const { data } = resp;
           resolve(data.list);
         })
-        .catch(e => reject(e)); // reject stop loading
+        .catch((e) => reject(e)); // reject stop loading
     });
   };
 
@@ -84,7 +89,7 @@ export default class extends BaseComponent {
     const record1 = {
       id: 123,
       roleType: '2', // 类型不能错，不能是数字的2
-      roleName: '管理员'
+      roleName: '管理员',
     };
     const columns10 = createColumns10(this, treeData);
     const columns11 = createColumns11(this);
@@ -128,6 +133,34 @@ export default class extends BaseComponent {
               <Panel title="初始值">
                 <Form columns={columns2} onSubmit={this.onSubmit} />
               </Panel>
+              <Panel title="动态增减表单项">
+                <Form
+                  ref={(node) => (this.customBtnForm = node)}
+                  columns={this.state.columns13}
+                  onSubmit={this.onSubmit}
+                >
+                  <div style={{ marginBottom: 10, width: '100%' }}>
+                    <Button
+                      type="dashed"
+                      block
+                      onClick={() => {
+                        const c = columns13Fun([
+                          {
+                            title: '地址',
+                            name: 'address',
+                            formItem: {},
+                          },
+                        ])
+                        this.setState({
+                          columns13: c,
+                        });
+                      }}
+                    >
+                      增加一项
+                    </Button>
+                  </div>
+                </Form>
+              </Panel>
             </Col>
             <Col span={12}>
               <Panel title="表单验证">
@@ -163,17 +196,17 @@ export default class extends BaseComponent {
             <Col span={12}>
               <Panel title="自定义提交按钮">
                 <Form
-                  ref={node => this.customBtnForm = node}
+                  ref={(node) => (this.customBtnForm = node)}
                   columns={columns5}
                   footer={
                     <Button
                       style={{ display: 'block', margin: '0 auto' }}
                       size="large"
-                      onClick={e => {
+                      onClick={(e) => {
                         const form = this.customBtnForm;
                         form.validateFields((err, values) => {
                           if (!err) {
-                            console.log('自定义提交:', values)
+                            console.log('自定义提交:', values);
                           }
                         });
                       }}
