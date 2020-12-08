@@ -30,7 +30,7 @@ const getIcon = icon => {
   return icon;
 };
 
-export const getMeunMatchKeys = (flatMenu, path) => {
+export const getMenuMatchKeys = (flatMenu, path) => {
   return flatMenu.filter(item => {
     return pathToRegexp(item.path).test(path);
   });
@@ -50,16 +50,16 @@ class LeftSideBar extends PureComponent {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (
-      !isEqual(
-        this.props.currentMenu.parentPath,
-        prevProps.currentMenu.parentPath
-      )
-    ) {
-      this.setState({
-        openKeys: this.props.currentMenu.parentPath || []
-      });
-    }
+    //if (
+    //  !isEqual(
+    //    String(this.props.currentMenu.parentPath),
+    //    String(prevProps.currentMenu.parentPath)
+    //  )
+    //) {
+    //  this.setState({
+    //    openKeys: this.props.currentMenu.parentPath || []
+    //  });
+    //}
   }
 
   /**
@@ -86,7 +86,7 @@ class LeftSideBar extends PureComponent {
         to={itemPath}
         target={target}
         replace={itemPath === this.props.location.pathname}
-        onClick={isMobile ? onCollapse : () => {}}
+        onClick={isMobile ? onCollapse : () => { }}
       >
         {icon}
         <span>{name}</span>
@@ -110,8 +110,8 @@ class LeftSideBar extends PureComponent {
                   <span>{item.name}</span>
                 </span>
               ) : (
-                item.name
-              )
+                  item.name
+                )
             }
             key={item.path}
           >
@@ -155,7 +155,7 @@ class LeftSideBar extends PureComponent {
   // Get the currently selected menu
   getSelectedMenuKeys = () => {
     const pathname = this.props.location.pathname;
-    const selectMenu = getMeunMatchKeys(this.props.flatMenu, pathname)[0];
+    const selectMenu = getMenuMatchKeys(this.props.flatMenu, pathname)[0];
     return selectMenu ? [selectMenu.path] : [];
   };
 
@@ -202,12 +202,12 @@ class LeftSideBar extends PureComponent {
     // Don't show popup menu when it is been collapsed
     const menuProps = collapsed
       ? {
-          selectedKeys
-        }
+        selectedKeys
+      }
       : {
-          openKeys,
-          selectedKeys
-        };
+        openKeys,
+        selectedKeys
+      };
 
     const siderBar = (
       <Sider
@@ -297,8 +297,8 @@ class LeftSideBar extends PureComponent {
         {siderBar}
       </Drawer>
     ) : (
-      siderBar
-    );
+        siderBar
+      );
   }
 }
 
