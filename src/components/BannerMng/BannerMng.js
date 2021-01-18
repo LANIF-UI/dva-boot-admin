@@ -97,12 +97,14 @@ class BannerMng extends Component {
     fileSize: PropTypes.number,
     fileType: PropTypes.array,
     formCols: PropTypes.array,
-    title: PropTypes.node
+    title: PropTypes.node,
+    rowKey: PropTypes.string
   };
 
   static defaultProps = {
     formCols: columns,
-    title: '幻灯片'
+    title: '幻灯片',
+    rowKey: 'title'
   };
 
   constructor(props) {
@@ -209,7 +211,7 @@ class BannerMng extends Component {
   };
 
   render() {
-    const { formCols, title } = this.props;
+    const { formCols, title, rowKey } = this.props;
     let { dataSource, record, isEdit, isAdd, imageKey } = this.state;
 
     return (
@@ -248,7 +250,7 @@ class BannerMng extends Component {
               </div>
             ) : null}
             {dataSource.map((item, i) => (
-              <div className="row" key={i}>
+              <div className="row" key={item[rowKey]}>
                 <div className="preview">
                   <LazyLoad dataSrc={item[imageKey]} />
                 </div>
