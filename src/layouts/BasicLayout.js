@@ -49,7 +49,7 @@ export default class BasicLayout extends React.PureComponent {
       collapsedRightSide: true, // 右边栏开关
       theme, // 皮肤设置
       user,
-      currentMenu: {},
+      currentMenu: this.getCurrentMenu(this.props),
       isMobile: false
     };
 
@@ -244,35 +244,35 @@ export default class BasicLayout extends React.PureComponent {
             {theme.layout.indexOf('tabLayout') >= 0 ? (
               <TabsLayout childRoutes={childRoutes} location={location} />
             ) : (
-              <Layout className="full-layout">
-                <Header>
-                  <TopBar
-                    expand={expandTopBar}
-                    toggleRightSide={this.toggleRightSide}
-                    collapsedRightSide={collapsedRightSide}
-                    onCollapse={this.onCollapseTopBar}
-                    currentMenu={currentMenu}
-                    location={location}
-                    theme={theme}
-                  />
-                </Header>
-                <Content style={{ overflow: 'hidden' }}>
-                  <SwitchTransition>
-                    <CSSTransition
-                      key={location.pathname}
-                      classNames="fade"
-                      timeout={500}
-                    >
-                      <Layout className="full-layout">
-                        <Content className="router-page">
-                          <Switch location={location}>{childRoutes}</Switch>
-                        </Content>
-                      </Layout>
-                    </CSSTransition>
-                  </SwitchTransition>
-                </Content>
-              </Layout>
-            )}
+                <Layout className="full-layout">
+                  <Header>
+                    <TopBar
+                      expand={expandTopBar}
+                      toggleRightSide={this.toggleRightSide}
+                      collapsedRightSide={collapsedRightSide}
+                      onCollapse={this.onCollapseTopBar}
+                      currentMenu={currentMenu}
+                      location={location}
+                      theme={theme}
+                    />
+                  </Header>
+                  <Content style={{ overflow: 'hidden' }}>
+                    <SwitchTransition>
+                      <CSSTransition
+                        key={location.pathname}
+                        classNames="fade"
+                        timeout={500}
+                      >
+                        <Layout className="full-layout">
+                          <Content className="router-page">
+                            <Switch location={location}>{childRoutes}</Switch>
+                          </Content>
+                        </Layout>
+                      </CSSTransition>
+                    </SwitchTransition>
+                  </Content>
+                </Layout>
+              )}
           </Content>
           <RightSideBar
             collapsed={collapsedRightSide}
